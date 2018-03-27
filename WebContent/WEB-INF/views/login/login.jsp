@@ -10,7 +10,7 @@
 
     <!-- Le styles -->
     <link href="./css/bootstrap.css" rel="stylesheet">
-    <!-- css & js 파일 추가하는 부분 Start -->
+
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css">
 	<link rel="stylesheet" type="text/css" href="./css/prettify.css">
@@ -23,7 +23,7 @@
 		_386 = {fastLoad: true};
 	</script>
 
-<!-- css & js 파일 추가하는 부분 End -->
+<!-- css & js End -->
     
     <style type="text/css">
       body {
@@ -65,10 +65,8 @@
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
-        <button class="btn btn-large btn-primary" id="_btnRegi">Sign up</button>
-        
-        <a href="regi.do"></a>
-        <button class="btn btn-large btn-primary" id="_btnLogin" type="submit">Sign in</button>
+        <a class="btn btn-large btn-primary" id="_btnRegi">Sign up</a>
+        <a class="btn btn-large btn-primary" id="_btnLogin">Sign in</a>
       </form>
 
     </div> <!-- /container -->
@@ -77,10 +75,10 @@
 		$("#_btnLogin").click(function() {
 			alert("id:" + $("#_userid").val());
 			if($("#_userid").val() == ""){		
-				alert($("#_userid").attr("data-msg") + " 입력해 주십시오" );
+				alert($("#_userid").attr("data-msg") + " id not input" );
 				$("#_userid").focus();
 			} else if($("#_pwd").val() == ""){
-				alert($("#_pwd").attr("data-msg") + " 입력해 주십시오" );
+				alert($("#_pwd").attr("data-msg") + " pwd  not input" );
 				$("#_pwd").focus();
 			} else{
 				$("#_frmForm").attr("target", "_self").submit();
