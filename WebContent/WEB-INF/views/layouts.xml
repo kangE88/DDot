@@ -8,4 +8,10 @@
 <definition name="regi.tiles" template="/WEB-INF/views/login/regi.jsp" >
 </definition>
 
+<definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+	<put-attribute name="header"/>
+	<put-attribute name="main"/>
+	<put-attribute name="footer"/>
+</definition>
+
 </tiles-definitions>

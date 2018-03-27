@@ -14,31 +14,23 @@
 </head>
 <body>
 
-<div id="body_wrap">
-	<div id="main_wrap">
-		<div id="header_wrap">
-			<tiles:insertAttribute name="top_inc"/>
-			<tiles:insertAttribute name="top_menu"/>
-		</div>
-		
-		<div id="middle_wrap">
-			<div id="sidebar_wrap">
-				<tiles:insertAttribute name="left_main"/>
-			</div>		
-			
-			<div id="content_wrap">
-				<div id="content_title_wrap">
-					<div class="title">${doc_title }</div>				
-				</div>
-				<tiles:insertAttribute name="main"/>
-			</div>			
-		</div>
-		
-		<div id="footer_wrap">
-			<tiles:insertAttribute name="bottom_inc"/>		
-		</div>			
-	</div>
-</div>
+<table border="1" width="100%" height="100%">
+	<tr>
+		<td height="20%" style="background-color: red">
+			<tiles:insertAttribute name="header"/>
+		</td>
+	</tr>
+	<tr>
+		<td height="75%" style="background-color: yellow">
+			<tiles:insertAttribute name="main"/>
+		</td>
+	</tr>
+	<tr>
+		<td height="5%" style="background-color: purple">
+			<tiles:insertAttribute name="footer"/>
+		</td>
+	</tr>
+</table>
 
 <script type="text/javascript">
 $(document).ready(function() {
