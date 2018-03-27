@@ -1,7 +1,5 @@
 package com.DDot.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.DDot.model.MemberDto;
 import com.DDot.service.MemberService;
+
+import com.DDot.controller.MemberController;
 
 @Controller
 public class MemberController {
@@ -28,7 +27,8 @@ public class MemberController {
 
 	@RequestMapping(value="regi.do", method=RequestMethod.GET)
 	public String regi(Model model) {
-		logger.info("MemberController regi");		
+		logger.info("MemberController regi");
+		System.out.println("regi start");
 		return "regi.tiles";
 	}
 	
@@ -56,7 +56,7 @@ public class MemberController {
 		
 		return yes;
 		
-	}*/
+	}
 		
 	@RequestMapping(value="regiAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
@@ -88,7 +88,7 @@ public class MemberController {
 	public String logout() {
 		return "login.tiles";
 	}
-	
+	*/
 }
 
 

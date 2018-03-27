@@ -24,8 +24,9 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
+  
+   <dependencies>
+  	<dependency>
   		<groupId>org.springframework</groupId>
   		<artifactId>spring-webmvc</artifactId>
   		<version>4.3.14.RELEASE</version>
@@ -37,11 +38,7 @@
 	    <artifactId>log4j</artifactId>
 	    <version>1.2.17</version>
 	</dependency>	
-	<dependency>
-	    <groupId>org.slf4j</groupId>
-	    <artifactId>slf4j-simple</artifactId>
-	    <version>1.7.5</version>	    
-	</dependency>	
+
 		
 	<!-- 관점 지향 프로그래밍 (AOP) 확장 기능 -->	
 	<dependency>

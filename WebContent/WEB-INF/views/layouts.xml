@@ -2,7 +2,10 @@
 
 <tiles-definitions>
 
-<definition name="login.tiles" template="/WEB-INF/views/login/login.jsp">
+<definition name="login.tiles" template="/WEB-INF/views/login/login.jsp" >
+</definition>
+
+<definition name="regi.tiles" template="/WEB-INF/views/login/regi.jsp" >
 </definition>
 
 </tiles-definitions>
