@@ -15,6 +15,14 @@
 
 <!-- css & js 파일 추가하는 부분 End -->
 
+<!-- 애니메이션 끄는부분 시작 -->
+
+<script type="text/javascript">
+	_386 = {fastLoad: true};
+</script>
+
+<!-- 애니메이션 끄는부분 끝 -->
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
