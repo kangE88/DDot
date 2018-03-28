@@ -84,8 +84,8 @@
 <script type="text/javascript">
 	$(".dropdown-toggle").dropdown();
 </script>
-
-<div class="navbar navbar-inverse navbar-fixed-bottom">
+ 
+<%-- <div class="navbar navbar-inverse navbar-fixed-bottom">
 	<div class="container" style="width: 100%">
 		<table class="table table-condensed">		
 			<col width="70%"><col width="30%">	
@@ -100,8 +100,24 @@
 			
 		</table>
 	</div>
+</div> --%>
 
-</div>
+    <!-- Footer    ================================================== -->
+    <footer class="footer">
+      <div class="container-col-md-12">
+        <table class="table table-condensed">		
+			<col width="70%"><col width="30%">	
+			<tr>
+				<td>
+					<input type="text" style="width: 70%;" id="cmd" >
+				</td>
+				<td align="right">
+				CopyRight By DDot since 2018
+				</td>
+			</tr>	
+		</table>
+      </div>
+    </footer>
 
 <script type="text/javascript">
 $(document).ready(function() {

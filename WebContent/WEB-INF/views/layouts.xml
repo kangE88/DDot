@@ -2,13 +2,16 @@
 
 <tiles-definitions>
 
-<definition name="login.tiles" template="/WEB-INF/views/login/login.jsp" >
-</definition>
-
-<definition name="regi.tiles" template="/WEB-INF/views/login/regi.jsp" >
-</definition>
 
 <definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
+	<put-attribute name="main" value="/WEB-INF/views/input.jsp"/>
+</definition>
+
+<definition name="login.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/login/login.jsp"/>
+</definition>
+
+<definition name="regi.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/login/regi.jsp"/>
 </definition>
 
