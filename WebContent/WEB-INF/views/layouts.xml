@@ -9,9 +9,11 @@
 </definition>
 
 <definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
-	<put-attribute name="header"/>
-	<put-attribute name="main"/>
-	<put-attribute name="footer"/>
+	<put-attribute name="main" value="/WEB-INF/views/login/regi.jsp"/>
+</definition>
+
+<definition name="labatory.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/labatory/labatory.jsp"></put-attribute>
 </definition>
 
 </tiles-definitions>

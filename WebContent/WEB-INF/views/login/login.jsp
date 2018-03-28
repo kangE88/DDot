@@ -58,10 +58,10 @@
 
     <div class="container">
 
-      <form class="form-signin">
+      <form id="_frmForm" class="form-signin" action="main.do" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Email address">
-        <input type="password" class="input-block-level" placeholder="Password">
+        <input type="text" class="input-block-level" placeholder="Email address" id="_userid">
+        <input type="password" class="input-block-level" placeholder="Password" id="_pwd">
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
@@ -81,7 +81,8 @@
 				alert($("#_pwd").attr("data-msg") + " pwd  not input" );
 				$("#_pwd").focus();
 			} else{
-				$("#_frmForm").attr("target", "_self").submit();
+				alert("else");
+				$("#_frmForm").attr("target", "_self").submit();				
 			}	
 		});
 		

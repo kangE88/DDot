@@ -32,6 +32,19 @@ public class MemberController {
 		return "regi.tiles";
 	}
 	
+	@RequestMapping(value="main.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String main() {
+		
+		return "main.tiles";
+	}
+	
+	@RequestMapping(value="labatory.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String labatory() {
+		
+		return "labatory.tiles";
+	}
+	
+	
 /*	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
 	public YesMember getID(Model model, MemberDto mem) {
