@@ -3,37 +3,53 @@ package com.DDot.model;
 import java.io.Serializable;
 
 /*
-DROP TABLE MEMBER
-CASCADE CONSTRAINTS;
-
-CREATE TABLE MEMBER(
-	ID VARCHAR2(50) PRIMARY KEY,
+CREATE TABLE DDOTMEMBER(
+	SEQ NUMBER(8) PRIMARY KEY,
+	ID VARCHAR2(50) NOT NULL,
 	PWD VARCHAR2(50) NOT NULL,
-	NAME VARCHAR2(50) NOT NULL,
-	EMAIL VARCHAR2(50) UNIQUE,
-	AUTH NUMBER(1) NOT NULL
+	EMAIL VARCHAR2(50) NOT NULL,
+	POINT NUMBER(8) NOT NULL,
+	NICKNAME VARCHAR2(50) UNIQUE,
+	PIC VARCHAR2(50) NOT NULL,
+	INTRO VARCHAR2(50) NOT NULL,
+	AUTH NUMBER(2)
 );
 */
 
 public class MemberDto implements Serializable {
-	private String id;
-	private String pwd;
-	private String name;
-	private String email;
-	private int auth;
+	private int seq;		//  seq
+	private String id;		//	id
+	private String pwd;		//	pwd
+	private String email;	//	email
+	private int point;		//	point
+	private String nickname;//	nickname
+	private String pic;		//	이미지파일이름
+	private String intro;	//	소개
+	private int auth;		//	구분자
 	
-	public MemberDto() {
-	}
+	public MemberDto() {}
 
-	public MemberDto(String id, String pwd, String name, String email, int auth) {
+	public MemberDto(int seq, String id, String pwd, String email, int point, String nickname, String pic, String intro,
+			int auth) {
 		super();
+		this.seq = seq;
 		this.id = id;
 		this.pwd = pwd;
-		this.name = name;
 		this.email = email;
+		this.point = point;
+		this.nickname = nickname;
+		this.pic = pic;
+		this.intro = intro;
 		this.auth = auth;
 	}
-	
+
+	public int getSeq() {
+		return seq;
+	}
+
+	public void setSeq(int seq) {
+		this.seq = seq;
+	}
 
 	public String getId() {
 		return id;
@@ -51,20 +67,44 @@ public class MemberDto implements Serializable {
 		this.pwd = pwd;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getPic() {
+		return pic;
+	}
+
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 
 	public int getAuth() {
@@ -77,6 +117,11 @@ public class MemberDto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "MemberDto [id=" + id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", auth=" + auth + "]";
+		return "MemberDto [seq=" + seq + ", id=" + id + ", pwd=" + pwd + ", email=" + email + ", point=" + point
+				+ ", nickname=" + nickname + ", pic=" + pic + ", intro=" + intro + ", auth=" + auth + "]";
 	}
+	
+	
+	
+	
 }
