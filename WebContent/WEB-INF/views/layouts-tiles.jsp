@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
 <html>
-<title>layouts-tiles</title>
+<title>DevDot</title>
 
 <!-- css & js 파일 추가하는 부분 Start -->
 <link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
@@ -37,11 +37,12 @@
 
 </head>
 <body style="height: 100%">
-<div class="row-fluid">
-<!-- 전체 div ====================== -->
-<div class="span12" style="height: 15%">
-	<div class="navbar navbar-inverse navbar-fixed-top" style="height: 15%">
-		<div class="navbar-inner">
+<div style="height: 11%">
+	<div style="height:82%; background-color: black;">
+		<img src="" />
+	</div>
+	<div class="navbar navbar-inverse navbar-fixed-top" style="padding-top:55px;">
+		<div class="navbar-inner" style="height: 15%">
 			<div class="container">
 				<button type="button" class="btn btn-navbar" data-toggle="collapse"
 					data-target=".nav-collapse"></button>
@@ -72,11 +73,11 @@
 						<li class=""><a href="./scaffolding.html">Community</a></li>
 						<li class=""><a href="labatory.do">C.Lab</a></li>
 						<li class=""><a href="./components.html">Donate</a></li>
-				</ul>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 	<div class="span12" style="height: 78%">
 		<tiles:insertAttribute name="main"/>
@@ -159,7 +160,6 @@
 
 
 </footer>
-</div>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#content_title_wrap div.title").css("background-image",

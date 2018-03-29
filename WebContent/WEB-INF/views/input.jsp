@@ -3,17 +3,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- css & js 파일 추가하는 부분 Start -->
-<link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.css">
-<link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css">
-<link rel="stylesheet" type="text/css" href="./css/prettify.css">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script type="text/javascript" src="./js/bootstrap.js"></script>
-
-<!-- css & js 파일 추가하는 부분 End -->
 
 <!-- 애니메이션 끄는부분 시작 -->
 
@@ -27,16 +16,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h4>Hello Final Project</h4>
+<h4>Hello! Final Project</h4>
 <br>
-<button class="btn">testing btn</button>
-<button class="btn btn-primary">testing primary</button>
-<button class="btn btn-info">testing info</button>
-<button class="btn btn-success">testing success</button>
-<button class="btn btn-warning">testing warning</button>
-<button class="btn btn-danger">testing danger</button>
-<button class="btn btn-inverse">testing inverse</button>
-<button class="btn btn-link">testing link</button>
+
 
 <table class="table table-hover">
 <thead>
