@@ -84,6 +84,21 @@
 <script type="text/javascript">
 	$(".dropdown-toggle").dropdown();
 </script>
+
+<!-- Command Help Modal ================================== -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Help Command</h3>
+  </div>
+  <div class="modal-body">
+    <h4>/move * <font color="black"> : move to *</font></h4>
+    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board, community, clab, donate</font></h4>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
+  </div>
+</div>
  
 <%-- <div class="navbar navbar-inverse navbar-fixed-bottom">
 	<div class="container" style="width: 100%">
@@ -102,22 +117,45 @@
 	</div>
 </div> --%>
 
-    <!-- Footer    ================================================== -->
-    <footer class="footer">
-      <div class="container-col-md-12">
-        <table class="table table-condensed">		
-			<col width="70%"><col width="30%">	
-			<tr>
-				<td>
-					<input type="text" style="width: 70%;" id="cmd" >
-				</td>
-				<td align="right">
-				CopyRight By DDot since 2018
-				</td>
-			</tr>	
-		</table>
-      </div>
-    </footer>
+<!-- Footer    ================================================== -->
+<footer class="footer navbar-fixed-bottom">
+  <div class="container-col-md-12">
+    <table class="table table-condensed">		
+		<col width="70%"><col width="30%">	
+		<tr>
+		<td>
+			Commnad Line : <input type="text" style="width: 70%; background-color: black; color: white" id="cmd" >
+			</td>
+			<td align="right">
+			CopyRight By DDot since 2018
+			</td>
+		</tr>	
+	</table>
+   </div>
+
+<!-- Command 창 Script ===================================== -->
+<script type="text/javascript">
+	$("#cmd").keydown(function(key) {
+ 		if (key.keyCode == 13) {
+			var command = $("#cmd").val();
+			
+			if(command.substr(0,1)!="/"){
+				alert("error");
+			}
+			else{
+				if(command.substr(1,5)=="help"){
+					alert("Help Me!!");
+					$('#myModal').modal('show');
+				}				
+			}
+ 		}
+ 		$("#cmd").val("");
+ });
+</script>
+  
+
+
+</footer>
 
 <script type="text/javascript">
 $(document).ready(function() {

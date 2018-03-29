@@ -19,8 +19,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Laboratory</title>
 
-<!-- 전체div -->
-<div id="container" style="padding:5px; width: 100%; height: 90%;">
+<!-- 전체div 메인이랑 맞추려면 padding-top 2% 주기-->
+<div id="container" style="padding-top:1.5%; width: 100%; height: 90%;">
 <div style="margin: 5px; width: 99%; height: 5%;" >
 <button id="appendbtn" class="btn btn-link">Click Me! & Run Your Script</button>
 <button id="clearbtn" class="btn btn-link">Click Me! & Clear Your Script</button>
@@ -29,7 +29,7 @@
 <div id="labatory" style="width: 99%; height: 90%">
 
 <!-- script 쓰는부분 -->
-<div id="insertlabatory" style="float: left; margin:5px; width: 49%; height: 98%">
+<div id="insertlabatory" style="float: left; padding:5px; width: 49%; height: 98%">
 <textarea id="scriptarea" name="script" style="width: 100%; height: 100%; resize: none; border: 1px solid yellow; background-color: #000084; color: yellow"></textarea>
 </div>
 
@@ -41,14 +41,29 @@
 
 </div>
 
+
 <script type="text/javascript">
 $("#appendbtn").click(function() {
 	var script = $("#scriptarea").val();
 	alert(script);
-	$("#resultlabatory").load('./WebContent/WEB-INF/views/labatory/result.jsp', script, function() {
+	
+	$("#resultlabatory").load('./result.jsp', script, function() {
 		alert("load run");
 		$("#resultdiv").append(script);
 	});
+	 
+	/* 
+	$.ajax({
+	    url : "./result.jsp",
+	    dataType : "html",
+	    type : "post",  // post 또는 get
+	    data : script,   // 호출할 url 에 있는 페이지로 넘길 파라메터
+	    success : function(result){
+	    	alert("success");
+	        $("#resultdiv").html(result);
+	    }
+	});
+	  */
 });
 $("#clearbtn").click(function() {
 	alert("clear");
