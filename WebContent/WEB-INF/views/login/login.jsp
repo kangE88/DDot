@@ -4,26 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>Sign in &middot; Twitter Bootstrap</title>
-<!--     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content=""> -->
-
-    <!-- Le styles -->
-    <link href="./css/bootstrap.css" rel="stylesheet">
-
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.css">
-	<link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css">
-	<link rel="stylesheet" type="text/css" href="./css/prettify.css">
-	
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="./js/bootstrap.js"></script>
-	
-	<script type="text/javascript">
-		_386 = {fastLoad: true};
-	</script>
-
-<!-- css & js End -->
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     
     <style type="text/css">
       body {
@@ -55,9 +36,7 @@
   </head>
 
   <body>
-
-    <div class="container">
-
+    <div class="row-fluid">
       <form id="_frmForm" class="form-signin" action="main.do" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
         <input type="text" class="input-block-level" placeholder="Email address" id="_userid">
@@ -67,10 +46,35 @@
         </label>
         <a class="btn btn-large btn-primary" id="_btnRegi">Sign up</a>
         <a class="btn btn-large btn-primary" id="_btnLogin">Sign in</a>
+        <a id="kakao-login-btn"></a>
+		<a href="http://developers.kakao.com/logout"></a>
       </form>
-
     </div> <!-- /container -->
+    
+<!-- kakao -->
+	<script type='text/javascript'>
+	  //<![CDATA[
+	    // 사용할 앱의 JavaScript 키를 설정해 주세요.
+	    Kakao.init('08f9fff5a73551ee70534d1210f73132');
+	    // 카카오 로그인 버튼을 생성합니다.
+	    Kakao.Auth.createLoginButton({
+	      container: '#kakao-login-btn',
+	      success: function(authObj) {
+	        //alert(JSON.stringify(authObj));
+	        var refreshToken = Kakao.Auth.getRefreshToken();
+	        
+	        Kakao.Auth.setAccessToken(accessTokenFromServer);
+	        
+	        location.href="kakaoLogin.do";
+	      },
+	      fail: function(err) {
+	         alert(JSON.stringify(err));
+	      }
+	    });
+	  //]]>
+	</script>
 
+<!-- user -->
 	<script type="text/javascript">
 		$("#_btnLogin").click(function() {
 			alert("id:" + $("#_userid").val());

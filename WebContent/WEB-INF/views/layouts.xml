@@ -4,7 +4,10 @@
 
 
 <definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
-	<put-attribute name="main" value="/WEB-INF/views/input.jsp"/>
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="top" value="/WEB-INF/views/common/top.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/main.jsp"/>
+	<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 </definition>
 
 <definition name="login.tiles" extends="main.tiles">
