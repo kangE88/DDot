@@ -36,8 +36,11 @@
 </style>
 
 </head>
-<body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
+<body style="height: 100%">
+<div class="row-fluid">
+<!-- 전체 div ====================== -->
+<div class="span12" style="height: 15%">
+	<div class="navbar navbar-inverse navbar-fixed-top" style="height: 15%">
 		<div class="navbar-inner">
 			<div class="container">
 				<button type="button" class="btn btn-navbar" data-toggle="collapse"
@@ -74,12 +77,11 @@
 		</div>
 	</div>
 </div>
-
-<div class="row-fluid">
-	<div class="span12">
+</div>
+	<div class="span12" style="height: 78%">
 		<tiles:insertAttribute name="main"/>
 	</div>
-</div>
+
 
 <script type="text/javascript">
 	$(".dropdown-toggle").dropdown();
@@ -93,7 +95,7 @@
   </div>
   <div class="modal-body">
     <h4>/move * <font color="black"> : move to *</font></h4>
-    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board, community, clab, donate</font></h4>
+    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board-category, community, clab, donate</font></h4>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
@@ -118,7 +120,7 @@
 </div> --%>
 
 <!-- Footer    ================================================== -->
-<footer class="footer navbar-fixed-bottom">
+<footer class="footer navbar-fixed-bottom" style="height: 7%; background-color: #000084 ">
   <div class="container-col-md-12">
     <table class="table table-condensed">		
 		<col width="70%"><col width="30%">	
@@ -148,15 +150,16 @@
 					$('#myModal').modal('show');
 				}				
 			}
+			$("#cmd").val("");
  		}
- 		$("#cmd").val("");
+ 		
  });
 </script>
   
 
 
 </footer>
-
+</div>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#content_title_wrap div.title").css("background-image",
@@ -164,5 +167,6 @@ $(document).ready(function() {
 });
 
 </script>      
+
 </body>
 </html>
