@@ -39,10 +39,11 @@
 <body style="height: 100%">
 
 <div style="height: 11%">
-	<div style="height:82%; background-color: black;">
-		<img src="" />
-	</div>
-	<div class="navbar navbar-inverse navbar-fixed-top" style="padding-top:55px;">
+
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div style="height:50px; background-color: black;">
+			<img src="" />
+		</div>
 		<div class="navbar-inner" style="height: 15%">
 			<div class="container">
 				<button type="button" class="btn btn-navbar" data-toggle="collapse"
