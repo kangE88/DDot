@@ -37,6 +37,7 @@
 
 </head>
 <body style="height: 100%">
+
 <div style="height: 11%">
 	<div style="height:82%; background-color: black;">
 		<img src="" />
@@ -79,7 +80,8 @@
 		</div>
 	</div>
 </div>
-	<div class="span12" style="height: 78%">
+</div>
+	<div class="span12" style="height: 82%">
 		<tiles:insertAttribute name="main"/>
 	</div>
 
@@ -96,7 +98,9 @@
   </div>
   <div class="modal-body">
     <h4>/move * <font color="black"> : move to *</font></h4>
-    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board-category, community, clab, donate</font></h4>
+    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board-category, community,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clab, donate</font></h4>
+    ------------------------------------------------
+    <h4>board's category <font color="black"> : java, jsp, jquery, oracle,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring, etc</font></h4>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
@@ -136,37 +140,39 @@
 	</table>
    </div>
 
-<!-- Command 창 Script ===================================== -->
-<script type="text/javascript">
-	$("#cmd").keydown(function(key) {
- 		if (key.keyCode == 13) {
-			var command = $("#cmd").val();
-			
-			if(command.substr(0,1)!="/"){
-				alert("error");
-			}
-			else{
-				if(command.substr(1,5)=="help"){
-					alert("Help Me!!");
-					$('#myModal').modal('show');
-				}				
-			}
-			$("#cmd").val("");
- 		}
- 		
- });
-</script>
-  
-
-
 </footer>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#content_title_wrap div.title").css("background-image",
 							"url('<%=request.getContextPath() %>/image/ico_sub_sb.gif')");	
 });
 
-</script>      
+</script>
+<!-- Command 창 Script ===================================== -->
+<script type="text/javascript">
+	$("#cmd").keydown(function(key) {
+ 		if (key.keyCode == 13) {
+			var command = $("#cmd").val();
+			
+			switch(command){
+			case "/help":
+				$('#myModal').modal('show')
+				break;
+			case "/move home":
+				location.href="./main.do"
+				break;
+			case "/move clab":
+				location.href="./labatory.do"
+				break;	
+				
+				
+				}
+			$("#cmd").val("");	
+			}
+			
+ 		});
+</script>  
 
 </body>
 </html>
