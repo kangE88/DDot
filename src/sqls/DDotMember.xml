@@ -3,23 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="KHMember">
+<mapper namespace="DDotMember">
 
 	<insert id="addmember" parameterType="com.DDot.model.MemberDto">
-		INSERT INTO MEMBER(ID, PWD, NAME, EMAIL, AUTH)
-			VALUES(#{id}, #{pwd}, #{name}, #{email}, 3)
+		INSERT INTO DDOTMEMBER(SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH)
+			VALUES(SEQ_DDOTMEMBER.NEXTVAL, #{id}, #{pwd}, #{email}, 0, ,#{nickname}, #{pic}, #{intro}, 3)
 	</insert>
 	
 	<select id="login" parameterType="com.DDot.model.MemberDto"
 		resultType="com.DDot.model.MemberDto">
 		SELECT ID, NAME, EMAIL, AUTH
-		FROM MEMBER
+		FROM DDOTMEMBER
 		WHERE ID=#{id} AND PWD=#{pwd}
 	</select>
 
 	<select id="getID" parameterType="com.DDot.model.MemberDto" resultType="java.lang.Integer">
 		SELECT NVL(COUNT(*), 0)
-		FROM MEMBER
+		FROM DDOTMEMBER
 		WHERE ID=#{id}
 	</select>
 

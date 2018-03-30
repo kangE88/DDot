@@ -3,6 +3,7 @@ package com.DDot.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.DDot.model.MemberDto;
 import com.DDot.service.MemberService;
-
-import com.DDot.controller.MemberController;
 
 @Controller
 public class MemberController {
@@ -25,14 +25,15 @@ public class MemberController {
 	
 	@RequestMapping(value="login.do", method=RequestMethod.GET)
 	public String login(Model model) {
+		
 		logger.info("MemberController login");
 		return "login.tiles";
 	}
 
-	@RequestMapping(value="regi.do", method=RequestMethod.GET)
+	@RequestMapping(value="regi.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String regi(Model model) {
 		logger.info("MemberController regi");
-		System.out.println("regi start");
+		
 		return "regi.tiles";
 	}
 
@@ -42,13 +43,14 @@ public class MemberController {
 		return "main.tiles";
 	}
 
-	@RequestMapping(value="kakaoLogin.do", produces="application/json", method= {RequestMethod.GET, RequestMethod.POST})
+/*	@RequestMapping(value="kakaoLogin.do", produces="application/json", method= {RequestMethod.GET, RequestMethod.POST})
 	public String kakaoLogin(@RequestParam("code") String code, HttpServletRequest req, HttpServletResponse reps) {
 		logger.info("MemberController kakaoLogin");
 		
 		System.out.println("code==>"+code);
-		return "kakaoLogin.do";
-	}
+		
+		return "main.do";
+	}*/
 	
 	@RequestMapping(value="labatory.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String labatory() {
@@ -82,17 +84,17 @@ public class MemberController {
 		return yes;
 		
 	}
-		
+	*/	
 	@RequestMapping(value="regiAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public String regiAf(MemberDto mem, Model model)throws Exception{
-		logger.info("KhMemberController regiAf");	
+		logger.info("DDotMemberController regiAf");	
 		
 		MemberService.addmember(mem);
 		
 		return "login.tiles";
 	}	
-
+/*
 	@RequestMapping(value="loginAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public String loginAf(HttpServletRequest req, MemberDto mem, Model model) throws Exception {
