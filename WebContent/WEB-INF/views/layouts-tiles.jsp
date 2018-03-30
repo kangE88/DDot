@@ -12,20 +12,20 @@
 <body> 
 
 <!-- navbar top ================================== -->
-	<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar navbar-inverse navbar-fixed-top" style="height:5%;">
 		<tiles:insertAttribute name="top"/>
 	</div>
 	<header class="jumbotron subhead">
-		<div class="container" style="height:50px;">
+		<div class="container" style="height:12%;">
 		</div>
 	</header>
 <!-- Main ================================== -->
-	<div class="row-fluid">
-		<tiles:insertAttribute name="main"/>
+	<div class="row-fluid" style="height:85%;">
+		<tiles:insertAttribute name="main" />
 	</div>
 
 <!-- Footer    ================================================== -->
-<div class="footer navbar-fixed-bottom">
+<div class="footer navbar-fixed-bottom" style="height:7%;">
 	<tiles:insertAttribute name="footer"/>
 </div>
 </body>
