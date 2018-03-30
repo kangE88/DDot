@@ -19,7 +19,15 @@
 </definition>
 
 <definition name="labatory.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/labatory/labatory.jsp"></put-attribute>
+
+	<put-attribute name="main" value="/WEB-INF/views/labatory/labatory.jsp"/>
+	
+</definition>
+
+<definition name="donate.tiles" extends="main.tiles">
+
+	<put-attribute name="main" value="/WEB-INF/views/donate/donate.jsp"/>
+	
 </definition>
 
 </tiles-definitions>

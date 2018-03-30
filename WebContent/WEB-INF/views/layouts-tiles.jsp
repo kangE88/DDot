@@ -71,6 +71,9 @@ $("#cmd").keydown(function(key) {
 		break;
 	case "/move clab":
 		location.href="./labatory.do"
+		break;
+	case "/move donate":
+		location.href="./donate.do"
 		break;	
 	}
 		$("#cmd").val("");	

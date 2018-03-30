@@ -55,7 +55,7 @@
 				</li>		
 				<li class=""><a href="./scaffolding.html">Community</a></li>
 				<li class=""><a href="labatory.do">C.Lab</a></li>
-				<li class=""><a href="./components.html">Donate</a></li>
+				<li class=""><a href="donate.do">Donate</a></li>
 			</ul>
 		</div>
 	</div>
