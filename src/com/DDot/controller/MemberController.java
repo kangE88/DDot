@@ -56,6 +56,12 @@ public class MemberController {
 		return "labatory.tiles";
 	}
 	
+	@RequestMapping(value="donate.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String donate() {
+		
+		return "donate.tiles";
+	}
+	
 	
 /*	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
