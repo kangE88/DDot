@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="./css/prettify.css">
 
 <!-- codemirror theme css -->
-<link rel="stylesheet" type="text/css" href="./codemirror/lib/codemirror.css">
+<link rel="stylesheet" type="text/css" href="./codemirror/lib/codemirror.css?ver=1">
 <link rel="stylesheet" type="text/css" href="./codemirror/theme/lucario.css">
 
 <!-- codemirror javascript -->

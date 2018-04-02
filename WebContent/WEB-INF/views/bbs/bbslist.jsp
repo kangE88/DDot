@@ -4,29 +4,45 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
 
+<style>
+	#searchicon:hover{
+		background-color: #000084;
+	}
+</style>
 <div class="row-fluid">
 
 	<!-- ==================== 게시판 좌측메뉴 Start ==================== -->
-	<div class="span2" id="boardmenudiv" style="padding-left: 10px"> 
-		<ul class="nav nav-list" id="boardmenu">
-			<li class="nav-header">Category</li>
-			<li class="divider"></li>
-			<li>
-				<a href="#">Tip</a>			
-			</li>
-			<li class="divider"></li>
-			<li>
-				<a href="#">Error</a>
-			</li>
-			<li class="divider"></li>
-			<li>
-				<a href="#">Example</a>
-			</li>	
-			<li class="divider"></li>	
-			<li>
-				<a href="#">E.T.C</a>
-			</li>						
-		</ul>
+	<div class="span2" id="boardmenudiv" style="padding-left: 10px">
+		<div class="span11">
+			<div class="span10">
+				<input type="text" style="width: 95%">  
+			</div>
+			<div class="span2">
+				<a id="searchicon" href="#"><img  src="./image/search.png" style="padding-top: 9px"></a>
+			</div> 
+		</div>
+		
+		<div class="span11">  
+			<ul class="nav nav-list" id="boardmenu">
+				<li class="nav-header">Category</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#">Tip</a>			
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#">Error</a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="#">Example</a>
+				</li>	
+				<li class="divider"></li>	
+				<li>
+					<a href="#">E.T.C</a>
+				</li>						
+			</ul>
+		</div>
 	</div>
 	
 	<!-- ==================== 게시판 좌측메뉴 End ==================== -->
