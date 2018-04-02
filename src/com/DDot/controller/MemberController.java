@@ -1,9 +1,5 @@
 package com.DDot.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.codehaus.jackson.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.DDot.model.MemberDto;
+import com.DDot.model.YesMember;
 import com.DDot.service.MemberService;
 
 @Controller
@@ -65,7 +62,7 @@ public class MemberController {
 	}
 	
 	
-/*	@ResponseBody
+	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
 	public YesMember getID(Model model, MemberDto mem) {
 		logger.info("KhMemberController getID");
@@ -90,7 +87,7 @@ public class MemberController {
 		return yes;
 		
 	}
-	*/	
+	
 	@RequestMapping(value="regiAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public String regiAf(MemberDto mem, Model model)throws Exception{

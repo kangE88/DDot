@@ -12,7 +12,7 @@
 	
 	<select id="login" parameterType="com.DDot.model.MemberDto"
 		resultType="com.DDot.model.MemberDto">
-		SELECT ID, NAME, EMAIL, AUTH
+		SELECT SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH
 		FROM DDOTMEMBER
 		WHERE ID=#{id} AND PWD=#{pwd}
 	</select>
