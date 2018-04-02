@@ -30,4 +30,10 @@
 	
 </definition>
 
+<definition name="bbslist.tiles" extends="main.tiles">
+
+	<put-attribute name="main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
+	
+</definition>
+
 </tiles-definitions>

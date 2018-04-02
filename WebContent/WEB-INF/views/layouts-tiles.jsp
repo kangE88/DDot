@@ -34,7 +34,7 @@
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Help Command</h3>
+    <h4 id="myModalLabel"><font color="SlateBlue">Help Command</font></h4>
   </div>
   <div class="modal-body">
     <h4>/move * <font color="black"> : move to *</font></h4>
@@ -64,6 +64,9 @@ $("#cmd").keydown(function(key) {
 	
 	switch(command){
 	case "/help":
+		$('#myModal').modal('show')
+		break;
+	case "/?":
 		$('#myModal').modal('show')
 		break;
 	case "/move home":
