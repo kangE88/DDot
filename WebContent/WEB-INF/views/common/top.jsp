@@ -6,23 +6,10 @@
 	<div class="span8 text-center"><img src="./image/logo.png" class="center"></div>
 	<div class="span2" style="padding-top:15px;">
 		<ul class="nav">
-		<li><a tabindex="-1" href="login.do">Login</a></li>
-		<!-- 
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown" href="none"> 
-					id <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">내정보</a></li>
-						<li class="divider"></li>
-						<li><a href="#">정보 수정</a></li>
-						<li class="divider"></li>
-						<li><a href="#">로그아웃</a></li>
-						<li class="divider"></li>
-					</ul>
-				</li>
-		 -->
-			</ul>
+			<li>
+				<a tabindex="-1" href="login.do">Login</a>
+			</li>	
+		</ul>
 	</div>
 </div>
 <div class="navbar-inner">
@@ -40,17 +27,17 @@
 					Board <span	class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Java</a></li>
+						<li><a href="bbslist.do?category=0">Java</a></li>
 						<li class="divider"></li>
-						<li><a href="#">JSP</a></li>
+						<li><a href="bbslist.do?category=1">JSP</a></li>
 						<li class="divider"></li>
-						<li><a href="#">JQuery</a></li>
+						<li><a href="bbslist.do?category=2">JQuery</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Oracle/SQL</a></li>
+						<li><a href="bbslist.do?category=3">Oracle/SQL</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Spring</a></li>
+						<li><a href="bbslist.do?category=4">Spring</a></li>
 						<li class="divider"></li>
-						<li><a href="#">E.T.C</a></li>
+						<li><a href="bbslist.do?category=5">E.T.C</a></li>
 					</ul>
 				</li>		
 				<li class=""><a href="./scaffolding.html">Community</a></li>
