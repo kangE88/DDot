@@ -13,7 +13,7 @@ public class MemberDaoImpl implements MemberDao {
 	@Autowired		// 자동생성  == DI(Dependency Injection)
 	SqlSession sqlSession;	// IOC(Inversion of Control)
 	
-	private String namespace = "KHMember."; 
+	private String namespace = "DDotMember."; 
 	
 	@Override
 	public boolean addmember(MemberDto mem) throws Exception {		
@@ -23,6 +23,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public MemberDto login(MemberDto mem) throws Exception {
+		System.out.println("DaoImpl==> "+mem.toString());
 		return sqlSession.selectOne(namespace + "login", mem);
 	}
 

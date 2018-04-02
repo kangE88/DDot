@@ -11,23 +11,22 @@ import com.DDot.service.MemberService;
 public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
-	private MemberDao khMemberDao;
+	private MemberDao MemberDao;
 
 	@Override
 	public boolean addmember(MemberDto mem) throws Exception {		
-		return khMemberDao.addmember(mem);		
+		return MemberDao.addmember(mem);		
 	}
 
 	@Override
 	public MemberDto login(MemberDto mem) throws Exception {		
-		return khMemberDao.login(mem);		
+		return MemberDao.login(mem);		
 	}
 
 	@Override
 	public int getID(MemberDto mem) throws Exception {
-		return  khMemberDao.getID(mem);		
+		return  MemberDao.getID(mem);		
 	}
-	
 	
 }
 

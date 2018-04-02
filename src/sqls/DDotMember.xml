@@ -7,7 +7,7 @@
 
 	<insert id="addmember" parameterType="com.DDot.model.MemberDto">
 		INSERT INTO DDOTMEMBER(SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH)
-			VALUES(SEQ_DDOTMEMBER.NEXTVAL, #{id}, #{pwd}, #{email}, 0, ,#{nickname}, #{pic}, #{intro}, 3)
+			VALUES(SEQ_DDOTMEMBER.NEXTVAL, #{id}, #{pwd}, #{email}, 0, #{nickname}, #{pic}, #{intro}, 3)
 	</insert>
 	
 	<select id="login" parameterType="com.DDot.model.MemberDto"

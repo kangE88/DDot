@@ -1,3 +1,4 @@
+<%@page import="com.DDot.model.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="row-fluid" style="height:50px; background-color: black;">
@@ -6,9 +7,20 @@
 	<div class="span8 text-center"><img src="./image/logo.png" class="center"></div>
 	<div class="span2" style="padding-top:15px;">
 		<ul class="nav">
+		<% if(session.getAttribute("login") == null){ 
+			System.out.println("session Login =-=>> "+session.getAttribute("login")); %>
 			<li>
 				<a tabindex="-1" href="login.do">Login</a>
 			</li>	
+		<%
+			} else {
+				MemberDto mem = (MemberDto)session.getAttribute("login");
+				
+		%>	
+			<li>
+				<a tabindex="-1" href="#"><%=mem.getId() %></a>
+			</li>
+		<%}%>
 		</ul>
 	</div>
 </div>
