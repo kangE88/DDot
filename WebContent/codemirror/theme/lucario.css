@@ -9,6 +9,7 @@
   background-color: /* #2b3e50 */#000084 !important;
   color: #f8f8f2 !important;
   border: none;
+  font-family: 'DOS';
 }
 .cm-s-lucario .CodeMirror-gutters { color: #2b3e50; }
 .cm-s-lucario .CodeMirror-cursor { border-left: solid thin #E6C845; }
