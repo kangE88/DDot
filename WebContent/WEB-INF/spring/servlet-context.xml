@@ -3,7 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
@@ -31,6 +33,17 @@
 	
 	<!-- spring에서 처리할 수 없는 요청은 tomcat에 위임 -->
 	<mvc:default-servlet-handler/>
+	
+	<!-- websocket handler 경로 설정 -->
+	<bean id="echoHandler" class="com.DDot.websocket.EchoHandler" />
+	<websocket:handlers>
+		<websocket:mapping handler="echoHandler" path="/echo" />
+		 <websocket:handshake-interceptors>
+			<bean class="com.DDot.websocket.HandshakeInterceptor" />
+		<!-- <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/> -->
+		</websocket:handshake-interceptors>
+		<websocket:sockjs />
+	</websocket:handlers>
 
 
 </beans>

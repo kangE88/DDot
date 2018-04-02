@@ -36,4 +36,8 @@
 	
 </definition>
 
+<!-- CHAT -->
+<definition name="chat.tiles" template="/WEB-INF/views/chat/chat.jsp">
+</definition>
+
 </tiles-definitions>
