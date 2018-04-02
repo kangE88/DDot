@@ -11,6 +11,7 @@
 <link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css">
 <link rel="stylesheet" type="text/css" href="./css/prettify.css">
 
+
 <!-- codemirror theme css -->
 <link rel="stylesheet" type="text/css" href="./codemirror/lib/codemirror.css?ver=1">
 <link rel="stylesheet" type="text/css" href="./codemirror/theme/lucario.css">
@@ -27,10 +28,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script type="text/javascript" src="./js/bootstrap.js"></script>
+
+<script src="./js/alertify.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/alertify.core.css">
 <!-- css & js End -->
 <style>
 .CodeMirror {  
   height: auto;
+}
+.alertify-log.alertify-log-success.alertify-log-show{
+	background-color: #6cbf28;
+	color: #ffffdc;
 }
 </style>
 
@@ -69,6 +77,9 @@
 		</div>	
 	</div>
 </div>
+
+<input type="text" id="clipboard" value="" style="position:absolute;top:-9999em;">
+
 
 <!-- codemirror 생성 Script -->
 <script>
@@ -111,8 +122,19 @@ $("#clearbtn").click(function() {
 
 $("#copybtn").click(function() {
 	var script = myCodeMirror.getValue();
-	alert("script: "+script);
-	alert("dd");
+	$("#clipboard").val(script);	
+	
+	$("#clipboard").select();
+	
+	try { // The important part (copy selected text) 
+		var successful = document.execCommand('copy'); 		
+		// if(successful) answer.innerHTML = 'Copied!'; 
+		// else answer.innerHTML = 'Unable to copy!'; 
+		} catch (err) {
+			alert('이 브라우저는 지원하지 않습니다.')
+		}
+		alertify.set({ delay: 3000 });
+		alertify.success("　Copy to ClipBoard Success!!");
 });
 </script>
 
