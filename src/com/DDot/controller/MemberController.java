@@ -1,5 +1,7 @@
 package com.DDot.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,22 +95,34 @@ public class MemberController {
 	public String regiAf(MemberDto mem, Model model)throws Exception{
 		logger.info("DDotMemberController regiAf");	
 		
+/*		System.out.println("======== MEMBER ========");
+		System.out.println("id==>"+mem.getId());
+		System.out.println("pwd==>"+mem.getPwd());
+
+		System.out.println("nickname==>"+mem.getNickname());
+		System.out.println("Email===>"+mem.getEmail());
+		
+		System.out.println("pic===>"+mem.getPic());
+		System.out.println("intro==>"+mem.getIntro());
+		System.out.println("======== MEMBER ========");*/
+		
 		MemberService.addmember(mem);
 		
 		return "login.tiles";
 	}	
-/*
+
 	@RequestMapping(value="loginAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
 	public String loginAf(HttpServletRequest req, MemberDto mem, Model model) throws Exception {
-		logger.info("KhMemberController loginAf");
+		logger.info("MemberController loginAf");
 		
 		MemberDto login = null;
 		login = MemberService.login(mem);
 		
 		if(login != null && !login.getId().equals("")) {
+			System.out.println("loginAf in");
 			req.getSession().setAttribute("login", login);
-			return "redirect:/bbslist.do";
+			return "redirect:/main.do";
 		}else {
 			return "redirect:/login.do";
 		}		
@@ -118,7 +132,6 @@ public class MemberController {
 	public String logout() {
 		return "login.tiles";
 	}
-	*/
 }
 
 

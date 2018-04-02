@@ -38,10 +38,10 @@
 
   <body>
     <div class="row-fluid">
-      <form id="_frmForm" class="form-signin" action="main.do" method="post">
+      <form id="_frmForm" class="form-signin" action="loginAf.do" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="ID" id="_userid">
-        <input type="password" class="input-block-level" placeholder="Password" id="_pwd">
+        <input type="text" class="input-block-level" placeholder="ID" id="id" name="id">
+        <input type="password" class="input-block-level" placeholder="Password" id="pwd" name="pwd">
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
@@ -54,7 +54,7 @@
 <!-- user -->
 	<script type="text/javascript">
 		//id 한글입력 방지
- 		$("#_userid").keyup(function(e) { 
+ 		$("#id").keyup(function(e) { 
 			if (!(e.keyCode >=37 && e.keyCode<=40)) {
 				var v = $(this).val();
 				$(this).val(v.replace(/[^a-z0-9]/gi,''));
@@ -63,7 +63,7 @@
 			}
 		});
 		//id pwd창으로 갈때 한글입력 제거
- 		$("#_userid").keydown(function(e) { 
+ 		$("#id").keydown(function(e) { 
 			if (!(e.keyCode >=37 && e.keyCode<=40)) {
 				var v = $(this).val();
 				$(this).val(v.replace(/[^a-z0-9]/gi,''));
@@ -72,13 +72,13 @@
 	
 	
 		$("#_btnLogin").click(function() {
-			//alert("id:" + $("#_userid").val());
-			if($("#_userid").val() == ""){		
-				alert($("#_userid").attr("data-msg") + " id not input" );
-				$("#_userid").focus();
-			} else if($("#_pwd").val() == ""){
-				alert($("#_pwd").attr("data-msg") + " pwd  not input" );
-				$("#_pwd").focus();
+			//alert("id:" + $("#id").val());
+			if($("#id").val() == ""){		
+				alert($("#id").attr("data-msg") + " id not input" );
+				$("#id").focus();
+			} else if($("#pwd").val() == ""){
+				alert($("#pwd").attr("data-msg") + " pwd  not input" );
+				$("#pwd").focus();
 			} else{
 				alert("else");
 				$("#_frmForm").attr("target", "_self").submit();				
