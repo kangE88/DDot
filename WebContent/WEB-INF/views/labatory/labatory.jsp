@@ -4,31 +4,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
 
-
-<!-- css & js add Start -->
-<link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.css">
-<link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css">
-<link rel="stylesheet" type="text/css" href="./css/prettify.css">
-
-
-<!-- codemirror theme css -->
+<!--  =================== codemirror theme css  =================== -->
 <link rel="stylesheet" type="text/css" href="./codemirror/lib/codemirror.css?ver=1">
 <link rel="stylesheet" type="text/css" href="./codemirror/theme/lucario.css">
 
-<!-- codemirror javascript -->
+<!--  =================== codemirror javascript  =================== -->
 <script src="./codemirror/lib/codemirror.js"></script>
 <script src="./codemirror/mode/javascript/javascript.js"></script>
 <script src="./codemirror/mode/markdown/markdown.js"></script>
 
-<!-- codemirror hint -->
+<!--  =================== codemirror hint  =================== -->
 <script src="./codemirror/hint/javascript-hint.js"></script>
 <script src="./codemirror/hint/show-hint.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap.js"></script>
-
+<!-- =================== alertify js/css  =================== -->
 <script src="./js/alertify.min.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/alertify.core.css">
 <!-- css & js End -->
@@ -94,30 +83,16 @@ var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("scriptarea")
 </script>
 <script type="text/javascript">
 $("#appendbtn").click(function() {
-	var script = myCodeMirror.getValue();
-	alert(script);
+	var script = myCodeMirror.getValue();	
 	
-	$("#resultlabatory").load('./result.jsp', script, function() {
-		alert("load run");
+	$("#resultlabatory").load('./result.jsp', script, function() {	
 		$("#resultdiv").append(script);
-	});
-	 
-	/* 
-	$.ajax({
-	    url : "./result.jsp",
-	    dataType : "html",
-	    type : "post",  // post 또는 get
-	    data : script,   // 호출할 url 에 있는 페이지로 넘길 파라메터
-	    success : function(result){
-	    	alert("success");
-	        $("#resultdiv").html(result);
-	    }
-	});
-	  */
+	});	
 });
-$("#clearbtn").click(function() {
-	alert("clear");
-	$("#resultdiv").empty();
+$("#clearbtn").click(function() {	
+	$("#resultdiv").empty();	
+	alertify.set({ delay: 3000 });
+	alertify.success("　Clear Success!!");
 });
 
 $("#copybtn").click(function() {
