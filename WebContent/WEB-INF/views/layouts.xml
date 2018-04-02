@@ -19,15 +19,25 @@
 </definition>
 
 <definition name="labatory.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/labatory/labatory.jsp"></put-attribute>
+
+	<put-attribute name="main" value="/WEB-INF/views/labatory/labatory.jsp"/>
+	
 </definition>
 
-<definition name="kakaoLogin.tiles" template="/WEB-INF/views/login/kakaoLogin.jsp"/>
+<definition name="donate.tiles" extends="main.tiles">
+
+	<put-attribute name="main" value="/WEB-INF/views/donate/donate.jsp"/>
+	
+</definition>
 
 <definition name="bbslist.tiles" extends="main.tiles">
 
 	<put-attribute name="main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
 	
+</definition>
+
+<!-- CHAT -->
+<definition name="chat.tiles" template="/WEB-INF/views/chat/chat.jsp">
 </definition>
 
 </tiles-definitions>

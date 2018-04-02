@@ -120,4 +120,3 @@ $("#copybtn").click(function() {
         document.getElementById("resultlabatory").src = result;
     }());
 </script>
-

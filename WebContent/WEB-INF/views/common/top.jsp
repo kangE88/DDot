@@ -54,8 +54,37 @@
 				</li>		
 				<li class=""><a href="./scaffolding.html">Community</a></li>
 				<li class=""><a href="labatory.do">C.Lab</a></li>
+				<li id="chatting" class=""><a href="#none">Chat</a></li>
 				<li class=""><a href="donate.do">Donate</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
+
+<script>
+$("#chatting").click(function () {
+//	window.open("chatting.do",'_blank');
+	//$("#chatting").hide();
+	var chatStatus = <%=session.getAttribute("chatstatus")%>
+	
+	if (chatStatus == 0) {
+			$.ajax({
+			  type:"POST"
+			  ,url:"chatstatus.do" //세션 생성페이지 (setAttribute...)
+			  ,data:{"chatstat" : 1}
+			  ,success:function(){
+				  console.log(${chatstatus});
+				  location.reload();
+			  },
+			  error: function(xhr, status, error) {
+		            alert(error);
+		      }  
+			 });
+		window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=100,left=100');
+	}else{
+		alert("이미 켜져있습니다");
+		window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=100,left=100');
+
+	}
+});
+</script>
