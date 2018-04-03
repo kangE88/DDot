@@ -2898,7 +2898,7 @@ table th[class*="span"],
 }
 
 .caret:before {
-  content: "�뼹";
+  content: "▼";
 }
 
 .dropdown .caret {
