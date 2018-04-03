@@ -20,6 +20,10 @@ CREATE TABLE DDOTMEMBER(
 CREATE SEQUENCE SEQ_DDOTMEMBER
 START WITH 1 INCREMENT BY 1;
 
+select point from DDOTMEMBER where id='zxcv'
+
+update DDOTMEMBER set point='10000' where id='zxcv';
+
 ========= DDOTMEMBER ===========
 
 ========= DDOTBBS ===========

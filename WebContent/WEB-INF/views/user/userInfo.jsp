@@ -7,15 +7,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<tiles:insertAttribute name="header"/>
+<tiles:insertAttribute name="header"/>
 	
-	<!-- Level function get -->
-	<script type="text/javascript" src="<%=request.getContextPath()%>/jquery/common.js"></script>
-	<style type="text/css">
-	img{
-		filter:none;
-	}
-	</style>
+<!-- Level function get -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/jquery/common.js"></script>
+
 </head>
 <body>
 
@@ -30,17 +26,16 @@ MemberDto mem = (MemberDto)session.getAttribute("login");
 $(window).on('load', function(point){
 	var level = g_level('${login.point}');
 	
-	$('.level').html(level);
+	//$('.level').html(level);
 	$('.levelImg').attr("src","<%=request.getContextPath()%>/image/level/lv"+level+".gif");
 });
 </script>
 <div class="row-fluid">
-	<div class="span4">
-		point ==> <%=mem.getPoint() %>
-		<!-- <img alt="" src="./images/level/'+g_level(mem.getPoing())+'png'"> -->
-		<p class="level"></p>
-		<img class="levelImg" src="">
+	<div class="page-header">
+		<h4>Level : </h4><img class="levelImg" src="">
 	</div>
+	
+	<hr>NickName: ${login.nickname} Point : ${login.point}<hr>
 </div>
 
 
