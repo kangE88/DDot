@@ -20,7 +20,7 @@
 		</div>
 	</header>
 <!-- Main ================================== -->
-	<div class="row-fluid" style="height:85%;">
+	<div class="row-fluid" style="height:80%;">
 		<tiles:insertAttribute name="main" />
 	</div>
 
