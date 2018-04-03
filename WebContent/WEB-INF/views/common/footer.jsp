@@ -6,7 +6,7 @@
 		<col width="70%"><col width="30%">	
 		<tr>
 		<td>
-			Commnad Line : <input type="text" style="width: 70%; background-color: black; color: white" id="cmd" >
+			Commnad Line : <input type="text" style="width: 70%; background-color: black; color: white" id="cmd" placeholder="command를 입력하세요">
 			</td>
 			<td align="right" style="vertical-align: middle;">
 			CopyRight By DDot since 2018

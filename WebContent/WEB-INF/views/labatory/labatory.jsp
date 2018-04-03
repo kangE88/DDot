@@ -43,8 +43,9 @@
 <title>Laboratory</title>
 
 <!-- 전체div 메인이랑 맞추려면 padding-top 2% 주기-->
-<div class="row-fluid" style="height: 100%">
+<div class="row-fluid" style="height: 100%">	
 	<div class="span11" style="height: 10%">
+	&nbsp;&nbsp;&nbsp;
 		<button id="appendbtn" class="btn btn-link">Run Your Script</button>
 		<button id="clearbtn" class="btn btn-link">Clear Your Script</button>
 		<button id="copybtn" class="btn btn-link">Copy To ClipBoard</button>
@@ -57,8 +58,7 @@
 		<div class="span1" style="height:90%;  vertical-align: middle;">
 			<br><br><br><br><br><br><br><br><br><br>
 			<img src="./image/arrow-pointing-to-right.png">
-		</div>
-		
+		</div>		
 		
 	<!-- 결과출력 부분  -->	
 		<div class="span5" id="resultlabatory" style="height:90% ; border: 1px solid yellow;">
@@ -88,6 +88,8 @@ $("#appendbtn").click(function() {
 	$("#resultlabatory").load('./result.jsp', script, function() {	
 		$("#resultdiv").append(script);
 	});	
+	alertify.set({ delay: 3000 });
+	alertify.success("　Run Success!!");
 });
 $("#clearbtn").click(function() {	
 	$("#resultdiv").empty();	
