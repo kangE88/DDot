@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@page import="com.DDot.model.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -47,7 +46,15 @@
 			<%} else {
 				MemberDto mem = (MemberDto)session.getAttribute("login");	
 			%>
-				<li class=""><a href="#"><%=mem.getNickname() %></a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="none"> 
+					<%=mem.getNickname() %> <span	class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li class=""><a href="#" id="userInfo">내 정보</a></li>
+						<li class=""><a href="logout.do">로그아웃</a></li>
+					</ul>
+				</li>
 			<%}%>
 			</ul>
 		</div>
@@ -66,7 +73,7 @@ $("#chatting").click(function () {
 			  ,url:"chatstatus.do" //세션 생성페이지 (setAttribute...)
 			  ,data:{"chatstat" : 1}
 			  ,success:function(){
-				  console.log(${chatstatus});
+				  console.log('${chatstatus}');
 				  location.reload();
 			  },
 			  error: function(xhr, status, error) {
@@ -79,4 +86,23 @@ $("#chatting").click(function () {
 		window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=100,left=100');
 	}
 });
+
+//userInfo
+$("#userInfo").click(function () {
+	
+/* 			$.ajax({
+				type:"POST"
+			  	,url:"setUserInfo.do" //세션 생성페이지 (setAttribute...)
+				,async: false
+			 	,success:function(){
+				 	console.log('${login}');
+				  	location.reload();
+			  	},
+			  	error: function(xhr, status, error) {
+		        	alert(error);
+		      	}  
+			}); */
+		window.open("userInfo.do",'내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=300,top=100,left=100');
+	});
+
 </script>

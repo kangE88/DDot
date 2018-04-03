@@ -149,7 +149,7 @@
 			  ,data:{"chatstat" : 0}
 			  ,async: false
 			  ,success:function(){
-				  console.log(${chatstatus});
+				  console.log('${chatstatus}');
 				  opener.location.reload();			 
 			  },
 			  error: function(xhr, status, error) {

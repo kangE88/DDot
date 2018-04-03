@@ -11,11 +11,16 @@
 </definition>
 
 <definition name="login.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/login/login.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/user/login.jsp"/>
 </definition>
 
 <definition name="regi.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/login/regi.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/user/regi.jsp"/>
+</definition>
+
+<!-- userInfo -->
+<definition name="userInfo.tiles" template="/WEB-INF/views/user/userInfo.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 </definition>
 
 <definition name="labatory.tiles" extends="main.tiles">
@@ -31,9 +36,7 @@
 </definition>
 
 <definition name="bbslist.tiles" extends="main.tiles">
-
 	<put-attribute name="main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
-	
 </definition>
 
 <definition name="bbslist.tiles" extends="main.tiles">
