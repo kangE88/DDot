@@ -226,7 +226,7 @@ textarea {
   font-style: normal;
   font-weight: normal;
   src: url('fonts/Fixedsys500c.eot');
-  src: local('�샋'), url('fonts/Fixedsys500c.woff') format('woff'), url('fonts/Fixedsys500c.ttf') format('truetype'), url('fonts/Fixedsys500c.svg') format('svg');
+  src: local('☺'), url('fonts/Fixedsys500c.woff') format('woff'), url('fonts/Fixedsys500c.ttf') format('truetype'), url('fonts/Fixedsys500c.svg') format('svg');
 }
 
 body {
@@ -2898,7 +2898,7 @@ table th[class*="span"],
 }
 
 .caret:before {
-  content: "�뼹";
+  content: "▼";
 }
 
 .dropdown .caret {
@@ -3189,7 +3189,7 @@ button.close {
   display: inline-block;
   *display: inline;
   padding: 0;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   *margin-left: .3em;
   font-size: 18px;
   line-height: 20px;

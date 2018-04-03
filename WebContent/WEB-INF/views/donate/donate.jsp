@@ -4,6 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:requestEncoding value="utf-8"/>
 
+<%
+int pic = (int)(Math.random()*4);
+%>
+
 <div class="span2"></div>
 <div class="span8 text-center">
 	<div class="hero-unit">
@@ -22,8 +26,8 @@
 <br><br><br><br><br><br><br><br>	
 <div class="span2"></div>
 <div class="span8">
-	<div class="span4"><h4>Toss로 기부하기</h4></div>
-	<div class="span4"><img src="./image/tossqr15per.png"></div>
+	<div class="span4"><h4>임의의 DDot 개발자에게 <br>Toss로 기부하기</h4></div>
+	<div class="span4"><img src="./image/dev<%=pic %>.png"></div>
 	
 </div>
 <div class="span2"></div>

@@ -8,7 +8,7 @@
 		<td>
 			Commnad Line : <input type="text" style="width: 70%; background-color: black; color: white" id="cmd" >
 			</td>
-			<td align="right">
+			<td align="right" style="vertical-align: middle;">
 			CopyRight By DDot since 2018
 			</td>
 		</tr>	
