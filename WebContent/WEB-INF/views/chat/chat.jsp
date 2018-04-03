@@ -1,3 +1,4 @@
+<%@page import="com.DDot.websocket.EchoHandler"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -75,19 +76,45 @@
 
 	sock.onclose = onClose;
 
-	/* sock.onopen = function(){
-
-	    sock.send($("#message").val());
-
-	}; */
+	sock.onopen =  onOpen;
+		
+	function onOpen(){
+		
+	 var data = {};
+	 var nick = "${login.nickname}";
+	 
+	    data.nickname=nick;
+	    data.isFirst=true;
+	    
+	 var json = JSON.stringify(data);
+		sock.send(json);
+		
+		
+		
+	}; 
+	
+	
 
 	function sendMessage() {
 
 		/*소켓으로 보내겠다.  */
 
-		sock.send($("#message").val());
-		$("#message").val("");
-
+		/* sock.send($("#message").val());
+		$("#message").val(""); */
+		
+		 var data = {};
+		 var nick = "${login.nickname}";
+		 
+		    data.nickname=nick;
+		    data.isFirst=false;
+		    data.message=$("#message").val();
+		    
+		 var json = JSON.stringify(data);
+			sock.send(json);
+		
+			$("#message").val("");
+			
+		
 	}
 
 	//evt 파라미터는 웹소켓을 보내준 데이터다.(자동으로 들어옴)
@@ -97,7 +124,8 @@
 		var data = evt.data;
 
 		$("#data").append(data + "<br/>");
-
+		autoScroll();
+		
 		//sock.close();
 
 	}
@@ -152,18 +180,13 @@
 	});
 	 */
 	window.onunload = function() {
-	
-		//sessionStorage.getItem("chatstatus");
-		 
-		 
-		  
 	    $.ajax({
 			  type:"POST"
 			  ,url:"chatstatus.do" //세션 생성페이지 (setAttribute...)
 			  ,data:{"chatstat" : 0}
 			  ,async: false
 			  ,success:function(){
-				  console.log(${chatstatus});
+				  console.log(${chatstatus });
 				  opener.location.reload();			 
 			  },
 			  error: function(xhr, status, error) {
@@ -180,14 +203,16 @@
 <body>
 
 	<!-- top util -->
-	<div style="position: fixed; top: 10px; right:10px; width: 60px;">
+	<div style="position: fixed; top: 10px; right:10px; width: 60px; ">
 		<!--  <input type="button" id="aaaBtn" class="btn" value="쪽지보내기" style="align: left;">  -->
 		<input type="button" id="usersBtn" class="btn" value="접속자"
 			style="right: 0">
 	</div>
 
 	<!-- 채팅데이터  -->
-	<div id="data" style="margin-bottom: 50px;"></div>
+	<div id="data" style="margin-bottom: 50px;">
+	
+	</div>
     
 
 	<!-- input text -->
@@ -199,10 +224,9 @@
 
 	<div class="toggler">
 		<div id="effect" class="ui-widget-content ui-corner-all">
-			<h3 class="ui-widget-header ui-corner-all">Toggle</h3>
-			<p>Etiam libero neque, luctus a, eleifend nec, semper at, lorem.
-				Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit
-				vitae, mi.</p>
+			<h3 class="ui-widget-header ui-corner-all">현재 접속자</h3>
+			<c:set var="map" value="<%=EchoHandler.usersMap %>"></c:set>
+			<p></p>
 		</div>
 	</div>
 	<script>
@@ -234,10 +258,12 @@
 	  } );
 	
 	// 자동스크롤 내리기
-		var div = document.getElementById("data");
-		divdiv.scrollTop = divdiv.scrollHeight;
-
-
+	
+		/* var div = document.getElementById("data");
+		div.scrollTop = div.scrollHeight; */
+		function autoScroll(){
+			$(document).scrollTop($('#data').height());
+		}
 	</script>
 
 </body>

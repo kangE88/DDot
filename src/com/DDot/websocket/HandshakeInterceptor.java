@@ -32,9 +32,9 @@ public class HandshakeInterceptor implements org.springframework.web.socket.serv
   
         // HttpSession 에 저장된 이용자의 아이디를 추출하는 경우
         MemberDto dto = (MemberDto)req.getSession().getAttribute("login");
-        String id = dto.getId();
-        attributes.put("userId", id);
-        System.out.println("HttpSession에 저장된 id:"+id);
+        String nickname = dto.getNickname();
+        attributes.put("nickname", nickname);
+        System.out.println("HttpSession에 저장된 nickname:"+nickname);
         
        return true;
 

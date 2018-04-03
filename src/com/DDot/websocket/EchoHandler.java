@@ -1,23 +1,27 @@
 package com.DDot.websocket;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-public class EchoHandler extends TextWebSocketHandler {
-	private static Logger logger = LoggerFactory.getLogger(EchoHandler.class);
+import com.DDot.model.MessageVo;
+import com.google.gson.Gson;
 
-	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+public class EchoHandler extends TextWebSocketHandler {
 	
+	private static Logger logger = LoggerFactory.getLogger(EchoHandler.class);
+	
+	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+	public static HashMap<String, String> usersMap = new HashMap<String, String>(); 
 	/**
 	 * 
 	 * 클라이언트 연결 이후에 실행되는 메소드
@@ -31,16 +35,19 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		
 		sessionList.add(session);
+		ServletServerHttpRequest sseq;
+		
 
 		logger.info("{} 연결됨", session.getId());
 		
 		Map<String,Object> map = session.getAttributes();
-		  String userId = (String)map.get("userId");
-		  System.out.println("로그인 한 아이디 : " + userId);
-
+		  String userNickname = (String)map.get("nickname");
+		  usersMap.put(session.getId(), userNickname);
+		  System.out.println("닉네임 : " + userNickname);
+		  
 		for (WebSocketSession sess : sessionList) {
 
-			sess.sendMessage(new TextMessage(userId + "님이 입장하였습니다."));
+			sess.sendMessage(new TextMessage(userNickname + "님이 입장하였습니다."));
 		}
 	}
 
@@ -58,18 +65,29 @@ public class EchoHandler extends TextWebSocketHandler {
 
 		logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
 		
+		String msg = message.getPayload();
+		Gson gson = new Gson();
+		MessageVo msgVo = gson.fromJson(msg, MessageVo.class);
+		
 		Map<String,Object> map = session.getAttributes();
-		  String userId = (String)map.get("userId");
-		  System.out.println("로그인 한 아이디 : " + userId);
+		String userNickname = (String)map.get("nickname");
+		
+		if (msgVo.isFisrt) {
+			
+		
+			for (WebSocketSession sess : sessionList) {
 
-		for (WebSocketSession sess : sessionList) {
+				sess.sendMessage(new TextMessage(userNickname + ":" + msgVo.message));
 
-			sess.sendMessage(new TextMessage(userId + " : " + message.getPayload()));
+			}
+		}else {
+			
+		}
+			for (WebSocketSession sess : sessionList) {
+
+				sess.sendMessage(new TextMessage(userNickname + ":" + msgVo.message));
 
 		}
-		
-		
-
 	}
 
 	/*
@@ -90,6 +108,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		  System.out.println("나간사람아이디 : " + userId);
 		  
 		  sessionList.remove(session);
+		  usersMap.remove(session.getId());
 		  
 		  if (sessionList.size() > 0) {
 			
