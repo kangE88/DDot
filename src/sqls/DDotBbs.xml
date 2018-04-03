@@ -107,13 +107,13 @@
 		READCOUNT = READCOUNT+1
 		WHERE SEQ=#{seq}
 	</update>
-<!-- 	
+ 	
 	<update id="deleteBbs" parameterType="java.lang.Integer">
 		UPDATE BBS
 		SET DEL=1
 		WHERE SEQ=#{seq}
 	</update>	
- -->
+
 
 </mapper>  
 
