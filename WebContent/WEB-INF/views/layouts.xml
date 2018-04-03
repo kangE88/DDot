@@ -36,6 +36,18 @@
 	
 </definition>
 
+<definition name="bbslist.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
+</definition>
+
+<definition name="bbswrite.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/bbs/bbswrite.jsp"/>
+</definition>
+
+<definition name="bbsdetail.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/bbs/bbsdetail.jsp"/>
+</definition>
+
 <!-- CHAT -->
 <definition name="chat.tiles" template="/WEB-INF/views/chat/chat.jsp">
 </definition>

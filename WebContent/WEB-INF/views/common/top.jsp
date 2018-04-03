@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@page import="com.DDot.model.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -21,17 +22,17 @@
 					Board <span	class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="bbslist.do?category=0">Java</a></li>
+						<li><a href="bbslist.do?category=0&subcategory=9">Java</a></li>
 						<li class="divider"></li>
-						<li><a href="bbslist.do?category=1">JSP</a></li>
+						<li><a href="bbslist.do?category=1&subcategory=9">JSP</a></li>
 						<li class="divider"></li>
-						<li><a href="bbslist.do?category=2">JQuery</a></li>
+						<li><a href="bbslist.do?category=2&subcategory=9">JQuery</a></li>
 						<li class="divider"></li>
-						<li><a href="bbslist.do?category=3">Oracle/SQL</a></li>
+						<li><a href="bbslist.do?category=3&subcategory=9">Oracle/SQL</a></li>
 						<li class="divider"></li>
-						<li><a href="bbslist.do?category=4">Spring</a></li>
+						<li><a href="bbslist.do?category=4&subcategory=9">Spring</a></li>
 						<li class="divider"></li>
-						<li><a href="bbslist.do?category=5">E.T.C</a></li>
+						<li><a href="bbslist.do?category=5&subcategory=9">E.T.C</a></li>
 					</ul>
 				</li>		
 				<li class=""><a href="./scaffolding.html">Community</a></li>
