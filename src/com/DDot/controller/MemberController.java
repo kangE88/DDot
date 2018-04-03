@@ -122,6 +122,7 @@ public class MemberController {
 		if(login != null && !login.getId().equals("")) {
 			System.out.println("loginAf in");
 			req.getSession().setAttribute("login", login);
+			req.getSession().setAttribute("chatstatus", 0);
 			return "redirect:/main.do";
 		}else {
 			return "redirect:/login.do";

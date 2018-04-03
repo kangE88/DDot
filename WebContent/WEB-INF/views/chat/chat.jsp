@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:requestEncoding value="utf-8"/>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,24 +10,38 @@
 <title>Insert title here</title>
 
 
-<!-- css & js add Start -->
-<link rel="stylesheet" type="text/css" href="./css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme.css">
-<link rel="stylesheet" type="text/css" href="./css/bootstrap-responsive.css">
-<link rel="stylesheet" type="text/css" href="./css/prettify.css">
+<style type="text/css">
+.toggler {
+    position: fixed;
+    top: 40px;
+    right: 0;
+    width: 247px;
+    height: auto;
+}
+  #button {
+    padding: .5em 1em;
+    text-decoration: none;
+  }
+  #effect {
+    position: relative;
+    width: 240px;
+    height: 170px;
+    padding: 0.4em;
+    right: 0px;
+    background-color: gray;
+  }
+  #effect h3 {
+    margin: 0;
+    padding: 0.4em;
+    text-align: center;
+  }
+  </style>
 
-<script src="./js/sockjs-0.3.4.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script type="text/javascript" src="./js/bootstrap.js"></script>
 <!-- css & js End -->
 
 <!-- animation off -->
 <script type="text/javascript">
-	_386 = {fastLoad: true};
-</script>
 
-<script type="text/javascript">
 	$(document).ready(function() {
 
 		$("#sendBtn").click(function() {
@@ -156,13 +170,9 @@
 		            alert(error);
 		      }  
 			 }); 
-	   
-	   // return "나가실래요?";
-	    
-	    
 	}
-
 </script>
+
 
 
 </head>
@@ -170,21 +180,65 @@
 <body>
 
 	<!-- top util -->
-	<div style="position:fixed; top: 10px; width:95%; align:center;">
-	<!--  <input type="button" id="aaaBtn" class="btn" value="쪽지보내기" style="align: left;">  -->
-	<input type="button" id="usersBtn" class="btn" value="◁" style="right: 0">
-    </div>
-	
-	<!-- 채팅데이터  -->
-	<div id="data"></div>
-	
-	<!-- input text -->
-	<div style="position:fixed; bottom: 10px; width:95%; align:center;">
-	<input type="text" id="message" style="width: 85%; background-color: black; color: white;">
-	<input type="button" id="sendBtn" class="btn" value="send">
-    </div>
+	<div style="position: fixed; top: 10px; right:10px; width: 60px;">
+		<!--  <input type="button" id="aaaBtn" class="btn" value="쪽지보내기" style="align: left;">  -->
+		<input type="button" id="usersBtn" class="btn" value="접속자"
+			style="right: 0">
+	</div>
 
+	<!-- 채팅데이터  -->
+	<div id="data" style="margin-bottom: 50px;"></div>
+    
+
+	<!-- input text -->
+	<div style="position: fixed; bottom: 10px; width: 95%; align: center;">
+		<input type="text" id="message"
+			style="width: 85%; background-color: black; color: white;"> <input
+			type="button" id="sendBtn" class="btn" value="send">
+	</div>
+
+	<div class="toggler">
+		<div id="effect" class="ui-widget-content ui-corner-all">
+			<h3 class="ui-widget-header ui-corner-all">Toggle</h3>
+			<p>Etiam libero neque, luctus a, eleifend nec, semper at, lorem.
+				Sed pede. Nulla lorem metus, adipiscing ut, luctus sed, hendrerit
+				vitae, mi.</p>
+		</div>
+	</div>
+	<script>
 	
+	// 현재 접속자 보여주기
+		$( function() {
+	    // run the currently selected effect
+	    function runEffect() {
+	      // get effect type from
+	      var selectedEffect = 'slide';
+	 
+	      // Most effect types need no options passed by default
+	      var options = {};
+	      // some effects have required parameters
+	      if ( selectedEffect === "scale" ) {
+	        options = { percent: 50 };
+	      } else if ( selectedEffect === "size" ) {
+	        options = { to: { width: 200, height: 60 } };
+	      }
+	 
+	      // Run the effect
+	      $( "#effect" ).toggle( selectedEffect,  { direction: 'right', mode: 'show' }, 500 );
+	    };
+	 
+	    // Set effect from select menu value
+	    $( "#usersBtn" ).on( "click", function() {
+	      runEffect();
+	    });
+	  } );
+	
+	// 자동스크롤 내리기
+		var div = document.getElementById("data");
+		divdiv.scrollTop = divdiv.scrollHeight;
+
+
+	</script>
 
 </body>
 </html>

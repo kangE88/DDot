@@ -81,10 +81,11 @@ $("#chatting").click(function () {
 		      }  
 			 });
 		window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=100,left=100');
-	}else{
-		alert("이미 켜져있습니다");
-		window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=100,left=100');
+	}else if(chatStatus == null){
+		alert("로그인이 필요합니다.");
 
+	}else{
+		alert("이미 채팅방이 켜져있습니다");
 	}
 });
 </script>

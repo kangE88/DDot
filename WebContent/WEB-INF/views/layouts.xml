@@ -37,7 +37,9 @@
 </definition>
 
 <!-- CHAT -->
-<definition name="chat.tiles" template="/WEB-INF/views/chat/chat.jsp">
+<definition name="chat.tiles" template="/WEB-INF/views/chat-tiles.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/chat/chat.jsp"/>
 </definition>
 
 </tiles-definitions>
