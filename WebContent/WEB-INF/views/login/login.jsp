@@ -4,8 +4,8 @@
   <head>
     <meta charset="utf-8">
     <title>Sign in &middot; Twitter Bootstrap</title>
-	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script src="./js/jquery.session.js"></script>
+<!-- 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+	<script src="./js/jquery.session.js"></script> -->
     
     <style type="text/css">
       body {

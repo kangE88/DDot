@@ -95,17 +95,6 @@ public class MemberController {
 	public String regiAf(MemberDto mem, Model model)throws Exception{
 		logger.info("DDotMemberController regiAf");	
 		
-/*		System.out.println("======== MEMBER ========");
-		System.out.println("id==>"+mem.getId());
-		System.out.println("pwd==>"+mem.getPwd());
-
-		System.out.println("nickname==>"+mem.getNickname());
-		System.out.println("Email===>"+mem.getEmail());
-		
-		System.out.println("pic===>"+mem.getPic());
-		System.out.println("intro==>"+mem.getIntro());
-		System.out.println("======== MEMBER ========");*/
-		
 		MemberService.addmember(mem);
 		
 		return "login.tiles";

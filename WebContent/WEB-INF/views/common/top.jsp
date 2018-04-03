@@ -6,28 +6,10 @@
 	<!-- <div class="span8"><p class="text-center" style="padding-top:15px;"><font size="40">dev.</font></p></div> -->
 	<div class="span8 text-center"><img src="./image/logo.png" class="center"></div>
 	<div class="span2" style="padding-top:15px;">
-		<ul class="nav">
-		<% if(session.getAttribute("login") == null){ 
-			System.out.println("session Login =-=>> "+session.getAttribute("login")); %>
-			<li>
-				<a tabindex="-1" href="login.do">Login</a>
-			</li>	
-		<%
-			} else {
-				MemberDto mem = (MemberDto)session.getAttribute("login");
-				
-		%>	
-			<li>
-				<a tabindex="-1" href="#"><%=mem.getId() %></a>
-			</li>
-		<%}%>
-		</ul>
 	</div>
 </div>
 <div class="navbar-inner">
 	<div class="container">
-		<button type="button" class="btn btn-navbar" data-toggle="collapse"
-			data-target=".nav-collapse"></button>
 		<a class="brand" href="./index.jsp">D.Dot</a>
 		<div class="nav-collapse collapse">
 			<ul class="nav">
@@ -55,7 +37,17 @@
 				<li class=""><a href="./scaffolding.html">Community</a></li>
 				<li class=""><a href="labatory.do">C.Lab</a></li>
 				<li id="chatting" class=""><a href="#none">Chat</a></li>
-				<li class=""><a href="donate.do">Donate</a></li>
+			</ul>
+		</div>
+		<div class="nav pull-right">
+			<ul class="nav">
+			<% if(session.getAttribute("login") == null){ %>
+				<li><a tabindex="-1" href="login.do">Login</a></li>	
+			<%} else {
+				MemberDto mem = (MemberDto)session.getAttribute("login");	
+			%>
+				<li class=""><a href="#"><%=mem.getNickname() %></a></li>
+			<%}%>
 			</ul>
 		</div>
 	</div>
