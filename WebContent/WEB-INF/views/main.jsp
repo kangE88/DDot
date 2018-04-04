@@ -23,6 +23,7 @@
 				<a href="#introchat" data-toggle="tab" class="introtitle">Chat</a>
 				<a href="#introdonate" data-toggle="tab" class="introtitle">Donate</a>
 				<a href="#introprompt" data-toggle="tab" class="introtitle">Prompt</a>
+				<a href="#introattendance" data-toggle="tab" class="introtitle">Attendance</a>
 			</td>
 		<tr>
 		<tr>
@@ -62,6 +63,11 @@
           				<p>
           					하단에 있는 프롬프트에 명령어를 입력한 후 엔터키를 치면 그에 상응하는 페이지로 이동합니다. 프롬프트에 /help를 입력후 엔터를 쳐보세요.
           				</p>
+      				</div>
+      				<div class="tab-pane fade" id="introattendance">
+      					<p>
+      						비회원도 이용할 수 있지만 회원가입하시면 DDot만의 Level, 경험치, Skill등의 재미있는 기능을 만끽할 수 있습니다.
+      					</p>
       				</div>
 				</div>
 			</td>
