@@ -6,12 +6,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="./css/bootstrap-responsive.css" rel="stylesheet">
+
+   
+   <style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+
+      .form-signin {
+        max-width: 700px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        border: 1px solid #e5e5e5;
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+
+    </style>
+    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+
+
 <script src="./ckeditor/ckeditor.js"></script>
  <script>
  window.onload=function(){
 	CKEDITOR.replace('_content'); 
+	
+	CKEDITOR.on('dialogDefinition', function (ev) {
+		var dialogName = ev.data.name;
+		var dialog = ev.data.definition.dialog;
+		var dialogDefinition = ev.data.definition;
+
+			if (dialogName == 'image') {
+				dialog.on('show', function (obj) {
+				this.selectPage('Upload'); //업로드텝으로 시작
+			});
+
+				// $('#cke_100_uiElement').hide();
+			
+				dialogDefinition.removeContents('Link'); // 링크탭 제거
+		}
+	});
 	};
+
  </script>
 </head>
 
@@ -29,7 +75,7 @@
 	<tr>
 		<th>nickname</th>
 		<td style="text-align: left">
-		<input type="text" name="nickname" size="60" value="${login.nickname}">
+		<input type="text" name="nickname" size="60"/ value="${login.nickname}">
 		</td>
 	</tr>
 	<tr>

@@ -17,8 +17,8 @@
 	Configure the location of uploaded files. See the following article for more details:
 	http://docs.cksource.com/CKFinder_2.x/Developers_Guide/Java/Configuration/baseURL_and_baseDir
 	-->
-	<baseDir></baseDir>
-	<baseURL>D:/images/</baseURL>
+	<baseDir>D:/images</baseDir>
+	<baseURL>/images</baseURL>
 	<licenseKey></licenseKey>
 	<licenseName></licenseName>
 	<!--
@@ -185,7 +185,7 @@
 		<file>.*</file>
 	</hideFiles>
 	<plugins>
-<!-- 		<plugin>
+		<plugin>
 			<name>imageresize</name>
 			<class>com.ckfinder.connector.plugins.ImageResize</class>
 			<params>
@@ -193,7 +193,7 @@
 				<param name="mediumThumb" value="120x120"></param>
 				<param name="largeThumb" value="180x180"></param>
 			</params>
-		</plugin> -->
+		</plugin>
 		<plugin>
 			<name>fileeditor</name>
 			<class>com.ckfinder.connector.plugins.FileEditor</class>
