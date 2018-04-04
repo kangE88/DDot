@@ -2,7 +2,7 @@
 
 <tiles-definitions>
 
-<!-- MAIN -->
+
 <definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 	<put-attribute name="top" value="/WEB-INF/views/common/top.jsp"/>
@@ -10,21 +10,18 @@
 	<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 </definition>
 
-<!-- USER -->
-
 <definition name="login.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/login/login.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/user/login.jsp"/>
 </definition>
 
 <definition name="regi.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/login/regi.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/user/regi.jsp"/>
 </definition>
 
-<definition name="attendance.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/attendance/attendance.jsp"/>
+<!-- userInfo -->
+<definition name="userInfo.tiles" template="/WEB-INF/views/user/userInfo.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 </definition>
-
-<!-- ETC -->
 
 <definition name="labatory.tiles" extends="main.tiles">
 
@@ -38,12 +35,12 @@
 	
 </definition>
 
-<!-- BBS -->
+<definition name="attendance.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/attendance/attendance.jsp"/>
+</definition>
 
 <definition name="bbslist.tiles" extends="main.tiles">
-
 	<put-attribute name="main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
-	
 </definition>
 
 <definition name="bbslist.tiles" extends="main.tiles">
@@ -61,5 +58,6 @@
 <!-- CHAT -->
 <definition name="chat.tiles" template="/WEB-INF/views/chat/chat.jsp">
 </definition>
+
 
 </tiles-definitions>

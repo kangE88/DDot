@@ -1,10 +1,14 @@
 package com.DDot.controller;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -126,9 +130,17 @@ public class MemberController {
 		}		
 	}
 	
+	@RequestMapping(value="userInfo.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String userInfo() throws Exception {
+		
+		return "userInfo.tiles";
+	}
+	
 	@RequestMapping(value="logout.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String logout() {
-		return "login.tiles";
+	public String logout(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().invalidate();
+		
+		return "redirect:/index.jsp";
 	}
 }
 

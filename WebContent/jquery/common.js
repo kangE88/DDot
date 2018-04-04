@@ -122,6 +122,36 @@ function g_validate(FormName) {
 	
 	return result;
 }
+
+function g_level(point){
+	var exp = point;	// 현재 user 경험치
+	
+	var level = null;	// 처음 레벨은 null로
+	
+	var b = true;	// i for문 탈출용 boolean
+	
+	for(i=0;i<10;i++) {		// i는 level의 10의자리
+		for(j=0;j<10;j++) {	// j는 level의 1의 자리
+			//System.out.println((50*Math.pow(i+1, 2) -50 )+((150+100*i)/10)*j);
+			if((50*Math.pow(i+1, 2) -50 )+((150+100*i)/10)*j<= exp && exp <(50*Math.pow(i+1, 2) -50 )+((150+100*i)/10)*(j+1)) {
+				
+				level = ""+i+""+j;	// 위의 계산 if문이 걸리면 level을 설정
+				b= false;
+				break;
+			}
+		}	
+		if(level==null) level="99";	// 만랩경험치가 넘어가면 level을 99로 설정
+		if(!b) break;
+	}
+	
+	//System.out.println("lv: "+level);	// level 출력	
+	
+	//$('#level').html(level);
+	
+	return level;
+	
+}
+
 /*
 function g_validate(FormName, lang) {
 	var result = true;

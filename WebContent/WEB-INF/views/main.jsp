@@ -2,14 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-		<% if(session.getAttribute("login") == null){ 
-			System.out.println("session NUll Login =-=>> "+session.getAttribute("login")); }else{
-			System.out.println("session Login =-=>> "+session.getAttribute("login"));}%>
-<style>
-	a:hover{
-		background-color: #000084;   
-	}
-</style>
+<body>
 <div class="span2">
 </div>
 <div class="span8 text-center">
@@ -77,9 +70,6 @@
 </div>
 <div class="span2">
 </div>
-
-
-<body>
 
 <br>
 
