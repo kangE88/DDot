@@ -12,59 +12,44 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>regi</title>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<style type="text/css">
 
-    <style type="text/css">
+img .file-preview-image{
+	height:120px;
+}
 
-	.form-signin {
-	  max-width: 700px;
-	  padding: 19px 29px 29px;
-	  margin: 0 auto 20px;
-	  border: 1px solid #e5e5e5;
-	}
-	.form-signin .form-signin-heading,
-	.form-signin .checkbox {
-	  margin-bottom: 10px;
-	}
-	.form-signin input[type="text"],
-	.form-signin input[type="password"] {
-	  font-size: 16px;
-	  height: auto;
-	  margin-bottom: 15px;
-	  padding: 7px 9px;
-	}
-	
-	img .file-preview-image{
-		height:120px;
-	}
-	
-	input[type=file] {
-	    opacity: 0;
-	    z-index: -1;
-	    position: absolute;
-	}
-	button {
-		margin-top:15px;
-	}
-	
-	
-    </style>
-    <link href="./css/bootstrap-responsive.css" rel="stylesheet">
+input[type=file] {
+    opacity: 0;
+    z-index: -1;
+    position: absolute;
+}
+button {
+	margin-top:15px;
+}
+
+
+</style>
+<link href="./css/bootstrap-responsive.css" rel="stylesheet">
+<script type="text/javascript" src="<%=request.getContextPath()%>/jquery/common.js"></script>
 </head>
 <body>
-<div class="row-fluid">
+
+<form class="form-signin" enctype="multipart/form-data" style="height:100%;">
     <h2 class="form-signin-heading">Sign Up</h2><br>
-	<form class="form-signin" style="margin-bottom:5px;">
-            <table class="table">
+    		<table class="table span3"></table>
+            <table class="table span6" style=" text-align:center; margin-bottom:5%;margin-left: 0;">
               <tbody>
+              <colgroup>
+				  <col width="25%">
+				  <col width="40%">
+				  <col width="35%">
+			  </colgroup>
                 <tr>
                   	<td style="vertical-align: middle;">아이디 :</td>
-                  	<td><input type="text" placeholder="id" id="id" name="id" style="margin:auto; height:30px;"></td>
-					<td>
+                  	<td><input type="text" placeholder="id" id="_id" name="id" style="ime-mode: disabled; margin:auto; height:30px;"></td>
+					<td style="text-align:center;">
 					<!-- Button to trigger modal -->
-					<a href="#idchk_modal" role="button" class="btn" data-toggle="modal" id="_idchk" onclick="" style="margin:auto;">ID 중복체크</a></td>
+					<a href="#idchk_modal" role="button" class="btn span10" data-toggle="modal" id="_idchk" onclick="" style="margin:auto;">ID 중복체크</a></td>
 					<!-- <button class="btn btn-mini btn-primary" id="_idchk" style="margin:auto;">ID 중복체크</button></td> -->
                 </tr>
                 <tr>
@@ -91,15 +76,17 @@
                   		<img id="pic" data-src="holder.js/260x120" src="" alt="클릭하여 이미지를 넣어주세요." alt="260x120" style="width: 200px; height: 150px;">
                   		<a href="#">
              				<input class="btn btn-mini btn-primary" type="file" onchange="previewFile()">
-             				<input type="hidden" name="pic">
+             				<!-- <input type="hidden" name="pic"> -->
               			</a>                  		
                   	</td>
-					<td></td>
+					<td>
+						<input type="hidden" name="pic" class="span10">
+						<a href="#" role="button" class="btn span10" id="_btnClean" style="margin:auto;">clear</a>
+					</td>
                 </tr>
                 <tr>
                   	<td style="vertical-align: middle;">자기 소개 :</td>
-					<td><textarea rows="3" placeholder="intro" name="intro"></textarea></td>
-					<td></td>
+					<td colspan="2"><textarea rows="3" class="span12" placeholder="intro" name="intro"></textarea></td>
                 </tr>
                 <tr>
                 	<td colspan="3" style="text-align:right;">
@@ -107,11 +94,10 @@
                 		<a href="#" role="button" class="btn" id="_btnRegi" style="margin:auto;">Sign Up</a>
                 	</td>
                 </tr>
-                
               </tbody>
             </table>
- 	</form>
-</div> <!-- /container -->
+            <table class="table span3"></table>
+ 	</form><!-- /container -->
 
 <!-- Modal -->
 <div id="idchk_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
@@ -129,6 +115,8 @@
 
 <!-- img thumnail event -->
 <script>
+
+
 
 $('#pic').click(function(){
 	alert("click");
@@ -160,11 +148,31 @@ function previewFile() {
 </script>
 
 <script type="text/javascript">
+
+//id 한글입력 방지
+	$("#_id").keyup(function(e) { 
+	if (!(e.keyCode >=37 && e.keyCode<=40)) {
+		var v = $(this).val();
+		$(this).val(v.replace(/[^a-z0-9]/gi,''));
+	}
+	if(event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46){
+		$(this).val() == "";
+	}
+});
+
+//id pwd창으로 갈때 한글입력 제거
+	$("#_id").keydown(function(e) { 
+	if (!(e.keyCode >=37 && e.keyCode<=40)) {
+		var v = $(this).val();
+		$(this).val(v.replace(/[^a-z0-9]/gi,''));
+	}
+});
+
 $("#_btnRegi").click(function() {
-	alert("id:" + $("#id").val());
-	if($("#_userid").val() == ""){		
-		alert($("#id").attr("data-msg") + " 입력해 주십시오" );
-		$("#id").focus();
+	alert("_id:" + $("#_id").val());
+	if($("#_id").val() == ""){		
+		alert($("#_id").attr("data-msg") + " 입력해 주십시오" );
+		$("#_id").focus();
 	}else if($("#_pwd").val() == ""){		
 		alert($("#_pwd").attr("data-msg") + " 입력해 주십시오" );
 		$("#_pwd").focus();
@@ -180,24 +188,16 @@ $("#_btnRegi").click(function() {
 	}
 });
 
-
-
-
-<!-- 
-$("#_btnLogin").click(function(){
-	alert("login Click!");
-	location.href="login.do";
-});
--->
-
 $("#_idchk").click(function (){
-	var _id = $("#id").val();
+	var _id = $("#_id").val().trim();
+
 	if(_id == ""){
 		$('#idChkResult').text("아이디를 입력해 주십시오.");
 	}else{
 		idCheckFunc(_id);
 	}
 });
+
 
 function idCheckFunc(id) {
 	//alert("idCheckFunc");

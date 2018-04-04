@@ -62,6 +62,7 @@
 				return;
 			}
 		});
+		
 		//id pwd창으로 갈때 한글입력 제거
  		$("#id").keydown(function(e) { 
 			if (!(e.keyCode >=37 && e.keyCode<=40)) {

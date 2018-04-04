@@ -23,18 +23,31 @@ MemberDto mem = (MemberDto)session.getAttribute("login");
 %>
 
 //level get
-$(window).on('load', function(point){
+$(window).on('load', function(){
 	var level = g_level('${login.point}');
+	var point = ${login.point};
 	
+	var exp_persent = g_percent(level, point);
+
 	//$('.level').html(level);
+	//level img set
 	$('.levelImg').attr("src","<%=request.getContextPath()%>/image/level/lv"+level+".gif");
+	
+	//exp_persent
+	console.log("exp==>"+exp_persent);
+	//$('.expPersentBar').html("exp: "+exp_persent);
+	$('.bar').prop("style", 'width: '+exp_persent+'%');
+
 });
+
 </script>
 <div class="row-fluid">
 	<div class="page-header">
 		<h4>Level : </h4><img class="levelImg" src="">
 	</div>
-	
+	<div class="progress progress-striped active">
+  		<div class="bar"></div>
+	</div>
 	<hr>NickName: ${login.nickname} Point : ${login.point}<hr>
 </div>
 
