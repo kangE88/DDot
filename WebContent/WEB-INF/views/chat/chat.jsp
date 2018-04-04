@@ -102,6 +102,10 @@
 		/* sock.send($("#message").val());
 		$("#message").val(""); */
 		
+		if ($("#message").val()!='') {
+			
+		
+		
 		 var data = {};
 		 var nick = "${login.nickname}";
 		 
@@ -114,6 +118,7 @@
 		
 			$("#message").val("");
 			
+		}
 		
 	}
 
@@ -186,7 +191,7 @@
 			  ,data:{"chatstat" : 0}
 			  ,async: false
 			  ,success:function(){
-				  console.log(${chatstatus });
+				  console.log("${chatstatus }");
 				  opener.location.reload();			 
 			  },
 			  error: function(xhr, status, error) {
@@ -225,8 +230,9 @@
 	<div class="toggler">
 		<div id="effect" class="ui-widget-content ui-corner-all">
 			<h3 class="ui-widget-header ui-corner-all">현재 접속자</h3>
-			<c:set var="map" value="<%=EchoHandler.usersMap %>"></c:set>
-			<p></p>
+			<c:forEach var="users" items="${usersMap}" >
+				<p>${users.value}</p>
+			</c:forEach>
 		</div>
 	</div>
 	<script>
@@ -264,6 +270,14 @@
 		function autoScroll(){
 			$(document).scrollTop($('#data').height());
 		}
+		
+	// 접속자 명단 출력 및 갱신
+/* 		function inMember(){
+			var maps = ${usersMap}
+		}
+ */		
+		
+		
 	</script>
 
 </body>
