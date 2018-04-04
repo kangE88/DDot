@@ -152,6 +152,17 @@ function g_level(point){
 	
 }
 
+function g_percent(level, point){
+	var i = parseInt(level.substr(0,1));
+	var j = parseInt(level.substr(1,2));
+	var nextexp = (50*Math.pow(i+1, 2) -50 )+((150+100*i)/10)*(j+1);
+	
+	var percent = Math.round((1-((nextexp - point)/((150+100*i)/10)))*100);
+	
+	return percent;
+	
+}
+
 /*
 function g_validate(FormName, lang) {
 	var result = true;
