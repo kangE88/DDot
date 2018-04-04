@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@page import="com.DDot.model.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -38,6 +37,7 @@
 				<li class=""><a href="./scaffolding.html">Community</a></li>
 				<li class=""><a href="labatory.do">C.Lab</a></li>
 				<li id="chatting" class=""><a href="#none">Chat</a></li>
+				<li class=""><a href="attendance.do">attendance</a></li>
 			</ul>
 		</div>
 		<div class="nav pull-right">

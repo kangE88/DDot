@@ -2,13 +2,15 @@
 
 <tiles-definitions>
 
-
+<!-- MAIN -->
 <definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 	<put-attribute name="top" value="/WEB-INF/views/common/top.jsp"/>
 	<put-attribute name="main" value="/WEB-INF/views/main.jsp"/>
 	<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp"/>
 </definition>
+
+<!-- USER -->
 
 <definition name="login.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/login/login.jsp"/>
@@ -17,6 +19,12 @@
 <definition name="regi.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/login/regi.jsp"/>
 </definition>
+
+<definition name="attendance.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/attendance/attendance.jsp"/>
+</definition>
+
+<!-- ETC -->
 
 <definition name="labatory.tiles" extends="main.tiles">
 
@@ -29,6 +37,8 @@
 	<put-attribute name="main" value="/WEB-INF/views/donate/donate.jsp"/>
 	
 </definition>
+
+<!-- BBS -->
 
 <definition name="bbslist.tiles" extends="main.tiles">
 

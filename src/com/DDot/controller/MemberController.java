@@ -63,6 +63,14 @@ public class MemberController {
 		return "donate.tiles";
 	}
 	
+	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String attendance() {
+		
+		return "attendance.tiles";
+	}
+	
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
