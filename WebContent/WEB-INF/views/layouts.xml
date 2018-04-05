@@ -23,22 +23,22 @@
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 </definition>
 
-<!-- labatory -->
 <definition name="labatory.tiles" extends="main.tiles">
+
 	<put-attribute name="main" value="/WEB-INF/views/labatory/labatory.jsp"/>
+	
 </definition>
 
-<!-- donate -->
 <definition name="donate.tiles" extends="main.tiles">
+
 	<put-attribute name="main" value="/WEB-INF/views/donate/donate.jsp"/>
+	
 </definition>
 
-<!-- attendance -->
 <definition name="attendance.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/point/attendance.jsp"/>
 </definition>
 
-<!-- BBS -->
 <definition name="bbslist.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/bbs/bbslist.jsp"/>
 </definition>
@@ -53,23 +53,6 @@
 
 <definition name="bbsupdate.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/bbs/bbsupdate.jsp"/>
-</definition>
-
-<!-- comm -->
-<definition name="commlist.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/community/commlist.jsp"/>
-</definition>
-
-<definition name="commwrite.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/community/commwrite.jsp"/>
-</definition>
-
-<definition name="commdetail.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/community/commdetail.jsp"/>
-</definition>
-
-<definition name="commupdate.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/community/commupdate.jsp"/>
 </definition>
 
 <!-- CHAT -->
