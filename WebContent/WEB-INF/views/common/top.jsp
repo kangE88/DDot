@@ -104,7 +104,7 @@ $("#userInfo").click(function () {
 		        	alert(error);
 		      	}  
 			}); */
-		window.open("userInfo.do",'내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=300,top=100,left=100');
+		window.open("userInfo.do",'내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
 	});
 
 </script>

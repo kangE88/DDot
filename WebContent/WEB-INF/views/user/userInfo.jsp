@@ -8,15 +8,8 @@
 <html>
 <head>
 <tiles:insertAttribute name="header"/>
-	
-<!-- Level function get -->
-<script type="text/javascript" src="<%=request.getContextPath()%>/jquery/common.js"></script>
 
 </head>
-<body>
-
-
-
 <script type="text/javascript">
 <%
 MemberDto mem = (MemberDto)session.getAttribute("login");
@@ -28,11 +21,13 @@ $(window).on('load', function(){
 	var point = ${login.point};
 	
 	var exp_persent = g_percent(level, point);
+	
+	var profileImg = "/img/${login.id}/${login.pic}";
 
 	//$('.level').html(level);
 	//level img set
 	$('.levelImg').attr("src","<%=request.getContextPath()%>/image/level/lv"+level+".gif");
-	
+	$('#profile').attr('src', profileImg);
 	//exp_persent
 	console.log("exp==>"+exp_persent);
 	//$('.expPersentBar').html("exp: "+exp_persent);
@@ -41,16 +36,26 @@ $(window).on('load', function(){
 });
 
 </script>
+<body>
 <div class="row-fluid">
-	<div class="page-header">
-		<h4>Level : </h4><img class="levelImg" src="">
+	<div class="page-header span12" style="height:100px;">
+		<p class="span1">Lv :</p><img class="levelImg span1" style="height:30px;">
+		<div class="progress progress-striped active span7">
+		  		<div class="bar"></div>
+		</div>
 	</div>
-	<div class="progress progress-striped active">
-  		<div class="bar"></div>
+	<div class="row-fluid">
+		<div class="span4">
+			<img id=profile class="span4">
+		</div>
+		<div class="span8">
+			
+		</div>
 	</div>
-	<hr>NickName: ${login.nickname} Point : ${login.point}<hr>
+	<div class="row-fluid">
+		<p>NickName: ${login.nickname}</p>
+	</div>
 </div>
-
 
 </body>
 </html>

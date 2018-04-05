@@ -109,34 +109,37 @@ public class MemberController {
 		
 	}
 	
-	@RequestMapping(value="regiAf.do", 
-			method= {RequestMethod.GET, RequestMethod.POST})
-	public String regiAf(MemberDto mem, HttpServletRequest req, @RequestParam(value="pic", required=false) MultipartFile pic, Model model)throws Exception{
+	@RequestMapping(value="regiAf.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String regiAf(MemberDto mem, HttpServletRequest req,
+			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
 		logger.info("DDotMemberController regiAf");	
+		System.out.println("mem===>"+mem.toString());
+
+		System.out.println("pic==>"+picFile);
+
+		System.out.println("fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
 		
-		System.out.println("pic==>"+pic);
-		
-		System.out.println("pic.getOriginalFilename()===>"+pic.getOriginalFilename());
-		
-		mem.setPic(pic.getOriginalFilename());
+		mem.setPic(picFile.getOriginalFilename());
 		
 		//파일 경로(서버)
 		//String fupload = req.getServletContext().getRealPath("/upload");
 		
 		//파일경로(폴더)
-		String fupload = "c:\\upload";
-		logger.info("fupload:"+fupload);
+		String fupload = "c:\\upload\\"+mem.getId();
+		System.out.println("fupload:"+fupload);
+		
 		
 		String f = mem.getPic();
 		
 		String newFile= FUpUtil.getNewFile(f);
 		
-		logger.info(fupload + "/" + newFile);
+		System.out.println(fupload + "/" + newFile);
+		
 		mem.setPic(newFile);
 		
 		try {
 			File file = new File(fupload + "/" + newFile);
-			FileUtils.writeByteArrayToFile(file, pic.getBytes());
+			FileUtils.writeByteArrayToFile(file, picFile.getBytes());
 			
 			// db insert 부분
 			MemberService.addmember(mem);
@@ -148,7 +151,7 @@ public class MemberController {
 		}
 		
 		
-		MemberService.addmember(mem);
+		//MemberService.addmember(mem);
 		
 		return "login.tiles";
 	}	

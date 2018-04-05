@@ -23,7 +23,6 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public MemberDto login(MemberDto mem) throws Exception {
-		System.out.println("DaoImpl==> "+mem.toString());
 		return sqlSession.selectOne(namespace + "login", mem);
 	}
 

@@ -26,15 +26,13 @@ input[type=file] {
 button {
 	margin-top:15px;
 }
-
-
 </style>
 <link href="./css/bootstrap-responsive.css" rel="stylesheet">
 <script type="text/javascript" src="<%=request.getContextPath()%>/jquery/common.js"></script>
 </head>
 <body>
 
-<form class="form-signin" enctype="multipart/form-data" style="height:100%;">
+<form class="form-signin" method="post" enctype="multipart/form-data" style="height:100%;">
     <h2 class="form-signin-heading">Sign Up</h2><br>
     		<table class="table span3"></table>
             <table class="table span6" style=" text-align:center; margin-bottom:5%;margin-left: 0;">
@@ -73,14 +71,10 @@ button {
                 <tr>
                   	<td style="vertical-align: middle;">프로필 이미지 :</td>
                   	<td>
-                  		<img id="pic" data-src="holder.js/260x120" src="" alt="클릭하여 이미지를 넣어주세요." alt="260x120" style="width: 200px; height: 150px;">
-                  		<a href="#">
-             				<input class="btn btn-mini btn-primary" type="file" onchange="previewFile()">
-             				<!-- <input type="hidden" name="pic"> -->
-              			</a>                  		
+             			<input name="picFile" id="pic" type="file">
+                  		<img id="thumPic" onclick="document.all.pic.click();" data-src="holder.js/260x120" alt="클릭하여 이미지를 넣어주세요." alt="260x120" style="width: 200px; height: 150px;">
                   	</td>
 					<td>
-						<input type="hidden" name="pic" class="span10">
 						<a href="#" role="button" class="btn span10" id="_btnClean" style="margin:auto;">clear</a>
 					</td>
                 </tr>
@@ -115,36 +109,22 @@ button {
 
 <!-- img thumnail event -->
 <script>
-
-
-
-$('#pic').click(function(){
-	alert("click");
-	$('input[type=file]').trigger('click');
-});
-  		
-	//insert img text set
-$('input[type=file]').change(function() {
-   	$('input[name=pic]').val($(this).val());
+$(function() {
+    $("#pic").on('change', function(){
+        readURL(this);
+    });
 });
 
-function previewFile() {
-	  var preview = document.querySelector('#pic');
-	  var file    = document.querySelector('input[type=file]').files[0];
-	  var reader  = new FileReader();
+function readURL(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
 
-	  reader.onload = function () {
-	    preview.src = reader.result;
-	  }
-
-	  if (file) {
-	    reader.readAsDataURL(file);
-	  } else {
-	    preview.src = "";
-	  }
-	}
-
-
+    reader.onload = function (e) {
+            $('#thumPic').attr('src', e.target.result);
+        }
+      reader.readAsDataURL(input.files[0]);
+    }
+}
 </script>
 
 <script type="text/javascript">
@@ -157,14 +137,6 @@ function previewFile() {
 	}
 	if(event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46){
 		$(this).val() == "";
-	}
-});
-
-//id pwd창으로 갈때 한글입력 제거
-	$("#_id").keydown(function(e) { 
-	if (!(e.keyCode >=37 && e.keyCode<=40)) {
-		var v = $(this).val();
-		$(this).val(v.replace(/[^a-z0-9]/gi,''));
 	}
 });
 
