@@ -47,7 +47,7 @@ button {
                   	<td><input type="text" placeholder="id" id="_id" name="id" style="ime-mode: disabled; margin:auto; height:30px;"></td>
 					<td style="text-align:center;">
 					<!-- Button to trigger modal -->
-					<a href="#idchk_modal" role="button" class="btn span10" data-toggle="modal" id="_idchk" onclick="" style="margin:auto;">ID 중복체크</a></td>
+					<a href="#idchk_modal" role="button" class="btn span10" data-toggle="modal" id="_idchk" style="margin:auto;">중복체크</a></td>
 					<!-- <button class="btn btn-mini btn-primary" id="_idchk" style="margin:auto;">ID 중복체크</button></td> -->
                 </tr>
                 <tr>
@@ -60,8 +60,10 @@ button {
                 </tr>
                 <tr>
                   	<td style="vertical-align: middle;">닉네임 :</td>
-                  	<td><input type="text" placeholder="nickname" name="nickname" style="margin:auto; height:30px;"></td>
-					<td></td>
+                  	<td><input type="text" placeholder="nickname" id="_nickname" name="nickname" style="margin:auto; height:30px;"></td>
+					<!-- Button to trigger modal -->
+					<td style="text-align:center;">
+					<a href="#nicname_chk_modal" role="button" class="btn span10" data-toggle="modal" id="_nicchk" style="margin:auto;">중복체크</a></td>
                 </tr>
                 <tr>
                   	<td style="vertical-align: middle;">e-mail :</td>
@@ -107,6 +109,20 @@ button {
   	</div>
 </div>
 
+<!-- Modal -->
+<div id="nicname_chk_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    	<h3 id="nicModalLabel" style="color: black">Nicname 중복체크</h3>
+  	</div>
+	<div class="modal-body">
+		<p id="nicknameChkResult"></p>
+  	</div>
+  	<div class="modal-footer">
+    	<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  	</div>
+</div>
+
 <!-- img thumnail event -->
 <script>
 $(function() {
@@ -125,9 +141,6 @@ function readURL(input) {
       reader.readAsDataURL(input.files[0]);
     }
 }
-</script>
-
-<script type="text/javascript">
 
 //id 한글입력 방지
 	$("#_id").keyup(function(e) { 
@@ -194,6 +207,42 @@ function idCheckMessage(msg) {
 		$("#idChkResult").html("사용할 수 있는 아이디입니다.");
 		$("#idChkResult").css("background-color","#0000ff");
 		$("#id").val($("#id").val());
+	}
+}
+
+$("#_nicchk").click(function (){
+	var _nic = $("#_nickname").val().trim();
+
+	if(_nic == ""){
+		$('#nicknameChkResult').text("닉네임을 입력해 주십시오.");
+	}else{
+		nickCheckFunc(_nic);
+	}
+});
+
+function nickCheckFunc(nickname) {
+	//alert("idCheckFunc");
+	
+	$.ajax({
+		type: "post",
+		url: "getNickname.do",
+		async:true,
+		data:"nickname=" + nickname,
+		success:function(msg){
+			nicknameCheckMessage(msg);
+		}
+	});
+}
+
+function nicknameCheckMessage(msg) {
+	if(msg.message == 'SUCS'){
+		$("#nicknameChkResult").html("사용할 수 없는 닉네임 입니다.");
+		$("#nicknameChkResult").css("background-color","#ff0000");
+		$("#nickname").val("");
+	}else{
+		$("#nicknameChkResult").html("사용할 수 있는 닉네임 입니다.");
+		$("#nicknameChkResult").css("background-color","#0000ff");
+		$("#nickname").val($("#nickname").val());
 	}
 }
 //-->

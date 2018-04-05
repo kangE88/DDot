@@ -30,9 +30,18 @@ public class MemberDaoImpl implements MemberDao {
 	public int getID(MemberDto mem) {
 		return sqlSession.selectOne(namespace + "getID", mem);
 	}
-	
-	
 
+	@Override
+	public int getNickname(MemberDto mem) throws Exception {
+		return sqlSession.selectOne(namespace + "getNickname", mem);
+	}
+
+	@Override
+	public boolean userInfoModify(MemberDto mem) throws Exception {
+		int n = sqlSession.update(namespace + "userInfoModify", mem);		
+		return n>0?true:false;
+	}	
+	
 }
 
 

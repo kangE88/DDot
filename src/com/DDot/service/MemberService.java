@@ -6,4 +6,6 @@ public interface MemberService {
 	public boolean addmember(MemberDto mem) throws Exception;
 	public MemberDto login(MemberDto mem) throws Exception;
 	public int getID(MemberDto mem) throws Exception;
+	public int getNickname(MemberDto mem) throws Exception;
+	public boolean userInfoModify(MemberDto mem) throws Exception;
 }

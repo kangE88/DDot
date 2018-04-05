@@ -2,7 +2,6 @@ package com.DDot.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.DDot.model.MemberDto;
 import com.DDot.model.YesMember;
 import com.DDot.service.MemberService;
-
 import com.DDot.util.FUpUtil;
 
 @Controller
@@ -109,6 +106,32 @@ public class MemberController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="getNickname.do", method=RequestMethod.POST)
+	public YesMember getNickname(Model model, MemberDto mem) {
+		logger.info("KhMemberController getNickname");
+		
+		int count = 0;
+		
+		try {
+			count = MemberService.getNickname(mem);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		YesMember yes = new YesMember();
+		
+		if(count > 0) {
+			yes.setMessage("SUCS");
+		}else {
+			yes.setMessage("FAIL");
+		}
+		
+		return yes;
+		
+	}
+	
 	@RequestMapping(value="regiAf.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String regiAf(MemberDto mem, HttpServletRequest req,
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
@@ -154,7 +177,46 @@ public class MemberController {
 		//MemberService.addmember(mem);
 		
 		return "login.tiles";
-	}	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="userInfoModify.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public boolean userInfoModify(MemberDto mem, HttpServletRequest req,
+			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
+		logger.info("DDotMemberController userInfoModify");	
+		System.out.println(" modi mem===>"+mem.toString());
+
+		System.out.println(" modi pic==>"+picFile);
+
+		System.out.println(" modi fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
+		mem.setPic(picFile.getOriginalFilename());
+
+		//파일경로(폴더)
+		String fupload = "c:\\upload\\"+mem.getId();
+		System.out.println("fupload:"+fupload);
+		
+		
+		String f = mem.getPic();
+		
+		String newFile= FUpUtil.getNewFile(f);
+		
+		System.out.println(fupload + "/" + newFile);
+		
+		mem.setPic(newFile);
+		
+		try {
+			File file = new File(fupload + "/" + newFile);
+			FileUtils.writeByteArrayToFile(file, picFile.getBytes());
+			
+			System.out.println(MemberService.userInfoModify(mem));
+			
+		}catch (IOException e) {
+			System.out.println("fail");
+		}
+
+		// db insert 부분
+		return MemberService.userInfoModify(mem);
+	}
 
 	@RequestMapping(value="loginAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
