@@ -1,19 +1,30 @@
 package com.DDot.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
+import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.DDot.model.MemberDto;
 import com.DDot.model.YesMember;
 import com.DDot.service.MemberService;
+
+import com.DDot.util.FUpUtil;
 
 @Controller
 public class MemberController {
@@ -63,6 +74,14 @@ public class MemberController {
 		return "donate.tiles";
 	}
 	
+	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String attendance() {
+		
+		return "attendance.tiles";
+	}
+	
+	
+	
 	
 	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
@@ -89,18 +108,17 @@ public class MemberController {
 		return yes;
 		
 	}
-
+	
 	@RequestMapping(value="regiAf.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String regiAf(MemberDto mem, HttpServletRequest req,
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
-
 		logger.info("DDotMemberController regiAf");	
 		System.out.println("mem===>"+mem.toString());
 
 		System.out.println("pic==>"+picFile);
 
 		System.out.println("fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
-
+		
 		mem.setPic(picFile.getOriginalFilename());
 		
 		//파일 경로(서버)
@@ -132,6 +150,9 @@ public class MemberController {
 			logger.info("PdsController pdsupload fail!!!");
 		}
 		
+		
+		//MemberService.addmember(mem);
+		
 		return "login.tiles";
 	}	
 
@@ -146,16 +167,24 @@ public class MemberController {
 		if(login != null && !login.getId().equals("")) {
 			System.out.println("loginAf in");
 			req.getSession().setAttribute("login", login);
-			req.getSession().setAttribute("chatstatus", 0);
+			req.getSession().setAttribute("chatstat", 0);
 			return "redirect:/main.do";
 		}else {
 			return "redirect:/login.do";
 		}		
 	}
 	
+	@RequestMapping(value="userInfo.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String userInfo() throws Exception {
+		
+		return "userInfo.tiles";
+	}
+	
 	@RequestMapping(value="logout.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String logout() {
-		return "login.tiles";
+	public String logout(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().invalidate();
+		
+		return "redirect:/index.jsp";
 	}
 }
 
