@@ -50,13 +50,19 @@
 			%>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="none"> 
-					<%=mem.getNickname() %> <span	class="caret"></span>
+					<%=mem.getNickname() %> <span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li class=""><a href="#" id="userInfo">내 정보</a></li>
 						<li class=""><a href="logout.do">로그아웃</a></li>
 					</ul>
 				</li>
+			<%}%>
+			</ul>
+			<ul class="nav">
+			<% if(session.getAttribute("login") != null){
+			%>
+				<li class=""><a href="#"><img class="message" alt="message" src="./image/message.png" style="width: 24px; height: 20px;"></a></li>
 			<%}%>
 			</ul>
 		</div>
@@ -108,5 +114,12 @@ $("#userInfo").click(function () {
 			}); */
 		window.open("userInfo.do",'내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
 	});
+	
+//message
+$(".message").hover(function() {
+	$(".message").attr("src", "./image/message_hover.png");
+},function(){
+	$(".message").attr("src", "./image/message.png");
+});
 
 </script>
