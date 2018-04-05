@@ -34,7 +34,7 @@
 						<li><a href="bbslist.do?category=5&subcategory=9">E.T.C</a></li>
 					</ul>
 				</li>		
-				<li class=""><a href="./scaffolding.html">Community</a></li>
+				<li class=""><a href="commlist.do">Community</a></li>
 				<li class=""><a href="labatory.do">C.Lab</a></li>
 				<li id="chatting" class=""><a href="#none">Chat</a></li>
 				<li class=""><a href="donate.do">Donate</a></li>

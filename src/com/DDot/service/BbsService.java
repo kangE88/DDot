@@ -24,6 +24,6 @@ public interface BbsService {
 
 	boolean updateBbs(BbsDto bbs)throws Exception;
 	
-	public void deleteBbs(int seq);
+	public boolean deleteBbs(int seq);
 	
 }

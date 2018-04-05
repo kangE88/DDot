@@ -73,19 +73,19 @@
 
 	
 	<tr>
-		<th>nickname</th>
+		<th>Nickname</th>
 		<td style="text-align: left">
-		<input type="text" name="nickname" size="60"/ value="${login.nickname}">
+		<input type="text" name="nickname" size="60" value="${login.nickname}" readonly="readonly">
 		</td>
 	</tr>
 	<tr>
-		<th>title</th>
+		<th>Title</th>
 			<td style="text-align: left">
 				<input type="text" name="title" size="60"/>
 			</td>
 	</tr>
 	<tr>
-		<th>category</th>
+		<th>Category</th>
 			<td style="text-align: left">
 				<select id="category" name="category">
 				<option value="0">Java</option>
@@ -98,7 +98,7 @@
 			</td>
 	</tr>
 	<tr>
-		<th>subcategory</th>
+		<th>Subcategory</th>
 			<td style="text-align: left">
 				<select id="subcategory" name="subcategory">
 				<option value="0">tip</option>
@@ -109,7 +109,7 @@
 			</td>
 	</tr>
 	<tr>
-		<th>내용</th>
+		<th>Content</th>
 		<td style="text-align: left">
 			<textarea rows="10" cols="50" name='content' id="_content"></textarea>
 		</td>
@@ -117,7 +117,7 @@
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 			<span>					
-	 			<a href="#none" id="_btnLogin" title="글쓰기">글쓰기
+	 			<a href="#none" id="_btnLogin" title="글쓰기">Wrtie
 				</a>
 			</span>
 		</td>
