@@ -18,6 +18,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.DDot.model.MessageVo;
+import com.DDot.singleton.ConnectChatUserList;
 import com.google.gson.Gson;
 
 public class EchoHandler extends TextWebSocketHandler {
@@ -46,8 +47,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		System.out.println("닉네임 : " + userNickname);
 
 		for (WebSocketSession sess : sessionList) {
-
-			sess.sendMessage(new TextMessage(userNickname + "님이 입장하였습니다."));
+			sess.sendMessage(new TextMessage("<p class='alertchat'>"+userNickname + "님이 입장하였습니다.</p>"));
 		}
 	}
 
@@ -77,8 +77,11 @@ public class EchoHandler extends TextWebSocketHandler {
 		} else {
 
 			for (WebSocketSession sess : sessionList) {
-
-				sess.sendMessage(new TextMessage(userNickname + ":" + msgVo.message));
+				if (sess.equals(session)) {
+					sess.sendMessage(new TextMessage("<p class='mychat'>"+ userNickname + ":" + msgVo.message+"</p>"));
+				} else {
+					sess.sendMessage(new TextMessage("<p class='otherchat'>"+ userNickname + ":" + msgVo.message+"</p>"));
+				}
 			}
 		}
 	}
@@ -91,22 +94,26 @@ public class EchoHandler extends TextWebSocketHandler {
 
 	@Override
 
-	public void afterConnectionClosed(WebSocketSession session,
-
-			CloseStatus status) throws Exception {
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 
 		Map<String, Object> map = session.getAttributes();
-		String userId = (String) map.get("userId");
-		System.out.println("나간사람아이디 : " + userId);
+		String userNickname = (String) map.get("nickname");
+		System.out.println("나간사람아이디 : " + userNickname);
 
 		sessionList.remove(session);
-		// usersMap.remove(session.getId());
+
+		// 리스트get
+		List<String> list = ConnectChatUserList.getInstance().userMap.get("userlist");
+		// 리스트에 유저 제외
+		list.remove(userNickname);
+		// map에 wrapping
+		ConnectChatUserList.getInstance().userMap.put("userlist", list);
 
 		if (sessionList.size() > 0) {
 
 			for (WebSocketSession sess : sessionList) {
 
-				sess.sendMessage(new TextMessage(userId + "님이 퇴장하였습니다."));
+				sess.sendMessage(new TextMessage(userNickname + "님이 퇴장하였습니다."));
 
 			}
 		}

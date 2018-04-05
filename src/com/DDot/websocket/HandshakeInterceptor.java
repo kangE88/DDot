@@ -10,6 +10,7 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;
 
 import com.DDot.model.MemberDto;
+import com.DDot.singleton.ConnectChatUserList;
 
 
 public class HandshakeInterceptor implements org.springframework.web.socket.server.HandshakeInterceptor {
@@ -31,6 +32,7 @@ public class HandshakeInterceptor implements org.springframework.web.socket.serv
         attributes.put("userId", userId);*/
   
         // HttpSession 에 저장된 이용자의 아이디를 추출하는 경우
+        
         MemberDto dto = (MemberDto)req.getSession().getAttribute("login");
         String nickname = dto.getNickname();
         attributes.put("nickname", nickname);
@@ -44,8 +46,21 @@ public class HandshakeInterceptor implements org.springframework.web.socket.serv
 	@Override
 	public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler,
 			Exception exception) {
-		// TODO Auto-generated method stub
-
+/*		System.out.println("After Handshake");
+        
+        
+        ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;
+        System.out.println("URI:"+request.getURI());
+  
+        HttpServletRequest req =  ssreq.getServletRequest();
+ 
+        
+  
+        // HttpSession 에 저장된 이용자의 아이디를 추출하는 경우
+        
+        MemberDto dto = (MemberDto)req.getSession().getAttribute("login");
+        String nick = dto.getNickname();
+        ConnectChatUserMap.getInstance().usersMap.remove(nick, nick);*/
 	}
 
 }

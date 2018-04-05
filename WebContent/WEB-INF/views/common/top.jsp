@@ -73,14 +73,14 @@ $("#chatting").click(function () {
 			  ,url:"chatstatus.do" //세션 생성페이지 (setAttribute...)
 			  ,data:{"chatstat" : 1}
 			  ,success:function(){
-				  console.log(${chatstatus});
+				  console.log("${chatstatus}");
 				  location.reload();
 			  },
 			  error: function(xhr, status, error) {
 		            alert(error);
 		      }  
 			 });
-		window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=100,left=100');
+		window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=0,left=500');
 	}else if(chatStatus == null){
 		alert("로그인이 필요합니다.");
 
