@@ -9,7 +9,7 @@
 	</div>
 </div>
 <div class="navbar-inner">
-	<div class="container">
+	<div class="row-fluid" style="margin-left:auto; margin-right:auto; width:95%;">
 		<a class="brand" href="./index.jsp">D.Dot</a>
 		<div class="nav-collapse collapse">
 			<ul class="nav">
