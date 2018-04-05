@@ -40,11 +40,12 @@
 
 <body>
 
-<form name="frmForm" id="_frmForm" method="post" action="bbsupdate.do">
+<form name="frmForm" id="_frmForm" method="post">
 
 <table class="table table-bordered" style="width:85%;">
 
 <input type="hidden" name="seq"   value="${bbs.seq}"/>
+
 <colgroup>
 <col style="width:200px;" />
 <col style="width:auto;" />
@@ -65,7 +66,7 @@
 	<tr>
 		<th>category</th>
 			<td style="text-align: left">
-				<select name="category" disabled="disabled">
+				<select name="category" id="_category" disabled="disabled">
 				<option value="0">Java</option>
 				<option value="1">JSP</option>
 				<option value="2">JQuery</option>
@@ -78,16 +79,16 @@
 	<tr>
 		<th>subcategory</th>
 			<td style="text-align: left">
-				<select name="subcategory" disabled="disabled">
-				<option value="0">tip</option>
-				<option value="1">error</option>
-				<option value="2">ex</option>
-				<option value="3">etc</option>
+				<select name="subcategory" id="_subcategory" disabled="disabled">
+				<option value="0">Tip</option>
+				<option value="1">Error</option>
+				<option value="2">Example</option>
+				<option value="3">E.T.C</option>
 				</select>
 			</td>
 	</tr>
 	<tr>
-		<th>내용</th>
+		<th>contents</th>
 		<td style="text-align: left">
 			<%-- <textarea rows="10" cols="50" name='content' id="_content" readonly="readonly">${bbs.content}</textarea> --%>
 			<div>${bbs.content}</div>
@@ -97,9 +98,10 @@
 		<td colspan="2" style="height:50px; text-align:center;">
 		<span>
 			<c:if test="${bbs.nickname eq login.nickname}">
-			<a href="#none" id="_btnUpdate" title="글수정하기"><img src="image/bupdate.png" alt="수정하기" /></a>
+			<span class="label label-warning"><a href="#none" id="_btnUpdate" title="글수정하기">modified</a></span>&nbsp;
+			<span class="label label-important"><a href="#none" id="_btnDelete" title="글삭제하기">delete</a></span>&nbsp;
 			</c:if>
-			<a href="#none" id="_btnReply" title="답글달기"><img src="image/breply.png" alt="답글달기" /></a>
+			<span class="label label-success"><a href="#none" id="_btnReply" title="답글달기">reply</a></span>
 		</span>
 		</td>
 	</tr>
@@ -110,11 +112,18 @@
 
 
 <script type="text/javascript">
+// category & subcategory 선택 사항 적용 
+$("#_category > option[value="+'<c:out value="${bbs.category }"/>'+"]").attr("selected","selected");
+$("#_subcategory > option[value="+'<c:out value="${bbs.subcategory }"/>'+"]").attr("selected","selected");
 
 $("#_btnUpdate").click(function() {	
-	alert('글수정하기');		
 	$("#_frmForm").attr({ "target":"_self", "action":"bbsupdate.do" }).submit();
 });
+
+$("#_btnDelete").click(function() {	
+	$("#_frmForm").attr({ "target":"_self", "action":"bbsdelete.do" }).submit();
+});
+
 /* 
 $("#_btnReply").click(function() {	
 	alert('답글달기');	

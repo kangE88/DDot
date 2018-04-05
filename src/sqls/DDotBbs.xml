@@ -7,16 +7,14 @@
 <mapper namespace="DDotBbs">
 
 	<select id="getBbsList" parameterType="com.DDot.model.BbsDto" resultType="com.DDot.model.BbsDto">
-		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, 
-			CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
 		FROM DDOTBBS
 		WHERE CATEGORY=#{category}
 		ORDER BY WDATE DESC
 	</select>
 	
 	<select id="getBbsList_Subcategory" parameterType="com.DDot.model.BbsDto" resultType="com.DDot.model.BbsDto">
-		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, 
-			CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
 		FROM DDOTBBS
 		WHERE CATEGORY=#{category} AND SUBCATEGORY=#{subcategory}
 		ORDER BY WDATE DESC
@@ -26,22 +24,17 @@
  
 	<insert id="writeBbs" parameterType="com.DDot.model.BbsDto">
 		INSERT INTO DDOTBBS
-		(SEQ,NICKNAME, CATEGORY, SUBCATEGORY, TITLE, 
-		CONTENT, WDATE, UP, DOWN, READCOUNT, DEL) 
+		(SEQ,NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL) 
 		VALUES(SEQ_DDOTBBS.nextval, #{nickname}, #{category}, #{subcategory},  #{title},
 		 #{content}, SYSDATE, 0, 0, 0, 2)
 	</insert>
-	<!-- 
-	<select id="getBbsPagingList"
-	parameterType="kh.com.a.model.BbsParam"
-	resultType="com.DDot.model.BbsDto">
-			SELECT SEQ, ID, REF, STEP, DEPTH, TITLE, 
-	CONTENT, WDATE, PARENT, DEL, READCOUNT
-	FROM 
-		( SELECT ROW_NUMBER() OVER (ORDER BY  REF DESC, STEP ASC) as rnum,  
-		SEQ, ID, REF, STEP, DEPTH, TITLE, 
-	    CONTENT, WDATE, PARENT, DEL, READCOUNT FROM BBS
-	    WHERE 1 = 1 
+	 
+	<select id="getBbsPagingList" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTBBS
+	    WHERE CATEGORY=#{category} 
 	    <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
 			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
 			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
@@ -50,19 +43,42 @@
 			WHERE rnum between ${start} AND ${end}
 	</select>
 	
-	<select id="getBbsCount"
-	parameterType="kh.com.a.model.BbsParam"
-	resultType="java.lang.Integer">
+	<select id="getBbsPagingList_Subcategory" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTBBS
+	    WHERE CATEGORY=#{category} AND SUBCATEGORY=#{subcategory}
+	    <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+		</if>
+			 ) A
+			WHERE rnum between ${start} AND ${end}
+	</select>
+	
+	<select id="getBbsCount" parameterType="com.DDot.model.BbsParam" resultType="java.lang.Integer">
 	 
 			SELECT NVL(count(*),0) AS cnt
-			  FROM   BBS  WHERE 1 = 1
+			  FROM   DDOTBBS  WHERE CATEGORY=#{category}
 		
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
 			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
 			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
 		</if>
 	</select>
-	 -->
+	
+	<select id="getBbsCount_Subcategory" parameterType="com.DDot.model.BbsParam" resultType="java.lang.Integer">
+	 
+			SELECT NVL(count(*),0) AS cnt
+			  FROM   DDOTBBS  WHERE CATEGORY=#{category} AND SUBCATEGORY=#{subcategory}
+		
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+		</if>
+	</select>
+	 
 	<update id="updateBbs" parameterType="com.DDot.model.BbsDto">
 		UPDATE DDOTBBS SET
 		CATEGORY=#{category}, SUBCATEGORY=#{subcategory}, 
@@ -70,17 +86,34 @@
 		WHERE SEQ=#{seq}
 	</update>
 	
+	<select id="getBbs" parameterType="java.lang.Integer" resultType="com.DDot.model.BbsDto">
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE,	CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM DDOTBBS
+		WHERE SEQ=#{seq}
+	</select>
+	 
+	<update id="readCount" parameterType="java.lang.Integer">
+		UPDATE DDOTBBS SET
+		READCOUNT = READCOUNT+1
+		WHERE SEQ=#{seq}
+	</update>
+ 	
+	<update id="deleteBbs" parameterType="java.lang.Integer">
+		UPDATE DDotBBS
+		SET DEL=0
+		WHERE SEQ=#{seq}
+	</update>	
+
+
 	<!-- 
-	<update id="replyBbsUpdate"
-		parameterType="com.DDot.model.BbsDto">
+	<update id="replyBbsUpdate" 	parameterType="com.DDot.model.BbsDto">
 		UPDATE BBS 
 		SET STEP=STEP+1
 		WHERE REF=(SELECT REF FROM BBS WHERE SEQ=#{seq})
 			AND STEP>(SELECT STEP FROM BBS WHERE SEQ=#{seq})		
 	</update>
 	
-	<insert id="replyBbsInsert"
-		parameterType="com.DDot.model.BbsDto">
+	<insert id="replyBbsInsert" 	parameterType="com.DDot.model.BbsDto">
 		INSERT INTO BBS
 			(SEQ, ID, REF, STEP, DEPTH, 
 			TITLE, CONTENT, WDATE, PARENT, DEL, READCOUNT)
@@ -92,28 +125,6 @@
 			#{seq}, 0, 0)	
 	</insert>
 	 -->
-	<select id="getBbs"
-		parameterType="java.lang.Integer"
-		resultType="com.DDot.model.BbsDto">
-		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, 
-			CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
-		FROM DDOTBBS
-		WHERE SEQ=#{seq}
-	</select>
-	 
-	<update id="readCount" 
-		parameterType="java.lang.Integer">
-		UPDATE DDOTBBS SET
-		READCOUNT = READCOUNT+1
-		WHERE SEQ=#{seq}
-	</update>
- 	
-	<update id="deleteBbs" parameterType="java.lang.Integer">
-		UPDATE BBS
-		SET DEL=1
-		WHERE SEQ=#{seq}
-	</update>	
-
 
 </mapper>  
 

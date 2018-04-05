@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.DDot.dao.BbsDao;
 import com.DDot.model.BbsDto;
+import com.DDot.model.BbsParam;
 
 @Repository
 public class BbsDaoImpl implements BbsDao {
@@ -53,6 +54,41 @@ public class BbsDaoImpl implements BbsDao {
 	public boolean readCount(int seq) throws Exception {
 		sqlSession.update(namespace + "readCount", seq);
 		return true;
+	}
+
+	@Override
+	public List<BbsDto> getBbsPagingList(BbsParam param) throws Exception {
+		List<BbsDto> list = new ArrayList<BbsDto>();
+		list = sqlSession.selectList(namespace+"getBbsPagingList", param);
+		return list;
+	}
+
+	@Override
+	public int getBbsCount(BbsParam param) throws Exception {
+		int num = 0;
+		num = sqlSession.selectOne(namespace+"getBbsCount", param);
+		return num;
+	}
+
+	@Override
+	public List<BbsDto> getBbsPagingList_Subcategory(BbsParam param) throws Exception {
+		List<BbsDto> list = new ArrayList<BbsDto>();
+		list = sqlSession.selectList(namespace+"getBbsPagingList_Subcategory", param);
+		return list;
+	}
+	
+
+	@Override
+	public int getBbsCount_Subcategory(BbsParam param) throws Exception {
+		int num = 0;
+		num = sqlSession.selectOne(namespace+"getBbsCount_Subcategory", param);
+		return num;
+	}
+
+	@Override
+	public void deleteBbs(int seq) {
+		sqlSession.update(namespace+"deleteBbs", seq);
+		
 	}
 
 }
