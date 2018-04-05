@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.DDot.dao.BbsDao;
 import com.DDot.model.BbsDto;
+import com.DDot.model.BbsParam;
 import com.DDot.service.BbsService;
 
 @Service
@@ -43,6 +44,32 @@ public class BbsServiceImpl implements BbsService {
 	@Override
 	public boolean readCount(int seq) throws Exception {
 		return bbsDao.readCount(seq);
+	}
+
+	@Override
+	public List<BbsDto> getBbsPagingList(BbsParam param) throws Exception {
+		return bbsDao.getBbsPagingList(param);
+	}
+
+	@Override
+	public int getBbsCount(BbsParam param) throws Exception {
+		return bbsDao.getBbsCount(param);
+	}
+
+	@Override
+	public List<BbsDto> getBbsPagingList_Subcategory(BbsParam param) throws Exception {
+		return bbsDao.getBbsPagingList_Subcategory(param);
+	}
+
+	@Override
+	public int getBbsCount_Subcategory(BbsParam param) throws Exception {
+		return bbsDao.getBbsCount_Subcategory(param);
+	}
+
+	@Override
+	public void deleteBbs(int seq) {
+		bbsDao.deleteBbs(seq);
+		
 	}
 
 }

@@ -50,9 +50,6 @@
 				dialog.on('show', function (obj) {
 				this.selectPage('Upload'); //업로드텝으로 시작
 			});
-
-				// $('#cke_100_uiElement').hide();
-			
 				dialogDefinition.removeContents('Link'); // 링크탭 제거
 		}
 	});
@@ -75,7 +72,7 @@
 	<tr>
 		<th>nickname</th>
 		<td style="text-align: left">
-		<input type="text" name="nickname" size="60"/ value="${login.nickname}">
+		<input type="text" name="nickname" size="60"/ value="${login.nickname}" readonly="readonly">
 		</td>
 	</tr>
 	<tr>
@@ -101,15 +98,15 @@
 		<th>subcategory</th>
 			<td style="text-align: left">
 				<select id="subcategory" name="subcategory">
-				<option value="0">tip</option>
-				<option value="1">error</option>
-				<option value="2">ex</option>
-				<option value="3">etc</option>
+				<option value="0">Tip</option>
+				<option value="1">Error</option>
+				<option value="2">Example</option>
+				<option value="3">E.T.C</option>
 				</select>
 			</td>
 	</tr>
 	<tr>
-		<th>내용</th>
+		<th>contents</th>
 		<td style="text-align: left">
 			<textarea rows="10" cols="50" name='content' id="_content"></textarea>
 		</td>
@@ -117,7 +114,7 @@
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 			<span>					
-	 			<a href="#none" id="_btnLogin" title="글쓰기">글쓰기
+	 			<a href="#none" id="_btnLogin" title="글쓰기">writing
 				</a>
 			</span>
 		</td>
@@ -130,7 +127,6 @@
 
 <script type="text/javascript">
 $("#_btnLogin").click(function() {	
-	// alert('글작성');	
 	$("#_frmForm").attr({ "target":"_self", "action":"bbswriteAf.do" }).submit();	
 });
 </script>
