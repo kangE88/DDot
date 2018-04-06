@@ -27,6 +27,23 @@ public class MemberServiceImpl implements MemberService {
 	public int getID(MemberDto mem) throws Exception {
 		return  MemberDao.getID(mem);		
 	}
+
+	@Override
+	public int getNickname(MemberDto mem) throws Exception {
+		return  MemberDao.getNickname(mem);		
+	}
+
+	@Override
+	public boolean userInfoModify(MemberDto mem) throws Exception {
+		return MemberDao.userInfoModify(mem);	
+	}
+
+	@Override
+	public boolean userInfoModifyNoImage(MemberDto mem) {
+		return MemberDao.userInfoModifyNoImage(mem);
+	}
+	
+	
 	
 }
 

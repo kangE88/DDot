@@ -4,9 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title>Sign in &middot; Twitter Bootstrap</title>
-<!-- 	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-	<script src="./js/jquery.session.js"></script> -->
-    
+
     <style type="text/css">
       body {
         padding-top: 40px;
@@ -75,13 +73,13 @@
 		$("#_btnLogin").click(function() {
 			//alert("id:" + $("#id").val());
 			if($("#id").val() == ""){		
-				alert($("#id").attr("data-msg") + " id not input" );
+				alert($("#id").attr("data-msg") + " 아이디를 잘못 입력하셨습니다. " );
 				$("#id").focus();
 			} else if($("#pwd").val() == ""){
-				alert($("#pwd").attr("data-msg") + " pwd  not input" );
+				alert($("#pwd").attr("data-msg") + " 비밀번호를 잘못 입력하셨습니다." );
 				$("#pwd").focus();
 			} else{
-				alert("else");
+				alert("환영합니다");
 				$("#_frmForm").attr("target", "_self").submit();				
 			}	
 		});

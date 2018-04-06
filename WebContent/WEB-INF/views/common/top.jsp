@@ -9,7 +9,7 @@
 	</div>
 </div>
 <div class="navbar-inner">
-	<div class="container">
+	<div class="row-fluid" style="margin-left:auto; margin-right:auto; width:95%;">
 		<a class="brand" href="./index.jsp">D.Dot</a>
 		<div class="nav-collapse collapse">
 			<ul class="nav">
@@ -50,7 +50,7 @@
 			%>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="none"> 
-					<%=mem.getNickname() %> <span	class="caret"></span>
+					<span class="nickname"><%=mem.getNickname() %></span> <span	class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li class=""><a href="#" id="userInfo">내 정보</a></li>
