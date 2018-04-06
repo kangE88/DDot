@@ -148,9 +148,9 @@ $(".form-info").submit(function (e) {
 		formData.append("nickname",$('input[name=nickname]').val());
 		formData.append("email",$('input[name=email]').val());
 		formData.append("intro", $("textarea[name=intro]").text());
-		
-	   	var nicknameVal = $('input[name=nickname]').val();
     	
+		//nickcheck add
+		
     	$.ajax({
 			type: "post",
 			url: "userInfoModifyNoImage.do",
@@ -162,7 +162,6 @@ $(".form-info").submit(function (e) {
 			processData : false,
 			success:function(){
 				alert("success");
-				//$(opener.document).find("span[class=nickname]").val(nicknameVal); 
 				opener.parent.location.reload();
 				//opener.location.reload();
 				window.close();
@@ -178,8 +177,6 @@ $(".form-info").submit(function (e) {
 		formData.append("email",$('input[name=email]').val());
 		formData.append("intro", $("textarea[name=intro]").text());
     	formData.append("picFile",$('input[name=picFile]')[0].files[0]);
-    	
-    	var nicknameVal = $('input[name=nickname]').val();
     	
     	$.ajax({
 			type: "post",
