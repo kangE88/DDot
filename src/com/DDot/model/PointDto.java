@@ -37,7 +37,7 @@ public class PointDto implements Serializable {
 	int day29;
 	int day30;
 	int day31;
-	
+		
 	public PointDto() {	}
 	
 	public String getNickname() {
@@ -135,7 +135,7 @@ public class PointDto implements Serializable {
 	}
 	public int getDay31() {
 		return day31;
-	}
+	}	
 	 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
