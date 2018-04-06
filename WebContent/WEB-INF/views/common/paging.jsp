@@ -101,8 +101,7 @@
 		if (totalPageCount > 0){
 			end_page = totalPageCount - 1;
 		}
-		
-	if (totalPageCount > 1){
+		if (totalPageCount > 1){
 	%>	        	
 	<button class="btn"><a href="#none" title="마지막페이지" onclick="goPage(<%=end_page %>);" >마지막 &rarr;</a></button>
 	<%

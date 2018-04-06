@@ -116,6 +116,14 @@ public class BbsParam implements Serializable {
 	public void setEnd(int end) {
 		this.end = end;
 	}
+	@Override
+	public String toString() {
+		return "BbsParam [seq=" + seq + ", nickname=" + nickname + ", title=" + title + ", content=" + content
+				+ ", wdate=" + wdate + ", category=" + category + ", subcategory=" + subcategory + ", del=" + del
+				+ ", readcount=" + readcount + ", s_category=" + s_category + ", s_keyword=" + s_keyword
+				+ ", recordCountPerPage=" + recordCountPerPage + ", pageNumber=" + pageNumber + ", start=" + start
+				+ ", end=" + end + "]";
+	}
 	
 	
 		

@@ -28,8 +28,8 @@ public class BbsDaoImpl implements BbsDao {
 
 	@Override
 	public boolean writeBbs(BbsDto bbs) throws Exception {
-		sqlSession.insert(namespace+"writeBbs", bbs);
-		return true;
+		int count = sqlSession.insert(namespace+"writeBbs", bbs);
+		return count>0?true:false;
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class BbsDaoImpl implements BbsDao {
 
 	@Override
 	public boolean readCount(int seq) throws Exception {
-		sqlSession.update(namespace + "readCount", seq);
-		return true;
+		int count = sqlSession.update(namespace + "readCount", seq);
+		return count>0?true:false;
 	}
 
 	@Override
@@ -86,9 +86,9 @@ public class BbsDaoImpl implements BbsDao {
 	}
 
 	@Override
-	public void deleteBbs(int seq) {
-		sqlSession.update(namespace+"deleteBbs", seq);
-		
+	public boolean deleteBbs(int seq) {
+		int count = sqlSession.update(namespace+"deleteBbs", seq);
+		return count>0?true:false;
 	}
 
 }
