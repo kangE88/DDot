@@ -93,7 +93,7 @@
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 			<span>					
-	 			<a href="#none" id="_btnLogin" title="글쓰기">Wrtie	</a>
+	 			<a href="#none" class="btn" style="margin:auto;"  id="_btnLogin" title="글쓰기">Wrtie	</a>
 			</span>
 		</td>
 	</tr>

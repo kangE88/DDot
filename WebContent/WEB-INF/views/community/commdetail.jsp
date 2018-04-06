@@ -72,11 +72,11 @@
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 		<span>
-			<c:if test="${comm.nickname eq login.nickname}">
-			<span class="label label-warning"><a href="#none" id="_btnUpdate" title="글수정하기">modified</a></span>&nbsp;
-			<span class="label label-important"><a href="#none" id="_btnDelete" title="글삭제하기">delete</a></span>&nbsp;
+			<c:if test="${bbs.nickname eq login.nickname}">
+			<a href="#none" class="btn" style="margin:auto;" id="_btnUpdate" title="글수정하기">modified</a>&nbsp;
+			<a href="#none" class="btn" style="margin:auto;" id="_btnDelete" title="글삭제하기">delete</a>&nbsp;
 			</c:if>
-			<span class="label label-success"><a href="#none" id="_btnReply" title="답글달기">reply</a></span>
+			<a href="#none" class="btn" style="margin:auto;"  id="_btnReply" title="답글달기">reply</a>
 		</span>
 		</td>
 	</tr>

@@ -169,7 +169,7 @@
 			</c:otherwise>
 			</c:choose>
 			
-				<td style="text-align: center;">${bbs.nickname}</td>
+				<td style="text-align: center;"><a href="#" class="userInfo" title="${bbs.nickname}">${bbs.nickname}</a></td>
 				<!-- 날짜 형식 변경 -->
 				<td style="text-align: center;">	<c:out value="${fn:substring(bbs.wdate,2,10)}"/></td>
 				<td style="text-align: center;">${bbs.readcount}</td>
@@ -178,7 +178,15 @@
 			</c:forEach>
 			</tbody>
 		</table>
-		
+			
+			<!-- Nickname 선택시 정보표현 Start --> 		
+			<script type="text/javascript">
+			$(".userInfo").click(function () {
+				// alert($(".userInfo").attr("title"));
+					window.open("userInfo.do?",'내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
+				});
+			</script>
+			<!-- Nickname 선택시 정보표현 End -->		
 
 		
 		<!-- ==================== 실제게시판 들어가는부분 End ==================== -->
@@ -205,7 +213,7 @@
 		<!-- ==================== 글쓰기 div start ==================== -->
 		<div class="span9"></div>
 		<div class="span2" style="float: right;"> 
-			<button class="btn btn-link" onclick="location.href='bbswrite.do'">Write</button>
+			<button class="btn" style="margin:auto;" onclick="location.href='bbswrite.do'">Write</button>
 		</div>	
 		<!-- ==================== 글쓰기 div End ==================== -->
 	</div>

@@ -92,7 +92,7 @@
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 		<span>
-			<span class="label label-warning"><a href="#none" id="_btnUpdateAf" title="글수정완료">submit</a></span>&nbsp;
+			<a href="#none" class="btn" style="margin:auto;"  id="_btnUpdateAf" title="글수정완료">submit</a>&nbsp;
 		</span>
 		</td>
 	</tr>
