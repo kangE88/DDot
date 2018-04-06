@@ -162,8 +162,9 @@ $(".form-info").submit(function (e) {
 			processData : false,
 			success:function(){
 				alert("success");
-				$(opener.document).find("span[class=nickname]").val(nicknameVal); 
+				//$(opener.document).find("span[class=nickname]").val(nicknameVal); 
 				opener.parent.location.reload();
+				//opener.location.reload();
 				window.close();
 			},
 			error: function() {
@@ -191,8 +192,10 @@ $(".form-info").submit(function (e) {
 			processData : false,
 			success:function(){
 				alert("success");
-				$(opener.document).find("span[class=nickname]").val(nicknameVal);
+				//$(opener.document).find("span[class=nickname]").val(nicknameVal);
 				opener.parent.location.reload();
+				//opener.window.location.reload();
+				//opener.lacation.reload();
 				window.close();
 			},
 			error: function() {
