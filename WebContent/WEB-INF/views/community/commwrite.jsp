@@ -35,6 +35,7 @@
     </style>
     <link href="./css/bootstrap-responsive.css" rel="stylesheet">
 
+
 <script src="./ckeditor/ckeditor.js"></script>
  <script>
  window.onload=function(){
@@ -49,92 +50,64 @@
 				dialog.on('show', function (obj) {
 				this.selectPage('Upload'); //업로드텝으로 시작
 			});
+
+				// $('#cke_100_uiElement').hide();
+			
 				dialogDefinition.removeContents('Link'); // 링크탭 제거
 		}
 	});
 	};
 
  </script>
-
 </head>
 
 <body>
 
-<form name="frmForm" id="_frmForm" method="post">
+<form name="frmForm" id="_frmForm" method="post" action="commwriteAf.do">
 
 <table class="table table-bordered" style="width:85%;">
-
-<input type="hidden" name="seq"   value="${bbs.seq}"/>
-
 <colgroup>
 <col style="width:200px;" />
 <col style="width:auto;" />
 </colgroup>
 
-<tr>
+	
+	<tr>
 		<th>Nickname</th>
 		<td style="text-align: left">
-		<input type="text" name="nickname" size="60" readonly="readonly" value="${bbs.nickname }"/>
+		<input type="text" name="nickname" size="60" value="${login.nickname}" readonly="readonly">
 		</td>
 	</tr>
 	<tr>
 		<th>Title</th>
 			<td style="text-align: left">
-				<input type="text" name="title" size="60" value="${bbs.title }"/>
-			</td>
-	</tr>
-	<tr>
-		<th>Category</th>
-			<td style="text-align: left">
-				<select name="category" id="_category">
-				<option value="0">Java</option>
-				<option value="1">JSP</option>
-				<option value="2">JQuery</option>
-				<option value="3">Oracle/SQL</option>
-				<option value="4">Spring</option>
-				<option value="5">E.T.C</option>
-				</select>
-			</td>
-	</tr>
-	<tr>
-		<th>Subcategory</th>
-			<td style="text-align: left">
-				<select name="subcategory" id="_subcategory">
-				<option value="0">Tip</option>
-				<option value="1">Error</option>
-				<option value="2">Example</option>
-				<option value="3">E.T.C</option>
-				</select>
+				<input type="text" name="title" size="60"/>
 			</td>
 	</tr>
 	<tr>
 		<th>Content</th>
 		<td style="text-align: left">
-			<textarea rows="10" cols="50" name='content' id="_content">${bbs.content}</textarea>
+			<textarea rows="10" cols="50" name='content' id="_content"></textarea>
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
-		<span>
-			<a href="#none" class="btn" style="margin:auto;"  id="_btnUpdateAf" title="글수정완료">submit</a>&nbsp;
-		</span>
+			<span>					
+	 			<a href="#none" class="btn" style="margin:auto;"  id="_btnLogin" title="글쓰기">Wrtie	</a>
+			</span>
 		</td>
 	</tr>
-</tbody>
+
+
 </table>
 
 </form>
 
-
 <script type="text/javascript">
-// category & subcategory 선택 사항 적용 
-$("#_category > option[value="+'<c:out value="${bbs.category }"/>'+"]").attr("selected","selected");
-$("#_subcategory > option[value="+'<c:out value="${bbs.subcategory }"/>'+"]").attr("selected","selected");
-
-$("#_btnUpdateAf").click(function() {	
-	$("#_frmForm").attr({ "target":"_self", "action":"bbsupdateAf.do" }).submit();
+$("#_btnLogin").click(function() {	
+	// alert('글작성');	
+	$("#_frmForm").attr({ "target":"_self", "action":"commwriteAf.do" }).submit();	
 });
-
 </script>
 </body>
 </html>

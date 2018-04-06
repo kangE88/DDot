@@ -64,7 +64,7 @@
 
 <table class="table table-bordered" style="width:85%;">
 
-<input type="hidden" name="seq"   value="${bbs.seq}"/>
+<input type="hidden" name="seq"   value="${comm.seq}"/>
 
 <colgroup>
 <col style="width:200px;" />
@@ -74,43 +74,19 @@
 <tr>
 		<th>Nickname</th>
 		<td style="text-align: left">
-		<input type="text" name="nickname" size="60" readonly="readonly" value="${bbs.nickname }"/>
+		<input type="text" name="nickname" size="60" readonly="readonly" value="${comm.nickname }"/>
 		</td>
 	</tr>
 	<tr>
 		<th>Title</th>
 			<td style="text-align: left">
-				<input type="text" name="title" size="60" value="${bbs.title }"/>
-			</td>
-	</tr>
-	<tr>
-		<th>Category</th>
-			<td style="text-align: left">
-				<select name="category" id="_category">
-				<option value="0">Java</option>
-				<option value="1">JSP</option>
-				<option value="2">JQuery</option>
-				<option value="3">Oracle/SQL</option>
-				<option value="4">Spring</option>
-				<option value="5">E.T.C</option>
-				</select>
-			</td>
-	</tr>
-	<tr>
-		<th>Subcategory</th>
-			<td style="text-align: left">
-				<select name="subcategory" id="_subcategory">
-				<option value="0">Tip</option>
-				<option value="1">Error</option>
-				<option value="2">Example</option>
-				<option value="3">E.T.C</option>
-				</select>
+				<input type="text" name="title" size="60" value="${comm.title }"/>
 			</td>
 	</tr>
 	<tr>
 		<th>Content</th>
 		<td style="text-align: left">
-			<textarea rows="10" cols="50" name='content' id="_content">${bbs.content}</textarea>
+			<textarea rows="10" cols="50" name='content' id="_content">${comm.content}</textarea>
 		</td>
 	</tr>
 	<tr>
@@ -127,14 +103,9 @@
 
 
 <script type="text/javascript">
-// category & subcategory 선택 사항 적용 
-$("#_category > option[value="+'<c:out value="${bbs.category }"/>'+"]").attr("selected","selected");
-$("#_subcategory > option[value="+'<c:out value="${bbs.subcategory }"/>'+"]").attr("selected","selected");
-
 $("#_btnUpdateAf").click(function() {	
-	$("#_frmForm").attr({ "target":"_self", "action":"bbsupdateAf.do" }).submit();
+	$("#_frmForm").attr({ "target":"_self", "action":"commupdateAf.do" }).submit();
 });
-
 </script>
 </body>
 </html>

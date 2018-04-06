@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="DDotComm">
+
+	<select id="getCommList" parameterType="com.DDot.model.CommDto" resultType="com.DDot.model.CommDto">
+		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM DDOTCOMM
+		WHERE SEQ=#{seq}
+		ORDER BY WDATE DESC
+	</select>
+ 
+	<insert id="writeComm" parameterType="com.DDot.model.CommDto">
+		INSERT INTO DDOTCOMM
+		(SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL) 
+		VALUES(SEQ_DDOTCOMM.nextval, #{nickname}, #{title}, #{content}, SYSDATE, 0, 0, 0, 2)
+	</insert>
+	 
+	<select id="getCommPagingList" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.CommDto">
+		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+	    WHERE 1 = 1 
+	    <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+		</if>
+			 ) A
+			WHERE rnum between ${start} AND ${end}
+	</select>
+	
+	<select id="getCommCount" parameterType="com.DDot.model.BbsParam" resultType="java.lang.Integer">
+	 
+			SELECT NVL(count(*),0) AS cnt
+			  FROM  DDOTCOMM  WHERE 1 = 1
+		
+		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+		</if>
+	</select>
+	 
+	<update id="updateComm" parameterType="com.DDot.model.CommDto">
+		UPDATE DDOTCOMM SET
+		TITLE=#{title}, CONTENT=#{content} 
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<select id="getComm" parameterType="java.lang.Integer" resultType="com.DDot.model.CommDto">
+		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM DDOTCOMM
+		WHERE SEQ=#{seq}
+	</select>
+	 
+	<update id="readCount" parameterType="java.lang.Integer">
+		UPDATE DDOTCOMM SET
+		READCOUNT = READCOUNT+1
+		WHERE SEQ=#{seq}
+	</update>
+ 	
+	<update id="deleteComm" parameterType="java.lang.Integer">
+		UPDATE DDOTCOMM
+		SET DEL=0
+		WHERE SEQ=#{seq}
+	</update>	
+
+
+	<!-- 
+	<update id="replyBbsUpdate" 	parameterType="com.DDot.model.CommDto">
+		UPDATE BBS 
+		SET STEP=STEP+1
+		WHERE REF=(SELECT REF FROM BBS WHERE SEQ=#{seq})
+			AND STEP>(SELECT STEP FROM BBS WHERE SEQ=#{seq})		
+	</update>
+	
+	<insert id="replyBbsInsert" 	parameterType="com.DDot.model.CommDto">
+		INSERT INTO BBS
+			(SEQ, ID, REF, STEP, DEPTH, 
+			TITLE, CONTENT, WDATE, PARENT, DEL, READCOUNT)
+		VALUES(SEQ_BBS.NEXTVAL, #{id},
+			(SELECT REF FROM BBS WHERE SEQ=#{seq}),
+			(SELECT STEP FROM BBS WHERE SEQ=#{seq})+1,
+			(SELECT DEPTH FROM BBS WHERE SEQ=#{seq})+1,
+			#{title}, #{content}, SYSDATE,
+			#{seq}, 0, 0)	
+	</insert>
+	 -->
+
+</mapper>  
+
+

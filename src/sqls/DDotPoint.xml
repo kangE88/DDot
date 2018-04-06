@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="DDotPoint">
+	<select id="attend" parameterType="java.lang.String" resultType="com.DDot.model.PointDto">
+		SELECT * FROM DDOTATTENDANCE WHERE NICKNAME = #{nickname}
+	</select>
+	
+	<update id="atteendpointup" parameterType="com.DDot.model.AttendDto" >
+		UPDATE DDOTATTENDANCE SET ${table} = 1 WHERE NICKNAME = #{nickname}
+	</update>	
+
+</mapper>

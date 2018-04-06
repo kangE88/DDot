@@ -44,7 +44,7 @@
 
 <table class="table table-bordered" style="width:85%;">
 
-<input type="hidden" name="seq"   value="${bbs.seq}"/>
+<input type="hidden" name="seq"   value="${comm.seq}"/>
 
 <colgroup>
 <col style="width:200px;" />
@@ -54,44 +54,19 @@
 <tr>
 		<th>Nickname</th>
 		<td style="text-align: left">
-		<input type="text" name="nickname" size="60" readonly="readonly" value="${bbs.nickname }"/>
+		<input type="text" name="nickname" size="60" readonly="readonly" value="${comm.nickname }"/>
 		</td>
 	</tr>
 	<tr>
 		<th>Title</th>
 			<td style="text-align: left">
-				<input type="text" name="title" size="60" readonly="readonly" value="${bbs.title }"/>
-			</td>
-	</tr>
-	<tr>
-		<th>Category</th>
-			<td style="text-align: left">
-				<select name="category" id="_category" disabled="disabled">
-				<option value="0">Java</option>
-				<option value="1">JSP</option>
-				<option value="2">JQuery</option>
-				<option value="3">Oracle/SQL</option>
-				<option value="4">Spring</option>
-				<option value="5">E.T.C</option>
-				</select>
-			</td>
-	</tr>
-	<tr>
-		<th>Subcategory</th>
-			<td style="text-align: left">
-				<select name="subcategory" id="_subcategory" disabled="disabled">
-				<option value="0">Tip</option>
-				<option value="1">Error</option>
-				<option value="2">Example</option>
-				<option value="3">E.T.C</option>
-				</select>
+				<input type="text" name="title" size="60" readonly="readonly" value="${comm.title }"/>
 			</td>
 	</tr>
 	<tr>
 		<th>Content</th>
 		<td style="text-align: left">
-			<%-- <textarea rows="10" cols="50" name='content' id="_content" readonly="readonly">${bbs.content}</textarea> --%>
-			<div>${bbs.content}</div>
+			<div>${comm.content}</div>
 		</td>
 	</tr>
 	<tr>
@@ -112,22 +87,19 @@
 
 
 <script type="text/javascript">
-// category & subcategory 선택 사항 적용 
-$("#_category > option[value="+'<c:out value="${bbs.category }"/>'+"]").attr("selected","selected");
-$("#_subcategory > option[value="+'<c:out value="${bbs.subcategory }"/>'+"]").attr("selected","selected");
 
 $("#_btnUpdate").click(function() {	
-	$("#_frmForm").attr({ "target":"_self", "action":"bbsupdate.do" }).submit();
+	$("#_frmForm").attr({ "target":"_self", "action":"commupdate.do" }).submit();
 });
 
 $("#_btnDelete").click(function() {	
-	$("#_frmForm").attr({ "target":"_self", "action":"bbsdelete.do" }).submit();
+	$("#_frmForm").attr({ "target":"_self", "action":"commdelete.do" }).submit();
 });
 
 /* 
 $("#_btnReply").click(function() {	
 	alert('답글달기');	
-	$("#_frmForm").attr({ "target":"_self", "action":"bbsreply.do" }).submit();
+	$("#_frmForm").attr({ "target":"_self", "action":"commreply.do" }).submit();
 });
  */
 </script>
