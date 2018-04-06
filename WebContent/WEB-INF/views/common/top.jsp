@@ -39,6 +39,7 @@
 				<li id="chatting" class=""><a href="#none">Chat</a></li>
 				<li class=""><a href="donate.do">Donate</a></li>
 				<li class=""><a href="attendance.do">attendance</a></li>
+				<li class=""><a href="house.do">house</a></li>
 			</ul>
 		</div>
 		<div class="nav pull-right">

@@ -11,6 +11,22 @@
 	
 	<update id="atteendpointup" parameterType="com.DDot.model.AttendDto" >
 		UPDATE DDOTATTENDANCE SET ${table} = 1 WHERE NICKNAME = #{nickname}
+	</update>
+	
+	<update id="abcup" parameterType="java.lang.String">
+		UPDATE DDOTMEMBER SET POINT = POINT+100 WHERE NICKNAME = #{nickname}
 	</update>	
+	
+	<update id="abcdown" parameterType="java.lang.String">
+		UPDATE DDOTMEMBER SET POINT = POINT-100 WHERE NICKNAME = #{nickname}
+	</update>
+	
+	<update id="updownup" parameterType="java.lang.String">
+		UPDATE DDOTMEMBER SET POINT = POINT+50 WHERE NICKNAME = #{nickname}
+	</update>
+	
+	<update id="updowndown" parameterType="java.lang.String">
+		UPDATE DDOTMEMBER SET POINT = POINT-50 WHERE NICKNAME = #{nickname}
+	</update>
 
 </mapper>

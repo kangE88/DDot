@@ -28,4 +28,24 @@ public class PointServiceImpl implements PointService {
 		pointDao.attendpointup(adto);		
 	}
 
+	@Override
+	public void abcup(String nickname) {
+		pointDao.abcup(nickname);
+	}
+
+	@Override
+	public void abcdown(String nickname) {
+		pointDao.abcdown(nickname);		
+	}
+
+	@Override
+	public void updownup(String nickname) {
+		pointDao.updownup(nickname);	
+	}
+
+	@Override
+	public void updowndown(String nickname) {
+		pointDao.updowndown(nickname);		
+	}
+
 }
