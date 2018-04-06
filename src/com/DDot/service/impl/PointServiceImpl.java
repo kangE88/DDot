@@ -26,7 +26,7 @@ public class PointServiceImpl implements PointService {
 		PointDto pdto = null;
 		
 		
-		pdto.setNickname(nickname);
+		//pdto.setNickname(nickname);
 		
 	}
 

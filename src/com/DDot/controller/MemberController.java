@@ -71,13 +71,13 @@ public class MemberController {
 		return "donate.tiles";
 	}
 	
-	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
+/*	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String attendance() {
 		
 		return "attendance.tiles";
 	}
 	
-	
+	*/
 	
 	
 	@ResponseBody
@@ -213,7 +213,9 @@ public class MemberController {
 		}catch (IOException e) {
 			System.out.println("fail");
 		}
-
+		
+		req.getSession().setAttribute("login", mem);
+		
 		// db insert 부분
 		return MemberService.userInfoModify(mem);
 	}
@@ -223,32 +225,16 @@ public class MemberController {
 	@RequestMapping(value="userInfoModifyNoImage.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public boolean userInfoModifyNoImage(MemberDto mem, HttpServletRequest req, Model model)throws Exception{
 		logger.info("DDotMemberController userInfoModifyNoImage");	
-		System.out.println(" modi mem===>"+mem.toString());
 
-/*		
- 		//파일경로(폴더)
-		String fupload = "c:\\upload\\"+mem.getId();
-		System.out.println("fupload:"+fupload);
-
+		MemberDto before_mem = (MemberDto)req.getSession().getAttribute("login");
 		
-		String f = mem.getPic();
+		mem.setPic(before_mem.getPic());
+		mem.setPoint(before_mem.getPoint());		
 		
-		String newFile= FUpUtil.getNewFile(f);
+		req.getSession().setAttribute("login", mem);
 		
-		System.out.println(fupload + "/" + newFile);
+		System.out.println(" modi noImage mem===>"+mem.toString());
 		
-		mem.setPic(newFile);
-
-		try {
-			File file = new File(fupload + "/" + newFile);
-			FileUtils.writeByteArrayToFile(file, picFile.getBytes());
-			
-			System.out.println(MemberService.userInfoModify(mem));
-			
-		}catch (IOException e) {
-			System.out.println("fail");
-		}
-*/
 		// db insert 부분
 		return MemberService.userInfoModifyNoImage(mem);
 	}
@@ -266,7 +252,7 @@ public class MemberController {
 		if(login != null && !login.getId().equals("")) {
 			System.out.println("loginAf in");
 			req.getSession().setAttribute("login", login);
-			req.getSession().setAttribute("chatstat", 0);
+			req.getSession().setAttribute("chatstatus", 0);
 			return "redirect:/main.do";
 		}else {
 			return "redirect:/login.do";
