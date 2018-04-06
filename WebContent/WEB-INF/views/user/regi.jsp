@@ -154,7 +154,7 @@ function readURL(input) {
 });
 
 $("#_btnRegi").click(function() {
-	alert("_id:" + $("#_id").val());
+	//alert("_id:" + $("#_id").val());
 	if($("#_id").val() == ""){		
 		alert($("#_id").attr("data-msg") + " 입력해 주십시오" );
 		$("#_id").focus();
@@ -168,7 +168,7 @@ $("#_btnRegi").click(function() {
 		alert($("#_email").attr("data-msg") + " 입력해 주십시오" );
 		$("#_email").focus();
 	}else{
-		alert("signup");
+		//alert("signup");
 		$(".form-signin").attr({"target":"_self", action:"regiAf.do"}).submit();
 	}
 });

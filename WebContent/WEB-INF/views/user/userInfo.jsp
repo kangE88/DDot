@@ -137,7 +137,40 @@ function readURL(input) {
 <script type="text/javascript">
 $(".form-info").submit(function (e) {
 	e.preventDefault(); 
-		var formData = new FormData();
+	
+	var formData = new FormData();
+		
+    if ($('#picFile').val() == "") {
+		alert("pic nochange");
+
+		formData.append("id",$('input[name=id]').val());
+		formData.append("pwd",$('input[name=pwd]').val());
+		formData.append("nickname",$('input[name=nickname]').val());
+		formData.append("email",$('input[name=email]').val());
+		formData.append("intro", $("textarea[name=intro]").text());
+		
+	   	var nicknameVal = $('input[name=nickname]').val();
+    	
+    	$.ajax({
+			type: "post",
+			url: "userInfoModifyNoImage.do",
+			async:true,
+			data: formData,
+			cache : false,
+			dataType    : 'json',
+			contentType: false,
+			processData : false,
+			success:function(){
+				alert("success");
+				$(opener.document).find("span[class=nickname]").val(nicknameVal); 
+				opener.parent.location.reload();
+				window.close();
+			},
+			error: function() {
+				alert("error");
+			}
+    	});
+    }else{
 		formData.append("id",$('input[name=id]').val());
 		formData.append("pwd",$('input[name=pwd]').val());
 		formData.append("nickname",$('input[name=nickname]').val());
@@ -145,7 +178,9 @@ $(".form-info").submit(function (e) {
 		formData.append("intro", $("textarea[name=intro]").text());
     	formData.append("picFile",$('input[name=picFile]')[0].files[0]);
     	
-		$.ajax({
+    	var nicknameVal = $('input[name=nickname]').val();
+    	
+    	$.ajax({
 			type: "post",
 			url: "userInfoModify.do",
 			async:true,
@@ -156,6 +191,7 @@ $(".form-info").submit(function (e) {
 			processData : false,
 			success:function(){
 				alert("success");
+				$(opener.document).find("span[class=nickname]").val(nicknameVal);
 				opener.parent.location.reload();
 				window.close();
 			},
@@ -163,6 +199,8 @@ $(".form-info").submit(function (e) {
 				alert("error");
 			}
 		});
+    }
+		
 });
 
 $("#_btnModify").click(function() {

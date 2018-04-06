@@ -34,5 +34,13 @@
 		SET PWD=#{pwd}, EMAIL=#{email}, NICKNAME=#{nickname}, PIC=#{pic}, INTRO=#{intro}
 		WHERE ID=#{id}
 	</update>
+	
+
+	<update id="userInfoModifyNoImage" parameterType="com.DDot.model.MemberDto">
+		UPDATE DDOTMEMBER 
+		SET PWD=#{pwd}, EMAIL=#{email}, NICKNAME=#{nickname}, INTRO=#{intro}
+		WHERE ID=#{id}
+	</update>
+	
 
 </mapper>  

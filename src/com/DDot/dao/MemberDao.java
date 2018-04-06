@@ -13,5 +13,7 @@ public interface MemberDao {
 	int getNickname(MemberDto mem) throws Exception;
 
 	boolean userInfoModify(MemberDto mem) throws Exception;
+
+	boolean userInfoModifyNoImage(MemberDto mem);
 	
 }

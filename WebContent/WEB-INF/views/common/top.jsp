@@ -50,7 +50,7 @@
 			%>
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="none"> 
-					<%=mem.getNickname() %> <span	class="caret"></span>
+					<span class="nickname"><%=mem.getNickname() %></span> <span	class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li class=""><a href="#" id="userInfo">내 정보</a></li>

@@ -217,6 +217,43 @@ public class MemberController {
 		// db insert 부분
 		return MemberService.userInfoModify(mem);
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="userInfoModifyNoImage.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public boolean userInfoModifyNoImage(MemberDto mem, HttpServletRequest req, Model model)throws Exception{
+		logger.info("DDotMemberController userInfoModifyNoImage");	
+		System.out.println(" modi mem===>"+mem.toString());
+
+/*		
+ 		//파일경로(폴더)
+		String fupload = "c:\\upload\\"+mem.getId();
+		System.out.println("fupload:"+fupload);
+
+		
+		String f = mem.getPic();
+		
+		String newFile= FUpUtil.getNewFile(f);
+		
+		System.out.println(fupload + "/" + newFile);
+		
+		mem.setPic(newFile);
+
+		try {
+			File file = new File(fupload + "/" + newFile);
+			FileUtils.writeByteArrayToFile(file, picFile.getBytes());
+			
+			System.out.println(MemberService.userInfoModify(mem));
+			
+		}catch (IOException e) {
+			System.out.println("fail");
+		}
+*/
+		// db insert 부분
+		return MemberService.userInfoModifyNoImage(mem);
+	}
+	
+	//
 
 	@RequestMapping(value="loginAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})

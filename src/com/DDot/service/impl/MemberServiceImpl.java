@@ -37,6 +37,13 @@ public class MemberServiceImpl implements MemberService {
 	public boolean userInfoModify(MemberDto mem) throws Exception {
 		return MemberDao.userInfoModify(mem);	
 	}
+
+	@Override
+	public boolean userInfoModifyNoImage(MemberDto mem) {
+		return MemberDao.userInfoModifyNoImage(mem);
+	}
+	
+	
 	
 }
 
