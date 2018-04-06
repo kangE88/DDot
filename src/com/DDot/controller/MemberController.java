@@ -270,6 +270,15 @@ public class MemberController {
 		return "userInfo.tiles";
 	}
 	
+	@RequestMapping(value="userInfo_bbs.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String userInfo_bbs(Model model, String nickname) throws Exception {
+
+		MemberDto mem = MemberService.getMember(nickname);
+		model.addAttribute("mem", mem);
+		
+		return "userInfo_bbs.tiles";
+	}
+	
 	@RequestMapping(value="logout.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String logout(HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().invalidate();

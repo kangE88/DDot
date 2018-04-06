@@ -42,6 +42,11 @@ public class MemberServiceImpl implements MemberService {
 	public boolean userInfoModifyNoImage(MemberDto mem) {
 		return MemberDao.userInfoModifyNoImage(mem);
 	}
+
+	@Override
+	public MemberDto getMember(String nickname) throws Exception {
+		return MemberDao.getMember(nickname);
+	}
 	
 	
 	

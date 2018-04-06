@@ -23,6 +23,12 @@
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 </definition>
 
+<!-- userInfo_bbs -->
+<definition name="userInfo_bbs.tiles" template="/WEB-INF/views/user/userInfo_bbs.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+</definition>
+
+
 <!-- labatory -->
 <definition name="labatory.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/labatory/labatory.jsp"/>

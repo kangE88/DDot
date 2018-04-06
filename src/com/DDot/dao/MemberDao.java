@@ -2,6 +2,8 @@ package com.DDot.dao;
 
 import com.DDot.model.MemberDto;
 
+
+
 public interface MemberDao {
 
 	boolean addmember(MemberDto mem)throws Exception;
@@ -15,5 +17,7 @@ public interface MemberDao {
 	boolean userInfoModify(MemberDto mem) throws Exception;
 
 	boolean userInfoModifyNoImage(MemberDto mem);
+	
+	MemberDto getMember(String nickname) throws Exception;
 	
 }

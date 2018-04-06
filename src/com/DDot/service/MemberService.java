@@ -9,4 +9,6 @@ public interface MemberService {
 	public int getNickname(MemberDto mem) throws Exception;
 	public boolean userInfoModify(MemberDto mem) throws Exception;
 	public boolean userInfoModifyNoImage(MemberDto mem);
+	
+	public MemberDto getMember(String nickname) throws Exception;
 }

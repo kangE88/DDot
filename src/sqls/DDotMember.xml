@@ -42,5 +42,12 @@
 		WHERE ID=#{id}
 	</update>
 	
+	<!-- userinfo 를 보기 위한 사항 -->
+	<select id="getMember" parameterType="java.lang.String" resultType="com.DDot.model.MemberDto">
+		SELECT SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH
+		FROM DDOTMEMBER
+		WHERE NICKNAME=#{nickname}
+	</select>
+	
 
 </mapper>  
