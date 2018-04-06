@@ -1,4 +1,3 @@
-<%@page import="java.util.Date"%>
 <%@page import="com.DDot.service.impl.PointServiceImpl"%>
 <%@page import="com.DDot.service.PointService"%>
 <%@page import="com.DDot.model.PointDto"%>
@@ -85,15 +84,7 @@
 		$("#attendancebtn").click(function() {
 			if(attendstring.charAt(day)==0){
 				$("td.fc-widget-content.fc-today").append("&nbsp;<img id='attendanceimg' src='./image/attendance112.png'>");
-				<%
-				int day = new Date().getDate();
-				String sday = String.valueOf(day);
-				if(sday.length()<2){
-					sday = "0"+sday;
-				}
-				System.out.println("sday: "+sday);
-				PointServiceImpl service = new PointServiceImpl();
-				service.attendpointup(sday);%>
+				location.href="attendanceAf.do";
 			}
 			else{
 				alert("오늘은 이미 출석체크 하였습니다.");
@@ -101,12 +92,9 @@
 		});
 	
 		$("td.fc-widget-content.fc-today").prop("style",
-				"background-color: #000085");
-	
+				"background-color: #000085");	
 		
-	
-		
-	});
+		});
 </script>
 
 </div>
