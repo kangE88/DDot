@@ -9,9 +9,8 @@
 		SELECT * FROM DDOTATTENDANCE WHERE NICKNAME = #{nickname}
 	</select>
 	
-	<update id="atteendpointup" parameterType="com.DDot.model.PointDto">
-		UPDATE DDOTATTENDANCE SET #{TODAY} = 1 WHERE NICKNAME = #{nickname}
-	</update>
-	
+	<update id="atteendpointup" parameterType="com.DDot.model.AttendDto" >
+		UPDATE DDOTATTENDANCE SET ${table} = 1 WHERE NICKNAME = #{nickname}
+	</update>	
 
 </mapper>

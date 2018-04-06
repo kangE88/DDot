@@ -69,16 +69,7 @@ public class MemberController {
 	public String donate() {
 		
 		return "donate.tiles";
-	}
-/*	
-	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String attendance() {
-		
-		return "attendance.tiles";
-	}
-	*/
-	
-	
+	}	
 	
 	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
@@ -266,7 +257,7 @@ public class MemberController {
 		if(login != null && !login.getId().equals("")) {
 			System.out.println("loginAf in");
 			req.getSession().setAttribute("login", login);
-			req.getSession().setAttribute("chatstatus", 0);
+			req.getSession().setAttribute("chatstat", 0);
 			return "redirect:/main.do";
 		}else {
 			return "redirect:/login.do";

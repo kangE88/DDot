@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DDot.dao.PointDao;
+import com.DDot.model.AttendDto;
 import com.DDot.model.MemberDto;
 import com.DDot.model.PointDto;
 import com.DDot.service.PointService;
@@ -22,12 +23,9 @@ public class PointServiceImpl implements PointService {
 	}
 
 	@Override
-	public void attendpointup(String a) {
-		PointDto pdto = null;
+	public void attendpointup(AttendDto adto) {
 		
-		
-		pdto.setNickname(nickname);
-		
+		pointDao.attendpointup(adto);		
 	}
 
 }
