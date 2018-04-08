@@ -32,11 +32,11 @@ $(window).on('load', function(){
 	$('.levelImg').attr("src","<%=request.getContextPath()%>/image/level/lv"+level+".gif");
 	$('#profile').attr('src', profileImg);
 	//exp_persent
-	console.log("exp==>"+exp_persent);
+	//console.log("exp==>"+exp_persent);
 	//$('.expPersentBar').html("exp: "+exp_persent);
 	
 	if(exp_persent > 100){
-		console.log("exp!");
+		//console.log("exp!");
 		exp_persent = 100;
 	}
 

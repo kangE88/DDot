@@ -1,9 +1,10 @@
+<%@page import="com.DDot.model.MemberDto"%>
 <%@page import="com.DDot.service.impl.PointServiceImpl"%>
 <%@page import="com.DDot.service.PointService"%>
 <%@page import="com.DDot.model.PointDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -27,22 +28,39 @@
 </style>     
 </head>
 <body>
+<%
+if(session.getAttribute("login") == null){
+%>
 <script type="text/javascript">
-			$(function() {
+	alert("로그인 후 이용 가능합니다.");
+	location.href="login.do";
+</script>
+<%
+}else{
+	%>
+	<script>
+		alert("login success");
+	</script>
+	<%
+	MemberDto mem = (MemberDto)session.getAttribute("login");
+%>
 
-				// page is now ready, initialize the calendar...
+<script type="text/javascript">
+		$(function() {
 
-				$('#calendar').fullCalendar({
-					header:{
-						left: '',
-						center: 'title',
-						right: ''
-					},
-					fixedWeekCount : false,
-					locale : "ko"
-				})
+			// page is now ready, initialize the calendar...
 
-			});
+			$('#calendar').fullCalendar({
+				header:{
+					left: '',
+					center: 'title',
+					right: ''
+				},
+				fixedWeekCount : false,
+				locale : "ko"
+			})
+
+		});
 </script>
 	<div class="row-fluid" style="height: 100%">
 		<div class="span3"></div>
@@ -98,6 +116,8 @@
 </script>
 
 </div>
-
+<%
+}
+%>
 </body>
 </html>

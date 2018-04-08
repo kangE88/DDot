@@ -1,5 +1,7 @@
 package com.DDot.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -138,11 +140,21 @@ public class MemberController {
 		logger.info("DDotMemberController regiAf");	
 		System.out.println("mem===>"+mem.toString());
 
-		System.out.println("pic==>"+picFile);
+		System.out.println("picpicFile==>"+picFile);
 
 		System.out.println("fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
 		
+/*		if(picFile.getOriginalFilename().equals("")) {
+			System.out.println("==========================");
+			System.out.println("서버 경로 : ==>"+req.getSession().getServletContext().getRealPath("/"));
+			picFile = (MultipartFile) new File(req.getSession().getServletContext().getRealPath("/")+"image/noimg.gif");
+			mem.setPic(picFile.getOriginalFilename());
+		}else {
+			mem.setPic(picFile.getOriginalFilename());
+		}*/
+		
 		mem.setPic(picFile.getOriginalFilename());
+		
 		
 		//파일 경로(서버)
 		//String fupload = req.getServletContext().getRealPath("/upload");
@@ -153,10 +165,12 @@ public class MemberController {
 		
 		
 		String f = mem.getPic();
+		System.out.println("f==>"+f);
 		
 		String newFile= FUpUtil.getNewFile(f);
+		System.out.println("newFile==>"+newFile);
 		
-		System.out.println(fupload + "/" + newFile);
+		System.out.println("result==>"+fupload + "/" + newFile);
 		
 		mem.setPic(newFile);
 		

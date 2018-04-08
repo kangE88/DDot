@@ -23,9 +23,6 @@ input[type=file] {
     z-index: -1;
     position: absolute;
 }
-button {
-	margin-top:15px;
-}
 </style>
 <link href="./css/bootstrap-responsive.css" rel="stylesheet">
 <script type="text/javascript" src="<%=request.getContextPath()%>/jquery/common.js"></script>
@@ -34,55 +31,50 @@ button {
 
 <form class="form-signin" method="post" enctype="multipart/form-data" style="height:100%;">
     <h2 class="form-signin-heading">Sign Up</h2><br>
-    		<table class="table span3"></table>
+    		<p class="table span3"></p>
             <table class="table span6" style=" text-align:center; margin-bottom:5%;margin-left: 0;">
-              <tbody>
-              <colgroup>
-				  <col width="25%">
-				  <col width="40%">
-				  <col width="35%">
-			  </colgroup>
+              <tbody class="span12">
                 <tr>
-                  	<td style="vertical-align: middle;">아이디 :</td>
-                  	<td><input type="text" placeholder="id" id="_id" name="id" style="ime-mode: disabled; margin:auto; height:30px;"></td>
-					<td style="text-align:center;">
+                  	<td style="vertical-align: middle;" class="span4">아이디 :</td>
+                  	<td class="span4"><input type="text" id="_id" name="id" data-msg="아이디" style="ime-mode: disabled; margin:auto; height:30px;"></td>
+					<td style="text-align:center;" class="span4">
 					<!-- Button to trigger modal -->
 					<a href="#idchk_modal" role="button" class="btn span10" data-toggle="modal" id="_idchk" style="margin:auto;">중복체크</a></td>
 					<!-- <button class="btn btn-mini btn-primary" id="_idchk" style="margin:auto;">ID 중복체크</button></td> -->
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">비밀번호 :</td>
-                  	<td colspan="2"><input type="password" placeholder="pwd" name="pwd" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">비밀번호 :</td>
+                  	<td colspan="2" class="span8"><input type="password" name="pwd" data-msg="비밀번호" style="margin:auto; height:30px;"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">비밀번호 확인 :</td>
-                  	<td colspan="2"><input type="password" placeholder="pwdRe" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">비밀번호 확인 :</td>
+                  	<td colspan="2" class="span8"><input type="password" placeholder="pwdRe" style="margin:auto; height:30px;"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">닉네임 :</td>
-                  	<td><input type="text" placeholder="nickname" id="_nickname" name="nickname" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">닉네임 :</td>
+                  	<td class="span4"><input type="text" placeholder="nickname" id="_nickname" name="nickname" data-msg="닉네임" style="margin:auto; height:30px;"></td>
 					<!-- Button to trigger modal -->
-					<td style="text-align:center;">
+					<td style="text-align:center;" class="span4">
 					<a href="#nicname_chk_modal" role="button" class="btn span10" data-toggle="modal" id="_nicchk" style="margin:auto;">중복체크</a></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">e-mail :</td>
-                  	<td><input type="email" placeholder="email" name="email" style="margin:auto; height:30px;"></td>
-					<td></td>
+                  	<td style="vertical-align: middle;" class="span4">e-mail :</td>
+                  	<td class="span4"><input type="email" placeholder="email" name="email" data-msg="e-mail" style="margin:auto; height:30px;"></td>
+					<td class="span4"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">프로필 이미지 :</td>
-                  	<td>
+                  	<td style="vertical-align: middle;" class="span4">프로필 이미지 :</td>
+                  	<td class="span4">
              			<input name="picFile" id="pic" type="file">
-                  		<img id="thumPic" onclick="document.all.pic.click();" data-src="holder.js/260x120" alt="클릭하여 이미지를 넣어주세요." alt="260x120" style="width: 200px; height: 150px;">
+                  		<img id="thumPic" onclick="document.all.pic.click();" src="./image/noimg.gif" data-src="holder.js/260x120" alt="클릭하여 이미지를 넣어주세요." style="width: 200px; height: 150px;">
                   	</td>
-					<td>
+					<td class="span4">
 						<a href="#" role="button" class="btn span10" id="_btnClean" style="margin:auto;">clear</a>
 					</td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">자기 소개 :</td>
-					<td colspan="2"><textarea rows="3" class="span12" placeholder="intro" name="intro"></textarea></td>
+                  	<td style="vertical-align: middle;" class="span4">자기 소개 :</td>
+					<td colspan="2" class="span8"><textarea rows="3" class="span12" data-msg="자기소개" name="intro"></textarea></td>
                 </tr>
                 <tr>
                 	<td colspan="3" style="text-align:right;">
@@ -92,7 +84,7 @@ button {
                 </tr>
               </tbody>
             </table>
-            <table class="table span3"></table>
+            <p class="table span3"></p>
  	</form><!-- /container -->
 
 <!-- Modal -->
@@ -127,8 +119,8 @@ button {
 <script>
 $(function() {
     $("#pic").on('change', function(){
-        readURL(this);
-    });
+       readURL(this);
+   });
 });
 
 function readURL(input) {
@@ -167,8 +159,7 @@ $("#_btnRegi").click(function() {
 	}else if($("#_email").val() == ""){		
 		alert($("#_email").attr("data-msg") + " 입력해 주십시오" );
 		$("#_email").focus();
-	}else{
-		//alert("signup");
+	}else{		
 		$(".form-signin").attr({"target":"_self", action:"regiAf.do"}).submit();
 	}
 });

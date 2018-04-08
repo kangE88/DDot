@@ -28,12 +28,18 @@ public class PointController {
 	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String attendance(Model model,HttpServletRequest req) {
 		
-		MemberDto mdto = (MemberDto)req.getSession().getAttribute("login");
-		String nickname = mdto.getNickname();
-		System.out.println("nickname: " + nickname);
-		PointDto pdto = pointService.attendpoint(nickname);
-		model.addAttribute("pdto", pdto);
-		return "attendance.tiles";
+		System.out.println("attendance in");
+		
+		if(req.getSession().getAttribute("login") != null){
+			MemberDto mdto = (MemberDto)req.getSession().getAttribute("login");
+			String nickname = mdto.getNickname();
+			System.out.println("nickname: " + nickname);
+			PointDto pdto = pointService.attendpoint(nickname);
+			model.addAttribute("pdto", pdto);
+			return "attendance.tiles";
+		}else {
+			return "attendance.tiles";
+		}
 	}
 	
 	@RequestMapping(value="attendanceAf.do", method= {RequestMethod.GET, RequestMethod.POST})
@@ -72,7 +78,7 @@ public class PointController {
 		
 		String nickname = mdto.getNickname();
 		
-		System.out.println("°¡À§¹ÙÀ§º¸°á°ú: " + result);		
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + result);		
 		
 		switch (result) {
 		case 2:
@@ -96,7 +102,7 @@ public class PointController {
 		
 		String nickname = mdto.getNickname();
 		
-		System.out.println("¾÷´Ù¿î: " + result);		// result 0Àº ÀÌ±è 1Àº Áü
+		System.out.println("ï¿½ï¿½ï¿½Ù¿ï¿½: " + result);		// result 0ï¿½ï¿½ ï¿½Ì±ï¿½ 1ï¿½ï¿½ ï¿½ï¿½
 		
 		switch (result) {
 		case 0:
