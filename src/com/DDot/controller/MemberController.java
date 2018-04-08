@@ -139,8 +139,9 @@ public class MemberController {
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
 		logger.info("DDotMemberController regiAf");	
 		System.out.println("mem===>"+mem.toString());
-
+		
 		System.out.println("picpicFile==>"+picFile);
+		System.out.println("picFile.size===>"+picFile.getSize());
 
 		System.out.println("fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
 		

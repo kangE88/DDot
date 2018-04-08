@@ -26,8 +26,20 @@ $(window).on('load', function(){
 	var exp_persent = g_percent(level, point);
 	
 	var profileImg = "/img/${login.id}/${login.pic}";
+	var noprofileImg = "<%=request.getContextPath()%>/image/noimg.gif";
+	
+	////
+	
+	var _fileLen = profileImg.length; 
+	var _lastDot = profileImg.lastIndexOf('.');
+	var _fileExt = profileImg.substring(_lastDot, _fileLen).toLowerCase(); 
 
-	//$('.level').html(level);
+	if(_fileExt == ".back"){
+		profileImg = noprofileImg;
+	}
+	////
+	
+	
 	//level img set
 	$('.levelImg').attr("src","<%=request.getContextPath()%>/image/level/lv"+level+".gif");
 	$('#profile').attr('src', profileImg);

@@ -66,10 +66,9 @@ input[type=file] {
                   	<td style="vertical-align: middle;" class="span4">프로필 이미지 :</td>
                   	<td class="span4">
              			<input name="picFile" id="pic" type="file">
-                  		<img id="thumPic" onclick="document.all.pic.click();" src="./image/noimg.gif" data-src="holder.js/260x120" alt="클릭하여 이미지를 넣어주세요." style="width: 200px; height: 150px;">
+                  		<img id="thumPic" onclick="document.all.pic.click();" src="./image/addimg.png" data-src="holder.js/260x120" alt="클릭하여 이미지를 넣어주세요." style="width: 200px; height: 150px;">
                   	</td>
 					<td class="span4">
-						<a href="#" role="button" class="btn span10" id="_btnClean" style="margin:auto;">clear</a>
 					</td>
                 </tr>
                 <tr>

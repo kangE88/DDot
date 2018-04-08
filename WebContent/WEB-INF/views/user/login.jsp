@@ -105,7 +105,7 @@
 			} else if($("#pwd").val() == ""){
 				alert($("#pwd").attr("data-msg") + " 비밀번호를 잘못 입력하셨습니다." );
 				$("#pwd").focus();
-			} else{
+			} else {
 				alert("환영합니다");
 				$("#_frmForm").attr("target", "_self").submit();				
 			}	
