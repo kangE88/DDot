@@ -82,4 +82,9 @@
 	<put-attribute name="main" value="/WEB-INF/views/chat/chat.jsp"/>
 </definition>
 
+<!-- Admin -->
+<definition name="admin.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/admin/admin.jsp"/>
+</definition>
+
 </tiles-definitions>

@@ -1,3 +1,4 @@
+<%@page import="com.DDot.model.MemberDto"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
@@ -19,6 +20,18 @@ a:focus{
 </head>
 
 <body>
+<%
+if(session.getAttribute("login") == null){
+%>
+<script type="text/javascript">
+	alert("로그인 후 이용 가능합니다.");
+	location.href="login.do";
+</script>
+<%
+}else{
+	MemberDto mem = (MemberDto)session.getAttribute("login");
+}
+%>
 <div class="row-fluid" style="height: 100%">
 	<div class="span2">
 </div>
@@ -27,7 +40,6 @@ a:focus{
 		<h1>Wellcome!</h1>
 		<p>회원들만의 놀이공간 입니다. 경험치를 획득하여 Level을 올려보세요~!</p>
 	</div>
-	<h4>Hello! Final Project</h4>
 	
 	<table class="table">
 		<tr>
@@ -36,21 +48,17 @@ a:focus{
 			</td>
 			<td>
 				<a href="#updown" data-toggle="tab">업다운</a>
-			</td>
-			<td>
-				<a href="#oddeven" data-toggle="tab">홀/짝 맞추기</a>
-			</td>
-			<td>
-				<a href="#slotmachine" data-toggle="tab" class="introtitle">슬롯머신</a>
-			</td>			
+			</td>					
 		<tr>
 		<tr>
-			<td colspan="4">
+			<td colspan="2">
 				<div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade" id="abc">
 						<p>
 							가위바위보 게임입니다. 이기면 100 경험치를 얻습니다. 지면  100경험치를 잃습니다. 99레벨에 도전해보세요.<br>
-							나의 경험치 : ${login.point } 경험치 아래 이미지중 내고싶은것을 선택하세요
+							내고싶은 이미지를  선택하세요  <br>
+							나의 경험치 : ${login.point }
+							
 						</p>
 						<a href="#" class="userabc" value="1"><img alt="" src="./image/point/a200.png"></a>
 						<a href="#" class="userabc" value="2"><img alt="" src="./image/point/b200.png"></a>
@@ -71,17 +79,7 @@ a:focus{
 						<div id="cpuupdown">
 						
 						</div>
-					</div>
-					<div class="tab-pane fade" id="oddeven">
-						<p>
-							홀짝 만들기
-						</p>
-					</div>
-					<div class="tab-pane fade" id="slotmachine">
-          				<p>
-          					슬롯머신만들기
-          				</p>
-      				</div>
+					</div>					
       			</div>	
 			</td>
 		</tr>
@@ -92,7 +90,7 @@ a:focus{
 </div>
 <br>  
 
-<!-- ==================== 가위바위보 스크립트 ====================  -->
+<!-- ==================== 가위바위보 스크립트 시작 ====================  -->
 
 <script>
 	var abc = new Array();
@@ -116,10 +114,18 @@ a:focus{
 		$("#cpuabc").hide();
 	});
 	$(".userabc").click(function() {
+		
+		if(parseInt(${login.point})>=100){
+			
 		user = $(this).attr("value");
 		
 		$("#cpuabc").show();
 		interval = setInterval(cpuabcslide,50)
+		
+		}
+		else if(parseInt(${login.point})<100){
+			alert("Point가 모자릅니다.");
+		}
 	});
 	$("#stopbtn").click(function() {
 		clearTimeout(interval);
@@ -156,12 +162,13 @@ a:focus{
 	});
 </script>
 
-<!-- ==================== 가위바위보 스크립트 ====================  -->
+<!-- ==================== 가위바위보 스크립트 끝 ====================  -->
 
-<!-- ==================== 업다운 스크립트 ====================  -->
+<!-- ==================== 업다운 스크립트 시작 ====================  -->
 
 <script type="text/javascript">
 	$(".userupdown").click(function() {
+		if(parseInt(${login.point})>=50){
 		var user = $(this).attr("value");	  		
 		var random = Math.floor(Math.random() * 6) + 1;	
 		var result;
@@ -170,7 +177,13 @@ a:focus{
 			$("#cpuupdown").append("<img src='./image/point/star.png'>");
 		}
 		
-		setTimeout(updownresult(user, random), 20000);	  	   
+		setTimeout(function() {
+			updownresult(user, random)
+		}, 1500);	  	
+		}
+		else{
+			alert("Point가 모자랍니다.");
+		}
 		
 	});
 	
@@ -222,14 +235,7 @@ a:focus{
 	}
 </script>
 
-<!-- ==================== 업다운 스크립트 ====================  -->
+<!-- ==================== 업다운 스크립트 끝 ====================  -->
 
-<!-- ==================== 홀짝 스크립트 ====================  -->
-
-<!-- ==================== 홀짝 스크립트 ====================  -->
-
-<!-- ==================== 슬롯머신 스크립트 ====================  -->
-
-<!-- ==================== 슬롯머신 스크립트 ====================  -->
 </body>
 </html>

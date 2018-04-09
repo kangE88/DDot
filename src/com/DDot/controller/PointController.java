@@ -101,9 +101,7 @@ public class PointController {
 		MemberDto mdto = (MemberDto)req.getSession().getAttribute("login");
 		
 		String nickname = mdto.getNickname();
-		
-		System.out.println("���ٿ�: " + result);		// result 0�� �̱� 1�� ��
-		
+				
 		switch (result) {
 		case 0:
 			pointService.updownup(nickname);			
