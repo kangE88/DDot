@@ -59,7 +59,7 @@
 				</li>
 			<%}%>
 			</ul>
-			<ul class="nav">
+			<ul class="nav" id="message-nav">
 			<% if(session.getAttribute("login") != null){
 			%>
 				<li class=""><a href="#"><img class="message" alt="message" src="./image/message.png" style="width: 24px; height: 20px;"></a></li>
@@ -116,10 +116,14 @@ $("#userInfo").click(function () {
 	});
 	
 //message
-$(".message").hover(function() {
+$("#message-nav").hover(function() {
 	$(".message").attr("src", "./image/message_hover.png");
 },function(){
 	$(".message").attr("src", "./image/message.png");
+});
+
+$("#message-nav").click(function(){
+	window.open("messagelist.do",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=400px,height=300px,top=100,left=500');
 });
 
 </script>

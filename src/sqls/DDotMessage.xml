@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="DDotMessage">
+
+	<select id="getMessageList" parameterType="com.DDot.model.MessageDto" resultType="com.DDot.model.MessageDto">
+		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, INT, DEL
+		FROM DDOTMESSAGE
+		WHERE SEQ=#{seq}
+		ORDER BY WDATE DESC
+	</select>
+ 
+	<insert id="writeMessage" parameterType="com.DDot.model.MessageDto">
+		INSERT INTO DDOTCOMM
+		(SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL) 
+		VALUES(SEQ_DDOTCOMM.nextval, #{nickname}, #{title}, #{content}, SYSDATE, 0, 0, 0, 2)
+	</insert>
+	 
+	<select id="getMessagePagingList" parameterType="com.DDot.model.MessagePagingDto" resultType="com.DDot.model.MessageDto">
+		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+	    WHERE 1 = 1 ) A
+		WHERE rnum between ${start} AND ${end}
+	</select>
+	
+	<select id="getMessageCount" parameterType="com.DDot.model.MessagePagingDto" resultType="java.lang.Integer">
+	 
+			SELECT NVL(count(*),0) AS cnt
+			  FROM  DDOTCOMM  WHERE 1 = 1
+		
+	</select>
+	
+	<select id="getMessage" parameterType="java.lang.Integer" resultType="com.DDot.model.MessageDto">
+		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM DDOTCOMM
+		WHERE SEQ=#{seq}
+	</select>
+	 
+	<update id="deleteMessage" parameterType="java.lang.Integer">
+		UPDATE DDOTCOMM
+		SET DEL=0
+		WHERE SEQ=#{seq}
+	</update>	
+
+
+	
+
+</mapper>  
+
+
