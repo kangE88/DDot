@@ -91,4 +91,10 @@ public class BbsDaoImpl implements BbsDao {
 		return count>0?true:false;
 	}
 
+	@Override
+	public int getusericon(int seq) {
+		
+		return sqlSession.selectOne(namespace+"getusericon", seq);
+	}
+
 }

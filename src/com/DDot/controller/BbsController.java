@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
@@ -124,6 +125,16 @@ public class BbsController {
 		model.addAttribute("category", bbs.getCategory());
 		model.addAttribute("subcategory", bbs.getSubcategory());
 		return "redirect:/bbslist.do";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getusericon.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public int getusericon(String sseq) {
+		
+		int seq = Integer.parseInt(sseq);
+		int point = bbsService.getusericon(seq);		
+		
+		return point;
 	}
 
 }
