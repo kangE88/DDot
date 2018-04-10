@@ -50,7 +50,22 @@
 		<script type="text/javascript">
 		$(document).ready(function() {
 			// select 유지
-			$("#_s_category > option[value="+'<c:out value="${ param.s_category }"/>'+"]").attr("selected","selected");  
+			$("#_s_category > option[value="+'<c:out value="${ param.s_category }"/>'+"]").attr("selected","selected");
+			
+			$.ajax({
+				  type:"POST"
+				  ,url:"가져오는거.do"
+				  ,data:{"seq" : "${bbs.seq}"}
+				  ,success:function(data){
+					 $("#up").html(data.up);
+					 $("#down").html(data.down);
+				  },
+				  error: function(xhr, status, error) {
+					  alert("로그인 후 클릭 부탁 드립니다");
+			      }  
+			 });
+			
+			
 		});
 		$("#_btnSearch").click(function() {
 			$("#_frmFormSearch").attr({ "target":"_self", "action":"bbslist.do" }).submit();
@@ -141,7 +156,18 @@
 			<c:forEach items="${bbslist}" var="bbs" varStatus="vs">
 			<tr>
 				<td style="text-align: center;">${vs.count}</td>
-				<td><img src="./image/level/lv99.gif"></td>
+				<td style="text-align: center;">
+				
+				<!-- 각 게시글의 닉네임 -->
+				${bbs.nickname }
+				
+				 
+				
+				<img src="./image/level/lv99.gif">
+				
+				
+				
+				</td>
 				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
 			<c:choose>

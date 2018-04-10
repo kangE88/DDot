@@ -82,7 +82,7 @@
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 		<span>
-			<c:if test="${bbs.nickname eq login.nickname}">
+			<c:if test="${comm.nickname eq login.nickname}">
 			<a href="#none" class="btn" style="margin:auto;" id="_btnUpdate" title="글수정하기">modified</a>&nbsp;
 			<a href="#none" class="btn" style="margin:auto;" id="_btnDelete" title="글삭제하기">delete</a>&nbsp;
 			</c:if>

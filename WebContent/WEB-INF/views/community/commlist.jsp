@@ -93,7 +93,7 @@
 			<c:forEach items="${commlist}" var="comm" varStatus="vs">
 			<tr>
 				<td style="text-align: center;">${vs.count}</td>
-				<td><img src="./image/level/lv66.gif"></td>
+				<td style="text-align: center;"><img src="./image/level/lv66.gif"></td>
 	
 				<!-- del==0 일 때 title 삭제 된 글로 표현 --> 
 			<c:choose>
