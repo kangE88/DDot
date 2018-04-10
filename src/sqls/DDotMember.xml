@@ -10,6 +10,10 @@
 			VALUES(SEQ_DDOTMEMBER.NEXTVAL, #{id}, #{pwd}, #{email}, 0, #{nickname}, #{pic}, #{intro}, 3)
 	</insert>
 	
+	<insert id="addAttend" parameterType="String">
+		INSERT INTO DDOTATTENDANCE VALUES(#{nickname},0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+	</insert>
+	
 	<select id="login" parameterType="com.DDot.model.MemberDto"
 		resultType="com.DDot.model.MemberDto">
 		SELECT SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH
@@ -34,13 +38,11 @@
 		SET PWD=#{pwd}, EMAIL=#{email}, NICKNAME=#{nickname}, PIC=#{pic}, INTRO=#{intro}
 		WHERE ID=#{id}
 	</update>
-	
 
 	<update id="userInfoModifyNoImage" parameterType="com.DDot.model.MemberDto">
 		UPDATE DDOTMEMBER 
 		SET PWD=#{pwd}, EMAIL=#{email}, NICKNAME=#{nickname}, INTRO=#{intro}
 		WHERE ID=#{id}
-	</update>
-	
+	</update>	
 
 </mapper>  

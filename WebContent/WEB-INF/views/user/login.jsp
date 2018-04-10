@@ -99,14 +99,13 @@
 	
 		$("#_btnLogin").click(function() {
 			//alert("id:" + $("#id").val());
-			if($("#id").val() == ""){		
+			if($("#id").val() == ""){
 				alert($("#id").attr("data-msg") + " 아이디를 잘못 입력하셨습니다. " );
 				$("#id").focus();
 			} else if($("#pwd").val() == ""){
 				alert($("#pwd").attr("data-msg") + " 비밀번호를 잘못 입력하셨습니다." );
 				$("#pwd").focus();
 			} else {
-				alert("환영합니다");
 				$("#_frmForm").attr("target", "_self").submit();				
 			}	
 		});
