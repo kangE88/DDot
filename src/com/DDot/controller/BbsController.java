@@ -64,6 +64,9 @@ public class BbsController {
 			model.addAttribute("s_category", param.getS_category());
 			model.addAttribute("s_keyword", param.getS_keyword());
 		
+
+			
+			
 		return "bbslist.tiles";
 	}
 	

@@ -28,6 +28,29 @@
 		VALUES(SEQ_DDOTBBS.nextval, #{nickname}, #{category}, #{subcategory},  #{title},
 		 #{content}, SYSDATE, 0, 0, 0, 2)
 	</insert>
+	
+	<!-- 
+	<select id="getBbsPagingList" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, 
+		(SELECT count(updown)
+		FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{seq} AND UPDOWN=1) AS UP, 
+		(SELECT count(updown)
+		FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{seq} AND UPDOWN=0) AS DOWN, 
+		READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTBBS
+	    WHERE CATEGORY=#{category} 
+	    <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+		</if>
+			 ) A
+			WHERE rnum between ${start} AND ${end}
+	</select>
+	 -->
 	 
 	<select id="getBbsPagingList" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
 		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
@@ -42,7 +65,7 @@
 			 ) A
 			WHERE rnum between ${start} AND ${end}
 	</select>
-	
+	 
 	<select id="getBbsPagingList_Subcategory" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
 		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
 		FROM 
@@ -57,6 +80,55 @@
 			WHERE rnum between ${start} AND ${end}
 	</select>
 	
+	
+	
+	<!-- 조인 하다가 실패 -->
+	 <!-- 
+	<select id="getBbsPagingList" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, 
+		(SELECT count(*)
+		FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{seq} AND UPDOWN=1) as UP, 
+		(SELECT count(*)
+		FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{seq} AND UPDOWN=0) as DOWN,  
+		READCOUNT, DEL, UPDOWN
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  B.WDATE DESC) as rnum,  
+		B.SEQ, B.NICKNAME, B.CATEGORY, B.SUBCATEGORY, B.TITLE, B.CONTENT, B.WDATE, B.UP, B.DOWN, B.READCOUNT, B.DEL, U.UPDOWN 
+		FROM DDOTBBS B , DDOTUPDOWN U
+	    WHERE B.SEQ= U.BBS_SEQ  
+	    AND CATEGORY=#{category} 
+	    <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+		</if>
+			 ) A
+			WHERE rnum between ${start} AND ${end}
+	</select>
+	
+	<select id="getBbsPagingList_Subcategory" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, 
+		(SELECT count(*)
+		FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{seq} AND UPDOWN=1) as UP, 
+		(SELECT count(*)
+		FROM DDOTUPDOWN 
+		READCOUNT, DEL, UPDOWN
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  B.WDATE DESC) as rnum,  
+		B.SEQ, B.NICKNAME, B.CATEGORY, B.SUBCATEGORY, B.TITLE, B.CONTENT, B.WDATE, B.UP, B.DOWN, B.READCOUNT, B.DEL, U.UPDOWN 
+		FROM DDOTBBS B , DDOTUPDOWN U
+	    WHERE B.SEQ= U.BBS_SEQ
+	    AND CATEGORY=#{category} AND SUBCATEGORY=#{subcategory}
+	    <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
+			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+		</if>
+			 ) A
+			WHERE rnum between ${start} AND ${end}
+	</select>
+	 -->
 	<select id="getBbsCount" parameterType="com.DDot.model.BbsParam" resultType="java.lang.Integer">
 	 
 			SELECT NVL(count(*),0) AS cnt
@@ -103,7 +175,6 @@
 		SET DEL=0
 		WHERE SEQ=#{seq}
 	</update>	
-
 
 	<!-- 
 	<update id="replyBbsUpdate" 	parameterType="com.DDot.model.BbsDto">

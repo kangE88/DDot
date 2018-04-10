@@ -29,6 +29,8 @@ public class BbsDto implements Serializable {
 	private int readcount;
 	private int del;
 	
+	private int updown;
+	
 	public BbsDto() {
 		super();
 	}
@@ -113,12 +115,25 @@ public class BbsDto implements Serializable {
 	public void setDel(int del) {
 		this.del = del;
 	}
+	
+	
+	
+	public int getUpdown() {
+		return updown;
+	}
+	public void setUpdown(int updown) {
+		this.updown = updown;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "BbsDto [seq=" + seq + ", nickname=" + nickname + ", category=" + category + ", subcategory="
 				+ subcategory + ", title=" + title + ", content=" + content + ", wdate=" + wdate + ", up=" + up
-				+ ", down=" + down + ", readcount=" + readcount + ", del=" + del + "]";
+				+ ", down=" + down + ", readcount=" + readcount + ", del=" + del + ", updown=" + updown + "]";
 	}
+	
+	
 	
 	
 	

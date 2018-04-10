@@ -70,6 +70,16 @@
 		</td>
 	</tr>
 	<tr>
+		<th>Good / Bad</th>
+		<td>
+			&nbsp;&nbsp;&nbsp;
+			<span class="badge badge-success" id="up">${comm.up }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="badge badge-important" id="down">${comm.down }</span> <br>&nbsp;
+			<a href="#none" class="btn" style="margin:auto;" id="_btnGood" title="Good">Good</a>&nbsp;&nbsp;
+			<a href="#none" class="btn" style="margin:auto;" id="_btnBad" title="Bad">Bad</a>
+		</td>
+	</tr>
+	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 		<span>
 			<c:if test="${bbs.nickname eq login.nickname}">
@@ -95,6 +105,42 @@ $("#_btnUpdate").click(function() {
 $("#_btnDelete").click(function() {	
 	$("#_frmForm").attr({ "target":"_self", "action":"commdelete.do" }).submit();
 });
+
+
+$("#_btnGood").click(function() {
+	// $("#_frmForm").attr({ "target":"_self", "action":"updownbbsgood.do" }).submit();
+	
+	$.ajax({
+				  type:"POST"
+				  ,url:"updowncommgood.do"
+				  ,data:{"seq" : "${comm.seq}"}
+				  ,success:function(data){
+					   $("#up").html(data.up);
+					   $("#down").html(data.down);
+			 	  },
+				  error: function(xhr, status, error) {
+					  alert("로그인 후 클릭 부탁 드립니다");
+			      }  
+			 });
+ });
+
+$("#_btnBad").click(function() {
+	// $("#_frmForm").attr({ "target":"_self", "action":"updownbbsbad.do" }).submit();
+	
+	$.ajax({
+		  type:"POST"
+		  ,url:"updowncommbad.do"
+		  ,data:{"seq" : "${comm.seq}"}
+		  ,success:function(data){
+			   $("#up").html(data.up);
+			   $("#down").html(data.down);
+		  },
+		  error: function(xhr, status, error) {
+			  alert("로그인 후 클릭 부탁 드립니다");
+	      }  
+	 });
+});
+
 
 /* 
 $("#_btnReply").click(function() {	

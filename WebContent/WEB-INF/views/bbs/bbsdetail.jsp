@@ -89,9 +89,18 @@
 	</tr>
 	<tr>
 		<th>Content</th>
-		<td style="text-align: left">
-			<%-- <textarea rows="10" cols="50" name='content' id="_content" readonly="readonly">${bbs.content}</textarea> --%>
+		<td style="text-align: left;">
 			<div>${bbs.content}</div>
+		</td>
+	</tr>
+	<tr>
+		<th>Good / Bad</th>
+		<td>
+			&nbsp;&nbsp;&nbsp;
+			<span class="badge badge-success" id="up">${bbs.up }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="badge badge-important" id="down">${bbs.down }</span> <br>&nbsp;
+			<a href="#none" class="btn" style="margin:auto;" id="_btnGood" title="Good">Good</a>&nbsp;&nbsp;
+			<a href="#none" class="btn" style="margin:auto;" id="_btnBad" title="Bad">Bad</a>
 		</td>
 	</tr>
 	<tr>
@@ -122,6 +131,40 @@ $("#_btnUpdate").click(function() {
 
 $("#_btnDelete").click(function() {	
 	$("#_frmForm").attr({ "target":"_self", "action":"bbsdelete.do" }).submit();
+});
+
+$("#_btnGood").click(function() {
+	// $("#_frmForm").attr({ "target":"_self", "action":"updownbbsgood.do" }).submit();
+	
+	$.ajax({
+				  type:"POST"
+				  ,url:"updownbbsgood.do"
+				  ,data:{"seq" : "${bbs.seq}"}
+				  ,success:function(data){
+					 $("#up").html(data.up);
+					 $("#down").html(data.down);
+				  },
+				  error: function(xhr, status, error) {
+					  alert("로그인 후 클릭 부탁 드립니다");
+			      }  
+			 });
+ });
+
+$("#_btnBad").click(function() {
+	// $("#_frmForm").attr({ "target":"_self", "action":"updownbbsbad.do" }).submit();
+	
+	$.ajax({
+		  type:"POST"
+		  ,url:"updownbbsbad.do"
+		  ,data:{"seq" : "${bbs.seq}"}
+		  ,success:function(data){
+				 $("#up").html(data.up);
+				 $("#down").html(data.down);
+		  },
+		  error: function(xhr, status, error) {
+	            alert("로그인 후 클릭 부탁 드립니다");
+	      }  
+	 });
 });
 
 /* 
