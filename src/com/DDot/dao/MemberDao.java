@@ -14,6 +14,8 @@ public interface MemberDao {
 
 	boolean userInfoModify(MemberDto mem) throws Exception;
 
-	boolean userInfoModifyNoImage(MemberDto mem);
+	boolean userInfoModifyNoImage(MemberDto mem) throws Exception;
+
+	boolean addAttend(String nickname) throws Exception;
 	
 }

@@ -8,5 +8,6 @@ public interface MemberService {
 	public int getID(MemberDto mem) throws Exception;
 	public int getNickname(MemberDto mem) throws Exception;
 	public boolean userInfoModify(MemberDto mem) throws Exception;
-	public boolean userInfoModifyNoImage(MemberDto mem);
+	public boolean userInfoModifyNoImage(MemberDto mem) throws Exception;
+	public boolean addAttend(String nickname) throws Exception;
 }

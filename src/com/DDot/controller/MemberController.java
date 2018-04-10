@@ -1,7 +1,5 @@
 package com.DDot.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -72,16 +70,13 @@ public class MemberController {
 		
 		return "donate.tiles";
 	}
-	
-/*	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
+/*	
+	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String attendance() {
 		
 		return "attendance.tiles";
 	}
-	
 	*/
-	
-	
 	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
 	public YesMember getID(Model model, MemberDto mem) {
@@ -137,26 +132,11 @@ public class MemberController {
 	@RequestMapping(value="regiAf.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String regiAf(MemberDto mem, HttpServletRequest req,
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
-		logger.info("DDotMemberController regiAf");	
-		System.out.println("mem===>"+mem.toString());
 		
-		System.out.println("picpicFile==>"+picFile);
-		System.out.println("picFile.size===>"+picFile.getSize());
-
-		System.out.println("fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
-		
-/*		if(picFile.getOriginalFilename().equals("")) {
-			System.out.println("==========================");
-			System.out.println("서버 경로 : ==>"+req.getSession().getServletContext().getRealPath("/"));
-			picFile = (MultipartFile) new File(req.getSession().getServletContext().getRealPath("/")+"image/noimg.gif");
-			mem.setPic(picFile.getOriginalFilename());
-		}else {
-			mem.setPic(picFile.getOriginalFilename());
-		}*/
+		System.out.println(mem.toString());
 		
 		mem.setPic(picFile.getOriginalFilename());
-		
-		
+				
 		//파일 경로(서버)
 		//String fupload = req.getServletContext().getRealPath("/upload");
 		
@@ -181,6 +161,7 @@ public class MemberController {
 			
 			// db insert 부분
 			MemberService.addmember(mem);
+			MemberService.addAttend(mem.getNickname());
 			
 			logger.info("PdsController pdsupload success!!!");
 			
@@ -199,11 +180,7 @@ public class MemberController {
 	public boolean userInfoModify(MemberDto mem, HttpServletRequest req,
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
 		logger.info("DDotMemberController userInfoModify");	
-		System.out.println(" modi mem===>"+mem.toString());
 
-		System.out.println(" modi pic==>"+picFile);
-
-		System.out.println(" modi fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
 		mem.setPic(picFile.getOriginalFilename());
 
 		//파일경로(폴더)
