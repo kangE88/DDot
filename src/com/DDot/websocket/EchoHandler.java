@@ -11,7 +11,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.DDot.model.MessageVo;
+import com.DDot.model.ChatVo;
 import com.DDot.singleton.ConnectChatUserList;
 import com.google.gson.Gson;
 
@@ -64,23 +64,23 @@ public class EchoHandler extends TextWebSocketHandler {
 
 		logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
 
-		String msg = message.getPayload();
+		String chat = message.getPayload();
 		Gson gson = new Gson();
-		MessageVo msgVo = gson.fromJson(msg, MessageVo.class);
+		ChatVo chatVo = gson.fromJson(chat, ChatVo.class);
 		/*
 		Map<String, Object> map = session.getAttributes();
 		String userNickname = (String) map.get("nickname");
 		*/
 
-		if (msgVo.isFisrt) {
+		if (chatVo.isFisrt) {
 
 		} else {
 
 			for (String user : sessionList.keySet()) {
 				if (sessionList.get(user).equals(session)) {
-					sessionList.get(user).sendMessage(new TextMessage("<p class='mychat'>"+ msgVo.nickname + ":" + msgVo.message+"</p>"));
+					sessionList.get(user).sendMessage(new TextMessage("<p class='mychat'>"+ chatVo.nickname + ":" + chatVo.message+"</p>"));
 				} else {
-					sessionList.get(user).sendMessage(new TextMessage("<p class='otherchat'>"+ msgVo.nickname + ":" + msgVo.message+"</p>"));
+					sessionList.get(user).sendMessage(new TextMessage("<p class='otherchat'>"+ chatVo.nickname + ":" + chatVo.message+"</p>"));
 				}
 			}
 		}

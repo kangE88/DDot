@@ -6,43 +6,43 @@
   
 <mapper namespace="DDotMessage">
 
-	<select id="getMessageList" parameterType="com.DDot.model.MessageDto" resultType="com.DDot.model.MessageDto">
-		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, INT, DEL
+	<!-- <select id="getMessageList" parameterType="com.DDot.model.MessageDto" resultType="com.DDot.model.MessageDto">
+		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL
 		FROM DDOTMESSAGE
 		WHERE SEQ=#{seq}
 		ORDER BY WDATE DESC
-	</select>
+	</select> -->
  
 	<insert id="writeMessage" parameterType="com.DDot.model.MessageDto">
-		INSERT INTO DDOTCOMM
-		(SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL) 
-		VALUES(SEQ_DDOTCOMM.nextval, #{nickname}, #{title}, #{content}, SYSDATE, 0, 0, 0, 2)
+		INSERT INTO DDOTMESSAGE
+		(SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL) 
+		VALUES(SEQ_DDOTMESSAGE.nextval, #{nickname}, #{sendto}, #{content}, SYSDATE, 0, 2)
 	</insert>
 	 
 	<select id="getMessagePagingList" parameterType="com.DDot.model.MessagePagingDto" resultType="com.DDot.model.MessageDto">
-		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL
 		FROM 
 		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
-		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+		SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL FROM DDOTMESSAGE
 	    WHERE 1 = 1 ) A
 		WHERE rnum between ${start} AND ${end}
 	</select>
 	
 	<select id="getMessageCount" parameterType="com.DDot.model.MessagePagingDto" resultType="java.lang.Integer">
 	 
-			SELECT NVL(count(*),0) AS cnt
-			  FROM  DDOTCOMM  WHERE 1 = 1
+		SELECT NVL(count(*),0) AS cnt
+		FROM  DDOTMESSAGE  WHERE 1 = 1
 		
 	</select>
 	
 	<select id="getMessage" parameterType="java.lang.Integer" resultType="com.DDot.model.MessageDto">
-		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
-		FROM DDOTCOMM
+		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL
+		FROM DDOTMESSAGE
 		WHERE SEQ=#{seq}
 	</select>
 	 
 	<update id="deleteMessage" parameterType="java.lang.Integer">
-		UPDATE DDOTCOMM
+		UPDATE DDOTMESSAGE
 		SET DEL=0
 		WHERE SEQ=#{seq}
 	</update>	
