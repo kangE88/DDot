@@ -37,11 +37,6 @@ if(session.getAttribute("login") == null){
 </script>
 <%
 }else{
-	%>
-	<script>
-		alert("login success");
-	</script>
-	<%
 	MemberDto mem = (MemberDto)session.getAttribute("login");
 %>
 
