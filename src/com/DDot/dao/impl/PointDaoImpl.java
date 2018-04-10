@@ -48,4 +48,10 @@ public class PointDaoImpl implements PointDao {
 		sqlSession.update(namespace+"updowndown", nickname);		
 	}
 
+	@Override
+	public void attendpoints(String nickname) {
+		sqlSession.update(namespace+"attendpoint", nickname);
+		
+	}
+
 }

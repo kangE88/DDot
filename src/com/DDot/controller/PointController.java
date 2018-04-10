@@ -43,7 +43,7 @@ public class PointController {
 	}
 	
 	@RequestMapping(value="attendanceAf.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String attendanceAf(Model model,HttpServletRequest req) {
+	public String attendanceAf(Model model,HttpServletRequest req) throws Exception {
 		
 		MemberDto mdto = (MemberDto)req.getSession().getAttribute("login");
 		
@@ -62,11 +62,19 @@ public class PointController {
 		adto.setTable(day);
 		
 		pointService.attendpointup(adto);
+		pointService.attendpoints(nickname);
+		
+		MemberDto login = MemberService.login(mdto);
+		req.getSession().setAttribute("login", login);
 		
 		return "redirect: attendance.do";
 	}
 	@RequestMapping(value="house.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String house(Model model,HttpServletRequest req) {
+	public String house(Model model,HttpServletRequest req) throws Exception {
+		
+		MemberDto mdto = (MemberDto)req.getSession().getAttribute("login");
+		MemberDto login = MemberService.login(mdto);
+		req.getSession().setAttribute("login", login);
 		
 		return "house.tiles";
 	}
@@ -77,9 +85,7 @@ public class PointController {
 		MemberDto mdto = (MemberDto)req.getSession().getAttribute("login");
 		
 		String nickname = mdto.getNickname();
-		
-		System.out.println("�������������: " + result);		
-		
+				
 		switch (result) {
 		case 2:
 			pointService.abcup(nickname);

@@ -48,4 +48,9 @@ public class PointServiceImpl implements PointService {
 		pointDao.updowndown(nickname);		
 	}
 
+	@Override
+	public void attendpoints(String nickname) {
+		pointDao.attendpoints(nickname);		
+	}
+
 }

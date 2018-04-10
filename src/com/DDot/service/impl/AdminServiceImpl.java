@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DDot.dao.AdminDao;
+import com.DDot.model.AttendDto;
+import com.DDot.model.BbsDto;
 import com.DDot.model.MemberDto;
 import com.DDot.service.AdminService;
 
@@ -25,6 +27,23 @@ public class AdminServiceImpl implements AdminService {
 	public int userwritecount(String nickname) {
 		
 		return admindao.userwritecount(nickname);
+	}
+
+	@Override
+	public List<BbsDto> userbbslist(String nickname) {
+		
+		return admindao.userbbslist(nickname);
+	}
+
+	@Override
+	public void modifypoint(AttendDto adto) {
+		admindao.modifypoint(adto);
+		
+	}
+
+	@Override
+	public void deleteuserbbs(int seq) {
+		admindao.deleteuserbbs(seq);		
 	}
 
 }

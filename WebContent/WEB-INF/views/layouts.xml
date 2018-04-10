@@ -87,4 +87,8 @@
 	<put-attribute name="main" value="/WEB-INF/views/admin/admin.jsp"/>
 </definition>
 
+<definition name="adminuserbbslist.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/admin/adminuserbbslist.jsp"/>
+</definition>
+
 </tiles-definitions>

@@ -9,6 +9,8 @@ public interface PointDao {
 	
 	public void attendpointup(AttendDto adto);
 	
+	public void attendpoints(String nickname);
+	
 	public void abcup(String nickname);
 	
 	public void abcdown(String nickname);

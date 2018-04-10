@@ -14,7 +14,7 @@
 <script type="text/javascript" src="./js/moment.min.js"></script>
 <script type="text/javascript" src="./js/fullcalendar.js"></script>
 <script type="text/javascript" src="./js/ko.js"></script>
-<script type="text/javascript" src="./jquery/point.js"></script>
+<script type="text/javascript" src="./jquery/point.js?ver=1"></script>
 <style type="text/css">
 	#attendanceimg{
 		display: flex;
@@ -88,15 +88,16 @@ if(session.getAttribute("login") == null){
 			var aday = attendstring.charAt(i);
 			console.log(aday);
 			if(aday=='1'){				
-				var datadate = year+'-'+tmonth+'-'+p_two(i.toString());				
-				$("td.fc-widget-content[data-date='"+datadate+"']")
+				var datadate = year+'-'+tmonth+'-'+p_two(i.toString());	
+				console.log("datadate: " + datadate);
+				$("td.fc-day.fc-widget-content[data-date='"+datadate+"']")
 				.append("&nbsp;<img id='attendanceimg' src='./image/attendance112.png'>");
 			}
 		}		
 		
 		$("#attendancebtn").click(function() {
 			if(attendstring.charAt(day)==0){
-				$("td.fc-widget-content.fc-today").append("&nbsp;<img id='attendanceimg' src='./image/attendance112.png'>");
+				$("td.fc-day.fc-widget-content.fc-today").append("&nbsp;<img id='attendanceimg' src='./image/attendance112.png'>");
 				location.href="attendanceAf.do";
 			}
 			else{
@@ -104,7 +105,7 @@ if(session.getAttribute("login") == null){
 			}
 		});
 	
-		$("td.fc-widget-content.fc-today").prop("style",
+		$("td.fc-day.fc-widget-content.fc-today").prop("style",
 				"background-color: #000085");	
 		
 		});

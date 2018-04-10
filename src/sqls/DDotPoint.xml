@@ -13,6 +13,10 @@
 		UPDATE DDOTATTENDANCE SET ${table} = 1 WHERE NICKNAME = #{nickname}
 	</update>
 	
+	<update id="attendpoint" parameterType="java.lang.String">
+		UPDATE DDOTMEMBER SET POINT = POINT + 200 WHERE NICKNAME = #{nickname}
+	</update>
+	
 	<update id="abcup" parameterType="java.lang.String">
 		UPDATE DDOTMEMBER SET POINT = POINT+100 WHERE NICKNAME = #{nickname}
 	</update>	

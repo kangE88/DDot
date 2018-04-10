@@ -9,9 +9,10 @@ function p_abc(a,b){
 
 function p_two(a){
 	
-	var b = "";
+	var b = a;
 	if(a.length==1){
 		b = "0"+a;
 	}
+	console.log("b: "+b);
 	return b;
 }

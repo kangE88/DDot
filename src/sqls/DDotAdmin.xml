@@ -12,5 +12,17 @@
 	<select id="userwritecount" parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM DDOTBBS WHERE NICKNAME=#{nickname}
 	</select>
+	
+	<select id="userbbslist" parameterType="java.lang.String" resultType="com.DDot.model.BbsDto">
+		SELECT * FROM DDOTBBS WHERE NICKNAME=#{nickname}
+	</select>
+	
+	<update id="modifypoint" parameterType="com.DDot.model.AttendDto">
+		UPDATE DDOTMEMBER SET POINT = ${table} WHERE NICKNAME=#{nickname}
+	</update>
+	
+	<update id="deleteuserbbs" parameterType="java.lang.Integer">
+		UPDATE DDOTBBS SET DEL=1 WHERE SEQ=#{seq}
+	</update>
 
 </mapper>
