@@ -45,8 +45,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="main.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String main() {
-		
+	public String main(HttpServletRequest req) {
 		return "main.tiles";
 	}
 
@@ -133,8 +132,6 @@ public class MemberController {
 	public String regiAf(MemberDto mem, HttpServletRequest req,
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
 		
-		System.out.println(mem.toString());
-		
 		mem.setPic(picFile.getOriginalFilename());
 				
 		//파일 경로(서버)
@@ -163,10 +160,10 @@ public class MemberController {
 			MemberService.addmember(mem);
 			MemberService.addAttend(mem.getNickname());
 			
-			logger.info("PdsController pdsupload success!!!");
+			logger.info("upload success!!!");
 			
 		}catch (IOException e) {
-			logger.info("PdsController pdsupload fail!!!");
+			logger.info("upload fail!!!");
 		}
 		
 		
@@ -238,8 +235,7 @@ public class MemberController {
 	public String loginAf(HttpServletRequest req, MemberDto mem, Model model) throws Exception {
 		logger.info("MemberController loginAf");
 		
-		MemberDto login = null;
-		login = MemberService.login(mem);
+		MemberDto login = MemberService.login(mem);
 		
 		if(login != null && !login.getId().equals("")) {
 			System.out.println("loginAf in");

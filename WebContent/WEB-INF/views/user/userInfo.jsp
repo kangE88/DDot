@@ -120,11 +120,11 @@ function readURL(input) {
                   	<td style="vertical-align: middle; text-align:right;">비밀번호 :</td>
                   	<td colspan="2"><input type="password" name="pwd" class="span12" style="margin:auto; height:30px;" value="<%=mem.getPwd()%>"></td>
                 </tr>
-                <tr>
+<%--                 <tr>
                   	<td style="vertical-align: middle; text-align:right;">닉네임 :</td>
                   	<td><input type="text" id="nickname" name="nickname" class="span12" style="margin:auto; height:30px;" value="<%=mem.getNickname()%>">
                   		<!-- <input type="hidden" id="nicResult"> --></td>
-                </tr>
+                </tr> --%>
                 <tr>
                   	<td style="vertical-align: middle; text-align:right;">e-mail :</td>
                   	<td><input type="email" name="email" class="span12" style="margin:auto; height:30px;" value="<%=mem.getEmail()%>"></td>
@@ -157,7 +157,7 @@ $(".form-info").submit(function (e) {
 
 		formData.append("id",$('input[name=id]').val());
 		formData.append("pwd",$('input[name=pwd]').val());
-		formData.append("nickname",$('input[name=nickname]').val());
+		/* formData.append("nickname",$('input[name=nickname]').val()); */
 		formData.append("email",$('input[name=email]').val());
 		formData.append("intro", $("textarea[name=intro]").text());
     	
@@ -185,7 +185,7 @@ $(".form-info").submit(function (e) {
     }else{
 		formData.append("id",$('input[name=id]').val());
 		formData.append("pwd",$('input[name=pwd]').val());
-		formData.append("nickname",$('input[name=nickname]').val());
+		/* formData.append("nickname",$('input[name=nickname]').val()); */
 		formData.append("email",$('input[name=email]').val());
 		formData.append("intro", $("textarea[name=intro]").text());
     	formData.append("picFile",$('input[name=picFile]')[0].files[0]);
@@ -201,10 +201,7 @@ $(".form-info").submit(function (e) {
 			processData : false,
 			success:function(){
 				alert("success");
-				//$(opener.document).find("span[class=nickname]").val(nicknameVal);
 				opener.parent.location.reload();
-				//opener.window.location.reload();
-				//opener.lacation.reload();
 				window.close();
 			},
 			error: function() {
@@ -212,7 +209,6 @@ $(".form-info").submit(function (e) {
 			}
 		});
     }
-		
 });
 
 $("#_btnModify").click(function() {

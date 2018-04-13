@@ -80,9 +80,9 @@
 <br>
 
 <script>
-		$(".introtitle").mouseleave(function() {
-			$(this).prop("style","background-color: #000084");
-		});
+	$(".introtitle").mouseleave(function() {
+		$(this).prop("style","background-color: #000084");
+	});
 </script>
 
 

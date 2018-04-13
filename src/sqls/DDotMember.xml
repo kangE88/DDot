@@ -35,13 +35,13 @@
 	
 	<update id="userInfoModify" parameterType="com.DDot.model.MemberDto">
 		UPDATE DDOTMEMBER 
-		SET PWD=#{pwd}, EMAIL=#{email}, NICKNAME=#{nickname}, PIC=#{pic}, INTRO=#{intro}
+		SET PWD=#{pwd}, EMAIL=#{email}, PIC=#{pic}, INTRO=#{intro}
 		WHERE ID=#{id}
 	</update>
 
 	<update id="userInfoModifyNoImage" parameterType="com.DDot.model.MemberDto">
 		UPDATE DDOTMEMBER 
-		SET PWD=#{pwd}, EMAIL=#{email}, NICKNAME=#{nickname}, INTRO=#{intro}
+		SET PWD=#{pwd}, EMAIL=#{email}, INTRO=#{intro}
 		WHERE ID=#{id}
 	</update>	
 

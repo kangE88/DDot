@@ -33,5 +33,13 @@
 <!-- animation off -->
 <script type="text/javascript">
 	_386 = {fastLoad: true};
-
+	
+	function logout(){
+	    alert("일정시간이 지나 로그아웃 되었습니다.");
+	    location.href="logout.do";
+	}
+	<% if(session.getAttribute("login") != null){ %>
+		setTimeout("logout()",1000*100);
+	<%}%>
 </script>
+
