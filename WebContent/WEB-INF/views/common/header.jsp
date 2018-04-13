@@ -39,7 +39,7 @@
 	    location.href="logout.do";
 	}
 	<% if(session.getAttribute("login") != null){ %>
-		setTimeout("logout()",1000*100);
+		setTimeout("logout()",1000*600);
 	<%}%>
 </script>
 
