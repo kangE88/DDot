@@ -91,4 +91,8 @@
 	<put-attribute name="main" value="/WEB-INF/views/admin/adminuserbbslist.jsp"/>
 </definition>
 
+<definition name="boardsearch.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/bbs/boardsearch.jsp"/>
+</definition>
+
 </tiles-definitions>
