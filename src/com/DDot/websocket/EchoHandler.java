@@ -1,6 +1,6 @@
 package com.DDot.websocket;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,15 +11,17 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.DDot.model.MessageVo;
+import com.DDot.model.ChatVo;
 import com.DDot.singleton.ConnectChatUserList;
 import com.google.gson.Gson;
 
 public class EchoHandler extends TextWebSocketHandler {
 
 	private static Logger logger = LoggerFactory.getLogger(EchoHandler.class);
-
-	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+	//리스트
+	//private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+	//맵
+	private Map<String,WebSocketSession> sessionList = new HashMap<String,WebSocketSession>();
 
 	/**
 	 * 
@@ -31,17 +33,20 @@ public class EchoHandler extends TextWebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session)
 
 			throws Exception {
-
-		sessionList.add(session);
+		//리스트
+		//sessionList.add(session);
 
 		logger.info("{} 연결됨", session.getId());
 
 		Map<String, Object> map = session.getAttributes();
 		String userNickname = (String) map.get("nickname");
+		sessionList.put(userNickname, session);
 		System.out.println("닉네임 : " + userNickname);
+		
+		
 
-		for (WebSocketSession sess : sessionList) {
-			sess.sendMessage(new TextMessage("<p class='alertchat'>"+userNickname + "님이 입장하였습니다.</p>"));
+		for (String user : sessionList.keySet()) {
+			sessionList.get(user).sendMessage(new TextMessage("<p class='alertchat'>"+userNickname+"님이 입장하였습니다.</p>"));
 		}
 	}
 
@@ -59,22 +64,23 @@ public class EchoHandler extends TextWebSocketHandler {
 
 		logger.info("{}로 부터 {} 받음", session.getId(), message.getPayload());
 
-		String msg = message.getPayload();
+		String chat = message.getPayload();
 		Gson gson = new Gson();
-		MessageVo msgVo = gson.fromJson(msg, MessageVo.class);
-
+		ChatVo chatVo = gson.fromJson(chat, ChatVo.class);
+		/*
 		Map<String, Object> map = session.getAttributes();
 		String userNickname = (String) map.get("nickname");
+		*/
 
-		if (msgVo.isFisrt) {
+		if (chatVo.isFisrt) {
 
 		} else {
 
-			for (WebSocketSession sess : sessionList) {
-				if (sess.equals(session)) {
-					sess.sendMessage(new TextMessage("<p class='mychat'>"+ userNickname + ":" + msgVo.message+"</p>"));
+			for (String user : sessionList.keySet()) {
+				if (sessionList.get(user).equals(session)) {
+					sessionList.get(user).sendMessage(new TextMessage("<p class='mychat'>"+ chatVo.nickname + ":" + chatVo.message+"</p>"));
 				} else {
-					sess.sendMessage(new TextMessage("<p class='otherchat'>"+ userNickname + ":" + msgVo.message+"</p>"));
+					sessionList.get(user).sendMessage(new TextMessage("<p class='otherchat'>"+ chatVo.nickname + ":" + chatVo.message+"</p>"));
 				}
 			}
 		}
@@ -94,7 +100,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		String userNickname = (String) map.get("nickname");
 		System.out.println("나간사람아이디 : " + userNickname);
 
-		sessionList.remove(session);
+		sessionList.remove(userNickname);
 
 		// 리스트get
 		List<String> list = ConnectChatUserList.getInstance().userMap.get("userlist");
@@ -105,9 +111,9 @@ public class EchoHandler extends TextWebSocketHandler {
 
 		if (sessionList.size() > 0) {
 
-			for (WebSocketSession sess : sessionList) {
+			for (String user : sessionList.keySet()) {
 
-				sess.sendMessage(new TextMessage("<p class='alertchat'>"+userNickname + "님이 퇴장하였습니다.</p>"));
+				sessionList.get(user).sendMessage(new TextMessage("<p class='alertchat'>"+userNickname + "님이 퇴장하였습니다.</p>"));
 
 			}
 		}

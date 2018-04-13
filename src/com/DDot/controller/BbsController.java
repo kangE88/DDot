@@ -29,12 +29,12 @@ public class BbsController {
 	BbsService bbsService;
 	
 	
-	// category & subcategory �꽑�깮�뿉 �뵲瑜� 寃뚯떆湲� 紐⑸줉
+    // category & subcategory 선택에 따른 게시글 목록
 	@RequestMapping(value="bbslist.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String bbslist(Model model, String category, String subcategory, BbsParam param) throws Exception{
 		logger.info("DDotBbsController bbslist"+ new Date());		
 		
-		// �럹�씠吏� 泥섎━
+        // 페이징 처리
 		int sn = param.getPageNumber();
 		int start = (sn) * param.getRecordCountPerPage() + 1;
 		int end = (sn+1) * param.getRecordCountPerPage();
@@ -42,7 +42,7 @@ public class BbsController {
 		param.setStart(start);
 		param.setEnd(end);
 				
-		// subcategory 0~3 �씠 �븘�땶 �떎瑜� �닽�옄  top.jsp �뿉�꽌 "9" 媛믪쑝濡� �꽕�젙 �븯�뿬 subcategory �쟾泥� 寃뚯떆湲� 紐⑸줉 �몴�쁽
+        // subcategory 0~3 이 아닌 다른 숫자  top.jsp 에서 "9" 값으로 설정 하여 subcategory 전체 게시글 목록 표현
 		if(subcategory.equals("9") ) {
 			int totalRecordCount = bbsService.getBbsCount(param);
 			List<BbsDto> list = bbsService.getBbsPagingList(param);
@@ -50,7 +50,7 @@ public class BbsController {
 			model.addAttribute("category", category);			
 			model.addAttribute("subcategory", subcategory);
 			model.addAttribute("totalRecordCount", totalRecordCount);
-		// subcategory �꽑�깮�뿉 �뵲瑜� 寃뚯떆湲� 紐⑸줉 �몴�쁽
+	        // subcategory 선택에 따른 게시글 목록 표현
 		}else {
 			int totalRecordCount = bbsService.getBbsCount_Subcategory(param);
 			List<BbsDto> list = bbsService.getBbsPagingList_Subcategory(param);

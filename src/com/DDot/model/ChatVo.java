@@ -2,7 +2,7 @@ package com.DDot.model;
 
 import java.io.Serializable;
 
-public class MessageVo implements Serializable {
+public class ChatVo implements Serializable {
 	public String nickname;
 	public boolean isFisrt;
 	public String message;

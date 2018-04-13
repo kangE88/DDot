@@ -46,6 +46,7 @@
 
 .user-area p {
 	margin: 0;
+	color: #ffffff;
 }
 
 .user-area {

@@ -82,6 +82,24 @@
 	<put-attribute name="main" value="/WEB-INF/views/chat/chat.jsp"/>
 </definition>
 
+<!-- Message -->
+<definition name="messagelist.tiles" template="/WEB-INF/views/chat-tiles.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/message/message-list.jsp"/>
+</definition>
+
+<definition name="messagewrite.tiles" template="/WEB-INF/views/chat-tiles.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/message/message-write.jsp"/>
+</definition>
+
+<definition name="messagedetail.tiles" template="/WEB-INF/views/chat-tiles.jsp">
+	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
+	<put-attribute name="main" value="/WEB-INF/views/message/message-detail.jsp"/>
+</definition>
+
+
+
 <!-- Admin -->
 <definition name="admin.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/admin/admin.jsp"/>
