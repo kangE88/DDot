@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.DDot.dao.BbsDao;
+import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
+import com.DDot.model.CommDto;
 
 @Repository
 public class BbsDaoImpl implements BbsDao {
@@ -89,6 +91,84 @@ public class BbsDaoImpl implements BbsDao {
 	public boolean deleteBbs(int seq) {
 		int count = sqlSession.update(namespace+"deleteBbs", seq);
 		return count>0?true:false;
+	}
+
+	@Override
+	public int getusericon(int seq) {
+		
+		return sqlSession.selectOne(namespace+"getusericon", seq);
+	}
+
+	@Override
+	public int boardsearchcount(AttendDto adto) {
+		String category = adto.getTable();
+		int count = 0;
+		switch (category) {
+		case "all":
+			count = sqlSession.selectOne(namespace+"boardsearchallcount", adto);
+		break;
+		case "title":
+			count = sqlSession.selectOne(namespace+"boardsearchtitlecount", adto);	
+		break;
+		case "content":			
+			count = sqlSession.selectOne(namespace+"boardsearchcontentcount", adto);
+		break;
+		}
+		return count;
+	}
+
+	@Override
+	public List<BbsDto> boardlist(AttendDto adto) {
+		String category = adto.getTable();
+		List<BbsDto> boardlist = null;		
+		switch (category) {
+		case "all":
+			boardlist = sqlSession.selectList(namespace+"boardsearchall", adto);
+		break;
+		case "title":
+			boardlist = sqlSession.selectList(namespace+"boardsearchtitle", adto);	
+		break;
+		case "content":			
+			boardlist = sqlSession.selectList(namespace+"boardsearchcontent", adto);
+		break;
+		}		
+		return boardlist;
+	}
+
+	@Override
+	public int commsearchcount(AttendDto adto) {
+		String category = adto.getTable();
+		int count = 0;
+		switch (category) {
+		case "all":
+			count = sqlSession.selectOne(namespace+"commsearchallcount", adto);
+		break;
+		case "title":
+			count = sqlSession.selectOne(namespace+"commsearchtitlecount", adto);	
+		break;
+		case "content":			
+			count = sqlSession.selectOne(namespace+"commsearchcontentcount", adto);
+		break;
+		}
+		return count;
+	}
+
+	@Override
+	public List<CommDto> commlist(AttendDto adto) {
+		String category = adto.getTable();
+		List<CommDto> commlist = null;		
+		switch (category) {
+		case "all":
+			commlist = sqlSession.selectList(namespace+"commsearchall", adto);
+		break;
+		case "title":
+			commlist = sqlSession.selectList(namespace+"commsearchtitle", adto);	
+		break;
+		case "content":			
+			commlist = sqlSession.selectList(namespace+"commsearchcontent", adto);
+		break;
+		}		
+		return commlist;
 	}
 
 }

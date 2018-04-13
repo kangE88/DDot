@@ -45,8 +45,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value="main.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String main() {
-		
+	public String main(HttpServletRequest req) {
 		return "main.tiles";
 	}
 
@@ -70,16 +69,13 @@ public class MemberController {
 		
 		return "donate.tiles";
 	}
-	
-/*	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
+/*	
+	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String attendance() {
 		
 		return "attendance.tiles";
 	}
-	
 	*/
-	
-	
 	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
 	public YesMember getID(Model model, MemberDto mem) {
@@ -135,15 +131,9 @@ public class MemberController {
 	@RequestMapping(value="regiAf.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String regiAf(MemberDto mem, HttpServletRequest req,
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
-		logger.info("DDotMemberController regiAf");	
-		System.out.println("mem===>"+mem.toString());
-
-		System.out.println("pic==>"+picFile);
-
-		System.out.println("fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
 		
 		mem.setPic(picFile.getOriginalFilename());
-		
+				
 		//파일 경로(서버)
 		//String fupload = req.getServletContext().getRealPath("/upload");
 		
@@ -153,10 +143,12 @@ public class MemberController {
 		
 		
 		String f = mem.getPic();
+		System.out.println("f==>"+f);
 		
 		String newFile= FUpUtil.getNewFile(f);
+		System.out.println("newFile==>"+newFile);
 		
-		System.out.println(fupload + "/" + newFile);
+		System.out.println("result==>"+fupload + "/" + newFile);
 		
 		mem.setPic(newFile);
 		
@@ -166,11 +158,12 @@ public class MemberController {
 			
 			// db insert 부분
 			MemberService.addmember(mem);
+			MemberService.addAttend(mem.getNickname());
 			
-			logger.info("PdsController pdsupload success!!!");
+			logger.info("upload success!!!");
 			
 		}catch (IOException e) {
-			logger.info("PdsController pdsupload fail!!!");
+			logger.info("upload fail!!!");
 		}
 		
 		
@@ -184,11 +177,7 @@ public class MemberController {
 	public boolean userInfoModify(MemberDto mem, HttpServletRequest req,
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
 		logger.info("DDotMemberController userInfoModify");	
-		System.out.println(" modi mem===>"+mem.toString());
 
-		System.out.println(" modi pic==>"+picFile);
-
-		System.out.println(" modi fileload.getOriginalFilename()======>"+picFile.getOriginalFilename());
 		mem.setPic(picFile.getOriginalFilename());
 
 		//파일경로(폴더)
@@ -246,8 +235,7 @@ public class MemberController {
 	public String loginAf(HttpServletRequest req, MemberDto mem, Model model) throws Exception {
 		logger.info("MemberController loginAf");
 		
-		MemberDto login = null;
-		login = MemberService.login(mem);
+		MemberDto login = MemberService.login(mem);
 		
 		if(login != null && !login.getId().equals("")) {
 			System.out.println("loginAf in");
@@ -260,7 +248,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="userInfo.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String userInfo() throws Exception {
+	public String userInfo(HttpServletRequest req) throws Exception {
+		
+		MemberDto mdto = (MemberDto)req.getSession().getAttribute("login");
+		
+		MemberDto login = MemberService.login(mdto);
+		
+		req.getSession().setAttribute("login", login);
 		
 		return "userInfo.tiles";
 	}

@@ -38,7 +38,7 @@
   </div>
   <div class="modal-body">
     <h4>/move * <font color="black"> : move to *</font></h4>
-    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board-category, community,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clab, donate</font></h4>
+    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board-category, community,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clab, donate, attendance, house</font></h4>
     ------------------------------------------------
     <h4>board's category <font color="black"> : java, jsp, jquery, oracle,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring, etc</font></h4>
   </div>
@@ -80,6 +80,9 @@ $("#cmd").keydown(function(key) {
 		break;	
 	case "/move attendance":
 		location.href="./attendance.do"
+		break;
+	case "/move house":
+		location.href="./house.do"
 		break;
 	}
 		$("#cmd").val("");	

@@ -2,8 +2,10 @@ package com.DDot.service;
 
 import java.util.List;
 
+import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
+import com.DDot.model.CommDto;
 
 public interface BbsService {
 	public List<BbsDto> getBbsList(BbsDto bbs) throws Exception;
@@ -25,5 +27,11 @@ public interface BbsService {
 	boolean updateBbs(BbsDto bbs)throws Exception;
 	
 	public boolean deleteBbs(int seq);
+	public int getusericon(int seq);
+	
+	public int boardsearchcount(AttendDto adto);
+	public int commsearchcount(AttendDto adto);
+	public List<BbsDto> boardlist(AttendDto adto);
+	public List<CommDto> commlist(AttendDto adto);
 	
 }

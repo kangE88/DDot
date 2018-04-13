@@ -33,9 +33,13 @@
 	<put-attribute name="main" value="/WEB-INF/views/donate/donate.jsp"/>
 </definition>
 
-<!-- attendance -->
+<!-- point -->
 <definition name="attendance.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/point/attendance.jsp"/>
+</definition>
+
+<definition name="house.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/point/house.jsp"/>
 </definition>
 
 <!-- BBS -->
@@ -95,5 +99,18 @@
 </definition>
 
 
+
+<!-- Admin -->
+<definition name="admin.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/admin/admin.jsp"/>
+</definition>
+
+<definition name="adminuserbbslist.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/admin/adminuserbbslist.jsp"/>
+</definition>
+
+<definition name="boardsearch.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/bbs/boardsearch.jsp"/>
+</definition>
 
 </tiles-definitions>

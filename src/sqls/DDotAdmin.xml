@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="DDotAdmin">
+	<select id="userlist" resultType="com.DDot.model.MemberDto">
+		SELECT * FROM DDOTMEMBER ORDER BY AUTH ASC
+	</select>
+	
+	<select id="userwritecount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM DDOTBBS WHERE NICKNAME=#{nickname}
+	</select>
+	
+	<select id="userbbslist" parameterType="java.lang.String" resultType="com.DDot.model.BbsDto">
+		SELECT * FROM DDOTBBS WHERE NICKNAME=#{nickname}
+	</select>
+	
+	<update id="modifypoint" parameterType="com.DDot.model.AttendDto">
+		UPDATE DDOTMEMBER SET POINT = ${table} WHERE NICKNAME=#{nickname}
+	</update>
+	
+	<update id="deleteuserbbs" parameterType="java.lang.Integer">
+		UPDATE DDOTBBS SET DEL=1 WHERE SEQ=#{seq}
+	</update>
+
+</mapper>

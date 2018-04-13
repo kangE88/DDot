@@ -39,11 +39,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean userInfoModifyNoImage(MemberDto mem) {
+	public boolean userInfoModifyNoImage(MemberDto mem) throws Exception {
 		return MemberDao.userInfoModifyNoImage(mem);
 	}
-	
-	
+
+	@Override
+	public boolean addAttend(String nickname) throws Exception {
+		return MemberDao.addAttend(nickname);
+	}
+
 	
 }
 

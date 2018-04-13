@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DDot.dao.BbsDao;
+import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
+import com.DDot.model.CommDto;
 import com.DDot.service.BbsService;
 
 @Service
@@ -70,6 +72,31 @@ public class BbsServiceImpl implements BbsService {
 	public boolean deleteBbs(int seq) {
 		return bbsDao.deleteBbs(seq);
 		
+	}
+
+	@Override
+	public int getusericon(int seq) {
+		return bbsDao.getusericon(seq);
+	}
+
+	@Override
+	public int boardsearchcount(AttendDto adto) {
+		return bbsDao.boardsearchcount(adto);
+	}
+
+	@Override
+	public int commsearchcount(AttendDto adto) {
+		return bbsDao.commsearchcount(adto);
+	}
+
+	@Override
+	public List<BbsDto> boardlist(AttendDto adto) {
+		return bbsDao.boardlist(adto);
+	}
+
+	@Override
+	public List<CommDto> commlist(AttendDto adto) {
+		return bbsDao.commlist(adto);
 	}
 
 }

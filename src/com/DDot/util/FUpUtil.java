@@ -45,5 +45,32 @@ public class FUpUtil {
 		}
 		return filename;
 	} 
+	public static String getNewgif(String f){
+		String filename="";
+		String fpost="";
+		String fre="";
+		if(f.indexOf('.')>=0){
+			fpost=f.substring(f.indexOf('.'));
+			fre=f.substring(0,f.indexOf('.'));
+			filename=fre+fpost;
+		}else{
+			filename=f+".gif";
+		}
+		return filename;
+	} 
+	
+	public static String getNewpng(String f){
+		String filename="";
+		String fpost="";
+		String fre="";
+		if(f.indexOf('.')>=0){
+			fpost=f.substring(f.indexOf('.'));
+			fre=f.substring(0,f.indexOf('.'));
+			filename=fre+fpost;
+		}else{
+			filename=f+".png";
+		}
+		return filename;
+	} 
 	
 }

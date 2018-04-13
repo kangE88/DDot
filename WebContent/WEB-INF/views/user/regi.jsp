@@ -23,9 +23,6 @@ input[type=file] {
     z-index: -1;
     position: absolute;
 }
-button {
-	margin-top:15px;
-}
 </style>
 <link href="./css/bootstrap-responsive.css" rel="stylesheet">
 <script type="text/javascript" src="<%=request.getContextPath()%>/jquery/common.js"></script>
@@ -34,55 +31,49 @@ button {
 
 <form class="form-signin" method="post" enctype="multipart/form-data" style="height:100%;">
     <h2 class="form-signin-heading">Sign Up</h2><br>
-    		<table class="table span3"></table>
+    		<p class="table span3"></p>
             <table class="table span6" style=" text-align:center; margin-bottom:5%;margin-left: 0;">
-              <tbody>
-              <colgroup>
-				  <col width="25%">
-				  <col width="40%">
-				  <col width="35%">
-			  </colgroup>
+              <tbody class="span12">
                 <tr>
-                  	<td style="vertical-align: middle;">아이디 :</td>
-                  	<td><input type="text" placeholder="id" id="_id" name="id" style="ime-mode: disabled; margin:auto; height:30px;"></td>
-					<td style="text-align:center;">
+                  	<td style="vertical-align: middle;" class="span4">아이디 :</td>
+                  	<td class="span4"><input type="text" id="_id" name="id" data-msg="아이디" style="ime-mode: disabled; margin:auto; height:30px;"></td>
+					<td style="text-align:center;" class="span4">
 					<!-- Button to trigger modal -->
 					<a href="#idchk_modal" role="button" class="btn span10" data-toggle="modal" id="_idchk" style="margin:auto;">중복체크</a></td>
 					<!-- <button class="btn btn-mini btn-primary" id="_idchk" style="margin:auto;">ID 중복체크</button></td> -->
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">비밀번호 :</td>
-                  	<td colspan="2"><input type="password" placeholder="pwd" name="pwd" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">비밀번호 :</td>
+                  	<td colspan="2" class="span8"><input type="password"  id="pwd" name="pwd" style="margin:auto; height:30px;"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">비밀번호 확인 :</td>
-                  	<td colspan="2"><input type="password" placeholder="pwdRe" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">비밀번호 확인 :</td>
+                  	<td colspan="2" class="span8"><input type="password" placeholder="pwdRe" style="margin:auto; height:30px;"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">닉네임 :</td>
-                  	<td><input type="text" placeholder="nickname" id="_nickname" name="nickname" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">닉네임 :</td>
+                  	<td class="span4"><input type="text" placeholder="nickname" id="_nickname" name="nickname" data-msg="닉네임" style="margin:auto; height:30px;"></td>
 					<!-- Button to trigger modal -->
-					<td style="text-align:center;">
+					<td style="text-align:center;" class="span4">
 					<a href="#nicname_chk_modal" role="button" class="btn span10" data-toggle="modal" id="_nicchk" style="margin:auto;">중복체크</a></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">e-mail :</td>
-                  	<td><input type="email" placeholder="email" name="email" style="margin:auto; height:30px;"></td>
-					<td></td>
+                  	<td style="vertical-align: middle;" class="span4">e-mail :</td>
+                  	<td class="span4"><input type="email" placeholder="email" name="email" data-msg="e-mail" style="margin:auto; height:30px;"></td>
+					<td class="span4"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">프로필 이미지 :</td>
-                  	<td>
+                  	<td style="vertical-align: middle;" class="span4">프로필 이미지 :</td>
+                  	<td class="span4">
              			<input name="picFile" id="pic" type="file">
-                  		<img id="thumPic" onclick="document.all.pic.click();" data-src="holder.js/260x120" alt="클릭하여 이미지를 넣어주세요." alt="260x120" style="width: 200px; height: 150px;">
+                  		<img id="thumPic" onclick="document.all.pic.click();" src="./image/addImg.png" data-src="holder.js/260x120" alt="클릭하여 이미지를 넣어주세요." style="width: 200px; height: 150px;">
                   	</td>
-					<td>
-						<a href="#" role="button" class="btn span10" id="_btnClean" style="margin:auto;">clear</a>
+					<td class="span4">
 					</td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;">자기 소개 :</td>
-					<td colspan="2"><textarea rows="3" class="span12" placeholder="intro" name="intro"></textarea></td>
+                  	<td style="vertical-align: middle;" class="span4">자기 소개 :</td>
+					<td colspan="2" class="span8"><textarea rows="3" class="span12" data-msg="자기소개" name="intro"></textarea></td>
                 </tr>
                 <tr>
                 	<td colspan="3" style="text-align:right;">
@@ -92,7 +83,7 @@ button {
                 </tr>
               </tbody>
             </table>
-            <table class="table span3"></table>
+            <p class="table span3"></p>
  	</form><!-- /container -->
 
 <!-- Modal -->
@@ -125,10 +116,13 @@ button {
 
 <!-- img thumnail event -->
 <script>
+var idck = false;
+var nickck = false;
+
 $(function() {
     $("#pic").on('change', function(){
-        readURL(this);
-    });
+       readURL(this);
+   });    
 });
 
 function readURL(input) {
@@ -144,6 +138,7 @@ function readURL(input) {
 
 //id 한글입력 방지
 	$("#_id").keyup(function(e) { 
+		idck =false;
 	if (!(e.keyCode >=37 && e.keyCode<=40)) {
 		var v = $(this).val();
 		$(this).val(v.replace(/[^a-z0-9]/gi,''));
@@ -153,24 +148,9 @@ function readURL(input) {
 	}
 });
 
-$("#_btnRegi").click(function() {
-	//alert("_id:" + $("#_id").val());
-	if($("#_id").val() == ""){		
-		alert($("#_id").attr("data-msg") + " 입력해 주십시오" );
-		$("#_id").focus();
-	}else if($("#_pwd").val() == ""){		
-		alert($("#_pwd").attr("data-msg") + " 입력해 주십시오" );
-		$("#_pwd").focus();
-	}else if($("#_name").val() == ""){		
-		alert($("#_name").attr("data-msg") + " 입력해 주십시오" );
-		$("#_name").focus();
-	}else if($("#_email").val() == ""){		
-		alert($("#_email").attr("data-msg") + " 입력해 주십시오" );
-		$("#_email").focus();
-	}else{
-		//alert("signup");
-		$(".form-signin").attr({"target":"_self", action:"regiAf.do"}).submit();
-	}
+//nickname 중복체크 후 변경 방지
+$("#_nickname").keyup(function(e) { 
+	nickck =false;
 });
 
 $("#_idchk").click(function (){
@@ -203,10 +183,12 @@ function idCheckMessage(msg) {
 		$("#idChkResult").html("사용할 수 없는 아이디입니다.");
 		$("#idChkResult").css("background-color","#ff0000");
 		$("#id").val("");
+		idck = false;
 	}else{
 		$("#idChkResult").html("사용할 수 있는 아이디입니다.");
 		$("#idChkResult").css("background-color","#0000ff");
 		$("#id").val($("#id").val());
+		idck = true;
 	}
 }
 
@@ -239,12 +221,41 @@ function nicknameCheckMessage(msg) {
 		$("#nicknameChkResult").html("사용할 수 없는 닉네임 입니다.");
 		$("#nicknameChkResult").css("background-color","#ff0000");
 		$("#nickname").val("");
+		nickck = false;
 	}else{
 		$("#nicknameChkResult").html("사용할 수 있는 닉네임 입니다.");
 		$("#nicknameChkResult").css("background-color","#0000ff");
 		$("#nickname").val($("#nickname").val());
+		nickck = true;
 	}
 }
+
+
+$("#_btnRegi").click(function() {
+	//alert("_id:" + $("#_id").val());
+	if($("#_id").val() == ""){		
+		alert($("#_id").attr("data-msg") + " 입력해 주십시오" );
+		$("#_id").focus();
+	}else if($("#pwd").val() == ""){		
+		alert($("#pwd").attr("data-msg") + " 입력해 주십시오" );
+		$("#pwd").focus();
+	}else if($("#_name").val() == ""){		
+		alert($("#_name").attr("data-msg") + " 입력해 주십시오" );
+		$("#_name").focus();
+	}else if($("#_email").val() == ""){		
+		alert($("#_email").attr("data-msg") + " 입력해 주십시오" );
+		$("#_email").focus();
+	}else{
+		if(idck==false){
+			alert("아이디체크 해야함");
+		}else if(nickck == false){
+			alert("닉체크 해야함");
+		}else{
+			 $(".form-signin").attr({"target":"_self", action:"regiAf.do"}).submit();
+		}
+		
+	}
+});
 //-->
 </script>
 

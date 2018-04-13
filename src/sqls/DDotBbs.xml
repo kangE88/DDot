@@ -125,7 +125,62 @@
 			#{seq}, 0, 0)	
 	</insert>
 	 -->
+<select id="getusericon" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT POINT FROM DDOTMEMBER WHERE NICKNAME = (SELECT NICKNAME FROM DDOTBBS WHERE SEQ=#{seq})
+</select>
 
+<!-- ==================== Main 에서 검색하는 부분 ==================== -->
+
+<!-- 전체검색 -->
+<select id="boardsearchallcount" parameterType="java.lang.String" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM DDOTBBS WHERE TITLE like '%'||#{nickname}||'%' OR CONTENT like '%'||#{nickname}||'%'
+</select>
+
+<select id="boardsearchall" parameterType="java.lang.String" resultType="com.DDot.model.BbsDto">
+	SELECT * FROM DDOTBBS WHERE TITLE like '%'||#{nickname}||'%' OR CONTENT like '%'||#{nickname}||'%'
+</select>
+
+<select id="commsearchallcount" parameterType="java.lang.String" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM DDOTCOMM WHERE TITLE like '%'||#{nickname}||'%' OR CONTENT like '%'||#{nickname}||'%'
+</select>
+
+<select id="commsearchall" parameterType="java.lang.String" resultType="com.DDot.model.CommDto">
+	SELECT * FROM DDOTCOMM WHERE TITLE like '%'||#{nickname}||'%' OR CONTENT like '%'||#{nickname}||'%'
+</select>
+
+<!-- 타이틀검색 -->
+<select id="boardsearchtitlecount" parameterType="com.DDot.model.AttendDto" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM DDOTBBS WHERE ${table} like '%'||#{nickname}||'%'
+</select>
+
+<select id="boardsearchtitle" parameterType="com.DDot.model.AttendDto" resultType="com.DDot.model.BbsDto">
+	SELECT * FROM DDOTBBS WHERE ${table} like '%'||#{nickname}||'%'
+</select>
+
+<select id="commsearchtitlecount" parameterType="com.DDot.model.AttendDto" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM DDOTCOMM WHERE ${table} like '%'||#{nickname}||'%'
+</select>
+
+<select id="commsearchtitle" parameterType="com.DDot.model.AttendDto" resultType="com.DDot.model.CommDto">
+	SELECT * FROM DDOTCOMM WHERE ${table} like '%'||#{nickname}||'%'
+</select>
+
+<!-- 내용검색 -->
+<select id="boardsearchcontentcount" parameterType="com.DDot.model.AttendDto" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM DDOTBBS WHERE ${table} like '%'||#{nickname}||'%'
+</select>
+
+<select id="boardsearchcontent" parameterType="com.DDot.model.AttendDto" resultType="com.DDot.model.BbsDto">
+	SELECT * FROM DDOTBBS WHERE ${table} like '%'||#{nickname}||'%'
+</select>
+
+<select id="commsearchcontentcount" parameterType="com.DDot.model.AttendDto" resultType="java.lang.Integer">
+	SELECT COUNT(*) FROM DDOTCOMM WHERE ${table} like '%'||#{nickname}||'%'
+</select>
+
+<select id="commsearchcontent" parameterType="com.DDot.model.AttendDto" resultType="com.DDot.model.CommDto">
+	SELECT * FROM DDOTCOMM WHERE ${table} like '%'||#{nickname}||'%'
+</select>
 </mapper>  
 
 

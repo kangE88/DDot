@@ -46,14 +46,16 @@ public class MemberDaoImpl implements MemberDao {
 	public boolean userInfoModifyNoImage(MemberDto mem) {
 		int n = sqlSession.update(namespace + "userInfoModifyNoImage", mem);		
 		return n>0?true:false;
-	}	
-	
-	
+	}
+
+	@Override
+	public boolean addAttend(String nickname) throws Exception {
+		int n = sqlSession.update(namespace + "addAttend", nickname);
+		return n>0?true:false;
+	}
+
 	
 }
-
-
-
 
 
 

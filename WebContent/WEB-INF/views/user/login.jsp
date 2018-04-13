@@ -10,7 +10,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Sign in &middot; Twitter Bootstrap</title>
+    <title>Sign in</title>
 
     <style type="text/css">
       body {
@@ -44,15 +44,19 @@
   <body>
     <div class="row-fluid">
       <form id="_frmForm" class="form-signin" action="loginAf.do" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">Login</h2>
         <input type="text" class="input-block-level" placeholder="ID" id="id" name="id">
         <input type="password" class="input-block-level" placeholder="Password" id="pwd" name="pwd">
         <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
+          <input type="checkbox" id="_chk_save_id"> Remember me
         </label>
         <a class="btn btn-large btn-primary" id="_btnRegi">Sign up</a>
         <a class="btn btn-large btn-primary" id="_btnLogin">Sign in</a>
-        <a id="kakao_btn_changed"></a>
+        <br>
+        <br>
+        <br>
+        <a id="forgot">Forgot ID & Password ?</a>
+        
       </form>
     </div> <!-- /container -->
 
@@ -76,23 +80,41 @@
 			}
 		}); 
 	
+ 		// id 쿠키 저장
+ 		var user_id = $.cookie("userid");
+ 		if(user_id != null){
+ 			$("#id").val(user_id);
+ 			$("#_chk_save_id").prop("checked", "checked");
+ 		}
+
+ 		$("#_chk_save_id").click(function() {		
+ 			if($('input:checkbox[id="_chk_save_id"]').is(":checked")){
+ 				if($("#id").val() == ""){
+ 					$(this).prop("checked", false);
+ 					alert("아이디를 입력해 주십시오");
+ 				}else{
+ 					$.cookie("userid", $("#id").val(), { expires: 7, path: '/' });
+ 				}		
+ 			}else{
+ 				$.removeCookie("userid", { path:'/' });
+ 			}
+ 		});
+		
 	
 		$("#_btnLogin").click(function() {
 			//alert("id:" + $("#id").val());
-			if($("#id").val() == ""){		
+			if($("#id").val() == ""){
 				alert($("#id").attr("data-msg") + " 아이디를 잘못 입력하셨습니다. " );
 				$("#id").focus();
 			} else if($("#pwd").val() == ""){
 				alert($("#pwd").attr("data-msg") + " 비밀번호를 잘못 입력하셨습니다." );
 				$("#pwd").focus();
-			} else{
-				alert("환영합니다");
+			} else {
 				$("#_frmForm").attr("target", "_self").submit();				
 			}	
 		});
 		
 		$("#_btnRegi").click(function() {
-			alert("click");
 			window.location.href = "regi.do";
 		});
 	</script>

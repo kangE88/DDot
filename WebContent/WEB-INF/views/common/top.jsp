@@ -1,6 +1,8 @@
 <%@page import="com.DDot.model.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
 <div class="row-fluid" style="height:50px; background-color: black;">
 	<div class="span2"></div>
 	<!-- <div class="span8"><p class="text-center" style="padding-top:15px;"><font size="40">dev.</font></p></div> -->
@@ -10,7 +12,9 @@
 </div>
 <div class="navbar-inner">
 	<div class="row-fluid" style="margin-left:auto; margin-right:auto; width:95%;">
-		<a class="brand" href="./index.jsp">D.Dot</a>
+	<button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+          </button>
+		<a class="brand" href="#">D.Dot</a>
 		<div class="nav-collapse collapse">
 			<ul class="nav">
 				<li class="">
@@ -39,11 +43,20 @@
 				<li id="chatting" class=""><a href="#none">Chat</a></li>
 				<li class=""><a href="donate.do">Donate</a></li>
 				<li class=""><a href="attendance.do">attendance</a></li>
+				<li class=""><a href="house.do">house</a></li>
+				<% 	if(session.getAttribute("login") != null){
+						MemberDto mem = (MemberDto)session.getAttribute("login");
+						if(mem.getAuth()==1){
+				%>
+				<li class=""><a href="admin.do">AdminPage</a></li>
+				<%}}%>
+				
 			</ul>
-		</div>
-		<div class="nav pull-right">
-			<ul class="nav">
-			<% if(session.getAttribute("login") == null){ %>
+<!-- 		</div>
+		<div class="nav-collapse pull-right"> -->
+			<ul class="nav pull-right">
+				<% if(session.getAttribute("login") == null){ %>
+				<li><a tabindex="-1" href="regi.do">Join</a></li>
 				<li><a tabindex="-1" href="login.do">Login</a></li>	
 			<%} else {
 				MemberDto mem = (MemberDto)session.getAttribute("login");	
