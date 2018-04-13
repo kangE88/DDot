@@ -72,4 +72,9 @@ public class BbsServiceImpl implements BbsService {
 		
 	}
 
+	@Override
+	public int getusericon(int seq) {
+		return bbsDao.getusericon(seq);
+	}
+
 }

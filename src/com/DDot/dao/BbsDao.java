@@ -26,5 +26,7 @@ public interface BbsDao {
 	
 	public boolean deleteBbs(int seq);
 	
+	public int getusericon(int seq);
+	
 	
 }

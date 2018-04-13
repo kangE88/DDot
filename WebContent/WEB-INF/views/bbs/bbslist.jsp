@@ -1,3 +1,5 @@
+<%@page import="com.DDot.model.BbsDto"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@ page contentType="text/html; charset=utf-8" %>
@@ -5,15 +7,15 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<script type="text/javascript" src="./jquery/common.js"></script>
 <fmt:requestEncoding value="utf-8"/>
-
 
 <style>
 	#searchicon:hover{
 		background-color: #000084;
 	}
 </style>
+
 <div class="row-fluid">
 
 	<!-- ==================== 게시판 좌측메뉴 Start ==================== -->
@@ -141,7 +143,23 @@
 			<c:forEach items="${bbslist}" var="bbs" varStatus="vs">
 			<tr>
 				<td style="text-align: center;">${vs.count}</td>
-				<td><img src="./image/level/lv99.gif"></td>
+				<td><img id="${bbs.seq }icon" src=""></td>
+				<script type="text/javascript">
+					$.ajax({
+						url: "getusericon.do",
+						type: "post",
+						data: {sseq: "${bbs.seq}"},
+						success: function(data) {
+							var level = g_level(data);
+							$("#${bbs.seq }icon").prop("src","./image/level/lv"+level+".gif");
+						},
+						error: function() {
+							alert("18");
+						}
+						
+						
+					});
+				</script>
 				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
 			<c:choose>

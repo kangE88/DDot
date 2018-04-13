@@ -248,7 +248,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="userInfo.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String userInfo() throws Exception {
+	public String userInfo(HttpServletRequest req) throws Exception {
+		
+		MemberDto mdto = (MemberDto)req.getSession().getAttribute("login");
+		
+		MemberDto login = MemberService.login(mdto);
+		
+		req.getSession().setAttribute("login", login);
 		
 		return "userInfo.tiles";
 	}

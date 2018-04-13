@@ -25,5 +25,6 @@ public interface BbsService {
 	boolean updateBbs(BbsDto bbs)throws Exception;
 	
 	public boolean deleteBbs(int seq);
+	public int getusericon(int seq);
 	
 }
