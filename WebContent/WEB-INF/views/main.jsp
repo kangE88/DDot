@@ -12,11 +12,20 @@
 		즐거운 개발 되세요!</p>
 	</div>
 	<h4>Hello! Final Project</h4>
+	<br>
 	
+		<h4>검색어를 입력하세요 : <select id="selectcate" style="width: 10%">  
+								<option value="all">All</option>
+						    	<option value="title">Title</option>
+								<option value="content">Content</option>
+							</select>
+		<input id="boardsearchtext" type="text" style="width: 20%"><a id="boardsearchbtn" href="#"><img alt="" src="./image/search.png"></a> </h4>
+	
+	<br>
 	<table class="table">
 		<tr>
 			<td>
-				<a href="#intro" data-toggle="tab" class="introtitle">DDot이란?</a>
+				<a id="introlink" href="#intro" data-toggle="tab" class="introtitle">DDot이란?</a>
 				<a href="#introboard" data-toggle="tab" class="introtitle">Board</a>
 				<a href="#introcommunity" data-toggle="tab" class="introtitle">Community</a>
 				<a href="#introclab" data-toggle="tab" class="introtitle">C.Lab</a>
@@ -80,9 +89,19 @@
 <br>
 
 <script>
-	$(".introtitle").mouseleave(function() {
-		$(this).prop("style","background-color: #000084");
-	});
+		$(".introtitle").mouseleave(function() {
+			$(this).prop("style","background-color: #000084");
+		});
+		$(function() {
+			$("#introlink").click();
+		});
+		$("#boardsearchbtn").click(function() {
+			var category = $("#selectcate").val();
+			var text = $("#boardsearchtext").val();
+			alert("category: " + category + "  text: " + text);
+			
+			location.href="boardsearch.do?category="+category+"&text="+text;
+		});
 </script>
 
 

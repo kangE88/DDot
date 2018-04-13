@@ -14,7 +14,7 @@
 <script type="text/javascript" src="./js/moment.min.js"></script>
 <script type="text/javascript" src="./js/fullcalendar.js"></script>
 <script type="text/javascript" src="./js/ko.js"></script>
-<script type="text/javascript" src="./jquery/point.js?ver=1"></script>
+<script type="text/javascript" src="./jquery/point.js?ver=2"></script>
 <style type="text/css">
 	#attendanceimg{
 		display: flex;

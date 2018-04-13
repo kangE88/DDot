@@ -110,6 +110,9 @@
 			    <c:when test="${category eq 5 }">
 			       E.T.C  
 			    </c:when>
+			    <c:when test="${category eq 6 }">
+			       	검색결과  
+			    </c:when>
 			</c:choose>
 		</div>
 	</div>
