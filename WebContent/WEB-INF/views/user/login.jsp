@@ -44,7 +44,7 @@
   <body>
     <div class="row-fluid">
       <form id="_frmForm" class="form-signin" action="loginAf.do" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">Login</h2>
         <input type="text" class="input-block-level" placeholder="ID" id="id" name="id">
         <input type="password" class="input-block-level" placeholder="Password" id="pwd" name="pwd">
         <label class="checkbox">
@@ -52,7 +52,11 @@
         </label>
         <a class="btn btn-large btn-primary" id="_btnRegi">Sign up</a>
         <a class="btn btn-large btn-primary" id="_btnLogin">Sign in</a>
-        <a id="kakao_btn_changed"></a>
+        <br>
+        <br>
+        <br>
+        <a id="forgot">Forgot ID & Password ?</a>
+        
       </form>
     </div> <!-- /container -->
 

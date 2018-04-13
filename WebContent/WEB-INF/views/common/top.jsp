@@ -14,7 +14,7 @@
 	<div class="row-fluid" style="margin-left:auto; margin-right:auto; width:95%;">
 	<button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
           </button>
-		<a class="brand" href="./index.jsp">D.Dot</a>
+		<a class="brand" href="#">D.Dot</a>
 		<div class="nav-collapse collapse">
 			<ul class="nav">
 				<li class="">
