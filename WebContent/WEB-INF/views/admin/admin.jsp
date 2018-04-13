@@ -78,10 +78,10 @@ input[type="text"]{
 				<c:forEach items="${userlist}" var="user" varStatus="vs">
 				<tr>
 					<td style="text-align: center;">${user.id }</td>					
-					<td style="text-align: center;"><img id="${user.nickname }icon" src=""> </td>
+					<td style="text-align: center;"><img id="${user.id }icon" src=""> </td>
 					<script>
 						var level = g_level(${user.point});
-						$("#${user.nickname }icon").prop("src","./image/level/lv"+level+".gif");
+						$("#${user.id }icon").prop("src","./image/level/lv"+level+".gif");
 					</script>
 					<td style="text-align: center;">${user.nickname }</td>
 					<td style="text-align: center;">${user.email }</td>
@@ -107,14 +107,14 @@ input[type="text"]{
 						
 					</script>
 					<td style="text-align: center;">on</td>
-					<td style="text-align: center;"><img id="${user.nickname }modify" src="./image/pen.png"></td>
+					<td style="text-align: center;"><img id="${user.id }modify" src="./image/pen.png"></td>
 					<script type="text/javascript">
-						$("#${user.nickname}modify").click(function() {
+						$("#${user.id}modify").click(function() {
 							alert("${user.nickname} modify");
-							$('#${user.nickname}Modal').modal('show');
+							$('#${user.id}Modal').modal('show');
 						});
 					</script>
-					<div id="${user.nickname}Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div id="${user.id}Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					  <div class="modal-header">
 					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 					    <h4 id="myModalLabel">${user.nickname }'s Point</h4>
@@ -124,11 +124,11 @@ input[type="text"]{
 					  </div>
 					  <div class="modal-footer">
 					    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-					    <button id="${user.nickname }pointbtn" class="btn btn-primary">Save changes</button>
+					    <button id="${user.id }pointbtn" class="btn btn-primary">Save changes</button>
 					  </div>
 					</div>
 					<script type="text/javascript">
-						$("#${user.nickname }pointbtn").click(function() {
+						$("#${user.id }pointbtn").click(function() {
 							
 							alert("point: " + $("#${user.nickname }pointtext").val());
 							
@@ -146,7 +146,7 @@ input[type="text"]{
 									alert("18");
 								}
 							})
-							$('#${user.nickname}Modal').modal('hide');
+							$('#${user.id}Modal').modal('hide');
 							
 						});
 					</script>
