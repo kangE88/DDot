@@ -10,7 +10,7 @@ public class MessagePagingDto implements Serializable {
 	private String content;
 	private String wdate;
 	private String read;
-	private int del;
+	private int del=2;
 	
 	// paging
 	private int recordCountPerPage=10;

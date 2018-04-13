@@ -48,13 +48,19 @@ public class MessageDaoImpl implements MessageDao {
 	@Override
 	public int getMessageCount(MessagePagingDto msgPagingDto) throws Exception {
 		int num = 0;
-		num = sqlSession.selectOne(namespace+"getCommCount", msgPagingDto);
+		num = sqlSession.selectOne(namespace+"getMessageCount", msgPagingDto);
 		return num;
 	}
 
 	@Override
 	public boolean deleteMessage(int seq) {
-		int count = sqlSession.update(namespace+"deleteComm", seq);
+		int count = sqlSession.update(namespace+"deleteMessage", seq);
+		return count>0?true:false;
+	}
+
+	@Override
+	public boolean increaseRead(int seq) {
+		int count = sqlSession.update(namespace+"increaseRead", seq);
 		return count>0?true:false;
 	}
 

@@ -18,4 +18,6 @@ public interface MessageDao {
 	public int getMessageCount(MessagePagingDto msgPagingDto) throws Exception;
 	
 	public boolean deleteMessage(int seq);
+	
+	public boolean increaseRead(int seq);
 }

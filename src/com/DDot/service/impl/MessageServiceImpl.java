@@ -52,4 +52,9 @@ public class MessageServiceImpl implements MessageService {
 		return msgDao.deleteMessage(seq);
 	}
 
+	@Override
+	public boolean increaseRead(int seq) {
+		return msgDao.increaseRead(seq);
+	}
+
 }

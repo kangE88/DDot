@@ -123,7 +123,7 @@ $("#message-nav").hover(function() {
 });
 
 $("#message-nav").click(function(){
-	window.open("messagelist.do",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=400px,height=300px,top=100,left=500');
+	window.open("messagelist.do?category=0&sendto=${login.nickname}",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
 });
 
 </script>

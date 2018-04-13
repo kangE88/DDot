@@ -24,14 +24,22 @@
 		FROM 
 		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
 		SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL FROM DDOTMESSAGE
-	    WHERE 1 = 1 ) A
+	    WHERE 
+	    <if test="sendto != null and del == 2">SENDTO = #{sendto,jdbcType=VARCHAR} and DEL = 2</if>
+		<if test="nickname != null">NICKNAME = #{nickname,jdbcType=VARCHAR}</if>
+		<if test="sendto != null and del == 0">SENDTO = #{sendto,jdbcType=VARCHAR} and DEL = 0</if>
+		) A
 		WHERE rnum between ${start} AND ${end}
 	</select>
 	
 	<select id="getMessageCount" parameterType="com.DDot.model.MessagePagingDto" resultType="java.lang.Integer">
 	 
 		SELECT NVL(count(*),0) AS cnt
-		FROM  DDOTMESSAGE  WHERE 1 = 1
+		FROM  DDOTMESSAGE  WHERE 
+		<if test="sendto != null and del == 2">SENDTO = #{sendto,jdbcType=VARCHAR} and DEL = 2</if>
+		<if test="nickname != null">NICKNAME = #{nickname,jdbcType=VARCHAR}</if>
+		<if test="sendto != null and del == 0">SENDTO = #{sendto,jdbcType=VARCHAR} and DEL = 0</if>
+		
 		
 	</select>
 	
@@ -46,6 +54,12 @@
 		SET DEL=0
 		WHERE SEQ=#{seq}
 	</update>	
+	
+	<update id="increaseRead" parameterType="java.lang.Integer">
+		UPDATE DDOTMESSAGE
+		SET READ=1
+		WHERE SEQ=#{seq}
+	</update>
 
 
 	
