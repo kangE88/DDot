@@ -9,12 +9,31 @@
 		SELECT * FROM DDOTMEMBER ORDER BY AUTH ASC
 	</select>
 	
+	<select id="userpaginglist" parameterType="com.DDot.model.MemberParam" resultType="com.DDot.model.MemberDto">
+		SELECT SEQ, ID, EMAIL, POINT,  NICKNAME, INTRO, AUTH 
+		FROM ( SELECT ROW_NUMBER() OVER (ORDER BY AUTH ASC) as rnum, SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH FROM DDOTMEMBER) 
+		A WHERE rnum between ${start} AND ${end}
+	</select>
+	
+	<select id="getusercount" parameterType="com.DDot.model.MemberParam" resultType="java.lang.Integer">
+		SELECT NVL(count(*),0) AS cnt
+			  FROM DDOTMEMBER
+	</select>
+	
 	<select id="userwritecount" parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM DDOTBBS WHERE NICKNAME=#{nickname}
 	</select>
 	
+	<select id="usercommcount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM DDOTCOMM WHERE NICKNAME=#{nickname}
+	</select>
+	
 	<select id="userbbslist" parameterType="java.lang.String" resultType="com.DDot.model.BbsDto">
 		SELECT * FROM DDOTBBS WHERE NICKNAME=#{nickname}
+	</select>
+	
+	<select id="usercommlist" parameterType="java.lang.String" resultType="com.DDot.model.CommDto">
+		SELECT * FROM DDOTCOMM WHERE NICKNAME=#{nickname}
 	</select>
 	
 	<update id="modifypoint" parameterType="com.DDot.model.AttendDto">

@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script type="text/javascript" src="./jquery/common.js"></script>
 <fmt:requestEncoding value="utf-8"/>
 <html>
 <head>
@@ -41,6 +42,8 @@ input[type="text"]{
 		  <li class="divider"></li>
 		  <li><a href="#">Chat</a></li>  
 		</ul>
+		<input type="hidden" name="pageNumber" id="_pageNumber" value="0"/>	
+		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
 	</div>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
 
@@ -54,10 +57,11 @@ input[type="text"]{
 			<col width="5%">	<!-- 레벨아이콘 -->
 			<col width="10%">	<!-- 닉네임 -->
 			<col width="15%">	<!-- 이메일 -->
-			<col width="20%">	<!-- 자기소개 -->
+			<col width="15%">	<!-- 자기소개 -->
 			<col width="10%">	<!-- 포인트 -->
 			<col width="10%">	<!-- 구분 -->
-			<col width="6%">	<!-- 글쓴갯수 -->
+			<col width="5%">	<!-- 보드글쓴갯수 -->
+			<col width="5%">	<!-- 커뮤글쓴갯수 -->
 			<col width="6%">	<!-- 접속중이냐?? -->
 			<col width="8%">	<!-- 수정 버튼 -->
 			<thead>
@@ -69,9 +73,10 @@ input[type="text"]{
 					<th style="text-align: center;">Intro</th>
 					<th style="text-align: center;">Point</th>
 					<th style="text-align: center;">Auth</th>
-					<th style="text-align: center;">Write</th>
+					<th style="text-align: center;">Board</th>
+					<th style="text-align: center;">Comm</th>
 					<th style="text-align: center;">On</th>
-					<th style="text-align: center;">Admin</th>  
+					<th style="text-align: center;">Admin</th>   
 				</tr>
 			</thead>
 			<tbody>
@@ -88,7 +93,7 @@ input[type="text"]{
 					<td style="text-align: center;">${user.intro }</td>
 					<td style="text-align: center;">${user.point }</td>
 					<td style="text-align: center;">${user.auth }</td>
-					<td id="${user.nickname }write" style="text-align: center;"></td>
+					<td id="${user.id }write" style="text-align: center;"></td>
 					<script>
 						var nickname = '${user.nickname}';
 						$.ajax({
@@ -96,15 +101,28 @@ input[type="text"]{
 							type: "post",
 							data: {nickname : nickname},
 							success: function(data) {
-								$("#${user.nickname}write").append('<a href="userbbslist.do?nickname=${user.nickname }" class="${user.nickname}bbs" style="color:#dddddd">'+data+'</a>');
+								$("#${user.id}write").append('<a href="userbbslist.do?nickname=${user.nickname }" class="${user.id}bbs" style="color:#dddddd">'+data+'</a>');
 							},
 							error: function() {
 								alert("18");
 							}
-						});
+						});					
 						
-						
-						
+					</script>
+					<td id="${user.id }comm" style="text-align: center;"></td>
+					<script type="text/javascript">
+						var nickname = '${user.nickname}';
+						$.ajax({
+							url: "usercommcount.do",
+							type: "post",
+							data: {nickname : nickname},
+							success: function(data) {
+								$("#${user.id}comm").append('<a href="usercommlist.do?nickname=${user.nickname }" class="${user.id}comm" style="color:#dddddd">'+data+'</a>');
+							},
+							error: function() {
+								alert("18");
+							}
+						})
 					</script>
 					<td style="text-align: center;">on</td>
 					<td style="text-align: center;"><img id="${user.id }modify" src="./image/pen.png"></td>
@@ -120,7 +138,7 @@ input[type="text"]{
 					    <h4 id="myModalLabel">${user.nickname }'s Point</h4>
 					  </div>
 					  <div class="modal-body">
-					    <p>${user.point } =====> <input type="text" id="${user.nickname }pointtext"></p>
+					    <p>${user.point } =====> <input type="text" id="${user.id }pointtext"></p>
 					  </div>
 					  <div class="modal-footer">
 					    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -130,13 +148,11 @@ input[type="text"]{
 					<script type="text/javascript">
 						$("#${user.id }pointbtn").click(function() {
 							
-							alert("point: " + $("#${user.nickname }pointtext").val());
-							
 							$.ajax({
 								url: "modifypoint.do",
 								type: "post",
 								data: {nickname : "${user.nickname}",
-									   point: $("#${user.nickname }pointtext").val()
+									   point: $("#${user.id }pointtext").val()
 								},
 								success: function(data) {
 									alert("Good");
@@ -155,6 +171,20 @@ input[type="text"]{
 			</tbody>
 		</table>
 	
+	<div id="paging_wrap">
+		<jsp:include page="/WEB-INF/views/common/paging.jsp" flush="false">
+			<jsp:param value="${pageNumber }" name="pageNumber"/>
+			<jsp:param value="${pageCountPerScreen }" name="pageCountPerScreen"/>
+			<jsp:param value="${recordCountPerPage }" name="recordCountPerPage"/>
+			<jsp:param value="${totalRecordCount }" name="totalRecordCount"/>
+		</jsp:include>
+	</div>
+		
+		<script type="text/javascript">
+		function goPage(pageNumber) {
+			$("#_pageNumber").val(pageNumber);			
+		};
+		</script>
 	</div>
 <!-- ==================== 어드민 회원관리 시작 ====================  -->
 <!-- ==================== 어드민 우측메뉴 끝 ====================  -->
