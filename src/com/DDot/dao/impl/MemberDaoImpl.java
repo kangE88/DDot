@@ -51,9 +51,12 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public MemberDto getMember(String nickname) throws Exception {
 		return sqlSession.selectOne(namespace + "getMember", nickname);
+	}
+
+	@Override
+	public int getMemberPoint(String nickname) throws Exception {
+		return sqlSession.selectOne(namespace+"getMemberPoint", nickname);
 	}	
-	
-	
 	
 }
 

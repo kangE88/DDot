@@ -47,26 +47,18 @@
 				</table>
 		</form>
 		
+		
+		
+		
+		
+		
 		<script type="text/javascript">
+		
 		$(document).ready(function() {
 			// select 유지
 			$("#_s_category > option[value="+'<c:out value="${ param.s_category }"/>'+"]").attr("selected","selected");
-			
-			$.ajax({
-				  type:"POST"
-				  ,url:"가져오는거.do"
-				  ,data:{"seq" : "${bbs.seq}"}
-				  ,success:function(data){
-					 $("#up").html(data.up);
-					 $("#down").html(data.down);
-				  },
-				  error: function(xhr, status, error) {
-					  alert("로그인 후 클릭 부탁 드립니다");
-			      }  
-			 });
-			
-			
 		});
+		
 		$("#_btnSearch").click(function() {
 			$("#_frmFormSearch").attr({ "target":"_self", "action":"bbslist.do" }).submit();
 		});
@@ -158,15 +150,25 @@
 				<td style="text-align: center;">${vs.count}</td>
 				<td style="text-align: center;">
 				
-				<!-- 각 게시글의 닉네임 -->
-				${bbs.nickname }
+				<!-- 아이콘 이미지를 가져오는 부분 -->
+				<script type="text/javascript">
+				$(document).ready(function() {
+					$.ajax({
+						  type:"POST"
+						  ,url:"getMemberPoint.do"
+						  ,data:{"nickname" : "${bbs.nickname}"}
+						  ,success:function(data){
+							  var level = g_level(data.point);
+							  $('#${bbs.seq}icon').attr("src","./image/level/lv"+level+".gif");
+						  },
+						  error: function(xhr, status, error) {
+							  alert("18");
+					      }  
+					 });
+				 });
+				</script>
 				
-				 
-				
-				<img src="./image/level/lv99.gif">
-				
-				
-				
+				<img id="${bbs.seq }icon" src="">
 				</td>
 				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
@@ -188,7 +190,10 @@
 				<!-- del==0 일 때 title 삭제 된 글로 표현 --> 
 			<c:choose>
 			<c:when test="${bbs.del eq '0'}">
-				<td style="text-align: left">삭제 된 글 입니다</td>
+				<td style="text-align: left">유저에 의해 삭제 된 글 입니다</td>
+			</c:when>
+			<c:when test="${bbs.del eq '1'}">
+				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
 				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a></td>

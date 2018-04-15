@@ -2,6 +2,8 @@ package com.DDot.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -285,6 +287,21 @@ public class MemberController {
 		
 		return "redirect:/index.jsp";
 	}
+	
+	
+	/*user point 를 가져오는 부분*/
+	@ResponseBody
+	@RequestMapping(value="getMemberPoint.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Integer> getMemberPoint(Model model, String nickname)  throws Exception {
+		logger.info("KhMemberController getMemberPoint");
+		
+		Map<String, Integer> getMemberPointMap = new HashMap<String, Integer>();
+		getMemberPointMap.put("point", MemberService.getMemberPoint(nickname));
+
+		return getMemberPointMap;
+	}
+	
+	
 }
 
 

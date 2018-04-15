@@ -49,5 +49,12 @@
 		WHERE NICKNAME=#{nickname}
 	</select>
 	
+	<!-- user level point를 가져오기 위한 사항 -->
+	<select id="getMemberPoint" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT POINT
+		FROM DDOTMEMBER
+		WHERE NICKNAME=#{nickname}
+	</select>
+	
 
 </mapper>  

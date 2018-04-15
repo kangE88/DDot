@@ -20,4 +20,6 @@ public interface MemberDao {
 	
 	MemberDto getMember(String nickname) throws Exception;
 	
+	int getMemberPoint(String nickname) throws Exception;
+	
 }

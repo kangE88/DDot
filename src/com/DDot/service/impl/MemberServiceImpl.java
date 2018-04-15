@@ -47,8 +47,12 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDto getMember(String nickname) throws Exception {
 		return MemberDao.getMember(nickname);
 	}
-	
-	
+
+	@Override
+	public int getMemberPoint(String nickname) throws Exception {
+		return MemberDao.getMemberPoint(nickname);
+	}
+
 	
 }
 

@@ -11,4 +11,6 @@ public interface MemberService {
 	public boolean userInfoModifyNoImage(MemberDto mem);
 	
 	public MemberDto getMember(String nickname) throws Exception;
+	
+	int getMemberPoint(String nickname) throws Exception;
 }
