@@ -292,8 +292,8 @@ public class MemberController {
 		
 		Map<String, Integer> getMemberPointMap = new HashMap<String, Integer>();
 		getMemberPointMap.put("point", MemberService.getMemberPoint(nickname));
-
-		return getMemberPointMap;
+		
+		return getMemberPointMap;	
 	}
 	
 	
