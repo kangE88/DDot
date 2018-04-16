@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import com.DDot.dao.AdminDao;
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
+import com.DDot.model.CommDto;
 import com.DDot.model.MemberDto;
+import com.DDot.model.MemberParam;
 import com.DDot.service.AdminService;
 
 @Service
@@ -44,6 +46,21 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteuserbbs(int seq) {
 		admindao.deleteuserbbs(seq);		
+	}
+
+	@Override
+	public int usercommcount(String nickname) {
+		return admindao.usercommcount(nickname);
+	}
+
+	@Override
+	public List<CommDto> usercommlist(String nickname) {
+		return admindao.usercommlist(nickname);
+	}
+
+	@Override
+	public int getusercount(MemberParam param) {
+		return admindao.getusercount(param);
 	}
 
 }

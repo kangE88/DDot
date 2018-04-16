@@ -2,7 +2,6 @@
 
 <tiles-definitions>
 
-
 <definition name="main.tiles" template="/WEB-INF/views/layouts-tiles.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>
 	<put-attribute name="top" value="/WEB-INF/views/common/top.jsp"/>
@@ -109,12 +108,19 @@
 	<put-attribute name="main" value="/WEB-INF/views/admin/admin.jsp"/>
 </definition>
 
-<definition name="adminuserbbslist.tiles" extends="main.tiles">
-	<put-attribute name="main" value="/WEB-INF/views/admin/adminuserbbslist.jsp"/>
-</definition>
 
 <definition name="boardsearch.tiles" extends="main.tiles">
 	<put-attribute name="main" value="/WEB-INF/views/bbs/boardsearch.jsp"/>
+</definition>
+
+
+<definition name="userbbslist.tiles" extends="main.tiles">
+<put-attribute name="main" value="/WEB-INF/views/admin/userbbslist.jsp"/>
+</definition>
+
+
+<definition name="usercommlist.tiles" extends="main.tiles">
+<put-attribute name="main" value="/WEB-INF/views/admin/usercommlist.jsp"/>
 </definition>
 
 </tiles-definitions>

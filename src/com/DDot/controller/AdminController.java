@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
+import com.DDot.model.CommDto;
 import com.DDot.model.MemberDto;
+import com.DDot.model.MemberParam;
 import com.DDot.service.AdminService;
 
 @Controller
@@ -21,9 +23,28 @@ public class AdminController {
 	AdminService adminService;
 	
 	@RequestMapping(value="admin.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String userlist(Model model) {
+	public String userlist(Model model, MemberParam param) {
 		
+		int sn = param.getPageNumber();
+		int start = (sn) * param.getRecordCountPerPage() + 1;
+		int end = (sn+1) * param.getRecordCountPerPage();
+		
+		System.out.println("start: "+start);
+		System.out.println("end: "+end);
+		param.setStart(start);
+		param.setEnd(end);
+		
+		int totalRecordCount = adminService.getusercount(param);
+		
+		System.out.println("totalRecordCount: " + totalRecordCount);
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		System.out.println("list 받기전");
 		List<MemberDto> list = adminService.userlist();
+		System.out.println("list 받은후");
 		model.addAttribute("userlist", list);
 		
 		return "admin.tiles";
@@ -38,6 +59,17 @@ public class AdminController {
 		return count;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="usercommcount.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public int usercommcount(Model model, String nickname) {
+		
+		int count = adminService.usercommcount(nickname);
+		model.addAttribute("count", nickname);
+		return count;
+	}
+	
+	
+	
 	
 	@RequestMapping(value="userbbslist.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String userbbslist(String nickname, Model model) {
@@ -45,20 +77,16 @@ public class AdminController {
 		List<BbsDto> userbbslist = adminService.userbbslist(nickname);
 		model.addAttribute("userbbslist", userbbslist);
 		
-		return "adminuserbbslist.tiles";
+		return "userbbslist.tiles";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="modifypoint.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String modifypoint(String nickname, String point) {
+	@RequestMapping(value="usercommlist.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String usercommlist(String nickname, Model model) {
 		
-		AttendDto adto = new AttendDto();
-		adto.setNickname(nickname);
-		adto.setTable(point);
+		List<CommDto> usercommlist = adminService.usercommlist(nickname);
+		model.addAttribute("usercommlist", usercommlist);
 		
-		adminService.modifypoint(adto);
-		
-		return "redirect: admin.do";
+		return "usercommlist.tiles";
 	}
 	
 	@ResponseBody
@@ -70,6 +98,19 @@ public class AdminController {
 		adminService.deleteuserbbs(seq);
 		
 		return "redirect: userbbslist.do";
+	}
+
+	@ResponseBody
+	@RequestMapping(value="modifypoint.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String modifypoint(String nickname, String point) {
+		
+		AttendDto adto = new AttendDto();
+		adto.setNickname(nickname);
+		adto.setTable(point);
+		
+		adminService.modifypoint(adto);
+		
+		return "redirect: admin.do";
 	}
 	
 	
