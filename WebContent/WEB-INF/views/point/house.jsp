@@ -30,7 +30,6 @@ if(session.getAttribute("login") == null){
 <%
 }else{
 	MemberDto mem = (MemberDto)session.getAttribute("login");
-}
 %>
 <div class="row-fluid" style="height: 100%">
 	<div class="span2">
@@ -238,6 +237,6 @@ if(session.getAttribute("login") == null){
 </script>
 
 <!-- ==================== 업다운 스크립트 끝 ====================  -->
-
+<%} %>
 </body>
 </html>
