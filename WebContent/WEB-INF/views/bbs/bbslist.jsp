@@ -162,7 +162,7 @@
 						  ,url:"getMemberPoint.do"
 						  ,data:{"nickname" : "${bbs.nickname}"}
 						  ,success:function(data){
-							  var level = g_level(data);
+							  var level = g_level(data.point);
 							  $('#${bbs.seq}icon').attr("src","./image/level/lv"+level+".gif");
 						  },
 						  error: function(xhr, status, error) {
