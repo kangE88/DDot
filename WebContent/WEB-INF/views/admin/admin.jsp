@@ -36,14 +36,16 @@ input[type="text"]{
 		<ul class="nav nav-list">
 		  <li class="nav-header">Left Menu</li>
 		  <li class="divider"></li>  
-		  <li><a href="admin.do">User</a></li>
+		  <li class="active"><a href="admin.do">User</a></li>
 		  <li class="divider"></li>
 		  <li><a href="#">Board</a></li>
 		  <li class="divider"></li>
 		  <li><a href="#">Chat</a></li>  
 		</ul>
-		<input type="hidden" name="pageNumber" id="_pageNumber" value="0"/>	
+		<form id="userpaging" method="post" action="">
+		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+		</form>
 	</div>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
 
@@ -181,9 +183,10 @@ input[type="text"]{
 	</div>
 		
 		<script type="text/javascript">
-		function goPage(pageNumber) {
-			$("#_pageNumber").val(pageNumber);			
-		};
+		function goPage(pageNumber) {			
+			$("#_pageNumber").val(pageNumber);
+			$("#userpaging").attr("target","_self").attr("action","admin.do").submit();
+		}
 		</script>
 	</div>
 <!-- ==================== 어드민 회원관리 시작 ====================  -->

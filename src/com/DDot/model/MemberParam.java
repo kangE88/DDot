@@ -2,7 +2,7 @@ package com.DDot.model;
 
 import java.io.Serializable;
 
-public class MemberParam {
+public class MemberParam implements Serializable {
 
 	private int seq;		//  seq
 	private String id;		//	id
@@ -10,16 +10,15 @@ public class MemberParam {
 	private String email;	//	email
 	private int point;		//	point
 	private String nickname;//	nickname
-	private String pic;		//	이미지파일이름
-	private String intro;	//	소개
-	private int auth;		//	구분자
+	private String pic;		//	�씠誘몄��뙆�씪�씠由�
+	private String intro;	//	�냼媛�
+	private int auth;		//	援щ텇�옄
 	
-	private int recordCountPerPage=10;
+	private int recordCountPerPage=8;
 	private int pageNumber=0;
 	
 	private int start=1;
-	private int end=10;
-	
+	private int end=10;	
 	
 	public int getSeq() {
 		return seq;

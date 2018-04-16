@@ -97,7 +97,7 @@ if(session.getAttribute("login") == null){
 	abc[0] = 'a200.png';
 	abc[1] = 'b200.png';
 	abc[2] = 'c200.png';
-	var user = 0;
+	var user = null;
 	var num = 0;
 	var interval = null;
 	
@@ -115,13 +115,15 @@ if(session.getAttribute("login") == null){
 	});
 	$(".userabc").click(function() {
 		
+		
 		if(parseInt(${login.point})>=100){
 			
-		user = $(this).attr("value");
-		
-		$("#cpuabc").show();
-		interval = setInterval(cpuabcslide,50)
-		
+			if(user == null){
+				user = $(this).attr("value");
+				
+				$("#cpuabc").show();
+				interval = setInterval(cpuabcslide,50)
+			}
 		}
 		else if(parseInt(${login.point})<100){
 			alert("Point가 모자릅니다.");
@@ -179,7 +181,7 @@ if(session.getAttribute("login") == null){
 		
 		setTimeout(function() {
 			updownresult(user, random)
-		}, 1500);	  	
+		}, 500);	  	
 		}
 		else{
 			alert("Point가 모자랍니다.");

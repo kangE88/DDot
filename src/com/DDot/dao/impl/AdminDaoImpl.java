@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.DDot.dao.AdminDao;
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
+import com.DDot.model.BbsParam;
 import com.DDot.model.CommDto;
 import com.DDot.model.MemberDto;
 import com.DDot.model.MemberParam;
@@ -23,11 +24,11 @@ public class AdminDaoImpl implements AdminDao {
 	private String namespace = "DDotAdmin.";
 	
 	@Override
-	public List<MemberDto> userlist() {
+	public List<MemberDto> userlist(MemberParam param) {
 		
 		List<MemberDto> list = new ArrayList<MemberDto>();
 		
-		list = sqlSession.selectList(namespace+"userpaginglist");
+		list = sqlSession.selectList(namespace+"userpaginglist", param);
 		
 		return list;
 	}
@@ -40,10 +41,17 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<BbsDto> userbbslist(String nickname) {
+	public List<BbsDto> userbbslist(BbsParam param) {
 		
-		List<BbsDto> userbbslist = sqlSession.selectList(namespace+"userbbslist", nickname);
+		List<BbsDto> userbbslist = sqlSession.selectList(namespace+"userbbslist", param);
 		return userbbslist;
+	}
+
+	@Override
+	public int userbbscount(String nickname) {
+		int count = 0;
+		count = sqlSession.selectOne(namespace+"userbbscount", nickname);
+		return count;
 	}
 
 	@Override
@@ -73,7 +81,7 @@ public class AdminDaoImpl implements AdminDao {
 	public int getusercount(MemberParam param) {
 		int count = 0;
 		count = sqlSession.selectOne(namespace+"getusercount", param);
-		return 0;
+		return count;
 	}
 
 }

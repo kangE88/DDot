@@ -50,27 +50,31 @@
 						},
 						error: function() {
 							alert("18");
-						}
-						
-						
+						}						
 					});
 				</script>
 				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
 			<c:choose>
-			    <c:when test="${bbs.subcategory eq 0 }">
-			       <td style="text-align: center;">[Tip]</td> 
+			    <c:when test="${bbs.category eq 0 }">
+			       <td style="text-align: center;">Java</td> 
 			    </c:when>
-				<c:when test="${bbs.subcategory eq 1 }">
-			       <td style="text-align: center;">[Error]</td> 
+				<c:when test="${bbs.category eq 1 }">
+			       <td style="text-align: center;">JSP</td> 
 			    </c:when>
-			    <c:when test="${bbs.subcategory eq 2 }">
-			       <td style="text-align: center;">[Example]</td> 
+			    <c:when test="${bbs.category eq 2 }">
+			       <td style="text-align: center;">Jquery</td> 
 			    </c:when>
-			    <c:when test="${bbs.subcategory eq 3 }">
-			       <td style="text-align: center;">[E.T.C]</td> 
+			    <c:when test="${bbs.category eq 3 }">
+			       <td style="text-align: center;">Oracle/Sql</td> 
 			    </c:when>
-			</c:choose>
+			    <c:when test="${bbs.category eq 4 }">
+			       <td style="text-align: center;">Spring</td> 
+			    </c:when>
+			    <c:when test="${bbs.category eq 5 }">
+			       <td style="text-align: center;">E.T.C</td> 
+			    </c:when>
+			</c:choose>	
 					
 				<!-- del==0 일 때 title 삭제 된 글로 표현 --> 
 			<c:choose>

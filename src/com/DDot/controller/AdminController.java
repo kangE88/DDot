@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
+import com.DDot.model.BbsParam;
 import com.DDot.model.CommDto;
 import com.DDot.model.MemberDto;
 import com.DDot.model.MemberParam;
@@ -40,11 +41,11 @@ public class AdminController {
 		model.addAttribute("totalRecordCount", totalRecordCount);
 		
 		model.addAttribute("pageNumber", sn);
-		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("pageCountPerScreen", 8);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
-		System.out.println("list 받기전");
-		List<MemberDto> list = adminService.userlist();
-		System.out.println("list 받은후");
+		
+		List<MemberDto> list = adminService.userlist(param);
+		
 		model.addAttribute("userlist", list);
 		
 		return "admin.tiles";
@@ -72,9 +73,29 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="userbbslist.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String userbbslist(String nickname, Model model) {
+	public String userbbslist(BbsParam param, Model model, String nickname) {
 		
-		List<BbsDto> userbbslist = adminService.userbbslist(nickname);
+		param.setNickname(nickname);
+		model.addAttribute("nickname", nickname);
+		int sn = param.getPageNumber();
+		int start = (sn) * param.getRecordCountPerPage() + 1;
+		int end = (sn+1) * param.getRecordCountPerPage();
+		
+		System.out.println("start: "+start);
+		System.out.println("end: "+end);
+		
+		param.setStart(start);
+		param.setEnd(end);		
+		
+		int totalRecordCount = adminService.userbbscount(nickname);
+		
+		System.out.println("totalRecordCount: " + totalRecordCount);
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 8);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		List<BbsDto> userbbslist = adminService.userbbslist(param);
 		model.addAttribute("userbbslist", userbbslist);
 		
 		return "userbbslist.tiles";
