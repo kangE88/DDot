@@ -87,7 +87,7 @@
 	<tr>
 		<th>Category</th>
 			<td style="text-align: left">
-				<select id="category" name="category">
+				<select id="_category" name="category">
 				<option value="0">Java</option>
 				<option value="1">JSP</option>
 				<option value="2">JQuery</option>
@@ -100,7 +100,7 @@
 	<tr>
 		<th>Subcategory</th>
 			<td style="text-align: left">
-				<select id="subcategory" name="subcategory">
+				<select id="_subcategory" name="subcategory">
 				<option value="0">tip</option>
 				<option value="1">error</option>
 				<option value="2">ex</option>
@@ -129,6 +129,10 @@
 </form>
 
 <script type="text/javascript">
+//category & subcategory 선택 사항 적용 
+$("#_category > option[value="+'<c:out value="${category }"/>'+"]").attr("selected","selected");
+$("#_subcategory > option[value="+'<c:out value="${subcategory }"/>'+"]").attr("selected","selected");
+
 $("#_btnLogin").click(function() {	
 	// alert('글작성');	
 	$("#_frmForm").attr({ "target":"_self", "action":"bbswriteAf.do" }).submit();	
