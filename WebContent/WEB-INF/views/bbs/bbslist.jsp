@@ -159,10 +159,10 @@
 				$(document).ready(function() {
 					$.ajax({
 						  type:"POST"
-						  ,url:"getusericon.do"
-						  ,data:{"sseq" : "${bbs.seq}"}
+						  ,url:"getMemberPoint.do"
+						  ,data:{"nickname" : "${bbs.nickname}"}
 						  ,success:function(data){
-							  var level = g_level(data);
+							  var level = g_level(data.point);
 							  $('#${bbs.seq}icon').attr("src","./image/level/lv"+level+".gif");
 						  },
 						  error: function(xhr, status, error) {
@@ -171,6 +171,7 @@
 					 });
 				 });
 				</script>
+
 				<td><img id="${bbs.seq }icon" src=""></td>
 				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
