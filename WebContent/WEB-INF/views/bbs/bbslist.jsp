@@ -171,9 +171,6 @@
 					 });
 				 });
 				</script>
-				<td>
-				<img id="${bbs.seq }icon" src="">
-				</td>
 
 				<td><img id="${bbs.seq }icon" src=""></td>
 				
