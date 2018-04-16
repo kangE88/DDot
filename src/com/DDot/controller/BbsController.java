@@ -1,7 +1,9 @@
-package com.DDot.controller;
+﻿package com.DDot.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +18,9 @@ import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
 import com.DDot.model.CommDto;
+import com.DDot.model.ReplyDto;
 import com.DDot.service.BbsService;
+import com.DDot.service.ReplyService;
 
 
 
@@ -27,6 +31,9 @@ public class BbsController {
 
 	@Autowired
 	BbsService bbsService;
+	
+	@Autowired
+	ReplyService replyService;
 	
 	
     // category & subcategory 선택에 따른 게시글 목록
@@ -66,7 +73,7 @@ public class BbsController {
 			model.addAttribute("s_category", param.getS_category());
 			System.out.println("s_category: " + param.getS_category());
 			model.addAttribute("s_keyword", param.getS_keyword());
-		
+			
 		return "bbslist.tiles";
 	}
 	
@@ -88,15 +95,59 @@ public class BbsController {
 		return "redirect:/bbslist.do";
 	}
 	
+	
 	@RequestMapping(value = "bbsdetail.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String bbsdetail(int seq, Model model) throws Exception {
+	public String bbsdetail(int seq, ReplyDto reply, Model model) throws Exception {
 		logger.info("DDotBbsController bbsdetail! "+ new Date());
 		BbsDto bbs=null;
 		bbsService.readCount(seq);
 		bbs=bbsService.getBbs(seq);
 		model.addAttribute("bbs", bbs);
+		
+				
+		// 댓글 쓰기
+		if(reply.getNickname() !=null) {
+			reply.setBbs_seq(reply.getSeq());
+			replyService.writeReplyBbs(reply);
+		}
+		
+		
+		// 전체 댓글 가져오기
+		List<ReplyDto> list = replyService.getReplyBbsList(seq);
+		model.addAttribute("replylist", list);
+		
+		// 댓글 count
+		int count = replyService.getReplyBbsCount(seq);
+		model.addAttribute("replycount", count);
+
 		return "bbsdetail.tiles";
 	}
+	
+	/*
+	// 댓글 쓰기
+	@ResponseBody
+	@RequestMapping(value = "replywritebbs.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, List<ReplyDto>> replywritebbs(ReplyDto reply, Model model) throws Exception {
+		logger.info("DDotBbsController replywritebbs! "+ new Date());
+		
+			System.out.println("reply.getNickname()="+reply.getNickname());
+			System.out.println("reply.getContent()="+reply.getContent());
+			System.out.println("reply.getSeq()="+reply.getSeq());
+			
+			// 전체 댓글 가져오기
+			List<ReplyDto> list = replyService.getReplyBbsList(reply.getSeq());
+			
+			if(reply.getNickname() !=null) {
+				reply.setBbs_seq(reply.getSeq());
+				replyService.writeReplyBbs(reply);
+			}
+			
+			Map<String, List<ReplyDto>> replyMap = new HashMap<String, List<ReplyDto>>();
+			replyMap.put("replylist", list);
+			
+			return replyMap;
+	}
+	*/
 	
 	@RequestMapping(value = "bbsupdate.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String bbsupdate(int seq, Model model) throws Exception{

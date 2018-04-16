@@ -2,7 +2,6 @@ package com.DDot.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.DDot.dao.MemberDao;
 import com.DDot.model.MemberDto;
 import com.DDot.service.MemberService;
@@ -46,6 +45,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean addAttend(String nickname) throws Exception {
 		return MemberDao.addAttend(nickname);
+	}
+
+	@Override
+	public MemberDto getMember(String nickname) throws Exception {
+		return MemberDao.getMember(nickname);
+	}
+
+	@Override
+	public int getMemberPoint(String nickname) throws Exception {
+		return MemberDao.getMemberPoint(nickname);
 	}
 
 	

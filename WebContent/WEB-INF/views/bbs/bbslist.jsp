@@ -1,4 +1,4 @@
-<%@page import="com.DDot.model.BbsDto"%>
+﻿<%@page import="com.DDot.model.BbsDto"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -49,11 +49,18 @@
 				</table>
 		</form>
 		
+		
+		
+		
+		
+		
 		<script type="text/javascript">
+		
 		$(document).ready(function() {
 			// select 유지
-			$("#_s_category > option[value="+'<c:out value="${ param.s_category }"/>'+"]").attr("selected","selected");  
+			$("#_s_category > option[value="+'<c:out value="${ param.s_category }"/>'+"]").attr("selected","selected");
 		});
+		
 		$("#_btnSearch").click(function() {
 			$("#_frmFormSearch").attr({ "target":"_self", "action":"bbslist.do" }).submit();
 		});
@@ -146,23 +153,27 @@
 			<c:forEach items="${bbslist}" var="bbs" varStatus="vs">
 			<tr>
 				<td style="text-align: center;">${vs.count}</td>
-				<td><img id="${bbs.seq }icon" src=""></td>
+				
+				<!-- 아이콘 이미지를 가져오는 부분 -->
 				<script type="text/javascript">
+				$(document).ready(function() {
 					$.ajax({
-						url: "getusericon.do",
-						type: "post",
-						data: {sseq: "${bbs.seq}"},
-						success: function(data) {
-							var level = g_level(data);
-							$("#${bbs.seq }icon").prop("src","./image/level/lv"+level+".gif");
-						},
-						error: function() {
-							alert("18");
-						}
-						
-						
-					});
+						  type:"POST"
+						  ,url:"getMemberPoint.do"
+						  ,data:{"nickname" : "${bbs.nickname}"}
+						  ,success:function(data){
+							  var level = g_level(data.point);
+							  $('#${bbs.seq}icon').attr("src","./image/level/lv"+level+".gif");
+						  },
+						  error: function(xhr, status, error) {
+							  alert("18");
+					      }  
+					 });
+				 });
 				</script>
+				
+				<img id="${bbs.seq }icon" src="">
+				</td>
 				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
 			<c:choose>
@@ -183,14 +194,18 @@
 				<!-- del==0 일 때 title 삭제 된 글로 표현 --> 
 			<c:choose>
 			<c:when test="${bbs.del eq '0'}">
-				<td style="text-align: left">삭제 된 글 입니다</td>
+				<td style="text-align: left">유저에 의해 삭제 된 글 입니다</td>
+			</c:when>
+			<c:when test="${bbs.del eq '1'}">
+				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
 				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a></td>
 			</c:otherwise>
 			</c:choose>
-			
-				<td style="text-align: center;"><a href="#" class="userInfo" title="${bbs.nickname}">${bbs.nickname}</a></td>
+				<!-- userinfo 정보 확인 -->
+				<td style="text-align: center;"><a onclick="window.open('userInfo_bbs.do?nickname=${bbs.nickname}','내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#" >${bbs.nickname}</a></td>
+				
 				<!-- 날짜 형식 변경 -->
 				<td style="text-align: center;">	<c:out value="${fn:substring(bbs.wdate,2,10)}"/></td>
 				<td style="text-align: center;">${bbs.readcount}</td>
@@ -200,15 +215,6 @@
 			</tbody>
 		</table>
 			
-			<!-- Nickname 선택시 정보표현 Start --> 		
-			<script type="text/javascript">
-			$(".userInfo").click(function () {
-				// alert($(".userInfo").attr("title"));
-					window.open("userInfo.do?",'내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
-				});
-			</script>
-			<!-- Nickname 선택시 정보표현 End -->		
-
 		
 		<!-- ==================== 실제게시판 들어가는부분 End ==================== -->
  
