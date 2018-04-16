@@ -50,13 +50,15 @@
         <label class="checkbox">
           <input type="checkbox" id="_chk_save_id"> Remember me
         </label>
-        <a class="btn btn-large btn-primary" id="_btnRegi">Sign up</a>
-        <a class="btn btn-large btn-primary" id="_btnLogin">Sign in</a>
+        <div class="row-fluid">
+	        <a class="btn btn-large btn-primary span6" id="_btnRegi">Join</a>
+	        <a class="btn btn-large btn-primary span6" id="_btnLogin">Login</a>
+        </div>
         <br>
-        <br>
-        <br>
-        <a id="forgot">Forgot ID & Password ?</a>
-        
+		<div class="row-fluid">
+        	<span class="span10">Forgot ID, Password ?</span>
+        	<a class="span2" id="forgot" href="userFind.do">Here</a>
+        </div>
       </form>
     </div> <!-- /container -->
 

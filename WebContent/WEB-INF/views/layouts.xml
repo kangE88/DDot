@@ -18,6 +18,10 @@
 	<put-attribute name="main" value="/WEB-INF/views/user/regi.jsp"/>
 </definition>
 
+<definition name="userFind.tiles" extends="main.tiles">
+	<put-attribute name="main" value="/WEB-INF/views/user/userFind.jsp"/>
+</definition>
+
 <!-- userInfo -->
 <definition name="userInfo.tiles" template="/WEB-INF/views/user/userInfo.jsp">
 	<put-attribute name="header" value="/WEB-INF/views/common/header.jsp"/>

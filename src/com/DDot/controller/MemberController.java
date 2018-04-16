@@ -259,6 +259,12 @@ public class MemberController {
 		return "userInfo.tiles";
 	}
 	
+	@RequestMapping(value="userFind.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String findid(HttpServletRequest req) throws Exception {
+		
+		return "userFind.tiles";
+	}
+	
 	@RequestMapping(value="logout.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String logout(HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().invalidate();
