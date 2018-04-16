@@ -239,7 +239,7 @@
 		<!-- ==================== 글쓰기 div start ==================== -->
 		<div class="span9"></div>
 		<div class="span2" style="float: right;"> 
-			<button class="btn" style="margin:auto;" onclick="location.href='bbswrite.do'">Write</button>
+			<button class="btn" style="margin:auto;" onclick="location.href='bbswrite.do?category=${category }&subcategory=${subcategory }'">Write</button>
 		</div>	
 		<!-- ==================== 글쓰기 div End ==================== -->
 	</div>

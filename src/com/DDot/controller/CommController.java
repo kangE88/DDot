@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.DDot.model.CommDto;
+import com.DDot.model.ReplyDto;
 import com.DDot.model.BbsParam;
 import com.DDot.model.CommDto;
 import com.DDot.service.CommService;
+import com.DDot.service.ReplyService;
 
 @Controller
 public class CommController {
@@ -23,6 +25,9 @@ public class CommController {
 
 	@Autowired
 	CommService commService;
+	
+	@Autowired
+	ReplyService replyService;
 	
 
 		@RequestMapping(value="commlist.do", method= {RequestMethod.GET, RequestMethod.POST})
@@ -72,12 +77,26 @@ public class CommController {
 		}
 		
 		@RequestMapping(value = "commdetail.do", method = {RequestMethod.GET, RequestMethod.POST})
-		public String commdetail(int seq, Model model) throws Exception {
+		public String commdetail(int seq, ReplyDto reply, Model model) throws Exception {
 			logger.info("DDotCommController commdetail! "+ new Date());
 			CommDto comm=null;
 			commService.readCount(seq);
 			comm = commService.getComm(seq);
 			model.addAttribute("comm", comm);
+			
+			// 댓글 쓰기
+			if(reply.getNickname() !=null) {
+				reply.setComm_seq(reply.getSeq());
+				replyService.writeReplyComm(reply);
+			}
+			
+			// 전체 댓글 가져오기
+			List<ReplyDto> list = replyService.getReplyCommList(seq);
+			model.addAttribute("replylist", list);
+			
+			// 댓글 count
+			int count = replyService.getReplyCommCount(seq);
+			model.addAttribute("replycount", count);
 			
 			return "commdetail.tiles";
 		}

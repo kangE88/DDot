@@ -78,8 +78,16 @@ public class BbsController {
 	}
 	
 	@RequestMapping(value = "bbswrite.do", method = {RequestMethod.GET,	RequestMethod.POST})
-	public String bbswrite(Model model) {
+	public String bbswrite(Model model, String category, String subcategory) {
 		logger.info(" DDotBbsController bbswrite! "+ new Date());
+
+		if(subcategory=="9") {
+			subcategory = "0";
+		}
+		
+		model.addAttribute("category", category);			
+		model.addAttribute("subcategory", subcategory);
+		
 		return "bbswrite.tiles";
 	}
 	

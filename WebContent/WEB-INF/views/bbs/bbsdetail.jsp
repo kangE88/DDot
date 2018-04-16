@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <fmt:requestEncoding value="utf-8"/>
 
 <!DOCTYPE html>
@@ -155,7 +156,7 @@
 			${reply.nickname }
 			</td>
 			<td style="text-align: left">
-			${reply.wdate }
+			<c:out value="${fn:substring(reply.wdate,2,19)}"/>
 			</td>
 		</tr>
 		<tr>
@@ -209,7 +210,7 @@
 			${login.nickname}
 			</td>
 			<td rowspan="2">
-			<a href="#none" class="btn" style="margin:auto;" id="_btnWrite" title="Good">등록</a>
+			<a href="#none" class="btn" style="margin:auto;" id="_btnWrite" title="등록">등록</a>
 			</td>
 		</tr>
 		<tr>

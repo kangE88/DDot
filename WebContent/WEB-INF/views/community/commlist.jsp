@@ -112,9 +112,6 @@
 					 });
 				 });
 				
-				/* var level = g_level('${point}');
-				$('#levelImg').attr("src","/image/level/lv"+level+".gif"); */
-				
 				</script>
 				
 				<td style="text-align: center;">
