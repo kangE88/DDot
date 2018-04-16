@@ -171,7 +171,7 @@
 					 });
 				 });
 				</script>
-				
+				<td>
 				<img id="${bbs.seq }icon" src="">
 				</td>
 				
