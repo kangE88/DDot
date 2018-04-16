@@ -44,20 +44,5 @@
 		SET PWD=#{pwd}, EMAIL=#{email}, INTRO=#{intro}
 		WHERE ID=#{id}
 	</update>	
-	
-	<!-- userinfo 를 보기 위한 사항 -->
-	<select parameterType="java.lang.String" id="getMember" resultType="com.DDot.model.MemberDto"> 
-	SELECT SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH 
-	FROM DDOTMEMBER 
-	WHERE NICKNAME=#{nickname} 
-	</select>
-
-	<!-- user level point를 가져오기 위한 사항 -->
-	<select parameterType="java.lang.String" id="getMemberPoint" resultType="java.lang.Integer"> 
-	SELECT POINT 
-	FROM DDOTMEMBER 
-	WHERE NICKNAME=#{nickname}
-	</select>
-	
 
 </mapper>  
