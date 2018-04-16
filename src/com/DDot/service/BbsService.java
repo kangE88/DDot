@@ -31,7 +31,7 @@ public interface BbsService {
 	
 	public int boardsearchcount(AttendDto adto);
 	public int commsearchcount(AttendDto adto);
-	public List<BbsDto> boardlist(AttendDto adto);
-	public List<CommDto> commlist(AttendDto adto);
+	public List<BbsDto> boardlist(BbsParam param);
+	public List<CommDto> commlist(BbsParam param1);
 	
 }

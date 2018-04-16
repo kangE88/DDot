@@ -13,7 +13,7 @@
 <div class="row-fluid" style="height: 100%">
 	<div class="span1"></div>	
 	<div class="span5">
-		<h4>검색된 게시판의 글수 : ${boardcount }  <form id="boardform"><input type="hidden" name="subcategory" value="9"><input type="hidden" name="category" value="6"><input type="hidden" name="s_category" value="${s_category }"><input type="hidden" name="s_keyword" value="${s_keyword }"><a id="boardmore" href="#" style="float: right; color: #fe54fe">더보기</a></form></h4>
+		<h4>검색된 게시판의 글수 : ${boardcount }</h4>
 		<table class="table table-hover" id="board">
 			<col width="5%"><col width="5%"><col width="5%"><col width="40%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
 			<thead> 
@@ -81,6 +81,9 @@
 			<c:when test="${bbs.del eq '0'}">
 				<td style="text-align: left">삭제 된 글 입니다</td>
 			</c:when>
+			<c:when test="${bbs.del eq '1'}">
+				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
+			</c:when>
 			<c:otherwise>
 				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a></td>
 			</c:otherwise>
@@ -88,13 +91,36 @@
 			
 				<td style="text-align: center;"><a href="#" class="userInfo" title="${bbs.nickname}">${bbs.nickname}</a></td>
 				<!-- 날짜 형식 변경 -->
-				<td style="text-align: center;">	<c:out value="${fn:substring(bbs.wdate,2,10)}"/></td>
+				<td style="text-align: center;">	<c:out value="${fn:substring(bbs.wdate,5,10)}"/></td>
 				<td style="text-align: center;">${bbs.readcount}</td>
 				<td style="text-align: center;">${bbs.up} / ${bbs.down }</td>
 			</tr>
 			</c:forEach>
 			</tbody>
 		</table>
+		
+		<form id="searchbbs" action="">
+			<input type="hidden" name="pageNumber" id="_pageNumber" value="0"/>	
+			<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+			<input type="hidden" name="category" id="_pageNumber" value="${s_category }"/>
+			<input type="hidden" name="text" id="_pageNumber" value="${s_keyword }"/>
+		</form>
+		
+		<div id="paging_wrap">
+		<jsp:include page="/WEB-INF/views/common/paging.jsp" flush="false">
+			<jsp:param value="${pageNumber }" name="pageNumber"/>
+			<jsp:param value="${pageCountPerScreen }" name="pageCountPerScreen"/>
+			<jsp:param value="${recordCountPerPage }" name="recordCountPerPage"/>
+			<jsp:param value="${totalRecordCount }" name="totalRecordCount"/>
+		</jsp:include>
+		</div>
+		
+		<script type="text/javascript">
+		function goPage(pageNumber) {
+			$("#_pageNumber").val(pageNumber) ;
+			$("#searchbbs").attr("target","_self").attr("action","boardsearch.do").submit();
+		}
+		</script>
 			
 			<!-- Nickname 선택시 정보표현 Start --> 		
 			<script type="text/javascript">
@@ -107,7 +133,7 @@
 	</div>
 	
 	<div class="span5">
-		<h4>검색된 커뮤니티의 글수 : ${commcount }  <form><input type="hidden" name="s_category" value="${s_category }"><input type="hidden" name="s_keyword" value="${s_keyword }"><a href="#" style="float: right; color: #fe54fe">더보기</a></form></h4>
+		<h4>검색된 커뮤니티의 글수 : ${commcount }  </h4>
 		<table class="table table-hover" id="board">
 			<col width="5%"><col width="5%"><col width="45%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
 			<thead>
@@ -154,6 +180,9 @@
 			<c:when test="${comm.del eq '0'}">
 				<td style="text-align: left">삭제 된 글 입니다</td>
 			</c:when>
+			<c:when test="${bbs.del eq '1'}">
+				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
+			</c:when>
 			<c:otherwise>
 				<td style="text-align: left"><a href='commdetail.do?seq=${comm.seq}'>${comm.title}</a></td>
 			</c:otherwise>
@@ -161,7 +190,7 @@
 			
 				<td style="text-align: center;">${comm.nickname}</td>
 				<!-- 날짜 형식 변경 -->
-				<td style="text-align: center;">	<c:out value="${fn:substring(comm.wdate,2,10)}"/></td>
+				<td style="text-align: center;">	<c:out value="${fn:substring(comm.wdate,5,10)}"/></td>
 				<td style="text-align: center;">${comm.readcount}</td>
 				<td style="text-align: center;">${comm.up} / ${comm.down }</td>
 			</tr>
