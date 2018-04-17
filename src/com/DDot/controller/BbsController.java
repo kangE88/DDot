@@ -199,32 +199,63 @@ public class BbsController {
 	}	
 	
 	@RequestMapping(value="boardsearch.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String boardsearch(String category, String text, Model model) throws Exception {
+	public String boardsearch(String category, String text, Model model, BbsParam param, BbsParam param1) throws Exception {
 		
 		List<BbsDto> boardlist = null;
 		List<CommDto> commlist = null;
+		
+		int sn = param.getPageNumber();
+		int start = (sn) * param.getRecordCountPerPage() + 1;
+		int end = (sn+1) * param.getRecordCountPerPage();
+		
+		param.setStart(start);
+		param.setEnd(end);
+		
+		int snc = param1.getPageNumber();
+		int startc = (snc) * param1.getRecordCountPerPage() + 1;
+		int endc = (snc+1) * param1.getRecordCountPerPage();
+		
+		param.setStart(start);
+		param.setEnd(end);
+		
+		param1.setStart(startc);
+		param1.setEnd(endc);
+		
 		int boardcount = 0;
 		int commcount = 0;
-		
+	
 		AttendDto adto = new AttendDto();
 		
-		adto.setTable(category);
+		adto.setTable(category);	
 		adto.setNickname(text);
 		
-		if(category.equals("all")) {
-			category = null;
-		}
+		System.out.println("category: " + category);
+		param.setS_category(category);
+		param.setS_keyword(text);
+		param1.setS_category(category);
+		param1.setS_keyword(text);
+		
 		model.addAttribute("s_category", category);
 		model.addAttribute("s_keyword", text);
 		
 		boardcount = bbsService.boardsearchcount(adto);
 		model.addAttribute("boardcount", boardcount);
-		boardlist = bbsService.boardlist(adto);
+		boardlist = bbsService.boardlist(param);
 		model.addAttribute("boardlist", boardlist);
 		commcount = bbsService.commsearchcount(adto);
 		model.addAttribute("commcount", commcount);
-		commlist = bbsService.commlist(adto);
+		commlist = bbsService.commlist(param1);
 		model.addAttribute("commlist", commlist);
+		
+		model.addAttribute("totalRecordCount", boardcount);
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		
+		model.addAttribute("totalRecordCountc", commcount);
+		model.addAttribute("pageNumberc", snc);
+		model.addAttribute("pageCountPerScreenc", 10);
+		model.addAttribute("recordCountPerPagec", param1.getRecordCountPerPage());
 		
 		
 		System.out.println("category: " + category);

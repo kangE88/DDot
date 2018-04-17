@@ -26,6 +26,7 @@ public class BbsParam implements Serializable {
 	
 	private int start=1;
 	private int end=10;
+	
 	public int getSeq() {
 		return seq;
 	}

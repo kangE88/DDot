@@ -90,13 +90,13 @@ public class BbsServiceImpl implements BbsService {
 	}
 
 	@Override
-	public List<BbsDto> boardlist(AttendDto adto) {
-		return bbsDao.boardlist(adto);
+	public List<BbsDto> boardlist(BbsParam param) {
+		return bbsDao.boardlist(param);
 	}
 
 	@Override
-	public List<CommDto> commlist(AttendDto adto) {
-		return bbsDao.commlist(adto);
+	public List<CommDto> commlist(BbsParam param1) {
+		return bbsDao.commlist(param1);
 	}
 
 }
