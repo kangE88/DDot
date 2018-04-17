@@ -1,13 +1,13 @@
 package com.DDot.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.DDot.dao.MessageDao;
 import com.DDot.model.MessageDto;
-import com.DDot.model.MessagePagingDto;
 import com.DDot.service.MessageService;
 
 @Service
@@ -35,26 +35,31 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public List<MessageDto> getMessagePagingList(MessagePagingDto msgPagingDto) throws Exception {
+	public List<MessageDto> getMessagePagingList(Map<String, Object> data) throws Exception {
 		// TODO Auto-generated method stub
-		return msgDao.getMessagePagingList(msgPagingDto);
+		return msgDao.getMessagePagingList(data);
 	}
 
 	@Override
-	public int getMessageCount(MessagePagingDto msgPagingDto) throws Exception {
+	public int getMessageCount(Map<String, Object> data) throws Exception {
 		// TODO Auto-generated method stub
-		return msgDao.getMessageCount(msgPagingDto);
+		return msgDao.getMessageCount(data);
+	}
+
+
+	@Override
+	public boolean increaseRead(Map<String, Object> data) {
+		return msgDao.increaseRead(data);
 	}
 
 	@Override
-	public boolean deleteMessage(int seq) {
-		// TODO Auto-generated method stub
-		return msgDao.deleteMessage(seq);
+	public boolean deleteMessage(String[] list) {
+		return msgDao.deleteMessage(list);
 	}
 
 	@Override
-	public boolean increaseRead(int seq) {
-		return msgDao.increaseRead(seq);
+	public int checkMessage(String nickname) {
+		return msgDao.checkMessage(nickname);
 	}
 
 }

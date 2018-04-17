@@ -15,51 +15,62 @@
  
 	<insert id="writeMessage" parameterType="com.DDot.model.MessageDto">
 		INSERT INTO DDOTMESSAGE
-		(SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL) 
-		VALUES(SEQ_DDOTMESSAGE.nextval, #{nickname}, #{sendto}, #{content}, SYSDATE, 0, 2)
+		(SEQ, NICKNAME, SENDTO, CONTENT, WDATE, NICKREAD, SENDREAD, NICKDEL, SENDDEL) 
+		VALUES(SEQ_DDOTMESSAGE.nextval, #{nickname}, #{sendto}, #{content}, SYSDATE, 0, 0, 2, 2)
 	</insert>
 	 
-	<select id="getMessagePagingList" parameterType="com.DDot.model.MessagePagingDto" resultType="com.DDot.model.MessageDto">
-		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL
-		FROM 
-		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
-		SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL FROM DDOTMESSAGE
+	<select id="getMessagePagingList" parameterType="hashmap" resultType="com.DDot.model.MessageDto">
+		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, NICKREAD, SENDREAD, NICKDEL, SENDDEL 
+		FROM
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum, 
+		SEQ, NICKNAME, SENDTO, CONTENT, WDATE, NICKREAD, SENDREAD, NICKDEL, SENDDEL FROM DDOTMESSAGE
 	    WHERE 
-	    <if test="sendto != null and del == 2">SENDTO = #{sendto,jdbcType=VARCHAR} and DEL = 2</if>
-		<if test="nickname != null">NICKNAME = #{nickname,jdbcType=VARCHAR}</if>
-		<if test="sendto != null and del == 0">SENDTO = #{sendto,jdbcType=VARCHAR} and DEL = 0</if>
+	    <if test="msgdto.sendto != null and category == 0">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 2</if>
+		<if test="msgdto.nickname != null and category == 1">NICKNAME = #{msgdto.nickname,jdbcType=VARCHAR} and NICKDEL = 2</if>
+		<if test="msgdto.sendto != null and category == 2">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 0</if>
 		) A
-		WHERE rnum between ${start} AND ${end}
+		WHERE rnum between ${msgdto.start} AND ${msgdto.end}
 	</select>
 	
-	<select id="getMessageCount" parameterType="com.DDot.model.MessagePagingDto" resultType="java.lang.Integer">
+	<select id="getMessageCount" parameterType="hashmap" resultType="java.lang.Integer">
 	 
 		SELECT NVL(count(*),0) AS cnt
 		FROM  DDOTMESSAGE  WHERE 
-		<if test="sendto != null and del == 2">SENDTO = #{sendto,jdbcType=VARCHAR} and DEL = 2</if>
-		<if test="nickname != null">NICKNAME = #{nickname,jdbcType=VARCHAR}</if>
-		<if test="sendto != null and del == 0">SENDTO = #{sendto,jdbcType=VARCHAR} and DEL = 0</if>
+		<if test="msgdto.sendto != null and msgdto.senddel == 2 and category == 0">SENDTO = #{msg.sendto,jdbcType=VARCHAR} and SENDDEL = 2</if>
+		<if test="msgdto.nickname != null and msgdto.nickdel == 2 and category == 1">NICKNAME = #{msg.nickname,jdbcType=VARCHAR} and NICKDEL = 2</if>
+		<if test="msgdto.sendto != null and msgdto.senddel == 0 and category == 2">SENDTO = #{msg.sendto,jdbcType=VARCHAR} and SENDDEL = 0</if>
 		
 		
 	</select>
 	
 	<select id="getMessage" parameterType="java.lang.Integer" resultType="com.DDot.model.MessageDto">
-		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, READ, DEL
+		SELECT SEQ, NICKNAME, SENDTO, CONTENT, WDATE, NICKREAD, SENDREAD, NICKDEL, SENDDEL
 		FROM DDOTMESSAGE
 		WHERE SEQ=#{seq}
 	</select>
 	 
-	<update id="deleteMessage" parameterType="java.lang.Integer">
+	<update id="deleteMessage" parameterType="hashmap">
 		UPDATE DDOTMESSAGE
-		SET DEL=0
-		WHERE SEQ=#{seq}
-	</update>	
+		SET SENDDEL=0
+		WHERE SEQ IN
+		<foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
 	
-	<update id="increaseRead" parameterType="java.lang.Integer">
+	<update id="increaseRead" parameterType="hashmap">
 		UPDATE DDOTMESSAGE
-		SET READ=1
+		<if test="category == 0 or category == 2">
+		SET SENDREAD=1, NICKREAD=1
+		</if>
 		WHERE SEQ=#{seq}
 	</update>
+	
+	<select id="checkMessage" parameterType="java.lang.String" resultType="Integer">
+	SELECT NVL(count(*),0)
+	FROM DDOTMESSAGE
+	WHERE SENDTO=#{nickname} AND SENDREAD=0 
+	</select>
 
 
 	
