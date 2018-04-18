@@ -2,6 +2,8 @@ package com.DDot.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -270,12 +272,42 @@ public class MemberController {
 		return "userInfo.tiles";
 	}
 	
+	@RequestMapping(value="userFind.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String findid(HttpServletRequest req) throws Exception {
+		
+		return "userFind.tiles";
+	}
+
+	@RequestMapping(value="userInfo_bbs.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public String userInfo_bbs(Model model, String nickname) throws Exception {
+
+		MemberDto mem = MemberService.getMember(nickname);
+		model.addAttribute("mem", mem);
+		
+		return "userInfo_bbs.tiles";
+	}
+	
 	@RequestMapping(value="logout.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String logout(HttpServletRequest req, HttpServletResponse resp) {
 		req.getSession().invalidate();
 		
 		return "redirect:/index.jsp";
 	}
+	
+	
+	/*user point 를 가져오는 부분*/
+	@ResponseBody
+	@RequestMapping(value="getMemberPoint.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Integer> getMemberPoint(Model model, String nickname)  throws Exception {
+		logger.info("KhMemberController getMemberPoint");
+		
+		Map<String, Integer> getMemberPointMap = new HashMap<String, Integer>();
+		getMemberPointMap.put("point", MemberService.getMemberPoint(nickname));
+
+		return getMemberPointMap;
+	}
+	
+	
 }
 
 

@@ -46,22 +46,25 @@
       <form id="_frmForm" class="form-signin" action="loginAf.do" method="post">
         <h2 class="form-signin-heading">Login</h2>
         <input type="text" class="input-block-level" placeholder="ID" id="id" name="id">
-        <input type="password" class="input-block-level" placeholder="Password" id="pwd" name="pwd">
+        <input type="password" class="input-block-level" placeholder="Password" id="pwd" name="pwd" onkeypress="JavaScript:press(this.form)">
         <label class="checkbox">
           <input type="checkbox" id="_chk_save_id"> Remember me
         </label>
-        <a class="btn btn-large btn-primary" id="_btnRegi">Sign up</a>
-        <a class="btn btn-large btn-primary" id="_btnLogin">Sign in</a>
+        <div class="row-fluid">
+	        <a class="btn btn-large btn-primary span6" id="_btnRegi">Join</a>
+	        <a class="btn btn-large btn-primary span6" id="_btnLogin">Login</a>
+        </div>
         <br>
-        <br>
-        <br>
-        <a id="forgot">Forgot ID & Password ?</a>
-        
+		<div class="row-fluid">
+        	<span class="span10">Forgot ID, Password ?</span>
+        	<a class="span2" id="forgot" href="userFind.do">Here</a>
+        </div>
       </form>
     </div> <!-- /container -->
 
 <!-- user -->
 	<script type="text/javascript">
+	
 		//id 한글입력 방지
  		$("#id").keyup(function(e) { 
 			if (!(e.keyCode >=37 && e.keyCode<=40)) {
@@ -79,6 +82,13 @@
 				$(this).val(v.replace(/[^a-z0-9]/gi,''));
 			}
 		}); 
+		
+ 		$("#pwd").keydown(function press(f){ 
+ 			if(f.keyCode == 13){ //javascript에서는 13이 enter키를 의미함 
+ 				$("#_frmForm").attr("target", "_self").submit(); //formname에 사용자가 지정한 form의 name입력 
+ 			} 
+ 		});
+
 	
  		// id 쿠키 저장
  		var user_id = $.cookie("userid");
@@ -99,7 +109,6 @@
  				$.removeCookie("userid", { path:'/' });
  			}
  		});
-		
 	
 		$("#_btnLogin").click(function() {
 			//alert("id:" + $("#id").val());
@@ -110,7 +119,7 @@
 				alert($("#pwd").attr("data-msg") + " 비밀번호를 잘못 입력하셨습니다." );
 				$("#pwd").focus();
 			} else {
-				$("#_frmForm").attr("target", "_self").submit();				
+				$("#_frmForm").attr("target", "_self").submit();	
 			}	
 		});
 		

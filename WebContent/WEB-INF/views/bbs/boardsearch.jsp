@@ -13,7 +13,7 @@
 <div class="row-fluid" style="height: 100%">
 	<div class="span1"></div>	
 	<div class="span5">
-		<h4>검색된 게시판의 글수 : ${boardcount }  <form id="boardform"><input type="hidden" name="subcategory" value="9"><input type="hidden" name="category" value="6"><input type="hidden" name="s_category" value="${s_category }"><input type="hidden" name="s_keyword" value="${s_keyword }"><a id="boardmore" href="#" style="float: right; color: #fe54fe">더보기</a></form></h4>
+		<h4>검색된 게시판의 글수 : ${totalRecordCount }</h4>
 		<table class="table table-hover" id="board">
 			<col width="5%"><col width="5%"><col width="5%"><col width="40%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
 			<thead> 
@@ -45,37 +45,44 @@
 						type: "post",
 						data: {sseq: "${bbs.seq}"},
 						success: function(data) {
-							var level = g_level(data);
+							var level = g_level(data);							
 							$("#${bbs.seq }icon").prop("src","./image/level/lv"+level+".gif");
 						},
 						error: function() {
 							alert("18");
-						}
-						
-						
+						}						
 					});
 				</script>
 				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
 			<c:choose>
-			    <c:when test="${bbs.subcategory eq 0 }">
-			       <td style="text-align: center;">[Tip]</td> 
+			    <c:when test="${bbs.category eq 0 }">
+			       <td style="text-align: center;">Java</td> 
 			    </c:when>
-				<c:when test="${bbs.subcategory eq 1 }">
-			       <td style="text-align: center;">[Error]</td> 
+				<c:when test="${bbs.category eq 1 }">
+			       <td style="text-align: center;">JSP</td> 
 			    </c:when>
-			    <c:when test="${bbs.subcategory eq 2 }">
-			       <td style="text-align: center;">[Example]</td> 
+			    <c:when test="${bbs.category eq 2 }">
+			       <td style="text-align: center;">Jquery</td> 
 			    </c:when>
-			    <c:when test="${bbs.subcategory eq 3 }">
-			       <td style="text-align: center;">[E.T.C]</td> 
+			    <c:when test="${bbs.category eq 3 }">
+			       <td style="text-align: center;">Oracle/Sql</td> 
 			    </c:when>
-			</c:choose>
+			    <c:when test="${bbs.category eq 4 }">
+			       <td style="text-align: center;">Spring</td> 
+			    </c:when>
+			    <c:when test="${bbs.category eq 5 }">
+			       <td style="text-align: center;">E.T.C</td> 
+			    </c:when>
+			</c:choose>	
 					
 				<!-- del==0 일 때 title 삭제 된 글로 표현 --> 
 			<c:choose>
 			<c:when test="${bbs.del eq '0'}">
 				<td style="text-align: left">삭제 된 글 입니다</td>
+			</c:when>
+			<c:when test="${bbs.del eq '1'}">
+				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
 				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a></td>
@@ -84,13 +91,32 @@
 			
 				<td style="text-align: center;"><a href="#" class="userInfo" title="${bbs.nickname}">${bbs.nickname}</a></td>
 				<!-- 날짜 형식 변경 -->
-				<td style="text-align: center;">	<c:out value="${fn:substring(bbs.wdate,2,10)}"/></td>
+				<td style="text-align: center;">	<c:out value="${fn:substring(bbs.wdate,5,10)}"/></td>
 				<td style="text-align: center;">${bbs.readcount}</td>
 				<td style="text-align: center;">${bbs.up} / ${bbs.down }</td>
 			</tr>
 			</c:forEach>
 			</tbody>
 		</table>
+		
+		<form id="searchbbs" action="">
+			<input type="hidden" name="pageNumber" id="_pageNumber" value="${pageNumber }"/>	
+			<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+			<input type="hidden" name="pageNumberc" id="_pageNumberc1" value="${pageNumberc }"/>
+			<input type="hidden" name="recordCountPerPagec" id="_recordCountPerPagec" value="${(empty recordCountPerPagec)?10:recordCountPerPagec}"/>
+			<input type="hidden" name="category" id="_category" value="${s_category }"/>
+			<input type="hidden" name="text" id="_text" value="${s_keyword }"/>
+		</form>
+		
+		<div id="paging_wrap">
+		<jsp:include page="/WEB-INF/views/common/paging.jsp" flush="false">
+			<jsp:param value="${pageNumber }" name="pageNumber"/>
+			<jsp:param value="${pageCountPerScreen }" name="pageCountPerScreen"/>
+			<jsp:param value="${recordCountPerPage }" name="recordCountPerPage"/>
+			<jsp:param value="${totalRecordCount }" name="totalRecordCount"/>
+		</jsp:include>
+		</div>		
+		
 			
 			<!-- Nickname 선택시 정보표현 Start --> 		
 			<script type="text/javascript">
@@ -103,7 +129,7 @@
 	</div>
 	
 	<div class="span5">
-		<h4>검색된 커뮤니티의 글수 : ${commcount }  <form><input type="hidden" name="s_category" value="${s_category }"><input type="hidden" name="s_keyword" value="${s_keyword }"><a href="#" style="float: right; color: #fe54fe">더보기</a></form></h4>
+		<h4>검색된 커뮤니티의 글수 : ${totalRecordCountc }  </h4>
 		<table class="table table-hover" id="board">
 			<col width="5%"><col width="5%"><col width="45%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
 			<thead>
@@ -127,15 +153,15 @@
 			<c:forEach items="${commlist}" var="comm" varStatus="vs">
 			<tr>
 				<td style="text-align: center;">${vs.count}</td>
-				<td><img id="${comm.seq }icon" src=""></td>
+				<td><img id="${comm.seq }iconc" src=""></td>
 				<script type="text/javascript">
 					$.ajax({
-						url: "getusericon.do",
+						url: "getusericonc.do",
 						type: "post",
 						data: {sseq: "${comm.seq}"},
 						success: function(data) {
 							var level = g_level(data);
-							$("#${comm.seq }icon").prop("src","./image/level/lv"+level+".gif");
+							$("#${comm.seq }iconc").prop("src","./image/level/lv"+level+".gif");
 						},
 						error: function() {
 							alert("18");
@@ -150,6 +176,9 @@
 			<c:when test="${comm.del eq '0'}">
 				<td style="text-align: left">삭제 된 글 입니다</td>
 			</c:when>
+			<c:when test="${bbs.del eq '1'}">
+				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
+			</c:when>
 			<c:otherwise>
 				<td style="text-align: left"><a href='commdetail.do?seq=${comm.seq}'>${comm.title}</a></td>
 			</c:otherwise>
@@ -157,19 +186,49 @@
 			
 				<td style="text-align: center;">${comm.nickname}</td>
 				<!-- 날짜 형식 변경 -->
-				<td style="text-align: center;">	<c:out value="${fn:substring(comm.wdate,2,10)}"/></td>
+				<td style="text-align: center;">	<c:out value="${fn:substring(comm.wdate,5,10)}"/></td>
 				<td style="text-align: center;">${comm.readcount}</td>
 				<td style="text-align: center;">${comm.up} / ${comm.down }</td>
 			</tr>
 			</c:forEach>
 			</tbody>
 		</table>
+		
+		<form id="searchcomm" action="">
+			<input type="hidden" name="pageNumber" id="_pageNumber1" value="${pageNumber }"/>	
+			<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+			<input type="hidden" name="pageNumberc" id="_pageNumberc" value="${pageNumberc }"/>	
+			<input type="hidden" name="recordCountPerPagec" id="_recordCountPerPagec" value="${(empty recordCountPerPagec)?10:recordCountPerPagec}"/>
+			<input type="hidden" name="category" id="_categoryc" value="${s_category }"/>
+			<input type="hidden" name="text" id="_textc" value="${s_keyword }"/>
+		</form>
+		
+		<div id="paging_wrap">
+		<jsp:include page="/WEB-INF/views/common/paging1.jsp" flush="false">
+			<jsp:param value="${pageNumberc }" name="pageNumberc"/>
+			<jsp:param value="${pageCountPerScreenc }" name="pageCountPerScreenc"/>
+			<jsp:param value="${recordCountPerPagec }" name="recordCountPerPagec"/>
+			<jsp:param value="${totalRecordCountc }" name="totalRecordCountc"/>
+		</jsp:include>
+		</div>
 	</div>
 	<div class="span1"></div>
+	<script type="text/javascript">
+		function goPage(pageNumber) {
+			
+			$("#_pageNumber").val(pageNumber);				
+		 	$("#_pageNumberc1").val(${pageNumberc });
+						
+			$("#searchbbs").attr("target","_self").attr("action","boardsearch.do").submit();			
+		}
+
+		function goPagec(pageNumberc) {
+			
+			$("#_pageNumberc").val(pageNumberc);
+			$("#_pageNumber1").val(${pageNumber });
+						
+			$("#searchcomm").attr("target","_self").attr("action","boardsearch.do").submit();
+		}
+	</script>
 </div>
 
-<script>
-$("#boardmore").click(function() {
-	$("#boardform").attr({ "target":"_self", "action":"bbslist.do" }).submit();
-});
-</script>

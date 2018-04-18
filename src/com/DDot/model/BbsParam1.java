@@ -2,7 +2,7 @@ package com.DDot.model;
 
 import java.io.Serializable;
 
-public class BbsParam implements Serializable {
+public class BbsParam1 implements Serializable {
 
 	private int seq;
 	private String nickname;
@@ -21,8 +21,8 @@ public class BbsParam implements Serializable {
 	private String s_keyword;
 	
 	// paging
-	private int recordCountPerPage=10;
-	private int pageNumber=0;
+	private int recordCountPerPagec=10;
+	private int pageNumberc=0;
 	
 	private int start=1;
 	private int end=10;
@@ -93,17 +93,17 @@ public class BbsParam implements Serializable {
 	public void setS_keyword(String s_keyword) {
 		this.s_keyword = s_keyword;
 	}
-	public int getRecordCountPerPage() {
-		return recordCountPerPage;
+	public int getRecordCountPerPagec() {
+		return recordCountPerPagec;
 	}
-	public void setRecordCountPerPage(int recordCountPerPage) {
-		this.recordCountPerPage = recordCountPerPage;
+	public void setRecordCountPerPagec(int recordCountPerPagec) {
+		this.recordCountPerPagec = recordCountPerPagec;
 	}
-	public int getPageNumber() {
-		return pageNumber;
+	public int getPageNumberc() {
+		return pageNumberc;
 	}
-	public void setPageNumber(int pageNumber) {
-		this.pageNumber = pageNumber;
+	public void setPageNumberc(int pageNumberc) {
+		this.pageNumberc = pageNumberc;
 	}
 	public int getStart() {
 		return start;
@@ -122,7 +122,7 @@ public class BbsParam implements Serializable {
 		return "BbsParam [seq=" + seq + ", nickname=" + nickname + ", title=" + title + ", content=" + content
 				+ ", wdate=" + wdate + ", category=" + category + ", subcategory=" + subcategory + ", del=" + del
 				+ ", readcount=" + readcount + ", s_category=" + s_category + ", s_keyword=" + s_keyword
-				+ ", recordCountPerPage=" + recordCountPerPage + ", pageNumber=" + pageNumber + ", start=" + start
+				+ ", recordCountPerPage=" + recordCountPerPagec + ", pageNumber=" + pageNumberc + ", start=" + start
 				+ ", end=" + end + "]";
 	}
 	

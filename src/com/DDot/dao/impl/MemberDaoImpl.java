@@ -1,4 +1,4 @@
-package com.DDot.dao.impl;
+﻿package com.DDot.dao.impl;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +48,16 @@ public class MemberDaoImpl implements MemberDao {
 		return n>0?true:false;
 	}
 
+	@Override
+	public MemberDto getMember(String nickname) throws Exception {
+		return sqlSession.selectOne(namespace + "getMember", nickname);
+	}
+
+	@Override
+	public int getMemberPoint(String nickname) throws Exception {
+		return sqlSession.selectOne(namespace+"getMemberPoint", nickname);
+	}	
+	
 	@Override
 	public boolean addAttend(String nickname) throws Exception {
 		int n = sqlSession.update(namespace + "addAttend", nickname);

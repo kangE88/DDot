@@ -97,8 +97,7 @@
 		});
 		$("#boardsearchbtn").click(function() {
 			var category = $("#selectcate").val();
-			var text = $("#boardsearchtext").val();
-			alert("category: " + category + "  text: " + text);
+			var text = $("#boardsearchtext").val();			
 			
 			location.href="boardsearch.do?category="+category+"&text="+text;
 		});

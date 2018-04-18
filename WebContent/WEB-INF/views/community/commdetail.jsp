@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <fmt:requestEncoding value="utf-8"/>
 
 <!DOCTYPE html>
@@ -70,20 +71,133 @@
 		</td>
 	</tr>
 	<tr>
+		<th>Good / Bad</th>
+		<td>
+			&nbsp;&nbsp;&nbsp;
+			<span class="badge badge-success" id="up">${comm.up }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<span class="badge badge-important" id="down">${comm.down }</span> <br>&nbsp;
+			<a href="#none" class="btn" style="margin:auto;" id="_btnGood" title="Good">Good</a>&nbsp;&nbsp;
+			<a href="#none" class="btn" style="margin:auto;" id="_btnBad" title="Bad">Bad</a>
+		</td>
+	</tr>
+	<c:if test="${comm.nickname eq login.nickname}">
+	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 		<span>
-			<c:if test="${bbs.nickname eq login.nickname}">
 			<a href="#none" class="btn" style="margin:auto;" id="_btnUpdate" title="글수정하기">modified</a>&nbsp;
 			<a href="#none" class="btn" style="margin:auto;" id="_btnDelete" title="글삭제하기">delete</a>&nbsp;
-			</c:if>
-			<a href="#none" class="btn" style="margin:auto;"  id="_btnReply" title="답글달기">reply</a>
 		</span>
 		</td>
 	</tr>
+	</c:if>
 </tbody>
 </table>
 
 </form>
+
+<p>
+<!-- 댓글 카운트 Start -->
+
+&nbsp;&nbsp; 총 댓글은 ${replycount }개 입니다.
+
+<!-- 댓글 카운트 End -->
+<p>
+
+<!-- 댓글 리스트 Start -->
+
+<c:forEach items="${replylist }" var="reply">
+	<table class="table table-bordered" style="width:85%;">
+			<tr>
+			<td style="text-align: left">
+			<!-- 아이콘 이미지를 가져오는 부분 -->
+					<script type="text/javascript">
+					$(document).ready(function() {
+						$.ajax({
+							  type:"POST"
+							  ,url:"getMemberPoint.do"
+							  ,data:{"nickname" : "${reply.nickname}"}
+							  ,success:function(data){
+								  var level = g_level(data.point);
+								  $('#${reply.seq}icon').attr("src","./image/level/lv"+level+".gif");
+							  },
+							  error: function(xhr, status, error) {
+								  alert("18");
+						      }  
+						 });
+					 });
+					</script>
+				<img id="${reply.seq }icon" src="">
+			${reply.nickname }
+			</td>
+			<td style="text-align: left">
+				<c:out value="${fn:substring(reply.wdate,2,19)}"/>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				${reply.content }
+			</td>
+		</tr>
+	</table>
+</c:forEach>
+
+<!-- 댓글 리스트 End -->
+
+<p>
+
+<!-- 댓글 쓰기 Start -->
+
+<c:choose>
+<c:when test="${login.nickname eq null}">
+<table class="table table-bordered" style="width:85%;">
+	<tr>
+		<td style="text-align: center;">로그인을 하시면 댓글을 등록할 수 있습니다.</td>
+	</tr>
+</table>
+</c:when>
+
+<c:otherwise>
+<form name="replyForm" id="_replyForm" method="post">
+	<table class="table table-bordered" style="width:85%;">
+	<input type="hidden" name="seq"   value="${comm.seq}"/>
+		<tr>
+			<td style="text-align: left">
+			<!-- 아이콘 이미지를 가져오는 부분 -->
+				<script type="text/javascript">
+				$(document).ready(function() {
+					$.ajax({
+						  type:"POST"
+						  ,url:"getMemberPoint.do"
+						  ,data:{"nickname" : "${login.nickname}"}
+						  ,success:function(data){
+							  var level = g_level(data.point);
+							  $('#${login.nickname}icon').attr("src","./image/level/lv"+level+".gif");
+						  },
+						  error: function(xhr, status, error) {
+							  alert("18");
+					      }  
+					 });
+				 });
+				</script>
+				
+				<img id="${login.nickname}icon" src="">
+			${login.nickname}
+			</td>
+			<td rowspan="2">
+			<a href="" class="btn" style="margin:auto;" id="_btnWrite" title="등록">등록</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<textarea rows="5" cols="100" id="_content" name="content"></textarea>
+			</td>
+		</tr>
+	</table>
+</form>
+</c:otherwise>
+</c:choose>
+
+<!-- 댓글 쓰기 End -->
 
 
 <script type="text/javascript">
@@ -95,6 +209,58 @@ $("#_btnUpdate").click(function() {
 $("#_btnDelete").click(function() {	
 	$("#_frmForm").attr({ "target":"_self", "action":"commdelete.do" }).submit();
 });
+
+
+$("#_btnGood").click(function() {
+	// $("#_frmForm").attr({ "target":"_self", "action":"updownbbsgood.do" }).submit();
+	
+	$.ajax({
+				  type:"POST"
+				  ,url:"updowncommgood.do"
+				  ,data:{"seq" : "${comm.seq}"}
+				  ,success:function(data){
+					   $("#up").html(data.up);
+					   $("#down").html(data.down);
+			 	  },
+				  error: function(xhr, status, error) {
+					  alert("로그인 후 클릭 부탁 드립니다");
+			      }  
+			 });
+ });
+
+$("#_btnBad").click(function() {
+	// $("#_frmForm").attr({ "target":"_self", "action":"updownbbsbad.do" }).submit();
+	
+	$.ajax({
+		  type:"POST"
+		  ,url:"updowncommbad.do"
+		  ,data:{"seq" : "${comm.seq}"}
+		  ,success:function(data){
+			   $("#up").html(data.up);
+			   $("#down").html(data.down);
+		  },
+		  error: function(xhr, status, error) {
+			  alert("로그인 후 클릭 부탁 드립니다");
+	      }  
+	 });
+});
+
+//댓글 쓰기
+$("#_btnWrite").click(function() {
+	$.ajax({
+		  type:"POST"
+		  ,url:"commdetail.do"
+		  ,data:{"seq" : "${comm.seq}", "nickname" : "${login.nickname}", "content" : $("#_content").val()}
+		  ,success:function(data){
+			  alert("성공이닭!!");
+			  location.reload();
+		  },
+		  error: function(xhr, status, error) {
+	            alert("실패닭!!");
+	      }  
+	 });
+});
+
 
 /* 
 $("#_btnReply").click(function() {	

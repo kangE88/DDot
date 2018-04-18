@@ -11,6 +11,7 @@ import com.DDot.dao.BbsDao;
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
+import com.DDot.model.BbsParam1;
 import com.DDot.model.CommDto;
 
 @Repository
@@ -100,6 +101,11 @@ public class BbsDaoImpl implements BbsDao {
 	}
 
 	@Override
+	public int getusericonc(int seq) {	
+		return sqlSession.selectOne(namespace+"getusericonc", seq);
+	}
+
+	@Override
 	public int boardsearchcount(AttendDto adto) {
 		String category = adto.getTable();
 		int count = 0;
@@ -118,18 +124,18 @@ public class BbsDaoImpl implements BbsDao {
 	}
 
 	@Override
-	public List<BbsDto> boardlist(AttendDto adto) {
-		String category = adto.getTable();
+	public List<BbsDto> boardlist(BbsParam param) {
+		String category = param.getS_category();
 		List<BbsDto> boardlist = null;		
 		switch (category) {
 		case "all":
-			boardlist = sqlSession.selectList(namespace+"boardsearchall", adto);
+			boardlist = sqlSession.selectList(namespace+"boardsearchall", param);
 		break;
 		case "title":
-			boardlist = sqlSession.selectList(namespace+"boardsearchtitle", adto);	
+			boardlist = sqlSession.selectList(namespace+"boardsearchtitle", param);	
 		break;
 		case "content":			
-			boardlist = sqlSession.selectList(namespace+"boardsearchcontent", adto);
+			boardlist = sqlSession.selectList(namespace+"boardsearchcontent", param);
 		break;
 		}		
 		return boardlist;
@@ -154,18 +160,18 @@ public class BbsDaoImpl implements BbsDao {
 	}
 
 	@Override
-	public List<CommDto> commlist(AttendDto adto) {
-		String category = adto.getTable();
+	public List<CommDto> commlist(BbsParam1 param1) {
+		String category = param1.getS_category();
 		List<CommDto> commlist = null;		
 		switch (category) {
 		case "all":
-			commlist = sqlSession.selectList(namespace+"commsearchall", adto);
+			commlist = sqlSession.selectList(namespace+"commsearchall", param1);
 		break;
 		case "title":
-			commlist = sqlSession.selectList(namespace+"commsearchtitle", adto);	
+			commlist = sqlSession.selectList(namespace+"commsearchtitle", param1);	
 		break;
 		case "content":			
-			commlist = sqlSession.selectList(namespace+"commsearchcontent", adto);
+			commlist = sqlSession.selectList(namespace+"commsearchcontent", param1);
 		break;
 		}		
 		return commlist;

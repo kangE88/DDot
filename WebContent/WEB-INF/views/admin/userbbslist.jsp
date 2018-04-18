@@ -32,13 +32,14 @@ a:focus{
 		  <li class="divider"></li>  
 		  <li><a href="admin.do">User</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#">Board</a></li>
+		  <li class="active"><a href="#">Board</a></li>
 		  <li class="divider"></li>
 		  <li><a href="#">Chat</a></li>  
 		</ul>
 		<form id="userpaging" method="post" action="">
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+		<input type="hidden" name="nickname" value="${nickname }">
 		</form>
 	</div>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
@@ -49,15 +50,15 @@ a:focus{
 <!-- ==================== 어드민 유저게시판 시작 ====================  -->
 	<div class="span10">
 		<table class="table table-hover" id="board">
-			<col width="5%"><col width="5%"><col width="5%"><col width="5%"><col width="30%"><col width="10%"><col width="10%"><col width="5%"><col width="10%"><col width="5%">
+			<col width="5%"><col width="5%"><col width="10%"><col width="5%"><col width="5%"><col width="30%"><col width="10%"><col width="5%"><col width="10%"><col width="5%">
 			<thead>
 				<tr>
 					<th style="text-align: center;">No.</th>
 					<th style="text-align: center;">Icon</th>
+					<th style="text-align: center;">Nickname</th>
 					<th style="text-align: center;">Category</th>
 					<th style="text-align: center;">SubCategory</th>
-					<th style="text-align: center;">Title</th>
-					<th style="text-align: center;">Nickname</th>
+					<th style="text-align: center;">Title</th>					
 					<th style="text-align: center;">Date</th>
 					<th style="text-align: center;">Count</th>
 					<th style="text-align: center;">Good / bad</th>		
@@ -74,7 +75,22 @@ a:focus{
 			<c:forEach items="${userbbslist}" var="bbs" varStatus="vs">
 			<tr>
 				<td style="text-align: center;">${vs.count}</td>
-				<td><img src="./image/level/lv99.gif"></td>
+				<td><img id="${bbs.seq }icon" src=""></td>
+				<script type="text/javascript">
+					$.ajax({
+						url: "getusericon.do",
+						type: "post",
+						data: {sseq: "${bbs.seq}"},
+						success: function(data) {
+							var level = g_level(data);
+							$("#${bbs.seq }icon").prop("src","./image/level/lv"+level+".gif");
+						},
+						error: function() {
+							alert("18");
+						}						
+					});
+				</script>
+				<td style="text-align: center;"><a href="#" class="userInfo" title="${bbs.nickname}">${bbs.nickname}</a></td>
 			<c:choose>
 			    <c:when test="${bbs.category eq 0 }">
 			       <td style="text-align: center;">Java</td> 
@@ -124,7 +140,7 @@ a:focus{
 			</c:otherwise>
 			</c:choose>
 			
-				<td style="text-align: center;"><a href="#" class="userInfo" title="${bbs.nickname}">${bbs.nickname}</a></td>
+				
 				<!-- 날짜 형식 변경 -->
 				<td style="text-align: center;"><c:out value="${fn:substring(bbs.wdate,2,10)}"/></td>
 				<td style="text-align: center;">${bbs.readcount}</td>
@@ -136,8 +152,7 @@ a:focus{
 							url: "deleteuserbbs.do",
 							type: "post",
 							data: {sseq: '${bbs.seq }' },
-							success: function() {
-								alert("Good");
+							success: function() {								
 								location.href="userbbslist.do?nickname=${bbs.nickname}";
 							},
 							error: function() {
@@ -160,9 +175,10 @@ a:focus{
 	</div>
 		
 		<script type="text/javascript">
-		function goPage(pageNumber) {			
+		
+		function goPage(pageNumber) {				
 			$("#_pageNumber").val(pageNumber);
-			$("#userpaging").attr("target","_self").attr("action","admin.do").submit();
+			$("#userpaging").attr("target","_self").attr("action","userbbslist.do").submit();
 		}
 		</script>
 	</div>

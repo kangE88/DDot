@@ -93,19 +93,47 @@
 			<c:forEach items="${commlist}" var="comm" varStatus="vs">
 			<tr>
 				<td style="text-align: center;">${vs.count}</td>
-				<td><img src="./image/level/lv66.gif"></td>
+				
+				
+				<!-- 아이콘 이미지를 가져오는 부분 -->
+				<script type="text/javascript">
+				$(document).ready(function() {
+					$.ajax({
+						  type:"POST"
+						  ,url:"getMemberPoint.do"
+						  ,data:{"nickname" : "${comm.nickname}"}
+						  ,success:function(data){
+							  var level = g_level(data.point);
+							  $('#${comm.seq}icon').attr("src","./image/level/lv"+level+".gif");
+						  },
+						  error: function(xhr, status, error) {
+							  alert("18");
+					      }  
+					 });
+				 });
+				
+				</script>
+				
+				<td style="text-align: center;">
+				<img id="${comm.seq }icon" src="">
+				</td>
 	
 				<!-- del==0 일 때 title 삭제 된 글로 표현 --> 
 			<c:choose>
 			<c:when test="${comm.del eq '0'}">
-				<td style="text-align: left">삭제 된 글 입니다</td>
+				<td style="text-align: left">유저에 의해 삭제 된 글 입니다</td>
+			</c:when>
+			<c:when test="${comm.del eq '1'}">
+				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
 				<td style="text-align: left"><a href='commdetail.do?seq=${comm.seq}'>${comm.title}</a></td>
 			</c:otherwise>
 			</c:choose>
-			
-				<td style="text-align: center;">${comm.nickname}</td>
+				
+				<!-- userinfo 정보 확인 -->
+				<td style="text-align: center;"><a onclick="window.open('userInfo_bbs.do?nickname=${comm.nickname}','내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#" >${comm.nickname}</a></td>
+				
 				<!-- 날짜 형식 변경 -->
 				<td style="text-align: center;">	<c:out value="${fn:substring(comm.wdate,2,10)}"/></td>
 				<td style="text-align: center;">${comm.readcount}</td>

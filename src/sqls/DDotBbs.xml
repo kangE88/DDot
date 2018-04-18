@@ -129,6 +129,10 @@
 	SELECT POINT FROM DDOTMEMBER WHERE NICKNAME = (SELECT NICKNAME FROM DDOTBBS WHERE SEQ=#{seq})
 </select>
 
+<select id="getusericonc" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT POINT FROM DDOTMEMBER WHERE NICKNAME = (SELECT NICKNAME FROM DDOTCOMM WHERE SEQ=#{seq})
+</select>
+
 <!-- ==================== Main 에서 검색하는 부분 ==================== -->
 
 <!-- 전체검색 -->
@@ -136,8 +140,14 @@
 	SELECT COUNT(*) FROM DDOTBBS WHERE TITLE like '%'||#{nickname}||'%' OR CONTENT like '%'||#{nickname}||'%'
 </select>
 
-<select id="boardsearchall" parameterType="java.lang.String" resultType="com.DDot.model.BbsDto">
-	SELECT * FROM DDOTBBS WHERE TITLE like '%'||#{nickname}||'%' OR CONTENT like '%'||#{nickname}||'%'
+<select id="boardsearchall" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+	SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTBBS
+	    WHERE TITLE like '%'||#{s_keyword}||'%' OR CONTENT like '%'||#{s_keyword}||'%' 
+	   	 ) A
+			WHERE rnum between ${start} AND ${end}	
 </select>
 
 <select id="commsearchallcount" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -145,16 +155,30 @@
 </select>
 
 <select id="commsearchall" parameterType="java.lang.String" resultType="com.DDot.model.CommDto">
-	SELECT * FROM DDOTCOMM WHERE TITLE like '%'||#{nickname}||'%' OR CONTENT like '%'||#{nickname}||'%'
+	SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+	    WHERE TITLE like '%'||#{s_keyword}||'%' OR CONTENT like '%'||#{s_keyword}||'%' 
+	   	 ) A
+			WHERE rnum between ${start} AND ${end}	
+	
 </select>
 
 <!-- 타이틀검색 -->
-<select id="boardsearchtitlecount" parameterType="com.DDot.model.AttendDto" resultType="java.lang.Integer">
+<select id="boardsearchtitlecount" parameterType="com.DDot.model.BbsParam" resultType="java.lang.Integer">
 	SELECT COUNT(*) FROM DDOTBBS WHERE ${table} like '%'||#{nickname}||'%'
 </select>
 
-<select id="boardsearchtitle" parameterType="com.DDot.model.AttendDto" resultType="com.DDot.model.BbsDto">
-	SELECT * FROM DDOTBBS WHERE ${table} like '%'||#{nickname}||'%'
+<select id="boardsearchtitle" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+	SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTBBS
+	     WHERE ${s_category} like '%'||#{s_keyword}||'%' 
+	   	 ) A
+			WHERE rnum between ${start} AND ${end}	
+
 </select>
 
 <select id="commsearchtitlecount" parameterType="com.DDot.model.AttendDto" resultType="java.lang.Integer">
@@ -162,7 +186,13 @@
 </select>
 
 <select id="commsearchtitle" parameterType="com.DDot.model.AttendDto" resultType="com.DDot.model.CommDto">
-	SELECT * FROM DDOTCOMM WHERE ${table} like '%'||#{nickname}||'%'
+	SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+	     WHERE ${s_category} like '%'||#{s_keyword}||'%' 
+	   	 ) A
+			WHERE rnum between ${start} AND ${end}
 </select>
 
 <!-- 내용검색 -->
@@ -170,8 +200,14 @@
 	SELECT COUNT(*) FROM DDOTBBS WHERE ${table} like '%'||#{nickname}||'%'
 </select>
 
-<select id="boardsearchcontent" parameterType="com.DDot.model.AttendDto" resultType="com.DDot.model.BbsDto">
-	SELECT * FROM DDOTBBS WHERE ${table} like '%'||#{nickname}||'%'
+<select id="boardsearchcontent" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+	SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTBBS
+	     WHERE ${s_category} like '%'||#{s_keyword}||'%' 
+	   	 ) A
+			WHERE rnum between ${start} AND ${end}	
 </select>
 
 <select id="commsearchcontentcount" parameterType="com.DDot.model.AttendDto" resultType="java.lang.Integer">
@@ -179,7 +215,13 @@
 </select>
 
 <select id="commsearchcontent" parameterType="com.DDot.model.AttendDto" resultType="com.DDot.model.CommDto">
-	SELECT * FROM DDOTCOMM WHERE ${table} like '%'||#{nickname}||'%'
+	SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+	     WHERE ${s_category} like '%'||#{s_keyword}||'%' 
+	   	 ) A
+			WHERE rnum between ${start} AND ${end}
 </select>
 </mapper>  
 

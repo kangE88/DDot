@@ -7,6 +7,7 @@
 <!--  =================== codemirror theme css  =================== -->
 <link rel="stylesheet" type="text/css" href="./codemirror/lib/codemirror.css?ver=1">
 <link rel="stylesheet" type="text/css" href="./codemirror/theme/lucario.css">
+<link rel="stylesheet" type="text/css" href="./codemirror/hint/show-hint.css">
 
 <!--  =================== codemirror javascript  =================== -->
 <script src="./codemirror/lib/codemirror.js"></script>
@@ -54,7 +55,18 @@
 		<!-- script 쓰는부분 -->
 		<div class = "span5" id="insertlabatory" style="height:90%; border: 1px solid yellow;">
 		 	<textarea id="scriptarea" name="scriptarea" name="script" style="width: 100%; height: 96%; resize: none; background-color: #000084; color: yellow; border: 0; display: none;"></textarea>
+		 	<!-- codemirror 생성 Script -->
+	<script>
+		var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("scriptarea"),{
+			  value: "cm",
+			  mode: {name: "javascript", globalVars: true},
+			  lineNumbers: true,
+			  theme: "lucario",
+			  extraKeys: {"Ctrl-Space": "autocomplete"},	  
+		});	
+	</script>
 		</div>
+		
 		<div class="span1" style="height:90%;  vertical-align: middle;">
 			<br><br><br><br><br><br><br><br><br><br>
 			<img src="./image/arrow-pointing-to-right.png">
@@ -69,18 +81,6 @@
 
 <input type="text" id="clipboard" value="" style="position:absolute;top:-9999em;">
 
-
-<!-- codemirror 생성 Script -->
-<script>
-var myCodeMirror = CodeMirror.fromTextArea(document.getElementById("scriptarea"),{
-	  value: "cm",
-	  mode: {name: "javascript", globalVars: true},
-	  lineNumbers: true,
-	  theme: "lucario",
-	  extraKeys: {"Ctrl-Space": "autocomplete"},	  
-});
-
-</script>
 <script type="text/javascript">
 $("#appendbtn").click(function() {
 	var script = myCodeMirror.getValue();	
@@ -121,4 +121,6 @@ $("#copybtn").click(function() {
         var result = encodeURI(decodeURI(url));    
         document.getElementById("resultlabatory").src = result;
     }());
+    
+    $(".CodeMirror-hints").attr("style","top:0px");
 </script>

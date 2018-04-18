@@ -1,7 +1,9 @@
-package com.DDot.controller;
+﻿package com.DDot.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
+import com.DDot.model.BbsParam1;
 import com.DDot.model.CommDto;
+import com.DDot.model.ReplyDto;
 import com.DDot.service.BbsService;
+import com.DDot.service.ReplyService;
 
 
 
@@ -27,6 +32,9 @@ public class BbsController {
 
 	@Autowired
 	BbsService bbsService;
+	
+	@Autowired
+	ReplyService replyService;
 	
 	
     // category & subcategory 선택에 따른 게시글 목록
@@ -66,13 +74,21 @@ public class BbsController {
 			model.addAttribute("s_category", param.getS_category());
 			System.out.println("s_category: " + param.getS_category());
 			model.addAttribute("s_keyword", param.getS_keyword());
-		
+			
 		return "bbslist.tiles";
 	}
 	
 	@RequestMapping(value = "bbswrite.do", method = {RequestMethod.GET,	RequestMethod.POST})
-	public String bbswrite(Model model) {
+	public String bbswrite(Model model, String category, String subcategory) {
 		logger.info(" DDotBbsController bbswrite! "+ new Date());
+
+		if(subcategory=="9") {
+			subcategory = "0";
+		}
+		
+		model.addAttribute("category", category);			
+		model.addAttribute("subcategory", subcategory);
+		
 		return "bbswrite.tiles";
 	}
 	
@@ -88,15 +104,59 @@ public class BbsController {
 		return "redirect:/bbslist.do";
 	}
 	
+	
 	@RequestMapping(value = "bbsdetail.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String bbsdetail(int seq, Model model) throws Exception {
+	public String bbsdetail(int seq, ReplyDto reply, Model model) throws Exception {
 		logger.info("DDotBbsController bbsdetail! "+ new Date());
 		BbsDto bbs=null;
 		bbsService.readCount(seq);
 		bbs=bbsService.getBbs(seq);
 		model.addAttribute("bbs", bbs);
+		
+				
+		// 댓글 쓰기
+		if(reply.getNickname() !=null) {
+			reply.setBbs_seq(reply.getSeq());
+			replyService.writeReplyBbs(reply);
+		}
+		
+		
+		// 전체 댓글 가져오기
+		List<ReplyDto> list = replyService.getReplyBbsList(seq);
+		model.addAttribute("replylist", list);
+		
+		// 댓글 count
+		int count = replyService.getReplyBbsCount(seq);
+		model.addAttribute("replycount", count);
+
 		return "bbsdetail.tiles";
 	}
+	
+	/*
+	// 댓글 쓰기
+	@ResponseBody
+	@RequestMapping(value = "replywritebbs.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, List<ReplyDto>> replywritebbs(ReplyDto reply, Model model) throws Exception {
+		logger.info("DDotBbsController replywritebbs! "+ new Date());
+		
+			System.out.println("reply.getNickname()="+reply.getNickname());
+			System.out.println("reply.getContent()="+reply.getContent());
+			System.out.println("reply.getSeq()="+reply.getSeq());
+			
+			// 전체 댓글 가져오기
+			List<ReplyDto> list = replyService.getReplyBbsList(reply.getSeq());
+			
+			if(reply.getNickname() !=null) {
+				reply.setBbs_seq(reply.getSeq());
+				replyService.writeReplyBbs(reply);
+			}
+			
+			Map<String, List<ReplyDto>> replyMap = new HashMap<String, List<ReplyDto>>();
+			replyMap.put("replylist", list);
+			
+			return replyMap;
+	}
+	*/
 	
 	@RequestMapping(value = "bbsupdate.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String bbsupdate(int seq, Model model) throws Exception{
@@ -139,38 +199,80 @@ public class BbsController {
 		return point;
 	}	
 	
+	@ResponseBody
+	@RequestMapping(value="getusericonc.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public int getusericonc(String sseq) {
+		
+		int seq = Integer.parseInt(sseq);
+		int point = bbsService.getusericonc(seq);		
+		
+		return point;
+	}		
+	
 	@RequestMapping(value="boardsearch.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String boardsearch(String category, String text, Model model) throws Exception {
+	public String boardsearch(String category, String text, Model model, BbsParam param, BbsParam1 param1) throws Exception {
+		
 		
 		List<BbsDto> boardlist = null;
 		List<CommDto> commlist = null;
+		
+		//	bbs 페이징
+		
+		int sn = param.getPageNumber();
+		int start = (sn) * param.getRecordCountPerPage() + 1;
+		int end = (sn+1) * param.getRecordCountPerPage();
+		
+		System.out.println("snb: " + sn);
+		
+		param.setStart(start);
+		param.setEnd(end);		
+		
 		int boardcount = 0;
 		int commcount = 0;
-		
+	
 		AttendDto adto = new AttendDto();
 		
-		adto.setTable(category);
+		adto.setTable(category);	
 		adto.setNickname(text);
 		
-		if(category.equals("all")) {
-			category = null;
-		}
+		param.setS_category(category);
+		param.setS_keyword(text);		
+		
+		boardcount = bbsService.boardsearchcount(adto);		
+		boardlist = bbsService.boardlist(param);
+		
 		model.addAttribute("s_category", category);
-		model.addAttribute("s_keyword", text);
+		model.addAttribute("s_keyword", text);	
 		
-		boardcount = bbsService.boardsearchcount(adto);
-		model.addAttribute("boardcount", boardcount);
-		boardlist = bbsService.boardlist(adto);
+		model.addAttribute("totalRecordCount", boardcount);		
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 10);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
 		model.addAttribute("boardlist", boardlist);
-		commcount = bbsService.commsearchcount(adto);
-		model.addAttribute("commcount", commcount);
-		commlist = bbsService.commlist(adto);
+		
+		//	커뮤니티 페이징				
+	
+		System.out.println("param1.getPageNumberc(): "  + param1.getPageNumberc());
+			
+		int snc = param1.getPageNumberc();
+		int startc = (snc) * param1.getRecordCountPerPagec() + 1;
+		int endc = (snc+1) * param1.getRecordCountPerPagec();
+		
+		System.out.println("snc: " + snc);
+		
+		param1.setStart(startc);
+		param1.setEnd(endc);
+		param1.setS_category(category);
+		param1.setS_keyword(text);		
+		
+		commcount = bbsService.commsearchcount(adto);		
+		commlist = bbsService.commlist(param1);
+		
+		model.addAttribute("totalRecordCountc", commcount);
+		model.addAttribute("pageNumberc", snc);
+		model.addAttribute("pageCountPerScreenc", 10);
+		model.addAttribute("recordCountPerPagec", param1.getRecordCountPerPagec());
 		model.addAttribute("commlist", commlist);
-		
-		
-		System.out.println("category: " + category);
-		
-		System.out.println("text: " + text);
 		
 		return "boardsearch.tiles";
 	}

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -39,7 +39,9 @@
 	    location.href="logout.do";
 	}
 	<% if(session.getAttribute("login") != null){ %>
-		setTimeout("logout()",1000*6000);
+
+		setTimeout("logout()",1000*600);
+
 	<%}%>
 </script>
 

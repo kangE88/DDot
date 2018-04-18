@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="DDotUpDown">
+
+	<!-- updown 눌렀을 때 Good 값이 있는지 체크 -->
+	<select id="getUpDownBbsGood" parameterType="com.DDot.model.UpDownDto" resultType="java.lang.Integer">
+		SELECT count(*) as up
+		FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{bbs_seq} AND NICKNAME=#{nickname} AND UPDOWN=1
+	</select>
+	<select id="getUpDownCommGood" parameterType="com.DDot.model.UpDownDto" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM DDOTUPDOWN
+		WHERE COMM_SEQ=#{comm_seq} AND NICKNAME=#{nickname} AND UPDOWN=1
+	</select>
+	
+	<!-- updown 눌렀을 때 Bad 값이 있는지 체크 -->
+	<select id="getUpDownBbsBad" parameterType="com.DDot.model.UpDownDto" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{bbs_seq} AND NICKNAME=#{nickname} AND UPDOWN=0
+	</select>
+	<select id="getUpDownCommBad" parameterType="com.DDot.model.UpDownDto" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM DDOTUPDOWN
+		WHERE COMM_SEQ=#{comm_seq} AND NICKNAME=#{nickname} AND UPDOWN=0
+	</select>
+ 
+	<!-- Good 눌렀을 때 UPDOWN컬럼에 1 추가 -->
+	<insert id="writeUpDownBbsGood" parameterType="com.DDot.model.UpDownDto">
+		INSERT INTO DDOTUPDOWN
+		(BBS_SEQ, COMM_SEQ, NICKNAME, UPDOWN) 
+		VALUES(#{bbs_seq}, NULL, #{nickname},1 )
+	</insert>
+	<insert id="writeUpDownCommGood" parameterType="com.DDot.model.UpDownDto">
+		INSERT INTO DDOTUPDOWN
+		(BBS_SEQ, COMM_SEQ, NICKNAME, UPDOWN) 
+		VALUES(NULL, #{comm_seq}, #{nickname},1 )
+	</insert>
+	
+	<!-- Bad 눌렀을 때 UPDOWN컬럼에 0 추가 -->
+	<insert id="writeUpDownBbsBad" parameterType="com.DDot.model.UpDownDto">
+		INSERT INTO DDOTUPDOWN
+		(BBS_SEQ, COMM_SEQ, NICKNAME, UPDOWN) 
+		VALUES(#{bbs_seq}, NULL, #{nickname},0 )
+	</insert>
+	<insert id="writeUpDownCommBad" parameterType="com.DDot.model.UpDownDto">
+		INSERT INTO DDOTUPDOWN
+		(BBS_SEQ, COMM_SEQ, NICKNAME, UPDOWN) 
+		VALUES(NULL, #{comm_seq}, #{nickname},0 )
+	</insert>
+	 
+	 <!-- Good 값 삭제 -->
+	<delete id="deleteUpDownBbsGood" parameterType="com.DDot.model.UpDownDto">
+		DELETE FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{bbs_seq} AND NICKNAME=#{nickname} AND UPDOWN=1
+	</delete>	
+	<delete id="deleteUpDownCommGood" parameterType="com.DDot.model.UpDownDto">
+		DELETE FROM DDOTUPDOWN
+		WHERE COMM_SEQ=#{comm_seq} AND NICKNAME=#{nickname} AND UPDOWN=1
+	</delete>
+	
+	<!-- Bad 값 삭제 -->
+	<delete id="deleteUpDownBbsBad" parameterType="com.DDot.model.UpDownDto">
+		DELETE FROM DDOTUPDOWN
+		WHERE BBS_SEQ=#{bbs_seq} AND NICKNAME=#{nickname} AND UPDOWN=0
+	</delete>	
+	<delete id="deleteUpDownCommBad" parameterType="com.DDot.model.UpDownDto">
+		DELETE FROM DDOTUPDOWN
+		WHERE COMM_SEQ=#{comm_seq} AND NICKNAME=#{nickname} AND UPDOWN=0
+	</delete>
+	
+	<!-- BBS 및 COMM 게시판 GOOD COUNT 관련 사항 -->
+	<update id="countBbsPlusGood" parameterType="java.lang.Integer">
+		UPDATE  DDOTBBS SET
+		UP = UP+1
+		WHERE SEQ=#{seq}
+	</update>
+	<update id="countCommPlusGood" parameterType="java.lang.Integer">
+		UPDATE DDOTCOMM SET
+		UP = UP+1
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<update id="countBbsMinusGood" parameterType="java.lang.Integer">
+		UPDATE DDOTBBS SET
+		UP = UP-1
+		WHERE SEQ=#{seq}
+	</update>
+	<update id="countCommMinusGood" parameterType="java.lang.Integer">
+		UPDATE DDOTCOMM SET
+		UP = UP-1
+		WHERE SEQ=#{seq}
+	</update>
+	
+	
+	<!-- BBS 및 COMM 게시판 Bad COUNT 관련 사항 -->
+	<update id="countBbsPlusBad" parameterType="java.lang.Integer">
+		UPDATE DDOTBBS SET
+		DOWN = DOWN+1
+		WHERE SEQ=#{seq}
+	</update>
+	<update id="countCommPlusBad" parameterType="java.lang.Integer">
+		UPDATE DDOTCOMM SET
+		DOWN = DOWN+1
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<update id="countBbsMinusBad" parameterType="java.lang.Integer">
+		UPDATE DDOTBBS SET
+		DOWN = DOWN-1
+		WHERE SEQ=#{seq}
+	</update>
+	<update id="countCommMinusBad" parameterType="java.lang.Integer">
+		UPDATE DDOTCOMM SET
+		DOWN = DOWN-1
+		WHERE SEQ=#{seq}
+	</update>
+		
+</mapper>  
+
+

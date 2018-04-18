@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="DDotReply">
+
+	<!-- 댓글 입력 -->
+	<insert id="writeReplyBbs" parameterType="com.DDot.model.ReplyDto">
+		INSERT INTO DDOTREPLY
+		(SEQ, BBS_SEQ, COMM_SEQ, NICKNAME, CONTENT, WDATE, DEL) 
+		VALUES(SEQ_DDOTREPLY.nextval, #{bbs_seq}, NULL, #{nickname}, #{content}, SYSDATE, 2)
+	</insert>
+	<insert id="writeReplyComm" parameterType="com.DDot.model.ReplyDto">
+		INSERT INTO DDOTREPLY
+		(SEQ, BBS_SEQ, COMM_SEQ, NICKNAME, CONTENT, WDATE, DEL) 
+		VALUES(SEQ_DDOTREPLY.nextval, NULL, #{comm_seq}, #{nickname}, #{content}, SYSDATE, 2)
+	</insert>
+	
+	<!-- 댓글 가져오기 -->
+	<select id="getReplyBbsList" parameterType="java.lang.Integer" resultType="com.DDot.model.ReplyDto">
+		SELECT *
+		FROM DDOTREPLY
+		WHERE BBS_SEQ=#{seq} AND DEL=0
+		ORDER BY WDATE
+	</select>
+	<select id="getReplyCommList" parameterType="java.lang.Integer" resultType="com.DDot.model.ReplyDto">
+		SELECT *
+		FROM DDOTREPLY
+		WHERE COMM_SEQ=#{seq} AND DEL=0
+		ORDER BY WDATE
+	</select>
+
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="com.DDot.model.ReplyDto">
+		UPDATE  DDOTREPLY SET
+		CONTENT = #{content}
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<update id="deleteReply" parameterType="java.lang.Integer">
+		UPDATE  DDOTREPLY SET
+		DEL = 0
+		WHERE SEQ=#{seq}
+	</update>
+	
+	<!-- 댓글 카운트 -->
+	<select id="getReplyBbsCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT	COUNT(*)
+		FROM DDOTREPLY
+		WHERE BBS_SEQ=#{seq}
+	</select>
+	<select id="getReplyCommCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT	COUNT(*)
+		FROM DDOTREPLY
+		WHERE COMM_SEQ=#{seq}
+	</select>
+	
+		
+</mapper>  
+
+
