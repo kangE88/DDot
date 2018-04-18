@@ -25,7 +25,7 @@ import com.DDot.service.MessageService;
 @Controller
 public class MessageController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 
 	@Autowired
 	MessageService msgService;
@@ -156,11 +156,10 @@ public class MessageController {
 	@RequestMapping(value="checkmessage.do", method={RequestMethod.GET, RequestMethod.POST})
 	public Integer checkMessage(HttpServletRequest req, Model model,String nickname) throws Exception {
 		
-		logger.info("MessageCheck");
 		int count=0;
 		
 		count = msgService.checkMessage(nickname);
-		System.out.println(count);
+		//System.out.println(count);
 		req.getSession().setAttribute("messagecount", count);
 		
 		
@@ -171,11 +170,10 @@ public class MessageController {
 	@RequestMapping(value="messageCheckNick.do", method={RequestMethod.GET, RequestMethod.POST})
 	public Integer messageCheckNick(Model model,MemberDto mem) throws Exception {
 		
-		logger.info("MessageCheck");
 		int count=0;
 		
 		count = memService.getNickname(mem);
-		System.out.println(count);
+		//System.out.println(count);
 		
 		
 		return count;
