@@ -9,6 +9,7 @@ import com.DDot.dao.BbsDao;
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
+import com.DDot.model.BbsParam1;
 import com.DDot.model.CommDto;
 import com.DDot.service.BbsService;
 
@@ -80,6 +81,11 @@ public class BbsServiceImpl implements BbsService {
 	}
 
 	@Override
+	public int getusericonc(int seq) {	
+		return bbsDao.getusericonc(seq);
+	}
+
+	@Override
 	public int boardsearchcount(AttendDto adto) {
 		return bbsDao.boardsearchcount(adto);
 	}
@@ -95,7 +101,7 @@ public class BbsServiceImpl implements BbsService {
 	}
 
 	@Override
-	public List<CommDto> commlist(BbsParam param1) {
+	public List<CommDto> commlist(BbsParam1 param1) {
 		return bbsDao.commlist(param1);
 	}
 

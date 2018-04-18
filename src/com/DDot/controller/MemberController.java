@@ -1,4 +1,4 @@
-﻿package com.DDot.controller;
+package com.DDot.controller;
 
 import java.io.File;
 import java.io.IOException;

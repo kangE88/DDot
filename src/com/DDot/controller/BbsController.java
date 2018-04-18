@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
+import com.DDot.model.BbsParam1;
 import com.DDot.model.CommDto;
 import com.DDot.model.ReplyDto;
 import com.DDot.service.BbsService;
@@ -198,28 +199,33 @@ public class BbsController {
 		return point;
 	}	
 	
+	@ResponseBody
+	@RequestMapping(value="getusericonc.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public int getusericonc(String sseq) {
+		
+		int seq = Integer.parseInt(sseq);
+		int point = bbsService.getusericonc(seq);		
+		
+		return point;
+	}		
+	
 	@RequestMapping(value="boardsearch.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String boardsearch(String category, String text, Model model, BbsParam param, BbsParam param1) throws Exception {
+	public String boardsearch(String category, String text, Model model, BbsParam param, BbsParam1 param1) throws Exception {
+		
 		
 		List<BbsDto> boardlist = null;
 		List<CommDto> commlist = null;
+		
+		//	bbs 페이징
 		
 		int sn = param.getPageNumber();
 		int start = (sn) * param.getRecordCountPerPage() + 1;
 		int end = (sn+1) * param.getRecordCountPerPage();
 		
-		param.setStart(start);
-		param.setEnd(end);
-		
-		int snc = param1.getPageNumber();
-		int startc = (snc) * param1.getRecordCountPerPage() + 1;
-		int endc = (snc+1) * param1.getRecordCountPerPage();
+		System.out.println("snb: " + sn);
 		
 		param.setStart(start);
-		param.setEnd(end);
-		
-		param1.setStart(startc);
-		param1.setEnd(endc);
+		param.setEnd(end);		
 		
 		int boardcount = 0;
 		int commcount = 0;
@@ -229,38 +235,44 @@ public class BbsController {
 		adto.setTable(category);	
 		adto.setNickname(text);
 		
-		System.out.println("category: " + category);
 		param.setS_category(category);
-		param.setS_keyword(text);
-		param1.setS_category(category);
-		param1.setS_keyword(text);
+		param.setS_keyword(text);		
+		
+		boardcount = bbsService.boardsearchcount(adto);		
+		boardlist = bbsService.boardlist(param);
 		
 		model.addAttribute("s_category", category);
-		model.addAttribute("s_keyword", text);
+		model.addAttribute("s_keyword", text);	
 		
-		boardcount = bbsService.boardsearchcount(adto);
-		model.addAttribute("boardcount", boardcount);
-		boardlist = bbsService.boardlist(param);
-		model.addAttribute("boardlist", boardlist);
-		commcount = bbsService.commsearchcount(adto);
-		model.addAttribute("commcount", commcount);
-		commlist = bbsService.commlist(param1);
-		model.addAttribute("commlist", commlist);
-		
-		model.addAttribute("totalRecordCount", boardcount);
+		model.addAttribute("totalRecordCount", boardcount);		
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 10);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("boardlist", boardlist);
+		
+		//	커뮤니티 페이징				
+	
+		System.out.println("param1.getPageNumberc(): "  + param1.getPageNumberc());
+			
+		int snc = param1.getPageNumberc();
+		int startc = (snc) * param1.getRecordCountPerPagec() + 1;
+		int endc = (snc+1) * param1.getRecordCountPerPagec();
+		
+		System.out.println("snc: " + snc);
+		
+		param1.setStart(startc);
+		param1.setEnd(endc);
+		param1.setS_category(category);
+		param1.setS_keyword(text);		
+		
+		commcount = bbsService.commsearchcount(adto);		
+		commlist = bbsService.commlist(param1);
 		
 		model.addAttribute("totalRecordCountc", commcount);
 		model.addAttribute("pageNumberc", snc);
 		model.addAttribute("pageCountPerScreenc", 10);
-		model.addAttribute("recordCountPerPagec", param1.getRecordCountPerPage());
-		
-		
-		System.out.println("category: " + category);
-		
-		System.out.println("text: " + text);
+		model.addAttribute("recordCountPerPagec", param1.getRecordCountPerPagec());
+		model.addAttribute("commlist", commlist);
 		
 		return "boardsearch.tiles";
 	}

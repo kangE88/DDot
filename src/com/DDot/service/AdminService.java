@@ -25,7 +25,7 @@ public interface AdminService {
 	
 	public int usercommcount(String nickname);
 	
-	public List<CommDto> usercommlist(String nickname);
+	public List<CommDto> usercommlist(BbsParam param);
 	
 	public int userbbscount(String nickname);
 }

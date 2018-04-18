@@ -129,6 +129,10 @@
 	SELECT POINT FROM DDOTMEMBER WHERE NICKNAME = (SELECT NICKNAME FROM DDOTBBS WHERE SEQ=#{seq})
 </select>
 
+<select id="getusericonc" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	SELECT POINT FROM DDOTMEMBER WHERE NICKNAME = (SELECT NICKNAME FROM DDOTCOMM WHERE SEQ=#{seq})
+</select>
+
 <!-- ==================== Main 에서 검색하는 부분 ==================== -->
 
 <!-- 전체검색 -->
