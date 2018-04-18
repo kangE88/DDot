@@ -22,4 +22,5 @@ public interface MessageDao {
 	public boolean increaseRead(Map<String, Object> data);
 	
 	public int checkMessage(String nickname);
+	
 }

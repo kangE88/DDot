@@ -36,9 +36,9 @@
 	 
 		SELECT NVL(count(*),0) AS cnt
 		FROM  DDOTMESSAGE  WHERE 
-		<if test="msgdto.sendto != null and msgdto.senddel == 2 and category == 0">SENDTO = #{msg.sendto,jdbcType=VARCHAR} and SENDDEL = 2</if>
-		<if test="msgdto.nickname != null and msgdto.nickdel == 2 and category == 1">NICKNAME = #{msg.nickname,jdbcType=VARCHAR} and NICKDEL = 2</if>
-		<if test="msgdto.sendto != null and msgdto.senddel == 0 and category == 2">SENDTO = #{msg.sendto,jdbcType=VARCHAR} and SENDDEL = 0</if>
+		<if test="msgdto.sendto != null and msgdto.senddel == 2 and category == 0">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 2</if>
+		<if test="msgdto.nickname != null and msgdto.nickdel == 2 and category == 1">NICKNAME = #{msgdto.nickname,jdbcType=VARCHAR} and NICKDEL = 2</if>
+		<if test="msgdto.sendto != null and msgdto.senddel == 0 and category == 2">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 0</if>
 		
 		
 	</select>
@@ -51,7 +51,7 @@
 	 
 	<update id="deleteMessage" parameterType="hashmap">
 		UPDATE DDOTMESSAGE
-		SET SENDDEL=0
+		SET SENDDEL=0, SENDREAD=1
 		WHERE SEQ IN
 		<foreach collection="array" item="item" index="index" open="(" close=")" separator=",">
 			#{item}

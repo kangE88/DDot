@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.DDot.model.MemberDto;
 import com.DDot.model.MessageDto;
 import com.DDot.model.MessagePagingDto;
+import com.DDot.service.MemberService;
 import com.DDot.service.MessageService;
 
 @Controller
@@ -28,6 +29,8 @@ public class MessageController {
 
 	@Autowired
 	MessageService msgService;
+	@Autowired
+	MemberService memService;
 	
 	@RequestMapping(value="messagelist.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String messagelist(HttpServletRequest req,Model model,MessagePagingDto msgPagingDto,
@@ -163,4 +166,19 @@ public class MessageController {
 		
 		return count;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="messageCheckNick.do", method={RequestMethod.GET, RequestMethod.POST})
+	public Integer messageCheckNick(Model model,MemberDto mem) throws Exception {
+		
+		logger.info("MessageCheck");
+		int count=0;
+		
+		count = memService.getNickname(mem);
+		System.out.println(count);
+		
+		
+		return count;
+	}
+	
 }

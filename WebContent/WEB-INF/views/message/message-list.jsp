@@ -63,6 +63,14 @@
 	<!-- ==================== 게시판 타이틀 들어가는부분 End ==================== -->
 	
 	<!-- ==================== 실제게시판 들어가는부분 Start ==================== -->
+	<form name="frmForm1" id="_frmFormSearch" method="post" action="">
+	
+	<!-- 각 페이지의 category & subcategory 및 페이징 정보 전송 -->
+	<input type="hidden" name="pageNumber" id="_pageNumber" value="0"/>	
+	<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+	<input type="hidden" name="category" value="${category }"/>
+	
+	</form>	
 	<div class="span10" id="boardmain" >
 	
 		<table class="table table-hover" id="board">
@@ -123,7 +131,7 @@
 						<td style="text-align: center;"><img src="./image/level/lv99.gif"></td>
 						<%-- 발신자가 쪽지를 읽지 않은 경우 --%>
 						<c:choose>
-							<c:when test="${msg.sendread eq '0'}">
+							<c:when test="${msg.nickread eq '0'}">
 								<td style="text-align: center"><a href="#" class="userInfo" title="${msg.nickname}">${msg.nickname}</a></td>
 								<td style="text-align: left"><a href='messagedetail.do?category=${category}&seq=${msg.seq}'>${msg.content}</a></td>
 							</c:when>
