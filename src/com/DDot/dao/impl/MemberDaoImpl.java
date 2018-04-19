@@ -37,6 +37,17 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public String findID(String email) throws Exception {
+		return sqlSession.selectOne(namespace + "findID", email);
+	}
+	
+
+	@Override
+	public String findPWD(MemberDto mem) throws Exception {
+		return sqlSession.selectOne(namespace + "findPWD", mem);
+	}
+
+	@Override
 	public boolean userInfoModify(MemberDto mem) throws Exception {
 		int n = sqlSession.update(namespace + "userInfoModify", mem);		
 		return n>0?true:false;

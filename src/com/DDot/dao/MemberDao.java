@@ -13,6 +13,10 @@ public interface MemberDao {
 	int getID(MemberDto mem) throws Exception;
 
 	int getNickname(MemberDto mem) throws Exception;
+	
+	String findID(String email) throws Exception;
+	
+	String findPWD(MemberDto mem) throws Exception;
 
 	boolean userInfoModify(MemberDto mem) throws Exception;
 

@@ -130,6 +130,29 @@ public class MemberController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="findID.do",  method= {RequestMethod.GET, RequestMethod.POST})
+	public String findID(Model model, String email) throws Exception {
+		logger.info("MemberController findID");
+		
+		String id = MemberService.findID(email);
+		return id;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="findPWD.do",  method= {RequestMethod.GET, RequestMethod.POST})
+	public String findPWD(Model model, MemberDto mem) throws Exception {
+		logger.info("MemberController findPWD");
+		
+		String pwd = MemberService.findPWD(mem);
+		
+		System.out.println(pwd);
+		
+		return pwd;
+		
+	}
+	
 	@RequestMapping(value="regiAf.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String regiAf(MemberDto mem, HttpServletRequest req,
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
