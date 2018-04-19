@@ -13,12 +13,14 @@
   border-radius: 3px;
   border: 1px solid silver;
 
-  background: white;
+  background: #000084;
   font-size: 90%;
-  font-family: monospace;
+  font-family: DOS;
 
   max-height: 20em;
   overflow-y: auto;
+  
+  top: 0px;
 }
 
 .CodeMirror-hint {
@@ -26,7 +28,7 @@
   padding: 0 4px;
   border-radius: 2px;
   white-space: pre;
-  color: black;
+  color: yellow;
   cursor: pointer;
 }
 

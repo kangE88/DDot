@@ -1,9 +1,9 @@
 package com.DDot.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.DDot.model.MessageDto;
-import com.DDot.model.MessagePagingDto;
 
 public interface MessageDao {
 
@@ -13,11 +13,14 @@ public interface MessageDao {
 		
 	public MessageDto getMessage(int seq) throws Exception;
 	
-	public List<MessageDto> getMessagePagingList(MessagePagingDto msgPagingDto) throws Exception;
+	public List<MessageDto> getMessagePagingList(Map<String, Object> data) throws Exception;
 	
-	public int getMessageCount(MessagePagingDto msgPagingDto) throws Exception;
+	public int getMessageCount(Map<String, Object> data) throws Exception;
 	
-	public boolean deleteMessage(int seq);
+	public boolean deleteMessage(String[] list);
 	
-	public boolean increaseRead(int seq);
+	public boolean increaseRead(Map<String, Object> data);
+	
+	public int checkMessage(String nickname);
+	
 }

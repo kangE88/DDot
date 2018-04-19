@@ -2,6 +2,7 @@ package com.DDot.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.DDot.dao.MessageDao;
 import com.DDot.model.MessageDto;
-import com.DDot.model.MessagePagingDto;
 
 @Repository
 public class MessageDaoImpl implements MessageDao {
@@ -39,29 +39,35 @@ public class MessageDaoImpl implements MessageDao {
 	}
 
 	@Override
-	public List<MessageDto> getMessagePagingList(MessagePagingDto msgPagingDto) throws Exception {
+	public List<MessageDto> getMessagePagingList(Map<String, Object> data) throws Exception {
 		List<MessageDto> list = new ArrayList<MessageDto>();
-		list = sqlSession.selectList(namespace+"getMessagePagingList", msgPagingDto);
+		list = sqlSession.selectList(namespace+"getMessagePagingList", data);
 		return list;
 	}
 
 	@Override
-	public int getMessageCount(MessagePagingDto msgPagingDto) throws Exception {
+	public int getMessageCount(Map<String, Object> data) throws Exception {
 		int num = 0;
-		num = sqlSession.selectOne(namespace+"getMessageCount", msgPagingDto);
+		num = sqlSession.selectOne(namespace+"getMessageCount", data);
 		return num;
 	}
 
 	@Override
-	public boolean deleteMessage(int seq) {
-		int count = sqlSession.update(namespace+"deleteMessage", seq);
+	public boolean deleteMessage(String[] list) {
+		int count = sqlSession.update(namespace+"deleteMessage", list);
 		return count>0?true:false;
 	}
 
 	@Override
-	public boolean increaseRead(int seq) {
-		int count = sqlSession.update(namespace+"increaseRead", seq);
+	public boolean increaseRead(Map<String, Object> data) {
+		int count = sqlSession.update(namespace+"increaseRead", data);
 		return count>0?true:false;
+	}
+
+	@Override
+	public int checkMessage(String nickname) {
+		int count = sqlSession.selectOne(namespace+"checkMessage", nickname);
+		return count;
 	}
 
 }

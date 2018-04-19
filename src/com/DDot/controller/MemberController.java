@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.DDot.model.MemberDto;
 import com.DDot.model.YesMember;
 import com.DDot.service.MemberService;
+import com.DDot.service.MessageService;
+import com.DDot.util.CheckConnectUser;
 import com.DDot.util.FUpUtil;
 
 @Controller
@@ -31,6 +34,8 @@ public class MemberController {
 	
 	@Autowired
 	MemberService MemberService;
+	@Autowired
+	MessageService msgService;
 	
 	@RequestMapping(value="login.do", method=RequestMethod.GET)
 	public String login(Model model) {
@@ -253,7 +258,6 @@ public class MemberController {
 		return MemberService.userInfoModifyNoImage(mem);
 	}
 	
-	//
 
 	@RequestMapping(value="loginAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
@@ -266,6 +270,11 @@ public class MemberController {
 			System.out.println("loginAf in");
 			req.getSession().setAttribute("login", login);
 			req.getSession().setAttribute("chatstatus", 0);
+			int count = msgService.checkMessage(login.getNickname());
+			System.out.println(count);
+			req.getSession().setAttribute("messagecount", count);
+			
+			//req.getSession().setAttribute(login.getNickname(), new CheckConnectUser(context));
 			return "redirect:/main.do";
 		}else {
 			return "redirect:/login.do";
@@ -280,6 +289,8 @@ public class MemberController {
 		MemberDto login = MemberService.login(mdto);
 		
 		req.getSession().setAttribute("login", login);
+		
+		
 		
 		return "userInfo.tiles";
 	}

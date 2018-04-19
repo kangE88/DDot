@@ -36,6 +36,10 @@ a:focus{
 		  <li class="divider"></li>
 		  <li><a href="#">Chat</a></li>  
 		</ul>
+		<form id="userpaging" method="post" action="">
+		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
+		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+		</form>
 	</div>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
 
@@ -146,7 +150,21 @@ a:focus{
 			</c:forEach>
 			</tbody>
 		</table>
-	
+	<div id="paging_wrap">
+		<jsp:include page="/WEB-INF/views/common/paging.jsp" flush="false">
+			<jsp:param value="${pageNumber }" name="pageNumber"/>
+			<jsp:param value="${pageCountPerScreen }" name="pageCountPerScreen"/>
+			<jsp:param value="${recordCountPerPage }" name="recordCountPerPage"/>
+			<jsp:param value="${totalRecordCount }" name="totalRecordCount"/>
+		</jsp:include>
+	</div>
+		
+		<script type="text/javascript">
+		function goPage(pageNumber) {			
+			$("#_pageNumber").val(pageNumber);
+			$("#userpaging").attr("target","_self").attr("action","admin.do").submit();
+		}
+		</script>
 	</div>
 <!-- ==================== 어드민 유저게시판 시작 ====================  -->
 <!-- ==================== 어드민 우측메뉴 끝 ====================  -->
