@@ -17,8 +17,8 @@
 	Configure the location of uploaded files. See the following article for more details:
 	http://docs.cksource.com/CKFinder_2.x/Developers_Guide/Java/Configuration/baseURL_and_baseDir
 	-->
-	<baseDir>D:/images</baseDir>
-	<baseURL>/images</baseURL>
+	<baseDir>C:/upload</baseDir>
+	<baseURL>/</baseURL>
 	<licenseKey></licenseKey>
 	<licenseName></licenseName>
 	<!--

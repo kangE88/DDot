@@ -131,32 +131,25 @@ public class BbsController {
 		return "bbsdetail.tiles";
 	}
 	
-	/*
-	// 댓글 쓰기
 	@ResponseBody
-	@RequestMapping(value = "replywritebbs.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public Map<String, List<ReplyDto>> replywritebbs(ReplyDto reply, Model model) throws Exception {
-		logger.info("DDotBbsController replywritebbs! "+ new Date());
+	@RequestMapping(value = "replycountbbs.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public Map<String, Integer> replycountbbs(int seq, Model model) throws Exception {
 		
-			System.out.println("reply.getNickname()="+reply.getNickname());
-			System.out.println("reply.getContent()="+reply.getContent());
-			System.out.println("reply.getSeq()="+reply.getSeq());
-			
-			// 전체 댓글 가져오기
-			List<ReplyDto> list = replyService.getReplyBbsList(reply.getSeq());
-			
-			if(reply.getNickname() !=null) {
-				reply.setBbs_seq(reply.getSeq());
-				replyService.writeReplyBbs(reply);
-			}
-			
-			Map<String, List<ReplyDto>> replyMap = new HashMap<String, List<ReplyDto>>();
-			replyMap.put("replylist", list);
-			
-			return replyMap;
+		Map<String, Integer> replyMap = new HashMap<String, Integer>();
+		replyMap.put("replycount", replyService.getReplyBbsCount(seq));
+		
+		return replyMap;
 	}
-	*/
 	
+	@RequestMapping(value = "bbsdeletereply.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String bbsdeletereply(int seq, Model model) throws Exception {
+		logger.info("DDotBbsController bbsdeletereply! "+ new Date());
+
+		replyService.deleteReply(seq);
+
+		return "bbsdetail.tiles";
+	}
+		
 	@RequestMapping(value = "bbsupdate.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String bbsupdate(int seq, Model model) throws Exception{
 		logger.info("DDotBbsController bbsupdate! "+ new Date());
@@ -193,7 +186,7 @@ public class BbsController {
 	public int getusericon(String sseq) {
 		
 		int seq = Integer.parseInt(sseq);
-		int point = bbsService.getusericon(seq);		
+		int point = bbsService.getusericon(seq);
 		
 		return point;
 	}	

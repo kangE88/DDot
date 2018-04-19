@@ -27,7 +27,7 @@
 				<tr>
 					<td>
 							&nbsp;<select id="_s_category" name="s_category" class="span10">
-								<option value="" selected="selected">Select</option>
+								<option value="select" selected="selected">Select</option>
 								<option value="title">Title</option>
 								<option value="content">Content</option>								
 							</select>
@@ -48,12 +48,7 @@
 				</tr>
 				</table>
 		</form>
-		
-		
-		
-		
-		
-		
+
 		<script type="text/javascript">
 		
 		$(document).ready(function() {
@@ -62,6 +57,16 @@
 		});
 		
 		$("#_btnSearch").click(function() {
+			
+			if($("#_s_category option:selected").val()=="select"){
+				alert("Title 또는 Content 선택하여 검색 하세요!!");
+				return false;
+			}else if($("#_s_keyword").val()==""){
+				alert("검색창에 내용을 입력하세요!");
+				$("#_s_keyword").focus();
+				return false;
+			}
+			
 			$("#_frmFormSearch").attr({ "target":"_self", "action":"bbslist.do" }).submit();
 		});
 		</script>
@@ -199,7 +204,28 @@
 				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
-				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a></td>
+				
+					<!-- 댓글 카운트 가져오는 부분 -->
+					<script type="text/javascript">
+					$(document).ready(function() {
+						$.ajax({
+							  type:"POST"
+							  ,url:"replycountbbs.do"
+							  ,data:{"seq" : "${bbs.seq}"}
+							  ,success:function(data){
+								  if(data.replycount !=0){
+								  $('#${bbs.seq }replycount').text("("+data.replycount+")");
+								  }
+							  },
+							  error: function(xhr, status, error) {
+								  alert("18");
+						      }  
+						 });
+					 });
+					</script>
+			
+				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a>
+				<span id="${bbs.seq }replycount"></span>
 			</c:otherwise>
 			</c:choose>
 				<!-- userinfo 정보 확인 -->
@@ -239,8 +265,19 @@
 		<!-- ==================== 글쓰기 div start ==================== -->
 		<div class="span9"></div>
 		<div class="span2" style="float: right;"> 
-			<button class="btn" style="margin:auto;" onclick="location.href='bbswrite.do?category=${category }&subcategory=${subcategory }'">Write</button>
+			<button class="btn" style="margin:auto;" onclick="" id="_btnWrite">Write</button>
 		</div>	
+		<script type="text/javascript">
+		$("#_btnWrite").click(function() {
+
+			if("${login.nickname}"=="" || "${login.nickname}"==null ){
+				alert("로그인 후 작성 가능 합니다!");
+				return false;
+			}
+			
+				location.href='bbswrite.do?category=${category }&subcategory=${subcategory }';
+		});
+		</script>
 		<!-- ==================== 글쓰기 div End ==================== -->
 	</div>
 </div>

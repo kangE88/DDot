@@ -72,7 +72,7 @@
 	</tr>
 	<tr>
 		<th>Good / Bad</th>
-		<td>
+		<td style="padding-bottom: 10px">
 			&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-success" id="up">${comm.up }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-important" id="down">${comm.down }</span> <br>&nbsp;
@@ -107,6 +107,7 @@
 
 <c:forEach items="${replylist }" var="reply">
 	<table class="table table-bordered" style="width:85%;">
+	<col width="30%"><col width="70%">
 			<tr>
 			<td style="text-align: left">
 			<!-- 아이콘 이미지를 가져오는 부분 -->
@@ -129,8 +130,16 @@
 				<img id="${reply.seq }icon" src="">
 			${reply.nickname }
 			</td>
-			<td style="text-align: left">
+			<td style="text-align: left;padding-bottom: 10px">
 				<c:out value="${fn:substring(reply.wdate,2,19)}"/>
+				
+				<!-- 로그인한 정보가 작성자의 정보와 같으면 삭제 버튼 표현 -->
+				<c:if test="${reply.nickname eq login.nickname}">
+				<input type="hidden" id="_seq" value="${reply.seq }">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="#none" class="btn" style="margin:auto;" id="_replyDelete" title="삭제">삭제</a>
+				</c:if>
+				
 			</td>
 		</tr>
 		<tr>
@@ -189,7 +198,7 @@
 		</tr>
 		<tr>
 			<td>
-				<textarea rows="5" cols="100" id="_content" name="content"></textarea>
+				<textarea rows="5" cols="50" style="width:100%" id="_content" name="content"></textarea>
 			</td>
 		</tr>
 	</table>
@@ -252,22 +261,29 @@ $("#_btnWrite").click(function() {
 		  ,url:"commdetail.do"
 		  ,data:{"seq" : "${comm.seq}", "nickname" : "${login.nickname}", "content" : $("#_content").val()}
 		  ,success:function(data){
-			  alert("성공이닭!!");
 			  location.reload();
 		  },
 		  error: function(xhr, status, error) {
-	            alert("실패닭!!");
+	            alert("댓글 내용을 입력해주세요!");
 	      }  
 	 });
 });
 
-
-/* 
-$("#_btnReply").click(function() {	
-	alert('답글달기');	
-	$("#_frmForm").attr({ "target":"_self", "action":"commreply.do" }).submit();
+//댓글 삭제
+$("#_replyDelete").click(function() {
+	$.ajax({
+		  type:"POST"
+		  ,url:"commdeletereply.do"
+		  ,data:{"seq" : $("#_seq").val()}
+		  ,success:function(data){
+			  location.reload();
+		  },
+		  error: function(xhr, status, error) {
+	            alert("삭제 실패닭!!");
+	      }  
+	 });
 });
- */
+
 </script>
 </body>
 </html>

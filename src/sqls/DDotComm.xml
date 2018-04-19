@@ -26,8 +26,8 @@
 		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
 	    WHERE 1 = 1 
 	    <if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
-			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
-			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'title'"> AND DEL=2 AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'content'"> AND DEL=2 AND CONTENT like '%'||#{s_keyword}||'%'</if>	
 		</if>
 			 ) A
 			WHERE rnum between ${start} AND ${end}
@@ -39,8 +39,8 @@
 			  FROM  DDOTCOMM  WHERE 1 = 1
 		
 		<if test="s_category != '' and s_category != null and s_keyword != '' and s_keyword != null">
-			<if test="s_category == 'title'"> AND TITLE like '%'||#{s_keyword}||'%'</if>	
-			<if test="s_category == 'contents'"> AND CONTENT like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'title'"> AND DEL=2 AND TITLE like '%'||#{s_keyword}||'%'</if>	
+			<if test="s_category == 'content'"> AND DEL=2 AND CONTENT like '%'||#{s_keyword}||'%'</if>	
 		</if>
 	</select>
 	 
