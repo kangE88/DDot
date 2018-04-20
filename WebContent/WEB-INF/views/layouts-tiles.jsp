@@ -65,27 +65,63 @@ $("#cmd").keydown(function(key) {
 	var command = $("#cmd").val();
 	
 	switch(command){
-	case "/help":
-		$('#myModal').modal('show')
-		break;
-	case "/?":
-		$('#myModal').modal('show')
-		break;
-	case "/move home":
-		location.href="./main.do"
-		break;
-	case "/move clab":
-		location.href="./labatory.do"
-		break;
-	case "/move donate":
-		location.href="./donate.do"
-		break;	
-	case "/move attendance":
-		location.href="./attendance.do"
-		break;
-	case "/move house":
-		location.href="./house.do"
-		break;
+		case "/help":
+			$('#myModal').modal('show')
+			break;
+		case "/?":
+			$('#myModal').modal('show')
+			break;
+		case "/move home":
+			location.href="./main.do"
+			break;
+		case "/move community":
+			location.href="commlist.do"
+			break;
+		case "/move clab":
+			location.href="./labatory.do"
+			break;
+		case "/move donate":
+			location.href="./donate.do"
+			break;			
+		case "/move attendance":
+			<%
+			if(session.getAttribute("login") == null){
+			%>
+			alert("로그인이 필요한서비스 입니다.");
+			location.href="login.do";
+			<%}else{%>
+			location.href="./attendance.do"
+			<%}%>
+			break;
+		case "/move house":
+			<%
+			if(session.getAttribute("login") == null){
+				%>
+				alert("로그인이 필요한서비스 입니다.");
+				location.href="login.do";
+				<%}else{%>
+				location.href="./house.do"
+				<%}%>		
+			break;
+		case "/move board-java":
+			location.href="http://localhost:8090/DDot/bbslist.do?category=0&subcategory=9";
+			break;
+		case "/move board-jsp":
+			location.href="http://localhost:8090/DDot/bbslist.do?category=1&subcategory=9";
+			break;
+		case "/move board-jquery":
+			location.href="http://localhost:8090/DDot/bbslist.do?category=2&subcategory=9";
+			break;
+		case "/move board-oracle":
+			location.href="http://localhost:8090/DDot/bbslist.do?category=3&subcategory=9";
+			break;
+		case "/move board-spring":
+			location.href="http://localhost:8090/DDot/bbslist.do?category=4&subcategory=9";
+			break;
+		case "/move board-etc":
+			location.href="http://localhost:8090/DDot/bbslist.do?category=5&subcategory=9";
+			break;
+				
 	}
 		$("#cmd").val("");	
 	}
