@@ -285,6 +285,12 @@ $("#_btnBad").click(function() {
 
 // 댓글 쓰기
 $("#_btnWrite").click(function() {
+	
+	if($("#_content").val()==""){
+		alert("댓글 내용을 입력해주세요!");
+		$("#_content").focus();
+		return false;
+	}else{
 	$.ajax({
 		  type:"POST"
 		  ,url:"bbsdetail.do"
@@ -294,8 +300,10 @@ $("#_btnWrite").click(function() {
 		  },
 		  error: function(xhr, status, error) {
 	            alert("댓글 내용을 입력해주세요!");
+	            return false;
 	      }  
 	 });
+	}
 });
 
 //댓글 삭제

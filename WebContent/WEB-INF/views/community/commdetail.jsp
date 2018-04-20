@@ -256,6 +256,12 @@ $("#_btnBad").click(function() {
 
 //댓글 쓰기
 $("#_btnWrite").click(function() {
+	
+	if($("#_content").val()==""){
+		alert("댓글 내용을 입력해주세요!");
+		$("#_content").focus();
+		return false;
+	}else{
 	$.ajax({
 		  type:"POST"
 		  ,url:"commdetail.do"
@@ -264,9 +270,10 @@ $("#_btnWrite").click(function() {
 			  location.reload();
 		  },
 		  error: function(xhr, status, error) {
-	            alert("댓글 내용을 입력해주세요!");
+	            
 	      }  
 	 });
+	}
 });
 
 //댓글 삭제
