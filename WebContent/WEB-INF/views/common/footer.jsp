@@ -7,7 +7,11 @@
 		<tr>
 		<td>
 			Commnad Line : <input type="text" style="width: 70%; background-color: black; color: white" id="cmd" placeholder="command를 입력하세요">
-			</td>
+			<a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="command사용이 처음이시면          /help를 입력해보세요!">
+			<img alt="command-tutorial" src="./image/help.png" >
+			</a>
+<!-- 			<a href="#" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Tooltip on left</a>
+ -->			</td>
 		<td align="right" style="vertical-align: middle; text-align: right;">
 			<p id="copyright-content" style="margin:0 5 0 0;">Copyright By DevDot Since 2018</p>
 			<div class="toggler">
@@ -26,7 +30,16 @@ $("#effect").hide();
 $(document).ready(function () {
 	var nickname = "${login.nickname}";
 	if (nickname!="") {
+		var audio = new Audio('./audio/note.mp3');
 		var messagecount = <%=(Integer)request.getSession().getAttribute("messagecount")%>
+		//처음 로그인했을때 보여줌---------------------------------------------------
+		$("#copyright-content").hide();
+		$("#effect-content").html("확인하지 않은 쪽지가 "+messagecount+"건 있습니다.");
+		runEffect();
+		//페이지 이동시마다 소리가 나니 배제 audio.play();
+		setTimeout(function(){runEffect()}, 4000);
+		setTimeout(function(){$("#copyright-content").show();}, 4500);
+		//--------------------------------------------------------------------
 		setInterval(function(){ 
 		
 		$.ajax({
@@ -38,6 +51,7 @@ $(document).ready(function () {
 			 		$("#copyright-content").hide();
 					$("#effect-content").html("확인하지 않은 쪽지가 "+newcount+"건 있습니다.");
 					runEffect();
+					audio.play();
 					setTimeout(function(){runEffect()}, 4000);
 					setTimeout(function(){$("#copyright-content").show();}, 4500);
 					messagecount = newcount;
@@ -50,7 +64,7 @@ $(document).ready(function () {
 	}
 });
 
-/* $(function() {
+/*슬라이드 jquery ui 사용
 	// run the currently selected effect */
 	function runEffect() {
 		// get effect type from
@@ -78,6 +92,13 @@ $(document).ready(function () {
 			mode : 'show'
 		}, 500);
 	};
+	
+//툴팁사용
+$(document).ready(function () {
+	$('[data-toggle="tooltip"]').tooltip();
+});
+	
+	
 
 	// Set effect from select menu value
 /* 	$("#usersBtn").on("click", function() {

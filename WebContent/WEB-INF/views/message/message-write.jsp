@@ -114,9 +114,17 @@
 <script type="text/javascript">
 var check=false;
 
+$(document).ready(function () {
+	checkNickname();
+})
 
 //$("#_btnCheckNick").click(function () {
-	$("#_sendto").keyup(function () {
+$("#_sendto").keyup(function () {
+	checkNickname();
+});
+
+
+function checkNickname() {
 	var checkNick = $("#_sendto").val();
 	if (checkNick=="") {
 		$("#_spanCheckNick").html("수신자 닉네임을 입력하세요");
@@ -139,11 +147,8 @@ var check=false;
 	        }  
 	    });  
 	}
+}
 	
-	
-	
-});
-
 $("#_btnWrite").click(function() {	
 	// alert('글작성');	
 	var editor_val = CKEDITOR.instances._content.document.getBody().getChild(0).getText().trim();
