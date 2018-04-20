@@ -35,8 +35,6 @@
 
     </style>
     <link href="./css/bootstrap-responsive.css" rel="stylesheet">
-
-
 </head>
 
 <body>
@@ -95,7 +93,7 @@
 	</tr>
 	<tr>
 		<th>Good / Bad</th>
-		<td>
+		<td style="padding-bottom: 10px">
 			&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-success" id="up">${bbs.up }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-important" id="down">${bbs.down }</span> <br>&nbsp;
@@ -132,8 +130,9 @@
 <!-- 댓글 리스트 Start -->
 
 <c:forEach items="${replylist }" var="reply">
-	<table class="table table-bordered" style="width:85%;">
-			<tr>
+	<table class="table table-bordered" style="width:85%;" >
+	<col width="30%"><col width="70%">
+			<tr >
 			<td style="text-align: left">
 			<!-- 아이콘 이미지를 가져오는 부분 -->
 					<script type="text/javascript">
@@ -155,9 +154,18 @@
 				<img id="${reply.seq }icon" src="">
 			${reply.nickname }
 			</td>
-			<td style="text-align: left">
+			<td style="text-align: left;padding-bottom: 10px" >
 			<c:out value="${fn:substring(reply.wdate,2,19)}"/>
+						
+				<!-- 로그인한 정보가 작성자의 정보와 같으면 삭제 버튼 표현 -->
+				<c:if test="${reply.nickname eq login.nickname}">
+				<input type="hidden" id="_seq" value="${reply.seq }">
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="#none" class="btn" style="margin:auto;" id="_replyDelete" title="삭제">삭제</a>
+				</c:if>
+
 			</td>
+
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -185,7 +193,7 @@
 <c:otherwise>
 <form name="replyForm" id="_replyForm" method="post">
 	<table class="table table-bordered" style="width:85%;">
-	<input type="hidden" name="seq"   value="${bbs.seq}"/>
+	<input type="hidden" name="seq"   value="${bbs.seq}">
 		<tr>
 			<td style="text-align: left">
 			<!-- 아이콘 이미지를 가져오는 부분 -->
@@ -215,7 +223,7 @@
 		</tr>
 		<tr>
 			<td>
-				<textarea rows="5" cols="100" id="_content" name="content"></textarea>
+				<textarea rows="5" cols="50" style="width:100%" id="_content" name="content"></textarea>
 			</td>
 		</tr>
 	</table>
@@ -277,40 +285,42 @@ $("#_btnBad").click(function() {
 
 // 댓글 쓰기
 $("#_btnWrite").click(function() {
+	
+	if($("#_content").val()==""){
+		alert("댓글 내용을 입력해주세요!");
+		$("#_content").focus();
+		return false;
+	}else{
 	$.ajax({
 		  type:"POST"
 		  ,url:"bbsdetail.do"
 		  ,data:{"seq" : "${bbs.seq}", "nickname" : "${login.nickname}", "content" : $("#_content").val()}
 		  ,success:function(data){
-			  alert("성공이닭!!");
 			  location.reload();
 		  },
 		  error: function(xhr, status, error) {
-	            alert("실패닭!!");
+	            alert("댓글 내용을 입력해주세요!");
+	            return false;
 	      }  
 	 });
+	}
 });
- 
- 
- 
-/* 
-$("#_btnWrite").click(function() {
+
+//댓글 삭제
+$("#_replyDelete").click(function() {
 	$.ajax({
 		  type:"POST"
-		  ,url:"replywritebbs.do"
-		  ,data:{"seq" : "${bbs.seq}", "nickname" : "${login.nickname}", "content" : $("#_content").val()}
+		  ,url:"bbsdeletereply.do"
+		  ,data:{"seq" : $("#_seq").val()}
 		  ,success:function(data){
-					// location.reload();
-					data.relpylist;
-					
-				
+			  location.reload();
 		  },
 		  error: function(xhr, status, error) {
-	            alert("로그인 후 클릭 부탁 드립니다");
+	            alert("삭제 실패닭!!");
 	      }  
 	 });
 });
-  */
+ 
 </script>
 </body>
 </html>

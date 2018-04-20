@@ -21,7 +21,9 @@
 	</header>
 <!-- Main ================================== -->
 	<div class="row-fluid" style="height:80%;">
+		<div style="margin-bottom: 100px">
 		<tiles:insertAttribute name="main" />
+		</div>
 	</div>
 
 <!-- Footer    ================================================== -->

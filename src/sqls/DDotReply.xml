@@ -22,13 +22,13 @@
 	<select id="getReplyBbsList" parameterType="java.lang.Integer" resultType="com.DDot.model.ReplyDto">
 		SELECT *
 		FROM DDOTREPLY
-		WHERE BBS_SEQ=#{seq} AND DEL=0
+		WHERE BBS_SEQ=#{seq} AND DEL=2
 		ORDER BY WDATE
 	</select>
 	<select id="getReplyCommList" parameterType="java.lang.Integer" resultType="com.DDot.model.ReplyDto">
 		SELECT *
 		FROM DDOTREPLY
-		WHERE COMM_SEQ=#{seq} AND DEL=0
+		WHERE COMM_SEQ=#{seq} AND DEL=2
 		ORDER BY WDATE
 	</select>
 
@@ -50,12 +50,12 @@
 	<select id="getReplyBbsCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		SELECT	COUNT(*)
 		FROM DDOTREPLY
-		WHERE BBS_SEQ=#{seq}
+		WHERE BBS_SEQ=#{seq} AND DEL=2
 	</select>
 	<select id="getReplyCommCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 		SELECT	COUNT(*)
 		FROM DDOTREPLY
-		WHERE COMM_SEQ=#{seq}
+		WHERE COMM_SEQ=#{seq} AND DEL=2
 	</select>
 	
 		

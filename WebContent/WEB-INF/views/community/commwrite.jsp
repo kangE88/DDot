@@ -81,7 +81,7 @@
 	<tr>
 		<th>Title</th>
 			<td style="text-align: left">
-				<input type="text" name="title" size="60"/>
+				<input type="text" name="title" id="_title" size="60"/>
 			</td>
 	</tr>
 	<tr>
@@ -93,7 +93,7 @@
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 			<span>					
-	 			<a href="#none" class="btn" style="margin:auto;"  id="_btnLogin" title="글쓰기">Wrtie	</a>
+	 			<a href="#none" class="btn" style="margin:auto;"  id="_btnWrite" title="글쓰기">Wrtie	</a>
 			</span>
 		</td>
 	</tr>
@@ -104,10 +104,17 @@
 </form>
 
 <script type="text/javascript">
-$("#_btnLogin").click(function() {	
-	// alert('글작성');	
-	$("#_frmForm").attr({ "target":"_self", "action":"commwriteAf.do" }).submit();	
-});
+$("#_btnWrite").click(function() {	
+	var editor_val = CKEDITOR.instances._content.document.getBody().getChild(0).getText().trim();
+	if($("#_title").val().trim()==""){
+	      alert("타이틀 기입이 필요합니다!");
+	      $("#_title").focus();
+		}else if (editor_val=="") {
+		  alert("내용 작성이 필요합니다!");
+	   }else{ 
+	   $("#_frmForm").attr({ "target":"_self", "action":"commwriteAf.do" }).submit();
+	   }
+});	
 </script>
 </body>
 </html>

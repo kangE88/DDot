@@ -1,7 +1,9 @@
 package com.DDot.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.DDot.model.CommDto;
 import com.DDot.model.ReplyDto;
@@ -99,6 +102,26 @@ public class CommController {
 			model.addAttribute("replycount", count);
 			
 			return "commdetail.tiles";
+		}
+		
+		@ResponseBody
+		@RequestMapping(value = "replycountcomm.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public Map<String, Integer> replycountcomm(int seq, Model model) throws Exception {
+			
+			Map<String, Integer> replyMap = new HashMap<String, Integer>();
+			replyMap.put("replycount", replyService.getReplyCommCount(seq));
+			
+			return replyMap;
+		}
+		
+
+		@RequestMapping(value = "commdeletereply.do", method = {RequestMethod.GET, RequestMethod.POST})
+		public String bbsdetail(int seq, Model model) throws Exception {
+			logger.info("DDotCommController commdeletereply! "+ new Date());
+
+			replyService.deleteReply(seq);
+
+			return "bbsdetail.tiles";
 		}
 		
 		@RequestMapping(value = "commupdate.do", method = {RequestMethod.GET, RequestMethod.POST})
