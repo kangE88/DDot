@@ -20,7 +20,7 @@
 	</insert>
 	
 	<!-- 글쓰기 완료시 200 포인트 up -->
-	<update id="WriteCommPoint" parameterType="com.DDot.model.CommDto">
+	<update id="writeCommPoint" parameterType="com.DDot.model.CommDto">
 		UPDATE DDOTMEMBER SET
 		POINT = POINT+200
 		WHERE NICKNAME=#{nickname}

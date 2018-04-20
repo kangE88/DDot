@@ -98,6 +98,7 @@ public class BbsController {
 			return "bbswrite";
 		}
 		logger.info("DDotBbsController bbswriteAf! "+ new Date());
+		System.out.println("nickname: " + bbs.getNickname());
 		bbsService.writeBbs(bbs);
 		model.addAttribute("category", bbs.getCategory());
 		model.addAttribute("subcategory", bbs.getSubcategory());

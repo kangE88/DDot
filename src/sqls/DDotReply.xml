@@ -24,7 +24,7 @@
 		POINT = POINT+100
 		WHERE NICKNAME=#{nickname}
 	</update>
-		<update id="writeReplyComm" parameterType="com.DDot.model.ReplyDto">
+		<update id="writeReplyCommPoint" parameterType="com.DDot.model.ReplyDto">
 		UPDATE DDOTMEMBER SET
 		POINT = POINT+100
 		WHERE NICKNAME=#{nickname}
