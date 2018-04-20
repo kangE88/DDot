@@ -29,6 +29,7 @@ public class CommDaoImpl implements CommDao {
 
 	@Override
 	public boolean writeComm(CommDto comm) throws Exception {
+		sqlSession.update(namespace+"writeCommPoint", comm);
 		int count = sqlSession.insert(namespace+"writeComm", comm);
 		return count>0?true:false;
 	}

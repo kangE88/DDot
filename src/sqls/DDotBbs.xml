@@ -28,6 +28,13 @@
 		VALUES(SEQ_DDOTBBS.nextval, #{nickname}, #{category}, #{subcategory},  #{title},
 		 #{content}, SYSDATE, 0, 0, 0, 2)
 	</insert>
+	
+	<!-- 글쓰기 완료시 200 포인트 up -->
+	<update id="WriteBbsPoint" parameterType="com.DDot.model.BbsDto">
+		UPDATE DDOTMEMBER SET
+		POINT = POINT+200
+		WHERE NICKNAME=#{nickname}
+	</update>
 	 
 	<select id="getBbsPagingList" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
 		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
@@ -105,26 +112,6 @@
 	</update>	
 
 
-	<!-- 
-	<update id="replyBbsUpdate" 	parameterType="com.DDot.model.BbsDto">
-		UPDATE BBS 
-		SET STEP=STEP+1
-		WHERE REF=(SELECT REF FROM BBS WHERE SEQ=#{seq})
-			AND STEP>(SELECT STEP FROM BBS WHERE SEQ=#{seq})		
-	</update>
-	
-	<insert id="replyBbsInsert" 	parameterType="com.DDot.model.BbsDto">
-		INSERT INTO BBS
-			(SEQ, ID, REF, STEP, DEPTH, 
-			TITLE, CONTENT, WDATE, PARENT, DEL, READCOUNT)
-		VALUES(SEQ_BBS.NEXTVAL, #{id},
-			(SELECT REF FROM BBS WHERE SEQ=#{seq}),
-			(SELECT STEP FROM BBS WHERE SEQ=#{seq})+1,
-			(SELECT DEPTH FROM BBS WHERE SEQ=#{seq})+1,
-			#{title}, #{content}, SYSDATE,
-			#{seq}, 0, 0)	
-	</insert>
-	 -->
 <select id="getusericon" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 	SELECT POINT FROM DDOTMEMBER WHERE NICKNAME = (SELECT NICKNAME FROM DDOTBBS WHERE SEQ=#{seq})
 </select>

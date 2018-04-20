@@ -122,7 +122,7 @@
 <p>
 <!-- 댓글 카운트 Start -->
 
-&nbsp;&nbsp; 총 댓글은 ${replycount }개 입니다.
+&nbsp;&nbsp; Total reply count  : ${replycount } 
 
 <!-- 댓글 카운트 End -->
 <p>
@@ -217,8 +217,8 @@
 				<img id="${login.nickname}icon" src="">
 			${login.nickname}
 			</td>
-			<td rowspan="2">
-			<a href="#none" class="btn" style="margin:auto;" id="_btnWrite" title="등록">등록</a>
+			<td rowspan="2" style="text-align: center;vertical-align: middle;">
+			<a href="#none" class="btn" style="margin:auto;" id="_btnWrite" title="등록">add comment</a>
 			</td>
 		</tr>
 		<tr>

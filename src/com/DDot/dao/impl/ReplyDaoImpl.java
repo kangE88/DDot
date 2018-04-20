@@ -21,12 +21,14 @@ public class ReplyDaoImpl implements ReplyDao {
 
 	@Override
 	public boolean writeReplyBbs(ReplyDto reply) throws Exception {
+		sqlSession.update(namespace+"writeReplyBbsPoint", reply);
 		int count = sqlSession.insert(namespace+"writeReplyBbs", reply);
 		return count>0?true:false;
 	}
 
 	@Override
 	public boolean writeReplyComm(ReplyDto reply) throws Exception {
+		sqlSession.update(namespace+"writeReplyCommPoint", reply);
 		int count = sqlSession.insert(namespace+"writeReplyComm", reply);
 		return count>0?true:false;
 	}

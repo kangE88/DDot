@@ -98,7 +98,7 @@
 <p>
 <!-- 댓글 카운트 Start -->
 
-&nbsp;&nbsp; 총 댓글은 ${replycount }개 입니다.
+&nbsp;&nbsp; Total reply count  : ${replycount }
 
 <!-- 댓글 카운트 End -->
 <p>
@@ -193,7 +193,7 @@
 			${login.nickname}
 			</td>
 			<td rowspan="2">
-			<a href="" class="btn" style="margin:auto;" id="_btnWrite" title="등록">등록</a>
+			<a href="#none" class="btn" style="margin:auto;" id="_btnWrite" title="등록">add comment</a>
 			</td>
 		</tr>
 		<tr>

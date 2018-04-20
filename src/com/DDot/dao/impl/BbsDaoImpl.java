@@ -31,6 +31,7 @@ public class BbsDaoImpl implements BbsDao {
 
 	@Override
 	public boolean writeBbs(BbsDto bbs) throws Exception {
+		sqlSession.update(namespace+"writeBbsPoint", bbs);
 		int count = sqlSession.insert(namespace+"writeBbs", bbs);
 		return count>0?true:false;
 	}

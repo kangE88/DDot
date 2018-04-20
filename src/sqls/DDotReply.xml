@@ -18,6 +18,18 @@
 		VALUES(SEQ_DDOTREPLY.nextval, NULL, #{comm_seq}, #{nickname}, #{content}, SYSDATE, 2)
 	</insert>
 	
+	<!-- 댓글쓰기 완료시 100 포인트 up -->
+	<update id="writeReplyBbsPoint" parameterType="com.DDot.model.ReplyDto">
+		UPDATE DDOTMEMBER SET
+		POINT = POINT+100
+		WHERE NICKNAME=#{nickname}
+	</update>
+		<update id="writeReplyComm" parameterType="com.DDot.model.ReplyDto">
+		UPDATE DDOTMEMBER SET
+		POINT = POINT+100
+		WHERE NICKNAME=#{nickname}
+	</update>
+	
 	<!-- 댓글 가져오기 -->
 	<select id="getReplyBbsList" parameterType="java.lang.Integer" resultType="com.DDot.model.ReplyDto">
 		SELECT *

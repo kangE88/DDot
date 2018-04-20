@@ -18,6 +18,13 @@
 		(SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL) 
 		VALUES(SEQ_DDOTCOMM.nextval, #{nickname}, #{title}, #{content}, SYSDATE, 0, 0, 0, 2)
 	</insert>
+	
+	<!-- 글쓰기 완료시 200 포인트 up -->
+	<update id="WriteCommPoint" parameterType="com.DDot.model.CommDto">
+		UPDATE DDOTMEMBER SET
+		POINT = POINT+200
+		WHERE NICKNAME=#{nickname}
+	</update>
 	 
 	<select id="getCommPagingList" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.CommDto">
 		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
@@ -67,28 +74,6 @@
 		SET DEL=0
 		WHERE SEQ=#{seq}
 	</update>	
-
-
-	<!-- 
-	<update id="replyBbsUpdate" 	parameterType="com.DDot.model.CommDto">
-		UPDATE BBS 
-		SET STEP=STEP+1
-		WHERE REF=(SELECT REF FROM BBS WHERE SEQ=#{seq})
-			AND STEP>(SELECT STEP FROM BBS WHERE SEQ=#{seq})		
-	</update>
-	
-	<insert id="replyBbsInsert" 	parameterType="com.DDot.model.CommDto">
-		INSERT INTO BBS
-			(SEQ, ID, REF, STEP, DEPTH, 
-			TITLE, CONTENT, WDATE, PARENT, DEL, READCOUNT)
-		VALUES(SEQ_BBS.NEXTVAL, #{id},
-			(SELECT REF FROM BBS WHERE SEQ=#{seq}),
-			(SELECT STEP FROM BBS WHERE SEQ=#{seq})+1,
-			(SELECT DEPTH FROM BBS WHERE SEQ=#{seq})+1,
-			#{title}, #{content}, SYSDATE,
-			#{seq}, 0, 0)	
-	</insert>
-	 -->
 
 </mapper>  
 
