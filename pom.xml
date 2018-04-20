@@ -98,6 +98,13 @@
   		<artifactId>javax.inject</artifactId>
   		<version>1</version>
   	</dependency>
+  	
+  	 <!-- java mail -->
+    <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>mail</artifactId>
+        <version>1.4</version>
+    </dependency>
 
 	<!-- JCL(자카르타 커먼스 로깅)을 사용 --> 	
   	<dependency>

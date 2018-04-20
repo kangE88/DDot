@@ -33,6 +33,18 @@
 		WHERE NICKNAME=#{nickname}
 	</select>
 	
+	<select id="findID" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT ID 
+		FROM DDOTMEMBER
+		WHERE EMAIL=#{email}
+	</select>
+	
+	<select id="findPWD" parameterType="com.DDot.model.MemberDto" resultType="java.lang.String">
+		SELECT PWD
+		FROM DDOTMEMBER
+		WHERE ID=#{id} AND EMAIL=#{email}
+	</select>
+	
 	<update id="userInfoModify" parameterType="com.DDot.model.MemberDto">
 		UPDATE DDOTMEMBER 
 		SET PWD=#{pwd}, EMAIL=#{email}, PIC=#{pic}, INTRO=#{intro}

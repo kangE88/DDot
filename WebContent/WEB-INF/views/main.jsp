@@ -3,29 +3,32 @@
 <!DOCTYPE html>
 <html>
 <body>
+<div class="row-fluid">
+	<%-- <img alt="logo" src="<%=request.getContextPath()%>/image/logo.png" class="span12"> --%>
+</div>
 <div class="span2">
 </div>
-<div class="span8 text-center">
-	<div class="hero-unit">
-		<h1>Wellcome!</h1>
-		<p>환영합니다! 이곳은 개발자들을 위한 공간이며, 지식을 공유하고 자랑하세요!<br><br>
-		즐거운 개발 되세요!</p>
-	</div>
-	<h4>Hello! Final Project</h4>
+<div class="span8 text-center" style="margin:auto;">
 	<br>
-	
-		<h4>검색어를 입력하세요 : <select id="selectcate" style="width: 10%">  
+ 	<div class="hero-unit">
+		<h1>Wellcome DevDot!</h1>
+		<p>환영합니다! 이곳은 개발자들을 위한 공간이며, 지식을 공유하고 자랑하세요!<br><br>
+		궁금한 내용을 검색해보세요!</p>
+	</div>
+	<br>
+	<br>
+		<h3>검색어를 입력하세요 : <select id="selectcate" style="width: 10%">  
 								<option value="all">All</option>
 						    	<option value="title">Title</option>
 								<option value="content">Content</option>
 							</select>
-		<input id="boardsearchtext" type="text" style="width: 20%"><a id="boardsearchbtn" href="#"><img alt="" src="./image/search.png"></a> </h4>
-	
+		<input id="boardsearchtext" type="text" style="width: 30%"><a id="boardsearchbtn" href="#"><img alt="" src="./image/search.png"></a> </h3>
+	<br>
 	<br>
 	<table class="table">
 		<tr>
 			<td>
-				<a id="introlink" href="#intro" data-toggle="tab" class="introtitle">DDot이란?</a>
+				<a id="introlink" href="#intro" data-toggle="tab" class="introtitle">DevDot이란?</a>
 				<a href="#introboard" data-toggle="tab" class="introtitle">Board</a>
 				<a href="#introcommunity" data-toggle="tab" class="introtitle">Community</a>
 				<a href="#introclab" data-toggle="tab" class="introtitle">C.Lab</a>
@@ -39,6 +42,7 @@
 			<td>
 				<div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade" id="intro">
+						<%-- <img alt="" src="<%=request.getContextPath()%>/image/logo.png"> --%>					
 						<p>
 							프로그램 개발자들이 자신의 코드나 언어, 툴에 대한 지식을 얻거나 공유하기 위하여 각종 콘텐츠를 통해 능력을 향상시키고 기록하여 추후 많은 데이터로 잦은 실수를 방지하고 올바른 방법을 찾는 Developer 들이 모일 수 있는 공간을 제공
 						</p>

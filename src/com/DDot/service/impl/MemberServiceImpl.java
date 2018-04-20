@@ -33,6 +33,16 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	public String findID(String email) throws Exception {
+		return MemberDao.findID(email);
+	}
+	
+	@Override
+	public String findPWD(MemberDto mem) throws Exception {
+		return  MemberDao.findPWD(mem);
+	}
+
+	@Override
 	public boolean userInfoModify(MemberDto mem) throws Exception {
 		return MemberDao.userInfoModify(mem);	
 	}
