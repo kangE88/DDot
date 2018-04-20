@@ -89,11 +89,12 @@
 <script type="text/javascript">
 
 $("#_btnDelete").click(function() {	
-	$("#_frmForm").attr({ "target":"_self", "action":"messagedelete.do" }).submit();
+	$("#_frmForm").attr({ "target":"_self", "action":"messagedelete.do?seq=${msg.seq}" }).submit();
 });
 
 $("#_btnBack").click(function() {	
-	history.back();
+	location.href="messagelist.do?category=0";
+	
 });
 
 

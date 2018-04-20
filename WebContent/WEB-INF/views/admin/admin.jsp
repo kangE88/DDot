@@ -45,6 +45,7 @@ input[type="text"]{
 		<form id="userpaging" method="post" action="">
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+		
 		</form>
 	</div>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->

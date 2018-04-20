@@ -83,6 +83,7 @@
 		<th>To Nickname</th>
 		<td style="text-align: left">
 			<input type="text" name="sendto" id="_sendto" size="60" value="${replyname}">
+			<span id="_spanCheckNick"></span>
 		</td>
 	</tr>
 	
@@ -99,7 +100,7 @@
 				</a>
 			</span>
 			<span>					
-	 			<a href="#none" class="btn" style="margin:auto;"  id="_btnLogin" title="글쓰기">Write
+	 			<a href="#none" class="btn" style="margin:auto;"  id="_btnWrite" title="글쓰기">Write
 				</a>
 			</span>
 		</td>
@@ -111,10 +112,56 @@
 </form>
 
 <script type="text/javascript">
-$("#_btnLogin").click(function() {	
-	// alert('글작성');	
-	$("#_frmForm").attr({ "target":"_self", "action":"messagewriteAf.do" }).submit();	
+var check=false;
+
+
+//$("#_btnCheckNick").click(function () {
+	$("#_sendto").keyup(function () {
+	var checkNick = $("#_sendto").val();
+	if (checkNick=="") {
+		$("#_spanCheckNick").html("수신자 닉네임을 입력하세요");
+	}else{
+		$.ajax({      
+	        type:"POST",  
+	        url:"messageCheckNick.do",      
+	        data:{"nickname":checkNick},      
+	        success:function(count){   
+	           if (count > 0) {
+	        	   $("#_spanCheckNick").html("OK!");
+	        	   check=true;
+				}else {
+					$("#_spanCheckNick").html("사용자를 찾을수 없습니다.");
+					check=false;
+				}
+	        },
+	        error:function(e){  
+	            alert(e.responseText);  
+	        }  
+	    });  
+	}
+	
+	
+	
 });
+
+$("#_btnWrite").click(function() {	
+	// alert('글작성');	
+	var editor_val = CKEDITOR.instances._content.document.getBody().getChild(0).getText().trim();
+	if (editor_val=="") {
+		alert("내용 작성이 필요합니다!");
+	
+	}else if($("#_sendto").val().trim()==null){
+		alert("수신자의 닉네임이 필요합니다!");
+	}else{ 
+		if (check) {
+			$("#_frmForm").attr({ "target":"_self", "action":"messagewriteAf.do" }).submit();
+		}
+		else {
+			alert("수신자 확인이 필요합니다!");
+		}
+	}
+});
+
 
 function back() {
 	location.href="messagelist.do?category=0";

@@ -102,9 +102,30 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="usercommlist.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String usercommlist(String nickname, Model model) {
+	public String usercommlist(BbsParam param, String nickname, Model model) {
 		
-		List<CommDto> usercommlist = adminService.usercommlist(nickname);
+		param.setNickname(nickname);
+		model.addAttribute("nickname", nickname);
+		int sn = param.getPageNumber();
+		int start = (sn) * param.getRecordCountPerPage() + 1;
+		int end = (sn+1) * param.getRecordCountPerPage();
+		
+		System.out.println("start: "+start);
+		System.out.println("end: "+end);
+		
+		param.setStart(start);
+		param.setEnd(end);		
+		
+		int totalRecordCount = adminService.usercommcount(nickname);
+		
+		System.out.println("totalRecordCount: " + totalRecordCount);
+		model.addAttribute("totalRecordCount", totalRecordCount);
+		
+		model.addAttribute("pageNumber", sn);
+		model.addAttribute("pageCountPerScreen", 8);
+		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		
+		List<CommDto> usercommlist = adminService.usercommlist(param);
 		model.addAttribute("usercommlist", usercommlist);
 		
 		return "usercommlist.tiles";

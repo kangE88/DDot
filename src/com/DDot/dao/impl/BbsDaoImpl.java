@@ -11,6 +11,7 @@ import com.DDot.dao.BbsDao;
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
 import com.DDot.model.BbsParam;
+import com.DDot.model.BbsParam1;
 import com.DDot.model.CommDto;
 
 @Repository
@@ -100,6 +101,11 @@ public class BbsDaoImpl implements BbsDao {
 	}
 
 	@Override
+	public int getusericonc(int seq) {	
+		return sqlSession.selectOne(namespace+"getusericonc", seq);
+	}
+
+	@Override
 	public int boardsearchcount(AttendDto adto) {
 		String category = adto.getTable();
 		int count = 0;
@@ -154,7 +160,7 @@ public class BbsDaoImpl implements BbsDao {
 	}
 
 	@Override
-	public List<CommDto> commlist(BbsParam param1) {
+	public List<CommDto> commlist(BbsParam1 param1) {
 		String category = param1.getS_category();
 		List<CommDto> commlist = null;		
 		switch (category) {

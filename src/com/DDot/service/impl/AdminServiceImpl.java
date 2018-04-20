@@ -60,8 +60,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<CommDto> usercommlist(String nickname) {
-		return admindao.usercommlist(nickname);
+	public List<CommDto> usercommlist(BbsParam param) {
+		return admindao.usercommlist(param);
 	}
 
 	@Override

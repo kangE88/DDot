@@ -39,6 +39,7 @@ a:focus{
 		<form id="userpaging" method="post" action="">
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+		<input type="hidden" name="nickname" value="${nickname }">
 		</form>
 	</div>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
@@ -177,7 +178,7 @@ a:focus{
 		
 		function goPage(pageNumber) {				
 			$("#_pageNumber").val(pageNumber);
-			$("#userpaging").attr("target","_self").attr("action","userbbslist.do?nickname=${nickname}").submit();
+			$("#userpaging").attr("target","_self").attr("action","userbbslist.do").submit();
 		}
 		</script>
 	</div>

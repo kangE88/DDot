@@ -25,7 +25,7 @@ public interface AdminDao {
 	
 	public int usercommcount(String nickname);
 	
-	public List<CommDto> usercommlist(String nickname);
+	public List<CommDto> usercommlist(BbsParam param);
 	
 	public int getusercount(MemberParam param);
 }

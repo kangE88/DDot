@@ -42,8 +42,14 @@
 			  FROM DDOTBBS WHERE NICKNAME = #{nickname}
 	</select>
 	
-	<select id="usercommlist" parameterType="java.lang.String" resultType="com.DDot.model.CommDto">
-		SELECT * FROM DDOTCOMM WHERE NICKNAME=#{nickname}
+	<select id="usercommlist" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.CommDto">
+		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+	    WHERE NICKNAME = #{nickname} ) A
+			WHERE rnum between ${start} AND ${end}
+	
 	</select>
 	
 	<update id="modifypoint" parameterType="com.DDot.model.AttendDto">

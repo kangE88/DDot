@@ -43,121 +43,91 @@ a:focus{
 <!-- ==================== 어드민 우측메뉴 시작 ====================  -->
 
 <!-- ==================== 어드민 유저게시판 시작 ====================  -->
+	<form id="usercommlist" method="post" action="">
+		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
+		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
+		<input type="hidden" name="nickname" value="${nickname }">
+		</form>
 	<div class="span10">
 		<table class="table table-hover" id="board">
-			<col width="5%"><col width="5%"><col width="10%"><col width="40%"><col width="10%"><col width="5%"><col width="10%"><col width="5%">
+			<col width="5%"><col width="5%"><col width="45%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
 			<thead>
 				<tr>
 					<th style="text-align: center;">No.</th>
-					<th style="text-align: center;">Icon</th>
-					<th style="text-align: center;">Nickname</th>					
-					<th style="text-align: center;">Title</th>					
+					<th style="text-align: center;">Level</th>
+					<th style="text-align: center;">Title</th>
+					<th style="text-align: center;">Nickname</th>
 					<th style="text-align: center;">Date</th>
 					<th style="text-align: center;">Count</th>
-					<th style="text-align: center;">Good / bad</th>		
-					<th style="text-align: center;">Del</th>				
+					<th style="text-align: center;">Good / Bad</th>					
 				</tr>
 			</thead>
 			<tbody>	
-			<c:if test="${empty usercommlist}">
+			<c:if test="${empty commlist}">
 			<tr>
 				<td colspan="7">작성된 글이 없습니다.</td>
 			</tr>	
 			</c:if>
 			
-			<c:forEach items="${usercommlist}" var="bbs" varStatus="vs">
+			<c:forEach items="${usercommlist}" var="comm" varStatus="vs">
 			<tr>
 				<td style="text-align: center;">${vs.count}</td>
-				<td><img id="${bbs.seq }icon" src=""></td>
+				<td><img id="${comm.seq }iconc" src=""></td>
 				<script type="text/javascript">
 					$.ajax({
-						url: "getusericon.do",
+						url: "getusericonc.do",
 						type: "post",
-						data: {sseq: "${bbs.seq}"},
+						data: {sseq: "${comm.seq}"},
 						success: function(data) {
 							var level = g_level(data);
-							$("#${bbs.seq }icon").prop("src","./image/level/lv"+level+".gif");
+							$("#${comm.seq }iconc").prop("src","./image/level/lv"+level+".gif");
 						},
 						error: function() {
 							alert("18");
-						}						
+						}
+						
+						
 					});
 				</script>
-			<c:choose>
-			    <c:when test="${bbs.category eq 0 }">
-			       <td style="text-align: center;">Java</td> 
-			    </c:when>
-				<c:when test="${bbs.category eq 1 }">
-			       <td style="text-align: center;">JSP</td> 
-			    </c:when>
-			    <c:when test="${bbs.category eq 2 }">
-			       <td style="text-align: center;">Jquery</td> 
-			    </c:when>
-			    <c:when test="${bbs.category eq 3 }">
-			       <td style="text-align: center;">Oracle/Sql</td> 
-			    </c:when>
-			    <c:when test="${bbs.category eq 4 }">
-			       <td style="text-align: center;">Spring</td> 
-			    </c:when>
-			    <c:when test="${bbs.category eq 5 }">
-			       <td style="text-align: center;">E.T.C</td> 
-			    </c:when>
-			</c:choose>	
-				<!-- subcategory 값이 0~3에 따른 값 입력 -->
-			<c:choose>
-			    <c:when test="${bbs.subcategory eq 0 }">
-			       <td style="text-align: center;">[Tip]</td> 
-			    </c:when>
-				<c:when test="${bbs.subcategory eq 1 }">
-			       <td style="text-align: center;">[Error]</td> 
-			    </c:when>
-			    <c:when test="${bbs.subcategory eq 2 }">
-			       <td style="text-align: center;">[Example]</td> 
-			    </c:when>
-			    <c:when test="${bbs.subcategory eq 3 }">
-			       <td style="text-align: center;">[E.T.C]</td> 
-			    </c:when>
-			</c:choose>
-					
+	
 				<!-- del==0 일 때 title 삭제 된 글로 표현 --> 
 			<c:choose>
-			<c:when test="${bbs.del eq '0'}">
-				<td style="text-align: left">글쓴이에 의해 삭제 된 글 입니다</td>
+			<c:when test="${comm.del eq '0'}">
+				<td style="text-align: left">삭제 된 글 입니다</td>
 			</c:when>
 			<c:when test="${bbs.del eq '1'}">
 				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
-				<td style="text-align: center"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a></td>
+				<td style="text-align: left"><a href='commdetail.do?seq=${comm.seq}'>${comm.title}</a></td>
 			</c:otherwise>
 			</c:choose>
 			
-				<td style="text-align: center;"><a href="#" class="userInfo" title="${bbs.nickname}">${bbs.nickname}</a></td>
+				<td style="text-align: center;">${comm.nickname}</td>
 				<!-- 날짜 형식 변경 -->
-				<td style="text-align: center;"><c:out value="${fn:substring(bbs.wdate,2,10)}"/></td>
-				<td style="text-align: center;">${bbs.readcount}</td>
-				<td style="text-align: center;">${bbs.up} / ${bbs.down }</td>
-				<td style="text-align: center;"><img id="${bbs.seq }trash" src="./image/trash.png"> </td>
-				<script type="text/javascript">
-					$("#${bbs.seq }trash").click(function() {
-						$.ajax({
-							url: "deleteuserbbs.do",
-							type: "post",
-							data: {sseq: '${bbs.seq }' },
-							success: function() {
-								alert("Good");
-								location.href="userbbslist.do?nickname=${bbs.nickname}";
-							},
-							error: function() {
-								alert("18");
-							}
-						})
-					});
-				</script>
+				<td style="text-align: center;">	<c:out value="${fn:substring(comm.wdate,5,10)}"/></td>
+				<td style="text-align: center;">${comm.readcount}</td>
+				<td style="text-align: center;">${comm.up} / ${comm.down }</td>
 			</tr>
 			</c:forEach>
 			</tbody>
 		</table>
+		
+		<div id="paging_wrap">
+		<jsp:include page="/WEB-INF/views/common/paging.jsp" flush="false">
+			<jsp:param value="${pageNumber }" name="pageNumber"/>
+			<jsp:param value="${pageCountPerScreen }" name="pageCountPerScreen"/>
+			<jsp:param value="${recordCountPerPage }" name="recordCountPerPage"/>
+			<jsp:param value="${totalRecordCount }" name="totalRecordCount"/>
+		</jsp:include>
+	</div>
+		
+		<script type="text/javascript">
+		function goPage(pageNumber) {			
+			$("#_pageNumber").val(pageNumber);
+			$("#usercommlist").attr("target","_self").attr("action","usercommlist.do").submit();
+		}
+		</script>
 	
 	</div>
 <!-- ==================== 어드민 유저게시판 시작 ====================  -->

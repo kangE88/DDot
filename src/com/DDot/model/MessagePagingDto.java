@@ -8,9 +8,10 @@ public class MessagePagingDto implements Serializable {
 	private String nickname;
 	private String sendto;
 	private String content;
-	private String wdate;
-	private String read;
-	private int del=2;
+	private int nickread;
+	private int sendread;
+	private int nickdel=2;
+	private int senddel=2;
 	
 	// paging
 	private int recordCountPerPage=10;
@@ -18,6 +19,7 @@ public class MessagePagingDto implements Serializable {
 	
 	private int start=1;
 	private int end=10;
+	
 	public int getSeq() {
 		return seq;
 	}
@@ -42,23 +44,29 @@ public class MessagePagingDto implements Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getWdate() {
-		return wdate;
+	public int getNickread() {
+		return nickread;
 	}
-	public void setWdate(String wdate) {
-		this.wdate = wdate;
+	public void setNickread(int nickread) {
+		this.nickread = nickread;
 	}
-	public String getRead() {
-		return read;
+	public int getSendread() {
+		return sendread;
 	}
-	public void setRead(String read) {
-		this.read = read;
+	public void setSendread(int sendread) {
+		this.sendread = sendread;
 	}
-	public int getDel() {
-		return del;
+	public int getNickdel() {
+		return nickdel;
 	}
-	public void setDel(int del) {
-		this.del = del;
+	public void setNickdel(int nickdel) {
+		this.nickdel = nickdel;
+	}
+	public int getSenddel() {
+		return senddel;
+	}
+	public void setSenddel(int senddel) {
+		this.senddel = senddel;
 	}
 	public int getRecordCountPerPage() {
 		return recordCountPerPage;
@@ -87,8 +95,9 @@ public class MessagePagingDto implements Serializable {
 	@Override
 	public String toString() {
 		return "MessagePagingDto [seq=" + seq + ", nickname=" + nickname + ", sendto=" + sendto + ", content=" + content
-				+ ", wdate=" + wdate + ", read=" + read + ", del=" + del + ", recordCountPerPage=" + recordCountPerPage
-				+ ", pageNumber=" + pageNumber + ", start=" + start + ", end=" + end + "]";
+				+ ", nickread=" + nickread + ", sendread=" + sendread + ", nickdel=" + nickdel + ", senddel=" + senddel
+				+ ", recordCountPerPage=" + recordCountPerPage + ", pageNumber=" + pageNumber + ", start=" + start
+				+ ", end=" + end + "]";
 	}
 	
 	

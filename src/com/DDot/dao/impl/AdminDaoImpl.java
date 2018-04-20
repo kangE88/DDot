@@ -71,9 +71,9 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<CommDto> usercommlist(String nickname) {
+	public List<CommDto> usercommlist(BbsParam param) {
 		
-		List<CommDto> list = sqlSession.selectList(namespace+"usercommlist", nickname);
+		List<CommDto> list = sqlSession.selectList(namespace+"usercommlist", param);
 		return list;
 	}
 
