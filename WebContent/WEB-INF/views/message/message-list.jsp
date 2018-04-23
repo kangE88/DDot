@@ -93,15 +93,34 @@
 			
 			<%-- 내용 시작  --%>
 			<c:forEach items="${msglist}" var="msg" varStatus="vs">
+			<tr>
+				<td style="text-align: center;"><input name="checkrow" type="checkbox" value="${msg.seq}" ></td>
+				<!-- 아이콘 이미지를 가져오는 부분 -->
+				<script>
+					$(document).ready(function() {
+						$.ajax({
+							  type:"POST"
+							  ,url:"getMemberPoint.do"
+							  ,data:{"nickname" : "${msg.nickname}"}
+							  ,success:function(data){
+								  var level = g_level(data.point);
+								  $('#${msg.seq}icon').attr("src","./image/level/lv"+level+".gif");
+							  },
+							  error: function(xhr, status, error) {
+								  alert("18");
+						      }  
+						 });
+					 });	
+				</script>
+				<td style="text-align: center;"><img id="${msg.seq}icon" src=""></td>
 			<c:choose>
+			
 			<%-- 받은 쪽지함 일 경우  --%>
 			<c:when test="${category eq '0'}">
 				<c:choose>
 					<%-- 수신자가 삭제하지 않았을 경우 --%>
 					<c:when test="${msg.senddel eq '2'}">
-						<tr>
-						<td style="text-align: center;"><input name="checkrow" type="checkbox" value="${msg.seq}" ></td>
-						<td style="text-align: center;"><img src="./image/level/lv99.gif"></td>
+						
 						<%-- 수신자가 쪽지를 읽지 않은 경우 --%>
 						<c:choose>
 							<c:when test="${msg.sendread eq '0'}">
@@ -126,10 +145,7 @@
 				<c:choose>
 					<%-- 발신자가 삭제하지 않았을 경우 --%>
 					<c:when test="${msg.nickdel eq '2'}">
-						<tr>
-						<td style="text-align: center;"><input name="checkrow" type="checkbox" value="${msg.seq}" ></td>
-						<td style="text-align: center;"><img src="./image/level/lv99.gif"></td>
-						<%-- 발신자가 쪽지를 읽지 않은 경우 --%>
+						
 						<c:choose>
 							<c:when test="${msg.nickread eq '0'}">
 								<td style="text-align: center"><a href="#" class="userInfo" title="${msg.sendto}">${msg.sendto}</a></td>
@@ -153,9 +169,7 @@
 				<c:choose>
 					<%-- 수신자가 삭제했을때 --%>
 					<c:when test="${msg.senddel eq '0'}">
-						<tr>
-						<td style="text-align: center;"><input name="checkrow" type="checkbox" value="${msg.seq}" ></td>
-						<td style="text-align: center;"><img src="./image/level/lv99.gif"></td>
+						
 						<%-- 수신자가 쪽지를 읽지 않은 경우 --%>
 						<c:choose>
 							<c:when test="${msg.sendread eq '0'}">
@@ -262,4 +276,9 @@
 	      location.href="messagedelete.do?checklist="+checkRow;
 	  } 
 	}
+	
+	
+	
+	
+	
 </script>
