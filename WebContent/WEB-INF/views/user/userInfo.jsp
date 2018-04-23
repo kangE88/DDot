@@ -116,7 +116,7 @@ function readURL(input) {
 			  </colgroup>
                 <tr>
                   	<td style="vertical-align: middle; text-align:right;">아이디 :</td>
-                  	<td><input type="text" id="id" name="id" class="span12" style="margin:auto; height:30px;" readonly="readonly" value="<%=mem.getId()%>"></td>
+                  	<td><p id="id" name="id" class="span12" style="margin:auto; height:30px;"><%=mem.getId()%></p></td>
                 </tr>
                 <tr>
                   	<td style="vertical-align: middle; text-align:right;">비밀번호 :</td>
@@ -149,21 +149,50 @@ function readURL(input) {
 </body>
 
 <script type="text/javascript">
+$(function() {
+	
+	//input focus 영역 값 초기화
+    $("input").focus(function() { 
+      $(this).val('');
+    }).blur(function() { 
+      if($(this).val() == "") { $(this).val(); }
+    });
+	
+	//textarea focus 영역 값 초기화
+    $("textarea").focus(function() { 
+        $(this).val('');
+      }).blur(function() { 
+        if($(this).val() == "") { $(this).val(); }
+      });
+ });
+
+
+$(document).ready(function(){
+
+	//intro 정보 수정 변경 될 경우 재세팅
+	$("input").change(function() { 
+		$("input").text($(this).val());
+	}); 
+	
+	//intro 정보 수정 변경 될 경우 재세팅
+	$("textarea[name=intro]").change(function() { 
+		$("textarea[name=intro]").text($(this).val());
+	}); 
+});
+
 $(".form-info").submit(function (e) {
 	e.preventDefault(); 
 	
 	var formData = new FormData();
-		
+	var id = "${login.id}";
+	
     if ($('#picFile').val() == "") {
-		alert("pic nochange");
-
-		formData.append("id",$('input[name=id]').val());
+		
+		formData.append("id",id);
 		formData.append("pwd",$('input[name=pwd]').val());
 		formData.append("nickname",$('input[name=nickname]').val());
 		formData.append("email",$('input[name=email]').val());
 		formData.append("intro", $("textarea[name=intro]").text());
-    	
-		//nickcheck add
 		
     	$.ajax({
 			type: "post",
@@ -187,7 +216,7 @@ $(".form-info").submit(function (e) {
     }else{
 		formData.append("id",$('input[name=id]').val());
 		formData.append("pwd",$('input[name=pwd]').val());
-		/* formData.append("nickname",$('input[name=nickname]').val()); */
+		formData.append("nickname",$('input[name=nickname]').val());
 		formData.append("email",$('input[name=email]').val());
 		formData.append("intro", $("textarea[name=intro]").text());
     	formData.append("picFile",$('input[name=picFile]')[0].files[0]);

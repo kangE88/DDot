@@ -110,6 +110,31 @@
  			}
  		});
 	
+ 		$("#_frmForm").submit(function (e) {
+ 			e.preventDefault();
+ 			
+ 			var id = $("#id").val();
+ 			var pwd = $("#pwd").val();
+ 			
+ 			$.ajax({
+ 				type: "post",
+ 				url: "loginAf.do",
+ 				async:true,
+ 				data: { id : id,
+						pwd : pwd
+ 				},
+ 				success:function(data){
+ 					if(data){
+ 						alert("welcome");
+ 						location.href="main.do";
+ 					}else{
+ 						alert("아이디나 비밀번호를 확인해주세요.");
+ 						location.href="login.do";
+ 					}
+ 				},
+ 			});
+ 		});
+ 		
 		$("#_btnLogin").click(function() {
 			//alert("id:" + $("#id").val());
 			if($("#id").val() == ""){
@@ -119,7 +144,7 @@
 				alert($("#pwd").attr("data-msg") + " 비밀번호를 잘못 입력하셨습니다." );
 				$("#pwd").focus();
 			} else {
-				$("#_frmForm").attr("target", "_self").submit();	
+				$("#_frmForm").submit();	
 			}	
 		});
 		

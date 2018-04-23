@@ -110,20 +110,26 @@ $('#find_id').click(function(){
 	
 	var email = $('#email').val();
 	
-	$.ajax({
-		type: "post",
-		url: "findID.do",
-		async:true,
-		data:"email=" + email,
-		success:function(id){
-			if(id != null){
-				alert("찾으시는 아이디는 "+id+" 입니다.");
-				$('#getid').val(id);
-			}else{
-				alert("찾으시는 아이디가 없습니다.");
-			}
-		},
-	});
+	if(email !=null && email != ""){
+		$.ajax({
+			type: "post",
+			url: "findID.do",
+			async:true,
+			data:"email=" + email,
+			success:function(id){
+				if(id != null){
+					alert("찾으시는 아이디는 "+id+" 입니다.");
+					$('#getid').val(id);
+				}else{
+					alert("아이디를 찾을 수 없습니다.");
+				}
+			},
+		});
+	}else{
+		alert("아이디를 입력하세요.");
+	}
+	
+
 });
 
 $('#find_pwd').click(function(){
@@ -139,13 +145,14 @@ $('#find_pwd').click(function(){
 		url: "sendpw.do",
 		type: "post",
 		data : {id : id, email : email},
-		success:function(){
+		success:function(data){
 			//$('.loading-mask').hide();
 			$(document.body).removeClass('loading-mask');
-			alert("비밀번호 메일 전송 완료!");
+			alert("비밀번호 메일 전송 완료 로그인페이지로 이동합니다!");
+			location.href=data;
 		},
 		error:function(request,status,error){
-	        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+	        //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 	    }
 	});
 });
