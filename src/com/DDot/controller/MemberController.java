@@ -143,7 +143,7 @@ public class MemberController {
 		String id = MemberService.findID(email);
 		return id;
 		
-	}
+	}	
 	
 	@ResponseBody
 	@RequestMapping(value="findPWD.do",  method= {RequestMethod.GET, RequestMethod.POST})
@@ -155,7 +155,6 @@ public class MemberController {
 		System.out.println(pwd);
 		
 		return pwd;
-		
 	}
 	
 	@RequestMapping(value="regiAf.do", method= {RequestMethod.GET, RequestMethod.POST})
