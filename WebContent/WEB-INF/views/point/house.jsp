@@ -6,6 +6,7 @@
 <fmt:requestEncoding value="utf-8"/>
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="./jquery/point.js"></script>
@@ -20,23 +21,14 @@ a:focus{
 </head>
 
 <body>
-<%
-if(session.getAttribute("login") == null){
-%>
-<script type="text/javascript">
-	alert("로그인 후 이용 가능합니다.");
-	location.href="login.do";
-</script>
-<%
-}else{
-	MemberDto mem = (MemberDto)session.getAttribute("login");
-%>
+
+
 <div class="row-fluid" style="height: 100%">
 	<div class="span2">
 </div>
 <div class="span8 text-center">
 	<div class="hero-unit">
-		<h1>Wellcome!</h1>
+		<h1>Welcome!</h1>
 		<p>회원들만의 놀이공간 입니다. 경험치를 획득하여 Level을 올려보세요~!</p>
 	</div>
 	
@@ -237,6 +229,6 @@ if(session.getAttribute("login") == null){
 </script>
 
 <!-- ==================== 업다운 스크립트 끝 ====================  -->
-<%} %>
+
 </body>
 </html>

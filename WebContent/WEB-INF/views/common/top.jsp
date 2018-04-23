@@ -43,7 +43,7 @@
 				<li id="chatting" class=""><a href="#none">Chat</a></li>
 				<li class=""><a href="donate.do">Donate</a></li>
 				<li class=""><a href="attendance.do">attendance</a></li>
-				<li class=""><a href="house.do">house</a></li>
+				<li class="" id="houselink"><a href="#none">house</a></li>
 				<% 	if(session.getAttribute("login") != null){
 						MemberDto mem = (MemberDto)session.getAttribute("login");
 						if(mem.getAuth()==1){
@@ -137,6 +137,19 @@ $("#message-nav").hover(function() {
 
 $("#message-nav").click(function(){
 	window.open("messagelist.do?category=0&sendto=${login.nickname}",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+});
+$("#houselink").click(function() {
+	<%
+	if(session.getAttribute("login") == null){
+	%>	
+		alert("로그인 후 이용 가능합니다.");
+		location.href="login.do";
+	<%
+	}else{
+		
+	%>
+	location.href="house.do";
+	<%}%>
 });
 
 </script>
