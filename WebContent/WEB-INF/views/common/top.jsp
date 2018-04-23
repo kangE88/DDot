@@ -136,6 +136,7 @@ $("#message-nav").hover(function() {
 });
 
 $("#message-nav").click(function(){
+	location.reload();
 	window.open("messagelist.do?category=0&sendto=${login.nickname}",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
 });
 $("#houselink").click(function() {

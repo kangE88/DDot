@@ -7,9 +7,9 @@
 		<tr>
 		<td>
 			Commnad Line : <input type="text" style="width: 70%; background-color: black; color: white" id="cmd" placeholder="command를 입력하세요">
-			<a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="command사용이 처음이시면          /help를 입력해보세요!">
+			<span href="#none" data-toggle="tooltip" data-placement="top" title="command사용이 처음이시면          /help를 입력해보세요!" data-original-title="command사용이 처음이시면          /help를 입력해보세요!">
 			<img alt="command-tutorial" src="./image/help.png" >
-			</a>
+			</span>
 <!-- 			<a href="#" data-toggle="tooltip" data-placement="left" title="" data-original-title="Tooltip on left">Tooltip on left</a>
  -->			</td>
 		<td align="right" style="vertical-align: middle; text-align: right;">

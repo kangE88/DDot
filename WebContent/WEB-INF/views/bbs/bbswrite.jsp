@@ -71,21 +71,20 @@
 <col style="width:auto;" />
 </colgroup>
 
-	
 	<tr>
-		<th>Nickname</th>
+		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
 		<td style="text-align: left">
 		<input type="text" name="nickname" size="60" value="${login.nickname}" readonly="readonly">
 		</td>
 	</tr>
 	<tr>
-		<th>Title</th>
+		<th style ="text-align: center; vertical-align: middle;">Title</th>
 			<td style="text-align: left">
-				<input type="text" name="title" id="_title" size="60"/>
+				<input type="text" name="title" id="_title" style="width: 80%" onkeyup="checkLength(this,200)"/>
 			</td>
 	</tr>
 	<tr>
-		<th>Category</th>
+		<th style ="text-align: center; vertical-align: middle;">Category</th>
 			<td style="text-align: left">
 				<select id="_category" name="category">
 				<option value="0">Java</option>
@@ -98,7 +97,7 @@
 			</td>
 	</tr>
 	<tr>
-		<th>Subcategory</th>
+		<th style ="text-align: center; vertical-align: middle;">Subcategory</th>
 			<td style="text-align: left">
 				<select id="_subcategory" name="subcategory">
 				<option value="0">tip</option>
@@ -109,9 +108,9 @@
 			</td>
 	</tr>
 	<tr>
-		<th>Content</th>
+		<th style ="text-align: center; vertical-align: middle;">Content</th>
 		<td style="text-align: left">
-			<textarea rows="10" cols="50" name='content' id='_content' ></textarea>
+			<textarea rows="10" cols="50" name='content' id='_content'></textarea>
 		</td>
 	</tr>
 	<tr>
@@ -143,6 +142,46 @@ $("#_btnWrite").click(function() {
 	   $("#_frmForm").attr({ "target":"_self", "action":"bbswriteAf.do" }).submit();
 	   }
 });
+
+// title 글자수 제한 관련
+function checkLength(objname, maxlength) {
+  var objstr = objname.value; // 입력된 문자열을 담을 변수 
+  var objstrlen = objstr.length; // 전체길이
+  
+  // 변수초기화 
+  var maxlen = maxlength; // 제한할 글자수 최대크기 
+  var i = 0; // for문에 사용 
+  var bytesize = 0; // 바이트크기 
+  var strlen = 0; // 입력된 문자열의 크기
+  var onechar = ""; // char단위로 추출시 필요한 변수 
+  var objstr2 = ""; // 허용된 글자수까지만 포함한 최종문자열
+
+  // 입력된 문자열의 총바이트수 구하기
+  for (i = 0; i < objstrlen; i++) {
+   // 한글자추출 
+   onechar = objstr.charAt(i);
+
+   if (escape(onechar).length > 4) {
+    bytesize += 3; // 한글이면 3을 더한다. 
+   } else {
+    bytesize++; // 그밗의 경우는 1을 더한다.
+   }
+
+   if (bytesize <= maxlen) { // 전체 크기가 maxlen를 넘지않으면 
+    strlen = i + 1; // 1씩 증가
+   }
+  }
+
+  // 총바이트수가 허용된 문자열의 최대값을 초과하면 
+  if (bytesize > maxlen) {
+   // alert(((objname.name.match("title"))?"title":"content")+"에서 허용된 문자열의 최대값("+maxlen+")을 초과했습니다. \n초과된 내용은 자동으로 삭제 됩니다.");  // match를 이용해서 title & content 출력한다. 
+   alert("허용된 문자열의 최대값을 초과했습니다. \n초과된 내용은 자동으로 삭제 됩니다.");  // match를 이용해서 title & content 출력한다.
+   objstr2 = objstr.substr(0, strlen);
+   objname.value = objstr2;
+  }
+  objname.focus();
+ }
+
 </script>
 </body>
 </html>

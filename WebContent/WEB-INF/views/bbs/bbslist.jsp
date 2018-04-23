@@ -151,7 +151,7 @@
 			<tbody>	
 			<c:if test="${empty bbslist}">
 			<tr>
-				<td colspan="7">작성된 글이 없습니다.</td>
+				<td colspan="8">작성된 글이 없습니다.</td>
 			</tr>	
 			</c:if>
 			

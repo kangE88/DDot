@@ -32,7 +32,7 @@
         margin-bottom: 15px;
         padding: 7px 9px;
       }
-
+      
     </style>
     <link href="./css/bootstrap-responsive.css" rel="stylesheet">
 </head>
@@ -50,19 +50,21 @@
 </colgroup>
 
 <tr>
-		<th>Nickname</th>
+		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
 		<td style="text-align: left">
-		<input type="text" name="nickname" size="60" readonly="readonly" value="${bbs.nickname }"/>
+		<%-- <input type="text" name="nickname" size="60" readonly="readonly" value="${bbs.nickname }"/> --%>
+		${bbs.nickname }
 		</td>
 	</tr>
 	<tr>
-		<th>Title</th>
+		<th style ="text-align: center; vertical-align: middle;">Title</th>
 			<td style="text-align: left">
-				<input type="text" name="title" size="60" readonly="readonly" value="${bbs.title }"/>
+				<%-- <input type="text" name="title" style="width: 500px" readonly="readonly" value="${bbs.title }"/> --%>
+				${bbs.title }
 			</td>
 	</tr>
 	<tr>
-		<th>Category</th>
+		<th style ="text-align: center; vertical-align: middle;">Category</th>
 			<td style="text-align: left">
 				<select name="category" id="_category" disabled="disabled">
 				<option value="0">Java</option>
@@ -75,7 +77,7 @@
 			</td>
 	</tr>
 	<tr>
-		<th>Subcategory</th>
+		<th style ="text-align: center; vertical-align: middle;">Subcategory</th>
 			<td style="text-align: left">
 				<select name="subcategory" id="_subcategory" disabled="disabled">
 				<option value="0">Tip</option>
@@ -86,13 +88,13 @@
 			</td>
 	</tr>
 	<tr>
-		<th>Content</th>
+		<th style ="text-align: center; vertical-align: middle;">Content</th>
 		<td style="text-align: left;">
 			<div>${bbs.content}</div>
 		</td>
 	</tr>
 	<tr>
-		<th>Good / Bad</th>
+		<th style ="text-align: center; vertical-align: middle;">Good / Bad</th>
 		<td style="padding-bottom: 10px">
 			&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-success" id="up">${bbs.up }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -161,7 +163,7 @@
 				<c:if test="${reply.nickname eq login.nickname}">
 				<input type="hidden" id="_seq" value="${reply.seq }">
 				&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="#none" class="btn" style="margin:auto;" id="_replyDelete" title="삭제">삭제</a>
+				<a href="#none" class="btn" style="margin:auto;" id="_replyDelete" title="삭제">delete</a>
 				</c:if>
 
 			</td>
@@ -185,7 +187,7 @@
 <c:when test="${login.nickname eq null}">
 <table class="table table-bordered" style="width:85%;">
 	<tr>
-		<td style="text-align: center;">로그인을 하시면 댓글을 등록할 수 있습니다.</td>
+		<td style="text-align: center;">Login to register a comment.</td>
 	</tr>
 </table>
 </c:when>
@@ -294,7 +296,7 @@ $("#_btnWrite").click(function() {
 	$.ajax({
 		  type:"POST"
 		  ,url:"bbsdetail.do"
-		  ,data:{"seq" : "${bbs.seq}", "nickname" : "${login.nickname}", "content" : $("#_content").val()}
+		  ,data:{"seq" : "${bbs.seq}", "nickname" : "${login.nickname}", "content" : $("#_content").val().replace(/(?:\r\n|\r|\n)/g, '<br/>')}
 		  ,success:function(data){
 			  location.reload();
 		  },
