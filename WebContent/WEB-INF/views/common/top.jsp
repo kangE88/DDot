@@ -105,6 +105,9 @@ $("#chatting").click(function () {
 	}else if(chatStatus == null){
 		alert("로그인이 필요합니다.");
 
+	}else if("${login.nickname}" == "null"){
+		alert("닉네임값이 잘못되었습니다.");
+
 	}else{
 		alert("이미 채팅방이 켜져있습니다");
 	}
