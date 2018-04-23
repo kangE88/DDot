@@ -14,6 +14,8 @@
 <script type="text/javascript">
 <%
 MemberDto mem = (MemberDto)session.getAttribute("login");
+
+System.out.println("mem==>"+mem);
 %>
 
 
@@ -157,7 +159,7 @@ $(".form-info").submit(function (e) {
 
 		formData.append("id",$('input[name=id]').val());
 		formData.append("pwd",$('input[name=pwd]').val());
-		/* formData.append("nickname",$('input[name=nickname]').val()); */
+		formData.append("nickname",$('input[name=nickname]').val());
 		formData.append("email",$('input[name=email]').val());
 		formData.append("intro", $("textarea[name=intro]").text());
     	

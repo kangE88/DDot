@@ -57,15 +57,13 @@
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="587" />
         <property name="defaultEncoding" value="utf-8"/>
-        <property name="username" value="devdotsend@gmail.com" />
+        <property name="username" value="devdotsend"/>
         <property name="password" value="devdotfinal" />
        
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.smtp.starttls.enable">true</prop>
-                <prop key="mail.smtp.auth">true</prop>
-               
-               
+                <prop key="mail.smtp.auth">true</prop>            
             </props>
         </property>
        

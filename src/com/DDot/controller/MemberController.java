@@ -143,7 +143,11 @@ public class MemberController {
 		String id = MemberService.findID(email);
 		return id;
 		
-	}	
+	}
+	
+
+
+	
 	
 	@ResponseBody
 	@RequestMapping(value="findPWD.do",  method= {RequestMethod.GET, RequestMethod.POST})
@@ -207,6 +211,15 @@ public class MemberController {
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
 		logger.info("DDotMemberController userInfoModify");	
 
+		MemberDto before_mem = (MemberDto)req.getSession().getAttribute("login");
+		
+		System.out.println(" modi noImage begroe_mem===>"+before_mem.toString());
+		
+		mem.setSeq(before_mem.getSeq());
+		mem.setPoint(before_mem.getPoint());
+		mem.setNickname(before_mem.getNickname());
+		mem.setAuth(before_mem.getAuth());
+		
 		mem.setPic(picFile.getOriginalFilename());
 
 		//파일경로(폴더)
@@ -242,12 +255,21 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="userInfoModifyNoImage.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public boolean userInfoModifyNoImage(MemberDto mem, HttpServletRequest req, Model model)throws Exception{
-		logger.info("DDotMemberController userInfoModifyNoImage");	
+		logger.info("DDotMemberController userInfoModifyNoImage");
 
 		MemberDto before_mem = (MemberDto)req.getSession().getAttribute("login");
 		
+		System.out.println(" modi noImage begroe_mem===>"+before_mem.toString());
+		
+		mem.setSeq(before_mem.getSeq());
+		mem.setPoint(before_mem.getPoint());
+		mem.setNickname(before_mem.getNickname());
 		mem.setPic(before_mem.getPic());
-		mem.setPoint(before_mem.getPoint());		
+		mem.setAuth(before_mem.getAuth());
+		
+		
+		System.out.println(" modi noImage !_mem===>"+mem.toString());
+			
 		
 		req.getSession().setAttribute("login", mem);
 		
