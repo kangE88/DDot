@@ -9,27 +9,17 @@
 	<tiles:insertAttribute name="header"/>
 </head>
 
-<body> 
+<body data-spy="scroll" data-target=".bs-docs-sidebar" style="visibility: visible;">
 
-<!-- navbar top ================================== -->
-	<div class="navbar navbar-inverse navbar-fixed-top" style="height:5%;">
-		<tiles:insertAttribute name="top"/>
-	</div>
-	<header class="jumbotron subhead">
-		<div class="container" style="height:12%;">
-		</div>
-	</header>
-<!-- Main ================================== -->
-	<div class="row-fluid" style="height:80%;">
-		<div style="margin-bottom: 100px">
+	<!-- navbar top ================================== -->
+	<tiles:insertAttribute name="top"/>
+	<!-- Main ================================== -->
+	<div class="row-fluid">
 		<tiles:insertAttribute name="main" />
-		</div>
 	</div>
-
-<!-- Footer    ================================================== -->
-<div class="footer navbar-fixed-bottom" style="height:7%;">
+	
+	<!-- Footer    ================================================== -->
 	<tiles:insertAttribute name="footer"/>
-</div>
 </body>
 
 <!-- Command Help Modal ================================== -->

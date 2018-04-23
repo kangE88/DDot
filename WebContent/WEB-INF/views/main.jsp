@@ -25,7 +25,35 @@
 		<input id="boardsearchtext" type="text" style="width: 30%"><a id="boardsearchbtn" href="#"><img alt="" src="./image/search.png"></a> </h3>
 	<br>
 	<br>
-	<table class="table">
+	<div class="row-fluid">
+      <ul class="thumbnails example-sites">
+        <li class="span3">
+          <a class="thumbnail" href="http://jason.sperske.com/wad/" target="_blank">
+            <img src="assets/img/example-sites/wad.png" alt="WADParser.py">
+          </a>
+          <a class="btn">more</a>
+        </li>
+        <li class="span3">
+          <a class="thumbnail" href="http://kippt.com/" target="_blank">
+            <img src="assets/img/example-sites/kippt.png" alt="Kippt">
+          </a>
+          <a class="btn">more</a>
+        </li>
+        <li class="span3">
+          <a class="thumbnail" href="http://www.gathercontent.com/" target="_blank">
+            <img src="assets/img/example-sites/gathercontent.png" alt="Gather Content">
+          </a>
+          <a class="btn">more</a>
+        </li>
+        <li class="span3">
+          <a class="thumbnail" href="http://www.jshint.com/" target="_blank">
+            <img src="assets/img/example-sites/jshint.png" alt="JS Hint">
+          </a>
+          <a class="btn">more</a>
+        </li>
+        </ul>
+        </div>
+<%-- 	<table class="table">
 		<tr>
 			<td>
 				<a id="introlink" href="#intro" data-toggle="tab" class="introtitle">DevDot이란?</a>
@@ -42,7 +70,7 @@
 			<td>
 				<div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade" id="intro">
-						<%-- <img alt="" src="<%=request.getContextPath()%>/image/logo.png"> --%>					
+						<img alt="" src="<%=request.getContextPath()%>/image/logo.png">					
 						<p>
 							프로그램 개발자들이 자신의 코드나 언어, 툴에 대한 지식을 얻거나 공유하기 위하여 각종 콘텐츠를 통해 능력을 향상시키고 기록하여 추후 많은 데이터로 잦은 실수를 방지하고 올바른 방법을 찾는 Developer 들이 모일 수 있는 공간을 제공
 						</p>
@@ -85,7 +113,7 @@
 				</div>
 			</td>
 		</tr>
-	</table>
+	</table> --%>
 </div>
 <div class="span2">
 </div>

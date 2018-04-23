@@ -1,14 +1,8 @@
 <%@page import="com.DDot.model.MemberDto"%>
 <%@ page contentType="text/html; charset=utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<fmt:requestEncoding value="utf-8"/>
+<!DOCTYPE html>
 <html>
 <head>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript" src="./jquery/point.js"></script>
 <style>
 a:hover {
@@ -21,17 +15,15 @@ a:focus{
 </head>
 
 <body>
-
-
-<div class="row-fluid" style="height: 100%">
+<br><br>
+<div class="row-fluid">
 	<div class="span2">
 </div>
 <div class="span8 text-center">
 	<div class="hero-unit">
-		<h1>Welcome!</h1>
+		<br>
 		<p>회원들만의 놀이공간 입니다. 경험치를 획득하여 Level을 올려보세요~!</p>
 	</div>
-	
 	<table class="table">
 		<tr>
 			<td>
@@ -45,10 +37,10 @@ a:focus{
 			<td colspan="2">
 				<div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade" id="abc">
-						<p>
-							가위바위보 게임입니다. 이기면 100 경험치를 얻습니다. 지면  100경험치를 잃습니다. 99레벨에 도전해보세요.<br>
-							내고싶은 이미지를  선택하세요  <br>
-							나의 경험치 : ${login.point }
+						<p class="prettyprint">
+							이기면 100 Point 적립! 지면 100 Point 차감!<br><br>
+							묵, 찌, 빠 중  내고싶은 이미지를 선택하세요!<br><br>
+							나의 Point : ${login.point }<br>
 							
 						</p>
 						<a href="#" class="userabc" value="1"><img alt="" src="./image/point/a200.png"></a>
@@ -60,10 +52,10 @@ a:focus{
 						</div>
 					</div>
 					<div class="tab-pane fade" id="updown">
-						<p>
-							업다운 게임입니다. 이기면 50 경험치를 얻습니다. 지면 50경험치를 잃습니다. 99레벨에 도전해보세요.<br>
-							아래 손모양의 그림을 클릭하시면 이미지가 나타납니다. 1~3은 Down 4~6은 Up입니다. <br>
-							나의 경험치 : ${login.point }
+						<p class="prettyprint">
+							이기면 50 Point 적립! 지면 50 Point 차감! <br><br>
+							임의의 별이 세팅됩니다. 별의 갯수 : 1개 ~ 3개 Down! 4개 ~ 6개 Up!<br><br>
+							나의 Point : ${login.point }<br>
 						</p>
 						<a href="#" class="userupdown" value="up"><img alt="" src="./image/point/up.png"> </a>
 						<font size="15"> vs </font><a href="#" class="userupdown" value="down"><img alt="" src="./image/point/down.png"> </a>
