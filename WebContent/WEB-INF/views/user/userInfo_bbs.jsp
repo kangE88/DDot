@@ -90,10 +90,6 @@ function readURL(input) {
 				  <col width="50%">
 			  </colgroup>
                 <tr>
-                  	<td style="vertical-align: middle; text-align:right;">아이디 :</td>
-                  	<td><input type="text" id="id" name="id" class="span12" style="margin:auto; height:30px;" readonly="readonly" value="${mem.id }"></td>
-                </tr>
-                <tr>
                   	<td style="vertical-align: middle; text-align:right;">닉네임 :</td>
                   	<td><input type="text" id="nickname" name="nickname" class="span12" style="margin:auto; height:30px;" readonly="readonly" value="${mem.nickname }">
                   		<!-- <input type="hidden" id="nicResult"> --></td>

@@ -74,12 +74,12 @@
 	<%
 		if (totalPageCount > 1){
 	%>
-	<button class="btn"><a href="#none" title="처음페이지" onclick="goPage('0');">&larr; 처음</a></button>&nbsp;
+	<button class="btn"><a href="#none" title="처음페이지" onclick="goPage('0');">&larr; First</a></button>&nbsp;
 	<%
 		}
 		if (pageNumber >= 1){
 			%>
-			<button class="btn"><a href="#none" title="이전페이지" onclick="goPage('<%=pageNumber-1%>');">이전</a></button>&nbsp;	
+			<button class="btn"><a href="#none" title="이전페이지" onclick="goPage('<%=pageNumber-1%>');">Previous</a></button>&nbsp;	
 			<%
 		}
 		    	
@@ -97,7 +97,7 @@
 		    	
 		if (pageNumber+1 < totalPageCount){
 		    %>	
-			<button class="btn"><a href="#none" title="다음페이지" onclick="goPage(<%=pageNumber+1 %>);">다음</a></button>&nbsp;
+			<button class="btn"><a href="#none" title="다음페이지" onclick="goPage(<%=pageNumber+1 %>);">next</a></button>&nbsp;
 		    <%
 		} // end if
 		    
@@ -107,7 +107,7 @@
 		}
 		if (totalPageCount > 1){
 	%>	        	
-	<button class="btn"><a href="#none" title="마지막페이지" onclick="goPage(<%=end_page %>);" >마지막 &rarr;</a></button>
+	<button class="btn"><a href="#none" title="마지막페이지" onclick="goPage(<%=end_page %>);" >Last &rarr;</a></button>
 	<%
 	}
 	%>
