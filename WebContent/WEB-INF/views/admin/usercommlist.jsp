@@ -63,7 +63,7 @@ a:focus{
 				</tr>
 			</thead>
 			<tbody>	
-			<c:if test="${empty commlist}">
+			<c:if test="${empty usercommlist}">
 			<tr>
 				<td colspan="7">작성된 글이 없습니다.</td>
 			</tr>	

@@ -105,7 +105,11 @@ function readURL(input) {
                 <tr>
                 	<td colspan="2" style="text-align:right;">
                 		<a href="#" class="btn" style="margin:auto;" onclick="window.close();">닫기</a>
-                		<a href="#" class="btn" style="margin:auto;" onclick="window.close();">쪽지</a>
+                		<c:if test="${not empty login}">
+	                		<c:if test="${login.nickname ne mem.nickname}">
+	                			<a href="#" class="btn" style="margin:auto;" onclick="directWriteMessage();">쪽지</a>
+	                		</c:if>
+                		</c:if>
                 	</td>
                 </tr>
               </tbody>
@@ -114,4 +118,12 @@ function readURL(input) {
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+
+function directWriteMessage(){
+	window.open("messagewrite.do?replyname=${mem.nickname}",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+}
+
+
+</script>
 </html>

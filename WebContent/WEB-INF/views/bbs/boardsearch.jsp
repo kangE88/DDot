@@ -11,8 +11,8 @@
 
 <!-- 전체div 메인이랑 맞추려면 padding-top 2% 주기-->
 <div class="row-fluid" style="height: 100%">
-	<div class="span1"></div>	
-	<div class="span5">
+	<!-- <div class="span1"></div> -->	
+	<div class="span6">
 		<h4>검색된 게시판의 글수 : ${totalRecordCount }</h4>
 		<table class="table table-hover" id="board">
 			<col width="5%"><col width="5%"><col width="5%"><col width="40%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
@@ -128,7 +128,7 @@
 			<!-- Nickname 선택시 정보표현 End -->		
 	</div>
 	
-	<div class="span5">
+	<div class="span6">
 		<h4>검색된 커뮤니티의 글수 : ${totalRecordCountc }  </h4>
 		<table class="table table-hover" id="board">
 			<col width="5%"><col width="5%"><col width="45%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
@@ -212,7 +212,7 @@
 		</jsp:include>
 		</div>
 	</div>
-	<div class="span1"></div>
+	<!-- <div class="span1"></div> -->
 	<script type="text/javascript">
 		function goPage(pageNumber) {
 			
