@@ -33,7 +33,7 @@ public class ChatController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		//닉네임받아오기
 		String nick = ((MemberDto)req.getSession().getAttribute("login")).getNickname();
-		//리스트get
+				//리스트get
 		List<String> list = ConnectChatUserList.getInstance().userMap.get("userlist");
 		//리스트에 유저 추가
 		list.add(nick);

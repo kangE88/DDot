@@ -115,7 +115,59 @@
 		</tr>
 	</table> --%>
 </div>
-<div class="span2">
+<div class="span2" style="background-color:#bbbbbb; height:500px; overflow-y: scroll; overflow-x:hidden;">
+<span style="color:#000000;">&nbsp;&nbsp;&nbsp;<b>현재 접속자 </b></span><span id="connecting-userlistcount" style="color: #000000;"></span>
+	<div class="span12" id="div-userlist" style="background-color:#bbbbbb; width:100%; height: auto; ">
+		<script>
+		
+		$(document).ready(function () {
+			UserListAjax();
+			
+			setInterval(function () {
+			UserListAjax();
+			},5000);
+		});
+		
+		function goUserListUrl(ajaxNick) {
+			var nick = $(ajaxNick).text();
+			window.open("userInfo_bbs.do?nickname="+nick,'상대정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
+		}
+		
+		
+
+		function UserListAjax() {
+			var userlisthtml ="";
+			$.ajax({
+				  type:"POST"
+				  ,url:"getConnectUserList.do" //세션 생성페이지 (setAttribute...)
+				  ,async:true
+				  ,success:function(list){
+					  var userlisthtml = "";
+					 
+					  if (list!=null) {
+					
+					  $.each(list, function(index, item) {
+						 
+						  userlisthtml += "<p align='center' style='cursor: pointer; color:#000000;margin:0px' onclick='goUserListUrl(this)'>"+item+"</p>";
+						  
+						});
+						$("#div-userlist").html(userlisthtml);
+						$("#connecting-userlistcount").html("<b><"+list.length+"> 명</b>");	
+					  }
+				  },
+				  error: function(xhr, status, error) {
+			            alert(error);
+			      }  
+				 });
+		}
+		
+		
+		
+		
+		
+		
+		</script>
+	</div>
 </div>
 
 <br>

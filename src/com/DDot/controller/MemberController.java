@@ -3,6 +3,7 @@ package com.DDot.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,8 @@ import com.DDot.model.MemberDto;
 import com.DDot.model.YesMember;
 import com.DDot.service.MemberService;
 import com.DDot.service.MessageService;
+import com.DDot.singleton.ConnectingUserList;
+import com.DDot.util.CheckConnectUser;
 import com.DDot.util.FUpUtil;
 
 @Controller
@@ -251,6 +254,8 @@ public class MemberController {
 			int count = msgService.checkMessage(login.getNickname());
 			req.getSession().setAttribute("messagecount", count);
 
+			req.getSession().setAttribute(login.getNickname(), new CheckConnectUser());
+
 			return true;
 		}else {
 			return false;
@@ -266,8 +271,6 @@ public class MemberController {
 		
 		req.getSession().setAttribute("login", login);
 		
-		
-		
 		return "userInfo.tiles";
 	}
 	
@@ -279,7 +282,7 @@ public class MemberController {
 
 	@RequestMapping(value="userInfo_bbs.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String userInfo_bbs(Model model, String nickname) throws Exception {
-
+		
 		MemberDto mem = MemberService.getMember(nickname);
 		model.addAttribute("mem", mem);
 		
@@ -306,6 +309,18 @@ public class MemberController {
 		return getMemberPointMap;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="getConnectUserList.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public List<String> getConnectUserList(Model model)  throws Exception {
+		logger.info("KhMemberController getConnectUserList");
+		
+		for (String str : ConnectingUserList.getInstance().getUserList()) {
+			System.out.println(str);
+		}
+		
+
+		return ConnectingUserList.getInstance().getUserList();
+	}
 	
 }
 
