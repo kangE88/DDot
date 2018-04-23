@@ -25,6 +25,10 @@
 				<li class="nav-header">MENU</li>
 				<li class="divider"></li>
 				<li>
+					<a href='messagewrite.do'>쪽지 쓰기</a>
+				</li>
+				<li class="divider"></li>
+				<li>
 					<a href="messagelist.do?category=0">받은 쪽지함</a>
 				</li>
 				<li class="divider"></li>
@@ -33,7 +37,7 @@
 				</li>
 				<li class="divider"></li>
 				<li>
-					<a href="messagelist.do?category=2">삭제된 쪽지</a>
+					<a href="messagelist.do?category=2">삭제 쪽지함</a>
 				</li>					
 			</ul>
 		</div>
@@ -45,7 +49,7 @@
 	<!-- ==================== 게시판 타이틀 들어가는부분 Start ==================== -->
 	
 	<div class="span10 text-center">
-		<div class="hero-unit" style="font-size: 2em">
+		<div class="hero-unit" style="font-size: 2em;margin-left: 20px;margin-right:  20px;">
 			<c:choose>
 			    <c:when test="${category eq 0 }">
 					받은 쪽지함
@@ -87,7 +91,7 @@
 			<tbody>	
 			<c:if test="${empty msglist}">
 			<tr>
-				<td colspan="7">작성된 글이 없습니다.</td>
+				<td style="text-align: center;" colspan="7">쪽지함이 비어있습니다.</td>
 			</tr>	
 			</c:if>
 			
@@ -231,7 +235,6 @@
 		<c:if test="${category eq 0 }">
 		 	<button id="_delete" class="btn" style="margin:auto;" onclick="deleteAction()">Delete</button>
 		 </c:if>
-			<button class="btn" style="margin:auto;" onclick="location.href='messagewrite.do'">Write</button>
 		</div>	
 		<!-- ==================== 글쓰기 div End ==================== -->
 	</div>
