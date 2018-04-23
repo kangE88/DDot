@@ -144,7 +144,11 @@ public class MemberController {
 		String id = MemberService.findID(email);
 		return id;
 		
-	}	
+	}
+	
+
+
+	
 	
 	@ResponseBody
 	@RequestMapping(value="findPWD.do",  method= {RequestMethod.GET, RequestMethod.POST})
@@ -208,6 +212,15 @@ public class MemberController {
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
 		logger.info("DDotMemberController userInfoModify");	
 
+		MemberDto before_mem = (MemberDto)req.getSession().getAttribute("login");
+		
+		System.out.println(" modi noImage before_mem===>"+before_mem.toString());
+		
+		mem.setSeq(before_mem.getSeq());
+		mem.setPoint(before_mem.getPoint());
+		mem.setNickname(before_mem.getNickname());
+		mem.setAuth(before_mem.getAuth());
+		
 		mem.setPic(picFile.getOriginalFilename());
 
 		//파일경로(폴더)
@@ -243,13 +256,21 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="userInfoModifyNoImage.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public boolean userInfoModifyNoImage(MemberDto mem, HttpServletRequest req, Model model)throws Exception{
-		logger.info("DDotMemberController userInfoModifyNoImage");	
+		logger.info("DDotMemberController userInfoModifyNoImage");
 
 		MemberDto before_mem = (MemberDto)req.getSession().getAttribute("login");
 		
-		mem.setPic(before_mem.getPic());
-		mem.setPoint(before_mem.getPoint());		
+		System.out.println(" modi noImage begroe_mem===>"+before_mem.toString());
+		System.out.println("mem===>"+mem.toString());
 		
+		mem.setSeq(before_mem.getSeq());
+		mem.setPoint(before_mem.getPoint());
+		mem.setNickname(before_mem.getNickname());
+		mem.setPic(before_mem.getPic());
+		mem.setAuth(before_mem.getAuth());
+
+		System.out.println(" modi noImage !_mem===>"+mem.toString());
+			
 		req.getSession().setAttribute("login", mem);
 		
 		System.out.println(" modi noImage mem===>"+mem.toString());
@@ -258,10 +279,10 @@ public class MemberController {
 		return MemberService.userInfoModifyNoImage(mem);
 	}
 	
-
+	@ResponseBody
 	@RequestMapping(value="loginAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
-	public String loginAf(HttpServletRequest req, MemberDto mem, Model model) throws Exception {
+	public boolean loginAf(HttpServletRequest req, MemberDto mem, Model model) throws Exception {
 		logger.info("MemberController loginAf");
 		
 		MemberDto login = MemberService.login(mem);
@@ -275,9 +296,9 @@ public class MemberController {
 			req.getSession().setAttribute("messagecount", count);
 			
 			req.getSession().setAttribute(login.getNickname(), new CheckConnectUser());
-			return "redirect:/main.do";
+			return true;
 		}else {
-			return "redirect:/login.do";
+			return false;
 		}		
 	}
 	
