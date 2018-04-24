@@ -12,6 +12,7 @@ public class MessagePagingDto implements Serializable {
 	private int sendread;
 	private int nickdel=2;
 	private int senddel=2;
+	private int auth;
 	
 	// paging
 	private int recordCountPerPage=10;
@@ -91,6 +92,14 @@ public class MessagePagingDto implements Serializable {
 	}
 	public void setEnd(int end) {
 		this.end = end;
+	}
+	
+	
+	public int getAuth() {
+		return auth;
+	}
+	public void setAuth(int auth) {
+		this.auth = auth;
 	}
 	@Override
 	public String toString() {

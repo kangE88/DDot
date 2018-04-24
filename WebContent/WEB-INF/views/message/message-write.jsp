@@ -64,7 +64,7 @@
 <body>
 
 <form name="frmForm" id="_frmForm" method="post" action="messagewriteAf.do">
-
+<input type="hidden" id="_auth" name="auth" value="3">
 <table align="center" class="table table-bordered" style="width:85%; margin: auto;" >
 <colgroup>
 <col style="width:200px;" />
@@ -76,6 +76,10 @@
 		<th>Nickname</th>
 		<td style="text-align: left">
 		<input type="text" name="nickname" size="60" value="${login.nickname}" readonly="readonly">
+		<span>					
+	 		<a href="#none" class="btn" style="margin:auto;"  id="_btnToAdmin" title="관리자에게">관리자에게 보내기
+			</a>
+		</span>
 		</td>
 	</tr>
 	
@@ -113,6 +117,7 @@
 
 <script type="text/javascript">
 var check=false;
+var admincheck=false;
 
 $(document).ready(function () {
 	checkNickname();
@@ -122,6 +127,14 @@ $(document).ready(function () {
 $("#_sendto").keyup(function () {
 	checkNickname();
 });
+
+$("#_btnToAdmin").click(function () {
+	$("#_sendto").attr('readonly',true);
+	$("#_spanCheckNick").html("관리자에게 쪽지를 보냅니다.");
+	check=true;
+	admincheck=true;
+	$("#_auth").val("1");
+	});
 
 
 function checkNickname() {
@@ -166,6 +179,8 @@ $("#_btnWrite").click(function() {
 		}
 	}
 });
+
+
 
 
 function back() {

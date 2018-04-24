@@ -37,8 +37,15 @@
 				</li>
 				<li class="divider"></li>
 				<li>
-					<a href="messagelist.do?category=2">삭제 쪽지함</a>
-				</li>					
+					<a href="messagelist.do?category=2">삭제된쪽지함</a>
+				</li>
+				<c:if test="${login.auth eq '1' }">
+				<li class="divider"></li>
+				<li>
+					<a href="messagelist.do?category=3">관리자쪽지함</a>
+				</li>
+				
+				</c:if>
 			</ul>
 		</div>
 	</div>
@@ -58,7 +65,10 @@
 					보낸쪽지함
 			    </c:when>
 			    <c:when test="${category eq 2 }">
-					삭제된 쪽지
+					삭제된 쪽지함
+			    </c:when>
+			    <c:when test="${category eq 3 }">
+					관리자 쪽지함
 			    </c:when>
 			</c:choose>
 		</div>
@@ -193,6 +203,31 @@
 				</c:choose>
 			</c:when>
 			<%-- 삭제한 쪽지함 end --%>
+			<%-- 관리자 쪽지함 일 경우  --%>
+			<c:when test="${category eq '3'}">
+				<c:choose>
+					<%-- 수신자가 삭제하지 않았을 경우 --%>
+					<c:when test="${msg.senddel eq '2'}">
+						
+						<%-- 수신자가 쪽지를 읽지 않은 경우 --%>
+						<c:choose>
+							<c:when test="${msg.sendread eq '0'}">
+								<td style="text-align: center"><a href="#" class="userInfo" title="${msg.nickname}">${msg.nickname}</a></td>
+								<td style="text-align: left"><a href='messagedetail.do?category=${category}&seq=${msg.seq}'>${msg.content}</a></td>
+							</c:when>
+							<%-- 수신자가 쪽지를 읽었을 경우  sendread == 1 --%>
+							<c:otherwise>
+								<td style="text-align: center;"><a style=" color: #bbbbbb;" class="userInfo" title="${msg.nickname}">${msg.nickname}</a></td>
+								<td style="text-align: left; color: #bbbbbb; "><a style=" color: #bbbbbb; "href='messagedetail.do?category=${category}&seq=${msg.seq}'>${msg.content}</a></td>
+							</c:otherwise>
+							</c:choose>
+							<%-- 날짜 형식 변경 --%>
+							<td style="text-align: center;">	<c:out value="${fn:substring(msg.wdate,2,10)}"/></td>
+						</tr>
+					</c:when>
+				</c:choose>
+			</c:when>
+			<%-- 관리자 쪽지함 end --%>
 			</c:choose>
 			</c:forEach>
 			</tbody>

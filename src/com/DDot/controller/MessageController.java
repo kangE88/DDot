@@ -51,6 +51,8 @@ public class MessageController {
 			String sendto = ((MemberDto)req.getSession().getAttribute("login")).getNickname();
 			msgPagingDto.setSendto(sendto);
 			msgPagingDto.setSenddel(0);
+		}else {
+			msgPagingDto.setAuth(1);
 		}
 		
 		
@@ -128,7 +130,8 @@ public class MessageController {
 	public String messagewriteAf(Model model,MessageDto msgDto) throws Exception {
 		
 		logger.info("MessageController messagewrite");
-		msgService.writeMessage(msgDto);
+		
+			msgService.writeMessage(msgDto);
 		
 		
 		return "redirect:/messagelist.do?category=0";
