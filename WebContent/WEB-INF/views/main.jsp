@@ -31,7 +31,7 @@ function UserListAjax() {
 			  if (list!=null) {
 			
 			  $.each(list, function(index, item) {
-				  userlisthtml += "<li><a align='center' style='cursor: pointer; color:#000000;margin:0px' onclick='goUserListUrl(this)'>"+item+"</a></li>";
+				  userlisthtml += "<li><a align='center' style='cursor: pointer; margin:0px' onclick='goUserListUrl(this)'>"+item+"</a></li>";
 				});
 				$("#ul-userlist").html(userlisthtml);
 				$("#connecting-userlistcount").html(">> 현재 접속자 "+list.length+" 명");	
