@@ -10,9 +10,8 @@
 <script type="text/javascript" src="./jquery/common.js"></script>
 <style>
 a:hover{
-	background-color: white;  
+	background-color: #000084;  
 }
-
 a:active {
 	background-color: #000084;
 }
@@ -47,6 +46,7 @@ a:focus{
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
 		<input type="hidden" name="nickname" value="${nickname }">
+		<input type="hidden" name="sort" value="${sort }">
 		</form>
 	<div class="span10">
 		<table class="table table-hover" id="board">
@@ -59,7 +59,7 @@ a:focus{
 					<th style="text-align: center;">Nickname</th>
 					<th style="text-align: center;">Date</th>
 					<th style="text-align: center;">Count</th>
-					<th style="text-align: center;">Good / Bad</th>					
+					<th style="text-align: center;"><a href="usercommlist.do?nickname=${nickname }&sort=Good">Good</a> / <a href="usercommlist.do?nickname=${nickname }&sort=Bad">Bad</a></th>					
 				</tr>
 			</thead>
 			<tbody>	

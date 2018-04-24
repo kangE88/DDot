@@ -10,7 +10,7 @@
 <script type="text/javascript" src="./jquery/common.js"></script>
 <style>
 a:hover{
-	background-color: white;  
+	background-color: #000084;  
 }
 
 a:active {
@@ -40,6 +40,7 @@ a:focus{
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
 		<input type="hidden" name="nickname" value="${nickname }">
+		<input type="hidden" name="sort" value="${sort }">
 		</form>
 	</div>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
@@ -61,7 +62,7 @@ a:focus{
 					<th style="text-align: center;">Title</th>					
 					<th style="text-align: center;">Date</th>
 					<th style="text-align: center;">Count</th>
-					<th style="text-align: center;">Good / bad</th>		
+					<th style="text-align: center;"><a href="userbbslist.do?nickname=${nickname }&sort=Good">Good</a> / <a href="userbbslist.do?nickname=${nickname }&sort=Bad">Bad</a></th>		
 					<th style="text-align: center;">Del</th>				
 				</tr>
 			</thead>

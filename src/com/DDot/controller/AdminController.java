@@ -24,11 +24,11 @@ public class AdminController {
 	AdminService adminService;
 	
 	@RequestMapping(value="admin.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String userlist(Model model, MemberParam param) {
+	public String userlist(Model model, MemberParam param, String sort) {
 		
 		int sn = param.getPageNumber();
 		int start = (sn) * param.getRecordCountPerPage() + 1;
-		int end = (sn+1) * param.getRecordCountPerPage();
+		int end = (sn+1) * param.getRecordCountPerPage();		
 		
 		System.out.println("start: "+start);
 		System.out.println("end: "+end);
@@ -36,6 +36,8 @@ public class AdminController {
 		param.setEnd(end);
 		
 		int totalRecordCount = adminService.getusercount(param);
+		model.addAttribute("sort", sort);
+		
 		
 		System.out.println("totalRecordCount: " + totalRecordCount);
 		model.addAttribute("totalRecordCount", totalRecordCount);
@@ -43,8 +45,22 @@ public class AdminController {
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 8);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		if(sort==null) {
+			sort="all";
+		}
+		List<MemberDto> list = null;
+		switch(sort) {
+		case "all":
+			list = adminService.userlist(param, sort);
+			break;
+		case "Good":
+			list = adminService.userlist(param, sort);
+		break;		
+		case "Bad":
+			list = adminService.userlist(param, sort);
+		break;
+		}
 		
-		List<MemberDto> list = adminService.userlist(param);
 		
 		model.addAttribute("userlist", list);
 		
@@ -73,7 +89,7 @@ public class AdminController {
 	
 	
 	@RequestMapping(value="userbbslist.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String userbbslist(BbsParam param, Model model, String nickname) {
+	public String userbbslist(BbsParam param, Model model, String nickname, String sort) {
 		
 		param.setNickname(nickname);
 		model.addAttribute("nickname", nickname);
@@ -83,6 +99,7 @@ public class AdminController {
 		
 		System.out.println("start: "+start);
 		System.out.println("end: "+end);
+		System.out.println("userbbslistsort: " + sort);
 		
 		param.setStart(start);
 		param.setEnd(end);		
@@ -90,19 +107,35 @@ public class AdminController {
 		int totalRecordCount = adminService.userbbscount(nickname);
 		
 		System.out.println("totalRecordCount: " + totalRecordCount);
-		model.addAttribute("totalRecordCount", totalRecordCount);
-		
+		model.addAttribute("totalRecordCount", totalRecordCount);		
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 8);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
-		List<BbsDto> userbbslist = adminService.userbbslist(param);
+		model.addAttribute("sort", sort);
+		if(sort==null) {
+			sort="all";
+		}
+		List<BbsDto> userbbslist = null;
+		switch(sort) {
+		case "all":
+			userbbslist = adminService.userbbslist(param, sort);
+			break;
+		case "Good":
+			userbbslist = adminService.userbbslist(param, sort);
+		break;
+		
+		case "Bad":
+			userbbslist = adminService.userbbslist(param, sort);
+		break;
+		}
+		
 		model.addAttribute("userbbslist", userbbslist);
 		
 		return "userbbslist.tiles";
 	}
 	
 	@RequestMapping(value="usercommlist.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String usercommlist(BbsParam param, String nickname, Model model) {
+	public String usercommlist(BbsParam param, String nickname, Model model, String sort) {
 		
 		param.setNickname(nickname);
 		model.addAttribute("nickname", nickname);
@@ -124,8 +157,23 @@ public class AdminController {
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 8);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		model.addAttribute("sort", sort);
+		if(sort==null) {
+			sort="all";
+		}
+		List<CommDto> usercommlist = null;
+		switch(sort) {
+		case "all":
+			usercommlist = adminService.usercommlist(param, sort);
+			break;
+		case "Good":
+			usercommlist = adminService.usercommlist(param, sort);
+		break;
 		
-		List<CommDto> usercommlist = adminService.usercommlist(param);
+		case "Bad":
+			usercommlist = adminService.usercommlist(param, sort);
+		break;
+		}
 		model.addAttribute("usercommlist", usercommlist);
 		
 		return "usercommlist.tiles";
