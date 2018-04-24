@@ -134,7 +134,26 @@ input[type="text"]{
 							}
 						})
 					</script>
-					<td style="text-align: center;">on</td>
+					<td id="${user.id }onoff"style="text-align: center;"></td>
+					<script type="text/javascript">
+						var nickname = '${user.nickname}';
+						$.ajax({
+							url: "useronoff.do",
+							type: "post",
+							data: {nickname : nickname},
+							success: function(data) {
+								if(data==true){
+								$("#${user.id }onoff").append('on');
+								}
+								else{
+								$("#${user.id }onoff").append('off');
+								}
+							},
+							error: function() {
+								alert("18");
+							}
+						})
+					</script>				
 					<td style="text-align: center;"><img id="${user.id }modify" src="./image/pen.png"></td>
 					<script type="text/javascript">
 						$("#${user.id}modify").click(function() {
