@@ -3,11 +3,76 @@
 <!DOCTYPE html>
 <html>
 <body>
+<script type="text/javascript">
+$(document).ready(function () {
+	UserListAjax();
+	
+	setInterval(function () {
+	UserListAjax();
+	},5000);
+});
+
+function goUserListUrl(ajaxNick) {
+	var nick = $(ajaxNick).text();
+	window.open("userInfo_bbs.do?nickname="+nick,'상대정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
+}
+
+
+
+function UserListAjax() {
+	var userlisthtml ="";
+	$.ajax({
+		  type:"POST"
+		  ,url:"getConnectUserList.do" //세션 생성페이지 (setAttribute...)
+		  ,async:true
+		  ,success:function(list){
+			  var userlisthtml = "";
+			 
+			  if (list!=null) {
+			
+			  $.each(list, function(index, item) {
+				  userlisthtml += "<li><a align='center' style='cursor: pointer; color:#000000;margin:0px' onclick='goUserListUrl(this)'>"+item+"</a></li>";
+				});
+				$("#ul-userlist").html(userlisthtml);
+				$("#connecting-userlistcount").html(">> 현재 접속자 "+list.length+" 명");	
+			  }
+		  },
+		  error: function(xhr, status, error) {
+	            alert(error);
+	      }  
+		 });
+}
+</script>
 <div class="row-fluid">
 	<%-- <img alt="logo" src="<%=request.getContextPath()%>/image/logo.png" class="span12"> --%>
 </div>
-<div class="span2">
+<!-- 좌측 -->
+<div class="span2" style="margin:auto;">
+<%-- <br>
+<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item">
+    	<img src="<%=request.getContextPath()%>/image/board/attandance.png" alt="etc">
+    </div>
+    <div class="item">
+    	<img src="<%=request.getContextPath()%>/image/board/jsp.png" alt="jsp">
+    </div>
+    <div class="item">
+    	<img src="<%=request.getContextPath()%>/image/board/jquery.png" alt="jquery">
+    </div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div> --%>
 </div>
+<!-- main -->
 <div class="span8 text-center" style="margin:auto;">
 	<br>
  	<div class="hero-unit">
@@ -22,34 +87,46 @@
 						    	<option value="title">Title</option>
 								<option value="content">Content</option>
 							</select>
-		<input id="boardsearchtext" type="text" style="width: 30%"><a id="boardsearchbtn" href="#"><img alt="" src="./image/search.png"></a> </h3>
+	<input id="boardsearchtext" type="text" style="width: 30%"><a id="boardsearchbtn" href="#"><img alt="" src="./image/search.png"></a> </h3>
 	<br>
 	<br>
 	<div class="row-fluid">
       <ul class="thumbnails example-sites">
-        <li class="span3">
-          <a class="thumbnail" href="http://jason.sperske.com/wad/" target="_blank">
-            <img src="assets/img/example-sites/wad.png" alt="WADParser.py">
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=0&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/java.gif" alt="Java">
           </a>
-          <a class="btn">more</a>
+          <h4>Java</h4>
         </li>
-        <li class="span3">
-          <a class="thumbnail" href="http://kippt.com/" target="_blank">
-            <img src="assets/img/example-sites/kippt.png" alt="Kippt">
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=1&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/jsp.png" alt="jsp">
           </a>
-          <a class="btn">more</a>
+          <h4>Jsp</h4>
         </li>
-        <li class="span3">
-          <a class="thumbnail" href="http://www.gathercontent.com/" target="_blank">
-            <img src="assets/img/example-sites/gathercontent.png" alt="Gather Content">
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=2&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/jquery.png" alt="jquery">
           </a>
-          <a class="btn">more</a>
+          <h4>Jquery</h4>
         </li>
-        <li class="span3">
-          <a class="thumbnail" href="http://www.jshint.com/" target="_blank">
-            <img src="assets/img/example-sites/jshint.png" alt="JS Hint">
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=3&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/oracle.png" alt="oracle">
           </a>
-          <a class="btn">more</a>
+          <h4>Oracle</h4>
+        </li>
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=4&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/spring.png" alt="spring">
+          </a>
+          <h4>Spring</h4>
+        </li>
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=5&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/etc.png" alt="ETC">
+          </a>
+          <h4>ETC</h4>
         </li>
         </ul>
         </div>
@@ -115,59 +192,16 @@
 		</tr>
 	</table> --%>
 </div>
-<div class="span2" style="background-color:#bbbbbb; height:500px; overflow-y: scroll; overflow-x:hidden;">
-<span style="color:#000000;">&nbsp;&nbsp;&nbsp;<b>현재 접속자 </b></span><span id="connecting-userlistcount" style="color: #000000;"></span>
-	<div class="span12" id="div-userlist" style="background-color:#bbbbbb; width:100%; height: auto; ">
-		<script>
-		
-		$(document).ready(function () {
-			UserListAjax();
-			
-			setInterval(function () {
-			UserListAjax();
-			},5000);
-		});
-		
-		function goUserListUrl(ajaxNick) {
-			var nick = $(ajaxNick).text();
-			window.open("userInfo_bbs.do?nickname="+nick,'상대정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
-		}
-		
-		
-
-		function UserListAjax() {
-			var userlisthtml ="";
-			$.ajax({
-				  type:"POST"
-				  ,url:"getConnectUserList.do" //세션 생성페이지 (setAttribute...)
-				  ,async:true
-				  ,success:function(list){
-					  var userlisthtml = "";
-					 
-					  if (list!=null) {
-					
-					  $.each(list, function(index, item) {
-						 
-						  userlisthtml += "<p align='center' style='cursor: pointer; color:#000000;margin:0px' onclick='goUserListUrl(this)'>"+item+"</p>";
-						  
-						});
-						$("#div-userlist").html(userlisthtml);
-						$("#connecting-userlistcount").html("<b><"+list.length+"> 명</b>");	
-					  }
-				  },
-				  error: function(xhr, status, error) {
-			            alert(error);
-			      }  
-				 });
-		}
-		
-		
-		
-		
-		
-		
-		</script>
-	</div>
+<br>
+<div class="span2 bs-docs-sidebar">
+	<ul class="prettyprint" style="margin:auto;">
+		<li id="connecting-userlistcount" style="text-align: center;"></li>
+	</ul>
+</div>
+<br><br>
+<div class="span2 bs-docs-sidebar" style="height:500px; margin-left:15px;">
+	<ul class="span12 nav nav-list bs-docs-sidenav affix-top" id="ul-userlist" style="background-color:#bbbbbb; width:100%; height: auto; ">
+	</ul>
 </div>
 
 <br>

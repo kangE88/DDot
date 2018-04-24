@@ -15,12 +15,11 @@
 		background-color: #000084;
 	}
 </style>
-
+<br><br>
 <div class="row-fluid">
 
 	<!-- ==================== 게시판 좌측메뉴 Start ==================== -->
 	<div class="span2" id="boardmenudiv" style="padding-left: 10px">
-		
 		<!-- 검색 관련 사항 Start -->
 		<form name="frmForm1" id="_frmFormSearch" method="post" action="">
 			<table class="table table-bordered" >
@@ -135,14 +134,13 @@
 	<div class="span9" id="boardmain">
 	
 		<table class="table table-hover" id="board">
-			<col width="5%"><col width="5%"><col width="5%"><col width="40%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
+			<col width="5%"><col width="5%"><col width="40%"><col width="15%"><col width="10%"><col width="5%"><col width="10%">
 			<thead>
 				<tr>
 					<th style="text-align: center;">No.</th>
-					<th style="text-align: center;">Icon</th>
 					<th style="text-align: center;">Category</th>
 					<th style="text-align: center;">Title</th>
-					<th style="text-align: center;">Nickname</th>
+					<th style="text-align: center;">Lv / Nickname</th>
 					<th style="text-align: center;">Date</th>
 					<th style="text-align: center;">Count</th>
 					<th style="text-align: center;">Good / bad</th>					
@@ -171,14 +169,12 @@
 							  $('#${bbs.seq}icon').attr("src","./image/level/lv"+level+".gif");
 						  },
 						  error: function(xhr, status, error) {
-							  alert("18");
+							  //alert("18");
 					      }  
 					 });
 				 });
 				</script>
 
-				<td><img id="${bbs.seq }icon" src=""></td>
-				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
 			<c:choose>
 			    <c:when test="${bbs.subcategory eq 0 }">
@@ -218,7 +214,7 @@
 								  }
 							  },
 							  error: function(xhr, status, error) {
-								  alert("18");
+								  //alert("18");
 						      }  
 						 });
 					 });
@@ -229,7 +225,7 @@
 			</c:otherwise>
 			</c:choose>
 				<!-- userinfo 정보 확인 -->
-				<td style="text-align: center;"><a onclick="window.open('userInfo_bbs.do?nickname=${bbs.nickname}','내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#" >${bbs.nickname}</a></td>
+				<td style="text-align: left;"><img id="${bbs.seq }icon" src="">&nbsp;&nbsp;<a onclick="window.open('userInfo_bbs.do?nickname=${bbs.nickname}','내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#" >${bbs.nickname}</a></td>
 				
 				<!-- 날짜 형식 변경 -->
 				<td style="text-align: center;">	<c:out value="${fn:substring(bbs.wdate,2,10)}"/></td>
