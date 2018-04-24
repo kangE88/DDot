@@ -102,7 +102,6 @@ $("#_btnBack").click(function() {
 
 
 $("#_btnReply").click(function() {	
-	alert('답글달기');	
 	$("#_frmForm").attr({ "target":"_self", "action":"messagewrite.do" }).submit();
 });
 
