@@ -82,13 +82,12 @@
 	<div class="span9" id="boardmain">
 	
 		<table class="table table-hover" id="board">
-			<col width="5%"><col width="5%"><col width="45%"><col width="10%"><col width="10%"><col width="5%"><col width="10%">
+			<col width="5%"><col width="45%"><col width="15%"><col width="10%"><col width="5%"><col width="10%">
 			<thead>
 				<tr>
 					<th style="text-align: center;">No.</th>
-					<th style="text-align: center;">Icon</th>
 					<th style="text-align: center;">Title</th>
-					<th style="text-align: center;">Nickname</th>
+					<th style="text-align: center;">Lv / Nickname</th>
 					<th style="text-align: center;">Date</th>
 					<th style="text-align: center;">Count</th>
 					<th style="text-align: center;">Good / Bad</th>					
@@ -125,10 +124,6 @@
 				
 				</script>
 				
-				<td style="text-align: center;">
-				<img id="${comm.seq }icon" src="">
-				</td>
-	
 				<!-- del==0 일 때 title 삭제 된 글로 표현 --> 
 			<c:choose>
 			<c:when test="${comm.del eq '0'}">
@@ -164,7 +159,9 @@
 			</c:choose>
 				
 				<!-- userinfo 정보 확인 -->
-				<td style="text-align: center;"><a onclick="window.open('userInfo_bbs.do?nickname=${comm.nickname}','내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#" >${comm.nickname}</a></td>
+				<td style="text-align: center;">
+				<img id="${comm.seq }icon" src="">
+				<a onclick="window.open('userInfo_bbs.do?nickname=${comm.nickname}','내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#" >${comm.nickname}</a></td>
 				
 				<!-- 날짜 형식 변경 -->
 				<td style="text-align: center;">	<c:out value="${fn:substring(comm.wdate,2,10)}"/></td>

@@ -175,11 +175,6 @@
 				 });
 				</script>
 
-<<<<<<< HEAD
-				<td style="text-align: center;"><img id="${bbs.seq }icon" src=""></td>
-				
-=======
->>>>>>> master
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
 			<c:choose>
 			    <c:when test="${bbs.subcategory eq 0 }">
@@ -219,23 +214,20 @@
 								  }
 							  },
 							  error: function(xhr, status, error) {
-<<<<<<< HEAD
 								  alert("18");
 						      } 
-=======
-								  //alert("18");
-						      }  
->>>>>>> master
 						 });
 					 });
 					</script>
-			
-				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a>
+				<td style="text-align: left">
+				<a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a>
 				<span id="${bbs.seq }replycount"></span>
 			</c:otherwise>
 			</c:choose>
 				<!-- userinfo 정보 확인 -->
-				<td style="text-align: left;"><img id="${bbs.seq }icon" src="">&nbsp;&nbsp;<a onclick="window.open('userInfo_bbs.do?nickname=${bbs.nickname}','내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#" >${bbs.nickname}</a></td>
+				
+				<td style="text-align: center;">
+				<img id="${bbs.seq }icon" src="">&nbsp;&nbsp;<a onclick="window.open('userInfo_bbs.do?nickname=${bbs.nickname}','내정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#" >${bbs.nickname}</a></td>
 				
 				<!-- 날짜 형식 변경 -->
 				<td style="text-align: center;">	<c:out value="${fn:substring(bbs.wdate,2,10)}"/></td>
