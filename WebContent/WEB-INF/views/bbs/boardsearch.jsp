@@ -85,7 +85,25 @@
 				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
-				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a></td>
+			<!-- 댓글 카운트 가져오는 부분 -->
+					<script type="text/javascript">
+					$(document).ready(function() {
+						$.ajax({
+							  type:"POST"
+							  ,url:"replycountbbs.do"
+							  ,data:{"seq" : "${bbs.seq}"}
+							  ,success:function(data){
+								  if(data.replycount !=0){
+								  $('#${bbs.seq }replycount').text("("+data.replycount+")");
+								  }
+							  },
+							  error: function(xhr, status, error) {
+								  alert("18");
+						      }  
+						 });
+					 });
+					</script>
+				<td style="text-align: left"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a>&nbsp;&nbsp;<span id="${bbs.seq }replycount"></span></td>
 			</c:otherwise>
 			</c:choose>
 			
@@ -180,7 +198,25 @@
 				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
-				<td style="text-align: left"><a href='commdetail.do?seq=${comm.seq}'>${comm.title}</a></td>
+			<!-- 댓글 카운트 가져오는 부분 -->
+					<script type="text/javascript">
+					$(document).ready(function() {
+						$.ajax({
+							  type:"POST"
+							  ,url:"replycountcomm.do"
+							  ,data:{"seq" : "${comm.seq}"}
+							  ,success:function(data){
+								  if(data.replycount !=0){
+								  $('#${comm.seq }replycount').text("("+data.replycount+")");
+								  }
+							  },
+							  error: function(xhr, status, error) {
+								  alert("18");
+						      }  
+						 });
+					 });
+					</script>	
+				<td style="text-align: left"><a href='commdetail.do?seq=${comm.seq}'>${comm.title}</a>&nbsp;&nbsp;<span id="${comm.seq }replycount"></span></td>						
 			</c:otherwise>
 			</c:choose>
 			
