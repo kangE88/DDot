@@ -25,6 +25,10 @@
 				<li class="nav-header">MENU</li>
 				<li class="divider"></li>
 				<li>
+					<a href='messagewrite.do'>쪽지 쓰기</a>
+				</li>
+				<li class="divider"></li>
+				<li>
 					<a href="messagelist.do?category=0">받은 쪽지함</a>
 				</li>
 				<li class="divider"></li>
@@ -33,7 +37,7 @@
 				</li>
 				<li class="divider"></li>
 				<li>
-					<a href="messagelist.do?category=2">삭제된 쪽지</a>
+					<a href="messagelist.do?category=2">삭제 쪽지함</a>
 				</li>					
 			</ul>
 		</div>
@@ -45,7 +49,7 @@
 	<!-- ==================== 게시판 타이틀 들어가는부분 Start ==================== -->
 	
 	<div class="span10 text-center">
-		<div class="hero-unit" style="font-size: 2em">
+		<div class="hero-unit" style="font-size: 2em;margin-left: 20px;margin-right:  20px;">
 			<c:choose>
 			    <c:when test="${category eq 0 }">
 					받은 쪽지함
@@ -87,21 +91,40 @@
 			<tbody>	
 			<c:if test="${empty msglist}">
 			<tr>
-				<td colspan="7">작성된 글이 없습니다.</td>
+				<td style="text-align: center;" colspan="7">쪽지함이 비어있습니다.</td>
 			</tr>	
 			</c:if>
 			
 			<%-- 내용 시작  --%>
 			<c:forEach items="${msglist}" var="msg" varStatus="vs">
+			<tr>
+				<td style="text-align: center;"><input name="checkrow" type="checkbox" value="${msg.seq}" ></td>
+				<!-- 아이콘 이미지를 가져오는 부분 -->
+				<script>
+					$(document).ready(function() {
+						$.ajax({
+							  type:"POST"
+							  ,url:"getMemberPoint.do"
+							  ,data:{"nickname" : "${msg.nickname}"}
+							  ,success:function(data){
+								  var level = g_level(data.point);
+								  $('#${msg.seq}icon').attr("src","./image/level/lv"+level+".gif");
+							  },
+							  error: function(xhr, status, error) {
+								  alert("18");
+						      }  
+						 });
+					 });	
+				</script>
+				<td style="text-align: center;"><img id="${msg.seq}icon" src=""></td>
 			<c:choose>
+			
 			<%-- 받은 쪽지함 일 경우  --%>
 			<c:when test="${category eq '0'}">
 				<c:choose>
 					<%-- 수신자가 삭제하지 않았을 경우 --%>
 					<c:when test="${msg.senddel eq '2'}">
-						<tr>
-						<td style="text-align: center;"><input name="checkrow" type="checkbox" value="${msg.seq}" ></td>
-						<td style="text-align: center;"><img src="./image/level/lv99.gif"></td>
+						
 						<%-- 수신자가 쪽지를 읽지 않은 경우 --%>
 						<c:choose>
 							<c:when test="${msg.sendread eq '0'}">
@@ -126,10 +149,7 @@
 				<c:choose>
 					<%-- 발신자가 삭제하지 않았을 경우 --%>
 					<c:when test="${msg.nickdel eq '2'}">
-						<tr>
-						<td style="text-align: center;"><input name="checkrow" type="checkbox" value="${msg.seq}" ></td>
-						<td style="text-align: center;"><img src="./image/level/lv99.gif"></td>
-						<%-- 발신자가 쪽지를 읽지 않은 경우 --%>
+						
 						<c:choose>
 							<c:when test="${msg.nickread eq '0'}">
 								<td style="text-align: center"><a href="#" class="userInfo" title="${msg.sendto}">${msg.sendto}</a></td>
@@ -153,9 +173,7 @@
 				<c:choose>
 					<%-- 수신자가 삭제했을때 --%>
 					<c:when test="${msg.senddel eq '0'}">
-						<tr>
-						<td style="text-align: center;"><input name="checkrow" type="checkbox" value="${msg.seq}" ></td>
-						<td style="text-align: center;"><img src="./image/level/lv99.gif"></td>
+						
 						<%-- 수신자가 쪽지를 읽지 않은 경우 --%>
 						<c:choose>
 							<c:when test="${msg.sendread eq '0'}">
@@ -217,7 +235,6 @@
 		<c:if test="${category eq 0 }">
 		 	<button id="_delete" class="btn" style="margin:auto;" onclick="deleteAction()">Delete</button>
 		 </c:if>
-			<button class="btn" style="margin:auto;" onclick="location.href='messagewrite.do'">Write</button>
 		</div>	
 		<!-- ==================== 글쓰기 div End ==================== -->
 	</div>
@@ -262,4 +279,9 @@
 	      location.href="messagedelete.do?checklist="+checkRow;
 	  } 
 	}
+	
+	
+	
+	
+	
 </script>

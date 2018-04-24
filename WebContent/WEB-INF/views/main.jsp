@@ -3,11 +3,76 @@
 <!DOCTYPE html>
 <html>
 <body>
+<script type="text/javascript">
+$(document).ready(function () {
+	UserListAjax();
+	
+	setInterval(function () {
+	UserListAjax();
+	},5000);
+});
+
+function goUserListUrl(ajaxNick) {
+	var nick = $(ajaxNick).text();
+	window.open("userInfo_bbs.do?nickname="+nick,'상대정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
+}
+
+
+
+function UserListAjax() {
+	var userlisthtml ="";
+	$.ajax({
+		  type:"POST"
+		  ,url:"getConnectUserList.do" //세션 생성페이지 (setAttribute...)
+		  ,async:true
+		  ,success:function(list){
+			  var userlisthtml = "";
+			 
+			  if (list!=null) {
+			
+			  $.each(list, function(index, item) {
+				  userlisthtml += "<li><a align='center' style='cursor: pointer; color:#000000;margin:0px' onclick='goUserListUrl(this)'>"+item+"</a></li>";
+				});
+				$("#ul-userlist").html(userlisthtml);
+				$("#connecting-userlistcount").html(">> 현재 접속자 "+list.length+" 명");	
+			  }
+		  },
+		  error: function(xhr, status, error) {
+	            alert(error);
+	      }  
+		 });
+}
+</script>
 <div class="row-fluid">
 	<%-- <img alt="logo" src="<%=request.getContextPath()%>/image/logo.png" class="span12"> --%>
 </div>
-<div class="span2">
+<!-- 좌측 -->
+<div class="span2" style="margin:auto;">
+<%-- <br>
+<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item">
+    	<img src="<%=request.getContextPath()%>/image/board/attandance.png" alt="etc">
+    </div>
+    <div class="item">
+    	<img src="<%=request.getContextPath()%>/image/board/jsp.png" alt="jsp">
+    </div>
+    <div class="item">
+    	<img src="<%=request.getContextPath()%>/image/board/jquery.png" alt="jquery">
+    </div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div> --%>
 </div>
+<!-- main -->
 <div class="span8 text-center" style="margin:auto;">
 	<br>
  	<div class="hero-unit">
@@ -22,10 +87,50 @@
 						    	<option value="title">Title</option>
 								<option value="content">Content</option>
 							</select>
-		<input id="boardsearchtext" type="text" style="width: 30%"><a id="boardsearchbtn" href="#"><img alt="" src="./image/search.png"></a> </h3>
+	<input id="boardsearchtext" type="text" style="width: 30%"><a id="boardsearchbtn" href="#"><img alt="" src="./image/search.png"></a> </h3>
 	<br>
 	<br>
-	<table class="table">
+	<div class="row-fluid">
+      <ul class="thumbnails example-sites">
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=0&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/java.gif" alt="Java">
+          </a>
+          <h4>Java</h4>
+        </li>
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=1&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/jsp.png" alt="jsp">
+          </a>
+          <h4>Jsp</h4>
+        </li>
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=2&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/jquery.png" alt="jquery">
+          </a>
+          <h4>Jquery</h4>
+        </li>
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=3&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/oracle.png" alt="oracle">
+          </a>
+          <h4>Oracle</h4>
+        </li>
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=4&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/spring.png" alt="spring">
+          </a>
+          <h4>Spring</h4>
+        </li>
+        <li class="span2">
+          <a class="thumbnail" href="bbslist.do?category=5&subcategory=9">
+            <img src="<%=request.getContextPath()%>/image/board/etc.png" alt="ETC">
+          </a>
+          <h4>ETC</h4>
+        </li>
+        </ul>
+        </div>
+<%-- 	<table class="table">
 		<tr>
 			<td>
 				<a id="introlink" href="#intro" data-toggle="tab" class="introtitle">DevDot이란?</a>
@@ -42,7 +147,7 @@
 			<td>
 				<div id="myTabContent" class="tab-content">
 					<div class="tab-pane fade" id="intro">
-						<%-- <img alt="" src="<%=request.getContextPath()%>/image/logo.png"> --%>					
+						<img alt="" src="<%=request.getContextPath()%>/image/logo.png">					
 						<p>
 							프로그램 개발자들이 자신의 코드나 언어, 툴에 대한 지식을 얻거나 공유하기 위하여 각종 콘텐츠를 통해 능력을 향상시키고 기록하여 추후 많은 데이터로 잦은 실수를 방지하고 올바른 방법을 찾는 Developer 들이 모일 수 있는 공간을 제공
 						</p>
@@ -85,9 +190,18 @@
 				</div>
 			</td>
 		</tr>
-	</table>
+	</table> --%>
 </div>
-<div class="span2">
+<br>
+<div class="span2 bs-docs-sidebar">
+	<ul class="prettyprint" style="margin:auto;">
+		<li id="connecting-userlistcount" style="text-align: center;"></li>
+	</ul>
+</div>
+<br><br>
+<div class="span2 bs-docs-sidebar" style="height:500px; margin-left:15px;">
+	<ul class="span12 nav nav-list bs-docs-sidenav affix-top" id="ul-userlist" style="background-color:#bbbbbb; width:100%; height: auto; ">
+	</ul>
 </div>
 
 <br>

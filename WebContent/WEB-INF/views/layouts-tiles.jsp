@@ -9,27 +9,17 @@
 	<tiles:insertAttribute name="header"/>
 </head>
 
-<body> 
+<body data-spy="scroll" data-target=".bs-docs-sidebar" style="visibility: visible;">
 
-<!-- navbar top ================================== -->
-	<div class="navbar navbar-inverse navbar-fixed-top" style="height:5%;">
-		<tiles:insertAttribute name="top"/>
-	</div>
-	<header class="jumbotron subhead">
-		<div class="container" style="height:12%;">
-		</div>
-	</header>
-<!-- Main ================================== -->
-	<div class="row-fluid" style="height:80%;">
-		<div style="margin-bottom: 100px">
+	<!-- navbar top ================================== -->
+	<tiles:insertAttribute name="top"/>
+	<!-- Main ================================== -->
+	<div class="row-fluid">
 		<tiles:insertAttribute name="main" />
-		</div>
 	</div>
-
-<!-- Footer    ================================================== -->
-<div class="footer navbar-fixed-bottom" style="height:7%;">
+	
+	<!-- Footer    ================================================== -->
 	<tiles:insertAttribute name="footer"/>
-</div>
 </body>
 
 <!-- Command Help Modal ================================== -->
@@ -39,8 +29,14 @@
     <h4 id="myModalLabel"><font color="SlateBlue">Help Command</font></h4>
   </div>
   <div class="modal-body">
+  	<h4>/login <font color="black"> : Login</font></h4>
+  	------------------------------------------------
+  	<h4>/logout <font color="black"> : Logout</font></h4>
+  	------------------------------------------------
+  	<h4>/mail <font color="black"> : ReadMail</font></h4>
+  	------------------------------------------------
     <h4>/move * <font color="black"> : move to *</font></h4>
-    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board-category, community,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clab, donate, attendance, house</font></h4>
+    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board-category, community,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clab, donate, attendance, house,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chat</font></h4>
     ------------------------------------------------
     <h4>board's category <font color="black"> : java, jsp, jquery, oracle,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring, etc</font></h4>
   </div>
@@ -121,7 +117,45 @@ $("#cmd").keydown(function(key) {
 		case "/move board-etc":
 			location.href="http://localhost:8090/DDot/bbslist.do?category=5&subcategory=9";
 			break;
-				
+		case "/login":
+			<%
+			if(session.getAttribute("login") == null){
+				%>				
+				location.href="login.do";
+				<%}else{%>
+				alert("이미 로그인 되어있습니다.");
+				<%}%>		
+			break;
+		case "/logout":
+			<%
+			if(session.getAttribute("login") == null){
+				%>
+				alert("로그인이 필요한서비스 입니다.");
+				location.href="login.do";
+				<%}else{%>
+				location.href="./logout.do"
+				<%}%>		
+			break;
+		case "/move chat":
+			<%
+			if(session.getAttribute("login") == null){
+			%>
+			alert("로그인이 필요한서비스 입니다.");
+			location.href="login.do";
+			<%}else{%>
+			location.href="./chatting.do"
+			<%}%>
+			break;
+		case "/mail":
+			<%
+			if(session.getAttribute("login") == null){
+			%>
+			alert("로그인이 필요한서비스 입니다.");
+			location.href="login.do";
+			<%}else{%>
+			window.open("messagelist.do?category=0&sendto=${login.nickname}",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+			<%}%>
+			break;			
 	}
 		$("#cmd").val("");	
 	}

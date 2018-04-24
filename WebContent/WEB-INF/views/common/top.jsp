@@ -1,15 +1,7 @@
 <%@page import="com.DDot.model.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-
-<div class="row-fluid" style="height:50px; background-color: black;">
-	<div class="span2"></div>
-	<!-- <div class="span8"><p class="text-center" style="padding-top:15px;"><font size="40">dev.</font></p></div> -->
-	<div class="span8 text-center"><img src="./image/logo.png" class="center"></div>
-	<div class="span2" style="padding-top:15px;">
-	</div>
-</div>
+<div class="navbar navbar-inverse navbar-fixed-top">
 <div class="navbar-inner">
 	<div class="row-fluid" style="margin-left:auto; margin-right:auto; width:95%;">
 	<button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
@@ -42,8 +34,8 @@
 				<li class=""><a href="labatory.do">C.Lab</a></li>
 				<li id="chatting" class=""><a href="#none">Chat</a></li>
 				<li class=""><a href="donate.do">Donate</a></li>
-				<li class=""><a href="attendance.do">attendance</a></li>
-				<li class=""><a href="house.do">house</a></li>
+				<li class=""><a href="attendance.do">Attendance</a></li>
+				<li class="" id="houselink"><a href="#none">House</a></li>
 				<% 	if(session.getAttribute("login") != null){
 						MemberDto mem = (MemberDto)session.getAttribute("login");
 						if(mem.getAuth()==1){
@@ -52,8 +44,6 @@
 				<%}}%>
 				
 			</ul>
-<!-- 		</div>
-		<div class="nav-collapse pull-right"> -->
 			<ul class="nav pull-right">
 				<% if(session.getAttribute("login") == null){ %>
 				<li><a tabindex="-1" href="regi.do">Join</a></li>
@@ -81,6 +71,14 @@
 		</div>
 	</div>
 </div>
+</div>
+
+<header class="jumbotron subhead">
+  <div class="container">
+    <h1>DevDot</h1>
+    <!-- <p class="lead"><img src="./image/logo.png" class="img-responsive center-block">
+  </p> --></div>
+</header>
 
 <script>
 $("#chatting").click(function () {
@@ -104,6 +102,9 @@ $("#chatting").click(function () {
 		window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=0,left=500');
 	}else if(chatStatus == null){
 		alert("로그인이 필요합니다.");
+
+	}else if("${login.nickname}" == "null"){
+		alert("닉네임값이 잘못되었습니다.");
 
 	}else{
 		alert("이미 채팅방이 켜져있습니다");
@@ -136,7 +137,21 @@ $("#message-nav").hover(function() {
 });
 
 $("#message-nav").click(function(){
+	location.reload();
 	window.open("messagelist.do?category=0&sendto=${login.nickname}",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+});
+$("#houselink").click(function() {
+	<%
+	if(session.getAttribute("login") == null){
+	%>	
+		alert("로그인 후 이용 가능합니다.");
+		location.href="login.do";
+	<%
+	}else{
+		
+	%>
+	location.href="house.do";
+	<%}%>
 });
 
 </script>

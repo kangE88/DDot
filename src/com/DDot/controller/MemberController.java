@@ -3,9 +3,9 @@ package com.DDot.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,6 +25,7 @@ import com.DDot.model.MemberDto;
 import com.DDot.model.YesMember;
 import com.DDot.service.MemberService;
 import com.DDot.service.MessageService;
+import com.DDot.singleton.ConnectingUserList;
 import com.DDot.util.CheckConnectUser;
 import com.DDot.util.FUpUtil;
 
@@ -56,15 +57,6 @@ public class MemberController {
 		return "main.tiles";
 	}
 
-/*	@RequestMapping(value="kakaoLogin.do", produces="application/json", method= {RequestMethod.GET, RequestMethod.POST})
-	public String kakaoLogin(@RequestParam("code") String code, HttpServletRequest req, HttpServletResponse reps) {
-		logger.info("MemberController kakaoLogin");
-		
-		System.out.println("code==>"+code);
-		
-		return "main.do";
-	}*/
-	
 	@RequestMapping(value="labatory.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String labatory() {
 		
@@ -76,13 +68,7 @@ public class MemberController {
 		
 		return "donate.tiles";
 	}
-/*	
-	@RequestMapping(value="attendance.do", method= {RequestMethod.GET, RequestMethod.POST})
-	public String attendance() {
-		
-		return "attendance.tiles";
-	}
-	*/
+
 	@ResponseBody
 	@RequestMapping(value="getID.do", method=RequestMethod.POST)
 	public YesMember getID(Model model, MemberDto mem) {
@@ -93,7 +79,6 @@ public class MemberController {
 		try {
 			count = MemberService.getID(mem);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -119,7 +104,6 @@ public class MemberController {
 		try {
 			count = MemberService.getNickname(mem);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -142,7 +126,6 @@ public class MemberController {
 		
 		String id = MemberService.findID(email);
 		return id;
-		
 	}
 	
 	@ResponseBody
@@ -155,7 +138,6 @@ public class MemberController {
 		System.out.println(pwd);
 		
 		return pwd;
-		
 	}
 	
 	@RequestMapping(value="regiAf.do", method= {RequestMethod.GET, RequestMethod.POST})
@@ -173,13 +155,8 @@ public class MemberController {
 		
 		
 		String f = mem.getPic();
-		System.out.println("f==>"+f);
 		
-		String newFile= FUpUtil.getNewFile(f);
-		System.out.println("newFile==>"+newFile);
-		
-		System.out.println("result==>"+fupload + "/" + newFile);
-		
+		String newFile= FUpUtil.getNewFile(f);		
 		mem.setPic(newFile);
 		
 		try {
@@ -195,10 +172,7 @@ public class MemberController {
 		}catch (IOException e) {
 			logger.info("upload fail!!!");
 		}
-		
-		
-		//MemberService.addmember(mem);
-		
+
 		return "login.tiles";
 	}
 	
@@ -208,6 +182,13 @@ public class MemberController {
 			@RequestParam(value="picFile", required=false) MultipartFile picFile, Model model)throws Exception{
 		logger.info("DDotMemberController userInfoModify");	
 
+		MemberDto before_mem = (MemberDto)req.getSession().getAttribute("login");
+		
+		mem.setSeq(before_mem.getSeq());
+		mem.setPoint(before_mem.getPoint());
+		mem.setNickname(before_mem.getNickname());
+		mem.setAuth(before_mem.getAuth());
+		
 		mem.setPic(picFile.getOriginalFilename());
 
 		//파일경로(폴더)
@@ -243,41 +224,41 @@ public class MemberController {
 	@ResponseBody
 	@RequestMapping(value="userInfoModifyNoImage.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public boolean userInfoModifyNoImage(MemberDto mem, HttpServletRequest req, Model model)throws Exception{
-		logger.info("DDotMemberController userInfoModifyNoImage");	
+		logger.info("DDotMemberController userInfoModifyNoImage");
 
 		MemberDto before_mem = (MemberDto)req.getSession().getAttribute("login");
 		
+		mem.setSeq(before_mem.getSeq());
+		mem.setPoint(before_mem.getPoint());
+		mem.setNickname(before_mem.getNickname());
 		mem.setPic(before_mem.getPic());
-		mem.setPoint(before_mem.getPoint());		
-		
+		mem.setAuth(before_mem.getAuth());
+			
 		req.getSession().setAttribute("login", mem);
-		
-		System.out.println(" modi noImage mem===>"+mem.toString());
 		
 		// db insert 부분
 		return MemberService.userInfoModifyNoImage(mem);
 	}
 	
-
+	@ResponseBody
 	@RequestMapping(value="loginAf.do", 
 			method= {RequestMethod.GET, RequestMethod.POST})
-	public String loginAf(HttpServletRequest req, MemberDto mem, Model model) throws Exception {
+	public boolean loginAf(HttpServletRequest req, MemberDto mem, Model model) throws Exception {
 		logger.info("MemberController loginAf");
 		
 		MemberDto login = MemberService.login(mem);
 		
 		if(login != null && !login.getId().equals("")) {
-			System.out.println("loginAf in");
 			req.getSession().setAttribute("login", login);
 			req.getSession().setAttribute("chatstatus", 0);
 			int count = msgService.checkMessage(login.getNickname());
-			System.out.println(count);
 			req.getSession().setAttribute("messagecount", count);
-			
-			//req.getSession().setAttribute(login.getNickname(), new CheckConnectUser(context));
-			return "redirect:/main.do";
+
+			req.getSession().setAttribute(login.getNickname(), new CheckConnectUser());
+
+			return true;
 		}else {
-			return "redirect:/login.do";
+			return false;
 		}		
 	}
 	
@@ -290,8 +271,6 @@ public class MemberController {
 		
 		req.getSession().setAttribute("login", login);
 		
-		
-		
 		return "userInfo.tiles";
 	}
 	
@@ -303,7 +282,7 @@ public class MemberController {
 
 	@RequestMapping(value="userInfo_bbs.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String userInfo_bbs(Model model, String nickname) throws Exception {
-
+		
 		MemberDto mem = MemberService.getMember(nickname);
 		model.addAttribute("mem", mem);
 		
@@ -330,18 +309,19 @@ public class MemberController {
 		return getMemberPointMap;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="getConnectUserList.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public List<String> getConnectUserList(Model model)  throws Exception {
+		logger.info("KhMemberController getConnectUserList");
+		
+		for (String str : ConnectingUserList.getInstance().getUserList()) {
+			System.out.println(str);
+		}
+		
+
+		return ConnectingUserList.getInstance().getUserList();
+	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
