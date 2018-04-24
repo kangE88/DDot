@@ -177,7 +177,7 @@
 				 });
 				</script>
 
-				<td><img id="${bbs.seq }icon" src=""></td>
+				<td style="text-align: center;"><img id="${bbs.seq }icon" src=""></td>
 				
 				<!-- subcategory 값이 0~3에 따른 값 입력 -->
 			<c:choose>
@@ -219,7 +219,7 @@
 							  },
 							  error: function(xhr, status, error) {
 								  alert("18");
-						      }  
+						      } 
 						 });
 					 });
 					</script>

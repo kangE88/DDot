@@ -65,18 +65,39 @@
 
 <form name="frmForm" id="_frmForm" method="post" action="bbswriteAf.do">
 
-<table class="table table-bordered" style="width:85%;">
+<input type="hidden" name="category" value="${category }">
+
+<!-- category 표현 부분 Start -->
+<div style="font-size: 50px;font;text-align: center;">
+				<c:choose>
+			    <c:when test="${category eq 0 }">
+			       Java
+			    </c:when>
+				<c:when test="${category eq 1 }">
+			       JSP 
+			    </c:when>
+			    <c:when test="${category eq 2 }">
+			       JQuery  
+			    </c:when>
+			    <c:when test="${category eq 3 }">
+			       Oracle/SQL  
+			    </c:when>
+			    <c:when test="${category eq 4 }">
+			       Spring  
+			    </c:when>
+			    <c:when test="${category eq 5 }">
+			       E.T.C  
+			    </c:when>
+			</c:choose>
+</div>
+<!-- category 표현 부분  End-->
+
+<table class="table table-bordered" style="width:85%;margin-top: 30px;margin-left: auto;margin-right: auto;">
 <colgroup>
 <col style="width:200px;" />
 <col style="width:auto;" />
 </colgroup>
 
-	<tr>
-		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
-		<td style="text-align: left">
-		<input type="text" name="nickname" size="60" value="${login.nickname}" readonly="readonly">
-		</td>
-	</tr>
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Title</th>
 			<td style="text-align: left">
@@ -84,17 +105,11 @@
 			</td>
 	</tr>
 	<tr>
-		<th style ="text-align: center; vertical-align: middle;">Category</th>
-			<td style="text-align: left">
-				<select id="_category" name="category">
-				<option value="0">Java</option>
-				<option value="1">JSP</option>
-				<option value="2">JQuery</option>
-				<option value="3">Oracle/SQL</option>
-				<option value="4">Spring</option>
-				<option value="5">E.T.C</option>
-				</select>
-			</td>
+		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
+		<td style="text-align: left">${login.nickname}
+		<input type="hidden" name="nickname" size="60" value="${login.nickname}">
+				
+		</td>
 	</tr>
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Subcategory</th>
@@ -129,7 +144,7 @@
 
 <script type="text/javascript">
 //category & subcategory 선택 사항 적용 
-$("#_category > option[value="+'<c:out value="${category }"/>'+"]").attr("selected","selected");
+// $("#_category > option[value="+'<c:out value="${category }"/>'+"]").attr("selected","selected");
 $("#_subcategory > option[value="+'<c:out value="${subcategory }"/>'+"]").attr("selected","selected");
 
 $("#_btnWrite").click(function() {	

@@ -43,7 +43,9 @@
 
 <form name="frmForm" id="_frmForm" method="post">
 
-<table class="table table-bordered" style="width:85%;">
+<div style="font-size: 50px;text-align: center;">Community</div>
+
+<table class="table table-bordered" style="width:85%;margin-top: 30px;margin-left: auto;margin-right: auto;">
 
 <input type="hidden" name="seq"   value="${comm.seq}"/>
 
@@ -52,23 +54,19 @@
 <col style="width:auto;" />
 </colgroup>
 
-<tr>
-		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
-		<td style="text-align: left">
-		<%-- <input type="text" name="nickname" size="60" readonly="readonly" value="${comm.nickname }"/> --%>
-		${comm.nickname }
-		</td>
-	</tr>
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Title</th>
-			<td style="text-align: left">
-				<%-- <input type="text" name="title" style="width: 500px" readonly="readonly" value="${comm.title }"/> --%>
-				${comm.title }
-			</td>
+		<td style="text-align: left">${comm.title }	</td>
 	</tr>
+	
+	<tr>
+		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
+		<td style="text-align: left">${comm.nickname }	</td>
+	</tr>
+
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Content</th>
-		<td style="text-align: left">
+		<td style="text-align: left;height: 200px">
 			<div>${comm.content}</div>
 		</td>
 	</tr>
@@ -100,7 +98,7 @@
 <p>
 <!-- 댓글 카운트 Start -->
 
-&nbsp;&nbsp; Total reply count  : ${replycount }
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Total reply count  : ${replycount }
 
 <!-- 댓글 카운트 End -->
 <p>
@@ -108,7 +106,7 @@
 <!-- 댓글 리스트 Start -->
 
 <c:forEach items="${replylist }" var="reply">
-	<table class="table table-bordered" style="width:85%;">
+	<table class="table table-bordered" style="width:85%;margin-left: auto;margin-right: auto;">
 	<col width="30%"><col width="70%">
 			<tr>
 			<td style="text-align: left">
@@ -160,7 +158,7 @@
 
 <c:choose>
 <c:when test="${login.nickname eq null}">
-<table class="table table-bordered" style="width:85%;">
+<table class="table table-bordered" style="width:85%;margin-left: auto;margin-right: auto;">
 	<tr>
 		<td style="text-align: center;">Login to register a comment.</td>
 	</tr>
@@ -169,7 +167,7 @@
 
 <c:otherwise>
 <form name="replyForm" id="_replyForm" method="post">
-	<table class="table table-bordered" style="width:85%;">
+	<table class="table table-bordered" style="width:85%;margin-left: auto;margin-right: auto;">
 	<input type="hidden" name="seq"   value="${comm.seq}"/>
 		<tr>
 			<td style="text-align: left">
@@ -194,7 +192,7 @@
 				<img id="${login.nickname}icon" src="">
 			${login.nickname}
 			</td>
-			<td rowspan="2">
+			<td rowspan="2" style="text-align: center;vertical-align: middle;">
 			<a href="#none" class="btn" style="margin:auto;" id="_btnWrite" title="등록">add comment</a>
 			</td>
 		</tr>
