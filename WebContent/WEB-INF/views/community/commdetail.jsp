@@ -43,7 +43,13 @@
 
 <form name="frmForm" id="_frmForm" method="post">
 
-<div style="font-size: 50px;text-align: center;">Community</div>
+<!-- Title 표현 부분 Start -->
+<div style="text-align: center; width: 1280px;margin: auto;">
+<div class="page-header">
+	<h2 style="font-size: 20px;">${comm.title }</h2>
+</div>
+</div>
+<!-- Title 표현 부분  End-->
 
 <table class="table table-bordered" style="width:85%;margin-top: 30px;margin-left: auto;margin-right: auto;">
 
@@ -54,11 +60,6 @@
 <col style="width:auto;" />
 </colgroup>
 
-	<tr>
-		<th style ="text-align: center; vertical-align: middle;">Title</th>
-		<td style="text-align: left">${comm.title }	</td>
-	</tr>
-	
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
 		<td style="text-align: left">${comm.nickname }	</td>
@@ -72,7 +73,7 @@
 	</tr>
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Good / Bad</th>
-		<td style="padding-bottom: 10px">
+		<td style="padding-bottom: 10px; text-align: left; padding: 15px; padding-left: 25%;">
 			&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-success" id="up">${comm.up }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-important" id="down">${comm.down }</span> <br>&nbsp;
@@ -80,16 +81,20 @@
 			<a href="#none" class="btn" style="margin:auto;" id="_btnBad" title="Bad">Bad</a>
 		</td>
 	</tr>
-	<c:if test="${comm.nickname eq login.nickname}">
+	
 	<tr>
 		<td colspan="2" style="height:50px; text-align:center;">
 		<span>
+			
+			<a href="#none" class="btn" style="margin:auto;" id="_btnBack" title="뒤로가기">back</a>&nbsp;
+			<c:if test="${comm.nickname eq login.nickname}">
 			<a href="#none" class="btn" style="margin:auto;" id="_btnUpdate" title="글수정하기">modified</a>&nbsp;
 			<a href="#none" class="btn" style="margin:auto;" id="_btnDelete" title="글삭제하기">delete</a>&nbsp;
+			</c:if>		
+			
 		</span>
 		</td>
 	</tr>
-	</c:if>
 </tbody>
 </table>
 
@@ -98,7 +103,10 @@
 <p>
 <!-- 댓글 카운트 Start -->
 
-&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Total reply count  : ${replycount }
+<ul class="nav nav-list" style="height: 15px;width:200px;margin-left: 130px;margin-bottom: 25px; ">
+  <li class="nav-header"><b> Total reply count  : ${replycount }</b></li>
+</ul>
+
 
 <!-- 댓글 카운트 End -->
 <p>
@@ -252,6 +260,12 @@ $("#_btnBad").click(function() {
 			  alert("로그인 후 클릭 부탁 드립니다");
 	      }  
 	 });
+});
+
+//뒤로 가기
+$("#_btnBack").click(function() {
+	location.href="commlist.do";
+	
 });
 
 //댓글 쓰기
