@@ -27,7 +27,7 @@ a:focus{
 	<table class="table">
 		<tr>
 			<td>
-				<a href="#abc" data-toggle="tab" class="introtitle">가위바위보</a>
+				<a id="abclink" href="#abc" data-toggle="tab" class="introtitle">가위바위보</a>
 			</td>
 			<td>
 				<a href="#updown" data-toggle="tab">업다운</a>
@@ -43,12 +43,15 @@ a:focus{
 							나의 Point : ${login.point }<br>
 							
 						</p>
-						<a href="#" class="userabc" value="1"><img alt="" src="./image/point/a200.png"></a>
-						<a href="#" class="userabc" value="2"><img alt="" src="./image/point/b200.png"></a>
-						<a href="#" class="userabc" value="3"><img alt="" src="./image/point/c200.png"></a>
-						<div id="cpuabc">
-							<font size='15'>vs</font>
-							<img id="cpuabcimg" alt="" src="" value=""> <button id="stopbtn">Stop</button>
+						<div class="span6">
+						<a href="#" class="userabc" value="1"><img alt="" src="./image/point/a100.png"></a>
+						<a href="#" class="userabc" value="2"><img alt="" src="./image/point/b100.png"></a>
+						<a href="#" class="userabc" value="3"><img alt="" src="./image/point/c100.png"></a>
+						<font size='9px'>vs</font>
+						</div>
+						<div id="cpuabc" class="span4">
+							
+							<img id="cpuabcimg" alt="" src="" value=""> <img title="Stop" id="stopbtn" alt="" src="./image/stop.png">
 						</div>
 					</div>
 					<div class="tab-pane fade" id="updown">
@@ -76,10 +79,15 @@ a:focus{
 <!-- ==================== 가위바위보 스크립트 시작 ====================  -->
 
 <script>
+
+	$(document).ready(function() {
+		$("#abclink").tab('show');
+	});
+	
 	var abc = new Array();
-	abc[0] = 'a200.png';
-	abc[1] = 'b200.png';
-	abc[2] = 'c200.png';
+	abc[0] = 'a100.png';
+	abc[1] = 'b100.png';
+	abc[2] = 'c100.png';
 	var user = null;
 	var num = 0;
 	var interval = null;
@@ -152,6 +160,8 @@ a:focus{
 <!-- ==================== 업다운 스크립트 시작 ====================  -->
 
 <script type="text/javascript">
+
+	
 	$(".userupdown").click(function() {
 		if(parseInt(${login.point})>=50){
 		var user = $(this).attr("value");	  		

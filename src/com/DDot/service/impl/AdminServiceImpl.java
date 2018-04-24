@@ -21,9 +21,9 @@ public class AdminServiceImpl implements AdminService {
 	AdminDao admindao;
 	
 	@Override
-	public List<MemberDto> userlist(MemberParam param) {
+	public List<MemberDto> userlist(MemberParam param, String sort) {
 		// TODO Auto-generated method stub
-		return admindao.userlist(param);
+		return admindao.userlist(param, sort);
 	}
 
 	@Override
@@ -33,9 +33,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<BbsDto> userbbslist(BbsParam param) {
+	public List<BbsDto> userbbslist(BbsParam param,  String sort) {
 		
-		return admindao.userbbslist(param);
+		return admindao.userbbslist(param, sort);
 	}
 
 	@Override
@@ -60,8 +60,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<CommDto> usercommlist(BbsParam param) {
-		return admindao.usercommlist(param);
+	public List<CommDto> usercommlist(BbsParam param, String sort) {
+		return admindao.usercommlist(param, sort);
 	}
 
 	@Override

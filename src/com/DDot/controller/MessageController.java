@@ -51,6 +51,8 @@ public class MessageController {
 			String sendto = ((MemberDto)req.getSession().getAttribute("login")).getNickname();
 			msgPagingDto.setSendto(sendto);
 			msgPagingDto.setSenddel(0);
+		}else {
+			msgPagingDto.setAuth(1);
 		}
 		
 		
@@ -96,11 +98,15 @@ public class MessageController {
 		data.put("category", category);
 		
 		MessageDto msg = msgService.getMessage(seq);
-		if (category == 0 || category == 2) {
+		if (category == 0 || category == 2 ) {
 			if (msg.getSendread() == 0) {
 				msgService.increaseRead(data);
 				req.getSession().setAttribute("messagecount", msgService.checkMessage(msg.getNickname())-1);
 				
+			}
+		}else if (category == 3) {
+			if (msg.getSendread() == 0) {
+				msgService.increaseRead(data);	
 			}
 		}
 		
@@ -128,7 +134,8 @@ public class MessageController {
 	public String messagewriteAf(Model model,MessageDto msgDto) throws Exception {
 		
 		logger.info("MessageController messagewrite");
-		msgService.writeMessage(msgDto);
+		
+			msgService.writeMessage(msgDto);
 		
 		
 		return "redirect:/messagelist.do?category=0";

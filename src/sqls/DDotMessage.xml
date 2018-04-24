@@ -15,8 +15,9 @@
  
 	<insert id="writeMessage" parameterType="com.DDot.model.MessageDto">
 		INSERT INTO DDOTMESSAGE
-		(SEQ, NICKNAME, SENDTO, CONTENT, WDATE, NICKREAD, SENDREAD, NICKDEL, SENDDEL) 
-		VALUES(SEQ_DDOTMESSAGE.nextval, #{nickname}, #{sendto}, #{content}, SYSDATE, 0, 0, 2, 2)
+		(SEQ, NICKNAME, SENDTO, CONTENT, WDATE, NICKREAD, SENDREAD, NICKDEL, SENDDEL, AUTH) 
+		VALUES(SEQ_DDOTMESSAGE.nextval, #{nickname}, #{sendto}, #{content}, SYSDATE, 0, 0, 2, 2, #{auth}
+		)
 	</insert>
 	 
 	<select id="getMessagePagingList" parameterType="hashmap" resultType="com.DDot.model.MessageDto">
@@ -28,6 +29,7 @@
 	    <if test="msgdto.sendto != null and category == 0">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 2</if>
 		<if test="msgdto.nickname != null and category == 1">NICKNAME = #{msgdto.nickname,jdbcType=VARCHAR} and NICKDEL = 2</if>
 		<if test="msgdto.sendto != null and category == 2">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 0</if>
+		<if test="msgdto.auth == 1 and category == 3">AUTH = 1</if>
 		) A
 		WHERE rnum between ${msgdto.start} AND ${msgdto.end}
 	</select>
@@ -36,10 +38,10 @@
 	 
 		SELECT NVL(count(*),0) AS cnt
 		FROM  DDOTMESSAGE  WHERE 
-		<if test="msgdto.sendto != null and msgdto.senddel == 2 and category == 0">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 2</if>
-		<if test="msgdto.nickname != null and msgdto.nickdel == 2 and category == 1">NICKNAME = #{msgdto.nickname,jdbcType=VARCHAR} and NICKDEL = 2</if>
-		<if test="msgdto.sendto != null and msgdto.senddel == 0 and category == 2">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 0</if>
-		
+		<if test="msgdto.sendto != null and msgdto.senddel == 2 and category == 0">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 2 and AUTH = 3</if>
+		<if test="msgdto.nickname != null and msgdto.nickdel == 2 and category == 1">NICKNAME = #{msgdto.nickname,jdbcType=VARCHAR} and NICKDEL = 2 and AUTH = 3</if>
+		<if test="msgdto.sendto != null and msgdto.senddel == 0 and category == 2">SENDTO = #{msgdto.sendto,jdbcType=VARCHAR} and SENDDEL = 0 and AUTH = 3</if>
+		<if test="msgdto.auth == 1 and category == 3">AUTH = 1</if>
 		
 	</select>
 	
@@ -60,7 +62,7 @@
 	
 	<update id="increaseRead" parameterType="hashmap">
 		UPDATE DDOTMESSAGE
-		<if test="category == 0 or category == 2">
+		<if test="category == 0 or category == 2 or category == 3">
 		SET SENDREAD=1, NICKREAD=1
 		</if>
 		WHERE SEQ=#{seq}

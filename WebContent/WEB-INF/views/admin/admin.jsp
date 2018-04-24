@@ -32,7 +32,7 @@ input[type="text"]{
 <body>
 <div class="row-fluid">
 <!-- ==================== 어드민 죄측메뉴 시작 ====================  -->
-	<div class="span2" style="padding-left: 10px">
+	<div class="span2" style="padding-left: 10px; padding-top: 2%">
 		<ul class="nav nav-list">
 		  <li class="nav-header">Left Menu</li>
 		  <li class="divider"></li>  
@@ -40,7 +40,7 @@ input[type="text"]{
 		  <li class="divider"></li>
 		  <li><a href="#">Board</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#">Chat</a></li>  
+		  <li><a id="messagepage" href="#">Message</a></li>  
 		</ul>
 		<form id="userpaging" method="post" action="">
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
@@ -48,13 +48,20 @@ input[type="text"]{
 		
 		</form>
 	</div>
+	
+	<script>
+	$("#messagepage").click(function () {
+		window.open("messagelist.do?category=3",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+
+	});
+	</script>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
 
 
 <!-- ==================== 어드민 우측메뉴 시작 ====================  -->
 
 <!-- ==================== 어드민 회원관리 시작 ====================  -->
-	<div class="span10">
+	<div class="span10" style="padding-top: 2%">
 		<table class="table table-hover">  
 			<col width="10%">	<!-- 아이디 -->
 			<col width="5%">	<!-- 레벨아이콘 -->
@@ -127,11 +134,29 @@ input[type="text"]{
 							}
 						})
 					</script>
-					<td style="text-align: center;">on</td>
+					<td id="${user.id }onoff"style="text-align: center;"></td>
+					<script type="text/javascript">
+						var nickname = '${user.nickname}';
+						$.ajax({
+							url: "useronoff.do",
+							type: "post",
+							data: {nickname : nickname},
+							success: function(data) {
+								if(data==true){
+								$("#${user.id }onoff").append('on');
+								}
+								else{
+								$("#${user.id }onoff").append('off');
+								}
+							},
+							error: function() {
+								alert("18");
+							}
+						})
+					</script>				
 					<td style="text-align: center;"><img id="${user.id }modify" src="./image/pen.png"></td>
 					<script type="text/javascript">
 						$("#${user.id}modify").click(function() {
-							alert("${user.nickname} modify");
 							$('#${user.id}Modal').modal('show');
 						});
 					</script>
@@ -157,8 +182,7 @@ input[type="text"]{
 								data: {nickname : "${user.nickname}",
 									   point: $("#${user.id }pointtext").val()
 								},
-								success: function(data) {
-									alert("Good");
+								success: function(data) {									
 									location.href="admin.do";
 								},
 								error: function() {

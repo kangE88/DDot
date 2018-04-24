@@ -1,16 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <body>
 <script type="text/javascript">
 $(document).ready(function () {
-	UserListAjax();
+	UserListAjax(); 
 	
 	setInterval(function () {
 	UserListAjax();
-	},5000);
-});
+	},5000); 
+ });
 
 function goUserListUrl(ajaxNick) {
 	var nick = $(ajaxNick).text();
@@ -31,11 +31,18 @@ function UserListAjax() {
 			  if (list!=null) {
 			
 			  $.each(list, function(index, item) {
-				  userlisthtml += "<li><a align='center' style='cursor: pointer; color:#000000;margin:0px' onclick='goUserListUrl(this)'>"+item+"</a></li>";
+				  userlisthtml += "<li><a align='center' style='cursor: pointer; margin:0px' onclick='goUserListUrl(this)'>"+item+"</a></li>";
 				});
 				$("#ul-userlist").html(userlisthtml);
-				$("#connecting-userlistcount").html(">> 현재 접속자 "+list.length+" 명");	
 			  }
+				$("#connecting-userlistcount").html(">> 현재 접속자 "+list.length+" 명");
+				if (list.length > 24) {
+					$("#ul-userlist").css("height", "-webkit-fill-available");
+					$("#ul-userlist").css("overflow-y", "scroll");
+				}else {
+					$("#ul-userlist").css("height", "auto");
+					$("#ul-userlist").css("overflow-y", "hidden");
+				}
 		  },
 		  error: function(xhr, status, error) {
 	            alert(error);
@@ -192,6 +199,8 @@ function UserListAjax() {
 		</tr>
 	</table> --%>
 </div>
+
+
 <br>
 <div class="span2 bs-docs-sidebar">
 	<ul class="prettyprint" style="margin:auto;">
@@ -199,9 +208,10 @@ function UserListAjax() {
 	</ul>
 </div>
 <br><br>
-<div class="span2 bs-docs-sidebar" style="height:500px; margin-left:15px;">
+<div class="span2 bs-docs-sidebar" style="height:500px; margin-left:34px;">
 	<ul class="span12 nav nav-list bs-docs-sidenav affix-top" id="ul-userlist" style="background-color:#bbbbbb; width:100%; height: auto; ">
 	</ul>
+
 </div>
 
 <br>

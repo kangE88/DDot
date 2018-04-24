@@ -12,7 +12,8 @@ CREATE TABLE DDOTMESSAGE(
 	NICKREAD NUMBER(2),
 	SENDREAD NUMBER(2),
 	NICKDEL NUMBER(2),
-	SENDDEL NUMBER(2)
+	SENDDEL NUMBER(2),
+	AUTH NUMBER(2)
 );
 */
 
@@ -27,6 +28,7 @@ public class MessageDto implements Serializable {
 	private int sendread;
 	private int nickdel;
 	private int senddel;
+	private int auth;
 
 	public MessageDto() {
 		super();
@@ -116,6 +118,14 @@ public class MessageDto implements Serializable {
 
 	public void setSenddel(int senddel) {
 		this.senddel = senddel;
+	}
+
+	public int getAuth() {
+		return auth;
+	}
+
+	public void setAuth(int auth) {
+		this.auth = auth;
 	}
 
 	@Override

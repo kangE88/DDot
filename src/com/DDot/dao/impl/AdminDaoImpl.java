@@ -24,12 +24,21 @@ public class AdminDaoImpl implements AdminDao {
 	private String namespace = "DDotAdmin.";
 	
 	@Override
-	public List<MemberDto> userlist(MemberParam param) {
+	public List<MemberDto> userlist(MemberParam param, String sort) {
 		
 		List<MemberDto> list = new ArrayList<MemberDto>();
 		
-		list = sqlSession.selectList(namespace+"userpaginglist", param);
-		
+		switch(sort) {
+		case "all":
+			list = sqlSession.selectList(namespace+"userpaginglist", param);			
+			break;			
+		case "Good":
+			list = sqlSession.selectList(namespace+"userpaginglist", param);
+			break;			
+		case "Bad":
+			list = sqlSession.selectList(namespace+"userpaginglist", param);
+			break;		
+		}		
 		return list;
 	}
 
@@ -41,9 +50,21 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<BbsDto> userbbslist(BbsParam param) {
+	public List<BbsDto> userbbslist(BbsParam param,  String sort) {
 		
-		List<BbsDto> userbbslist = sqlSession.selectList(namespace+"userbbslist", param);
+		List<BbsDto> userbbslist = null;
+		
+		switch(sort) {
+		case "all":
+			userbbslist = sqlSession.selectList(namespace+"userbbslist", param);			
+			break;			
+		case "Good":
+			userbbslist = sqlSession.selectList(namespace+"userbbsgoodlist", param);
+			break;			
+		case "Bad":
+			userbbslist = sqlSession.selectList(namespace+"userbbsbadlist", param);
+			break;		
+		}			
 		return userbbslist;
 	}
 
@@ -71,9 +92,20 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public List<CommDto> usercommlist(BbsParam param) {
+	public List<CommDto> usercommlist(BbsParam param, String sort) {
 		
-		List<CommDto> list = sqlSession.selectList(namespace+"usercommlist", param);
+		List<CommDto> list = null;
+		switch(sort) {
+		case "all":
+			list = sqlSession.selectList(namespace+"usercommlist", param);			
+			break;			
+		case "Good":
+			list = sqlSession.selectList(namespace+"usercommgoodlist", param);
+			break;			
+		case "Bad":
+			list = sqlSession.selectList(namespace+"usercommbadlist", param);
+			break;		
+		}			
 		return list;
 	}
 

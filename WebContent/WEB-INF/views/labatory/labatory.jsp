@@ -16,6 +16,9 @@
 
 <!--  =================== codemirror hint  =================== -->
 <script src="./codemirror/hint/javascript-hint.js"></script>
+<script src="./codemirror/hint/css-hint.js"></script>
+<script src="./codemirror/hint/html-hint.js"></script>
+<script src="./codemirror/hint/anyword-hint.js"></script>
 <script src="./codemirror/hint/show-hint.js"></script>
 
 <!-- =================== alertify js/css  =================== -->
@@ -44,16 +47,27 @@
 <title>Laboratory</title>
 
 <!-- 전체div 메인이랑 맞추려면 padding-top 2% 주기-->
-<div class="row-fluid" style="height: 100%">	
-	<div class="span11" style="height: 10%">
-	&nbsp;&nbsp;&nbsp;
-		<button id="appendbtn" class="btn btn-link">Run Your Script</button>
+<div class="row-fluid" style="height: 90%">	
+	<div class="span11" style="height: 10%; padding-top: 2%">
+	<div class="span1"></div>  
+	<div class="span6"> 
+	&nbsp;&nbsp;&nbsp;  
+		<img id="appendbtn" src="./image/play.png" title="Run Your Script">
+	&nbsp;&nbsp;&nbsp;	
+		<img id="clearbtn" src="./image/refresh-arrow.png" title="Clear Result Windows">
+	&nbsp;&nbsp;&nbsp;	
+		<img id="copybtn" src="./image/copy.png" title="Copy To ClipBoard">
+		<!-- <button id="appendbtn" class="btn btn-link">Run Your Script</button>
 		<button id="clearbtn" class="btn btn-link">Clear Your Script</button>
-		<button id="copybtn" class="btn btn-link">Copy To ClipBoard</button>
+		<button id="copybtn" class="btn btn-link">Copy To ClipBoard</button> -->
 	</div>
-	<div class="span11" style="height: 90%">	
+	<div class="span4"></div> 
+	</div>
+	
+	<div class="span11" style="height: 85%; padding-top: 4%">	
 		<!-- script 쓰는부분 -->
-		<div class = "span5" id="insertlabatory" style="height:90%; border: 1px solid yellow;">
+		<div class="span1"></div>
+		<div class = "span5" id="insertlabatory" style="height:100%; border: 1px solid yellow;">
 		 	<textarea id="scriptarea" name="scriptarea" name="script" style="width: 100%; height: 96%; resize: none; background-color: #000084; color: yellow; border: 0; display: none;"></textarea>
 		 	<!-- codemirror 생성 Script -->
 	<script>
@@ -73,7 +87,7 @@
 		</div>		
 		
 	<!-- 결과출력 부분  -->	
-		<div class="span5" id="resultlabatory" style="height:90% ; border: 1px solid yellow;">
+		<div class="span5" id="resultlabatory" style="height:100% ; border: 1px solid yellow;">
 			<jsp:include page="./result.jsp"></jsp:include>
 		</div>	
 	</div>

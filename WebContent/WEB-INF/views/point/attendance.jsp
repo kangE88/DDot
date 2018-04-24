@@ -25,6 +25,18 @@
 	#attendancebtn:focus {
 		background-color: #000084;	
 	}
+	h2{
+		font-size: 25px;
+		color: yellow;
+	}
+	td .attenddiv img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 8%;
+	width: 100%;
+	height: 100%;
+	}
 </style>     
 </head>
 <body>
@@ -52,17 +64,17 @@ if(session.getAttribute("login") == null){
 					right: ''
 				},
 				fixedWeekCount : false,
-				locale : "ko"
+				locale : "ko" 
 			})
 
 		});
 </script>
-	<div class="row-fluid" style="height: 100%">
+	<div class="row-fluid" style="height: 95%">
 		<div class="span3"></div>
-		<div class="span6">
+		<div class="span6" style="padding-top: 2%">
 			<div id='calendar'></div>
 		</div>
-		<div class="span3">
+		<div class="span3" style="padding-top: 2%">
 			<button class="btn btn-link" id="attendancebtn">출석체크</button>
 		</div>		
 <script type="text/javascript">
@@ -90,14 +102,15 @@ if(session.getAttribute("login") == null){
 			if(aday=='1'){				
 				var datadate = year+'-'+tmonth+'-'+p_two(i.toString());	
 				console.log("datadate: " + datadate);
+		//		$("td.fc-day.fc-widget-content[data-date='"+datadate+"']").attr("style","text-align:center");
 				$("td.fc-day.fc-widget-content[data-date='"+datadate+"']")
-				.append("&nbsp;<img id='attendanceimg' src='./image/attendance112.png'>");
+				.append("<div class='attenddiv'><img id='attendanceimg' src='./image/attendance70.png'></div>");
 			}
 		}		
 		
 		$("#attendancebtn").click(function() {
 			if(attendstring.charAt(day)==0){
-				$("td.fc-day.fc-widget-content.fc-today").append("&nbsp;<img id='attendanceimg' src='./image/attendance112.png'>");
+				$("td.fc-day.fc-widget-content.fc-today").append("<div class='attenddiv'><img id='attendanceimg' src='./image/attendance70.png'></div>");
 				location.href="attendanceAf.do";
 			}
 			else{

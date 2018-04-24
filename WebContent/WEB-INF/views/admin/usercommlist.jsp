@@ -10,9 +10,8 @@
 <script type="text/javascript" src="./jquery/common.js"></script>
 <style>
 a:hover{
-	background-color: white;  
+	background-color: #000084;  
 }
-
 a:active {
 	background-color: #000084;
 }
@@ -30,13 +29,20 @@ a:focus{
 		<ul class="nav nav-list">
 		  <li class="nav-header">Left Menu</li>
 		  <li class="divider"></li>  
-		  <li class="active"><a href="admin.do">User</a></li>
+		  <li><a href="admin.do">User</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#">Board</a></li>
+		  <li class="active"><a href="#">Board</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#">Chat</a></li>  
+		  <li><a id="messagepage" href="#">Message</a></li>  
 		</ul>
 	</div>
+	
+	<script>
+	$("#messagepage").click(function () {
+		window.open("messagelist.do?category=3",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+
+	});
+	</script>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
 
 
@@ -47,6 +53,7 @@ a:focus{
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
 		<input type="hidden" name="nickname" value="${nickname }">
+		<input type="hidden" name="sort" value="${sort }">
 		</form>
 	<div class="span10">
 		<table class="table table-hover" id="board">
@@ -59,7 +66,7 @@ a:focus{
 					<th style="text-align: center;">Nickname</th>
 					<th style="text-align: center;">Date</th>
 					<th style="text-align: center;">Count</th>
-					<th style="text-align: center;">Good / Bad</th>					
+					<th style="text-align: center;"><a href="usercommlist.do?nickname=${nickname }&sort=Good">Good</a> / <a href="usercommlist.do?nickname=${nickname }&sort=Bad">Bad</a></th>					
 				</tr>
 			</thead>
 			<tbody>	
@@ -99,7 +106,25 @@ a:focus{
 				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
-				<td style="text-align: left"><a href='commdetail.do?seq=${comm.seq}'>${comm.title}</a></td>
+				<!-- 댓글 카운트 가져오는 부분 -->
+					<script type="text/javascript">
+					$(document).ready(function() {
+						$.ajax({
+							  type:"POST"
+							  ,url:"replycountcomm.do"
+							  ,data:{"seq" : "${comm.seq}"}
+							  ,success:function(data){
+								  if(data.replycount !=0){
+								  $('#${comm.seq }replycount').text("("+data.replycount+")");
+								  }
+							  },
+							  error: function(xhr, status, error) {
+								  alert("18");
+						      }  
+						 });
+					 });
+					</script>	
+				<td style="text-align: left"><a href='commdetail.do?seq=${comm.seq}'>${comm.title}</a>&nbsp;&nbsp;<span id="${comm.seq }replycount"></span></td>
 			</c:otherwise>
 			</c:choose>
 			

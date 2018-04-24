@@ -11,11 +11,11 @@ import com.DDot.model.MemberParam;
 
 public interface AdminDao {
 
-	public List<MemberDto> userlist(MemberParam param);
+	public List<MemberDto> userlist(MemberParam param, String sort);
 	
 	public int userwritecount(String nickname);
 	
-	public List<BbsDto> userbbslist(BbsParam param);
+	public List<BbsDto> userbbslist(BbsParam param, String sort);
 	
 	public int userbbscount(String nickname);
 	
@@ -25,7 +25,7 @@ public interface AdminDao {
 	
 	public int usercommcount(String nickname);
 	
-	public List<CommDto> usercommlist(BbsParam param);
+	public List<CommDto> usercommlist(BbsParam param, String sort);
 	
 	public int getusercount(MemberParam param);
 }

@@ -10,7 +10,7 @@
 <script type="text/javascript" src="./jquery/common.js"></script>
 <style>
 a:hover{
-	background-color: white;  
+	background-color: #000084;  
 }
 
 a:active {
@@ -26,7 +26,7 @@ a:focus{
 <body>
 <div class="row-fluid">
 <!-- ==================== 어드민 죄측메뉴 시작 ====================  -->
-	<div class="span2" style="padding-left: 10px">
+	<div class="span2" style="padding-left: 10px; padding-top: 2%">
 		<ul class="nav nav-list">
 		  <li class="nav-header">Left Menu</li>
 		  <li class="divider"></li>  
@@ -34,21 +34,29 @@ a:focus{
 		  <li class="divider"></li>
 		  <li class="active"><a href="#">Board</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#">Chat</a></li>  
+		  <li><a id="messagepage" href="#">Message</a></li> 
 		</ul>
 		<form id="userpaging" method="post" action="">
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
 		<input type="hidden" name="recordCountPerPage" id="_recordCountPerPage" value="${(empty recordCountPerPage)?10:recordCountPerPage}"/>
 		<input type="hidden" name="nickname" value="${nickname }">
+		<input type="hidden" name="sort" value="${sort }">
 		</form>
 	</div>
+	
+	<script>
+	$("#messagepage").click(function () {
+		window.open("messagelist.do?category=3",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+
+	});
+	</script>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
 
 
 <!-- ==================== 어드민 우측메뉴 시작 ====================  -->
 
 <!-- ==================== 어드민 유저게시판 시작 ====================  -->
-	<div class="span10">
+	<div class="span10" style="padding-top: 2%">
 		<table class="table table-hover" id="board">
 			<col width="5%"><col width="5%"><col width="10%"><col width="5%"><col width="5%"><col width="30%"><col width="10%"><col width="5%"><col width="10%"><col width="5%">
 			<thead>
@@ -61,7 +69,7 @@ a:focus{
 					<th style="text-align: center;">Title</th>					
 					<th style="text-align: center;">Date</th>
 					<th style="text-align: center;">Count</th>
-					<th style="text-align: center;">Good / bad</th>		
+					<th style="text-align: center;"><a href="userbbslist.do?nickname=${nickname }&sort=Good">Good</a> / <a href="userbbslist.do?nickname=${nickname }&sort=Bad">Bad</a></th>		
 					<th style="text-align: center;">Del</th>				
 				</tr>
 			</thead>
@@ -136,7 +144,25 @@ a:focus{
 				<td style="text-align: left">관리자에 의해 삭제 된 글 입니다</td>
 			</c:when>
 			<c:otherwise>
-				<td style="text-align: center"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a></td>
+				<!-- 댓글 카운트 가져오는 부분 -->
+					<script type="text/javascript">
+					$(document).ready(function() {
+						$.ajax({
+							  type:"POST"
+							  ,url:"replycountbbs.do"
+							  ,data:{"seq" : "${bbs.seq}"}
+							  ,success:function(data){
+								  if(data.replycount !=0){
+								  $('#${bbs.seq }replycount').text("("+data.replycount+")");
+								  }
+							  },
+							  error: function(xhr, status, error) {
+								  alert("18");
+						      }  
+						 });
+					 });
+					</script>
+				<td style="text-align: center"><a href='bbsdetail.do?seq=${bbs.seq}'>${bbs.title}</a>&nbsp;&nbsp;<span id="${bbs.seq }replycount"></span></td>
 			</c:otherwise>
 			</c:choose>
 			

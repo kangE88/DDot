@@ -76,7 +76,10 @@
 		<c:if test="${category eq '0' }">
 			<a href="#none" class="btn" style="margin:auto;" id="_btnDelete" title="글삭제하기">Delete</a>&nbsp;
 			<a href="#none" class="btn" style="margin:auto;"  id="_btnReply" title="답장하기">Reply</a>
-			</c:if>
+		</c:if>
+		<c:if test="${category eq '3' }">
+		<a href="#none" class="btn" style="margin:auto;"  id="_btnReply" title="답장하기">Reply</a>
+		</c:if>
 		</span>
 		</td>
 	</tr>
@@ -99,7 +102,6 @@ $("#_btnBack").click(function() {
 
 
 $("#_btnReply").click(function() {	
-	alert('답글달기');	
 	$("#_frmForm").attr({ "target":"_self", "action":"messagewrite.do" }).submit();
 });
 
