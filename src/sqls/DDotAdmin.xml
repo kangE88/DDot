@@ -15,6 +15,20 @@
 		A WHERE rnum between ${start} AND ${end}
 	</select>
 	
+	<select id="userpagingboardlist" parameterType="com.DDot.model.MemberParam" resultType="com.DDot.model.MemberDto">
+		SELECT SEQ, ID, EMAIL, POINT,  NICKNAME, INTRO, AUTH FROM
+		 ( SELECT ROW_NUMBER() OVER (ORDER BY AUTH ASC) as rnum, SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH FROM DDOTMEMBER
+		 ORDER BY (SELECT NVL(count(*),0) AS cnt
+			  FROM DDOTMEMBER) DESC) 
+		A WHERE rnum between ${start} AND ${end}
+	</select>
+	
+	<select id="userpagingcommlist" parameterType="com.DDot.model.MemberParam" resultType="com.DDot.model.MemberDto">
+		SELECT SEQ, ID, EMAIL, POINT,  NICKNAME, INTRO, AUTH FROM
+		 ( SELECT ROW_NUMBER() OVER (ORDER BY AUTH ASC) as rnum, SEQ, ID, PWD, EMAIL, POINT, NICKNAME, PIC, INTRO, AUTH FROM DDOTMEMBER) 
+		A WHERE rnum between ${start} AND ${end}
+	</select>
+	
 	<select id="getusercount" parameterType="com.DDot.model.MemberParam" resultType="java.lang.Integer">
 		SELECT NVL(count(*),0) AS cnt
 			  FROM DDOTMEMBER
@@ -37,6 +51,24 @@
 			WHERE rnum between ${start} AND ${end}
 	</select>
 	
+	<select id="userbbsgoodlist" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTBBS
+	    WHERE NICKNAME = #{nickname} ORDER BY UP DESC) A
+			WHERE rnum between ${start} AND ${end}
+	</select>
+	
+	<select id="userbbsbadlist" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.BbsDto">
+		SELECT SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, CATEGORY, SUBCATEGORY, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTBBS
+	    WHERE NICKNAME = #{nickname} ORDER BY DOWN DESC) A
+			WHERE rnum between ${start} AND ${end}
+	</select>
+	
 	<select id="userbbscount" parameterType="java.lang.String" resultType="java.lang.Integer">
 		SELECT NVL(count(*),0) AS cnt
 			  FROM DDOTBBS WHERE NICKNAME = #{nickname}
@@ -48,8 +80,25 @@
 		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
 		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
 	    WHERE NICKNAME = #{nickname} ) A
-			WHERE rnum between ${start} AND ${end}
+			WHERE rnum between ${start} AND ${end}	
+	</select>
 	
+	<select id="usercommgoodlist" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.CommDto">
+		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+	    WHERE NICKNAME = #{nickname} ORDER BY UP DESC) A
+			WHERE rnum between ${start} AND ${end}	
+	</select>
+	
+	<select id="usercommbadlist" parameterType="com.DDot.model.BbsParam" resultType="com.DDot.model.CommDto">
+		SELECT SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL
+		FROM 
+		( SELECT ROW_NUMBER() OVER (ORDER BY  WDATE DESC) as rnum,  
+		SEQ, NICKNAME, TITLE, CONTENT, WDATE, UP, DOWN, READCOUNT, DEL FROM DDOTCOMM
+	    WHERE NICKNAME = #{nickname} ORDER BY DOWN DESC) A
+			WHERE rnum between ${start} AND ${end}	
 	</select>
 	
 	<update id="modifypoint" parameterType="com.DDot.model.AttendDto">
