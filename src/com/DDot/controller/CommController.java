@@ -138,7 +138,8 @@ public class CommController {
 			logger.info("DDotCommController commupdateAf"+ new Date());		
 			
 			commService.updateComm(comm);
-			return "redirect:/commlist.do"; 
+			model.addAttribute("seq", comm.getSeq());
+			return "redirect:/commdetail.do"; 
 		}
 		
 		@RequestMapping(value="commdelete.do", method= {RequestMethod.GET, RequestMethod.POST})

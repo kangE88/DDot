@@ -65,25 +65,28 @@
 
 <form name="frmForm" id="_frmForm" method="post" action="commwriteAf.do">
 
-<table class="table table-bordered" style="width:85%;">
+<div style="font-size: 50px;text-align: center;">Community</div>
+
+<table class="table table-bordered" style="width:85%;margin-top: 30px;margin-left: auto;margin-right: auto;">
 <colgroup>
 <col style="width:200px;" />
 <col style="width:auto;" />
 </colgroup>
 
-	
-	<tr>
-		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
-		<td style="text-align: left">
-		<input type="text" name="nickname" size="60" value="${login.nickname}" readonly="readonly">
-		</td>
-	</tr>
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Title</th>
 			<td style="text-align: left">
 				<input type="text" name="title" id="_title" style="width: 80%" onkeyup="checkLength(this,200)"/>
 			</td>
 	</tr>
+	
+	<tr>
+		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
+		<td style="text-align: left">${login.nickname}
+		<input type="hidden" name="nickname" size="60" value="${login.nickname}" >
+		</td>
+	</tr>
+	
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Content</th>
 		<td style="text-align: left">

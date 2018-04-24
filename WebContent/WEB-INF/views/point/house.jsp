@@ -43,12 +43,15 @@ a:focus{
 							나의 Point : ${login.point }<br>
 							
 						</p>
-						<a href="#" class="userabc" value="1"><img alt="" src="./image/point/a200.png"></a>
-						<a href="#" class="userabc" value="2"><img alt="" src="./image/point/b200.png"></a>
-						<a href="#" class="userabc" value="3"><img alt="" src="./image/point/c200.png"></a>
-						<div id="cpuabc">
-							<font size='15'>vs</font>
-							<img id="cpuabcimg" alt="" src="" value=""> <button id="stopbtn">Stop</button>
+						<div class="span7">
+						<a href="#" class="userabc" value="1"><img alt="" src="./image/point/a150.png"></a>
+						<a href="#" class="userabc" value="2"><img alt="" src="./image/point/b150.png"></a>
+						<a href="#" class="userabc" value="3"><img alt="" src="./image/point/c150.png"></a>
+						<font size='15'>vs</font>
+						</div>
+						<div id="cpuabc" class="span4">
+							
+							<img id="cpuabcimg" alt="" src="" value=""> <img title="Stop" id="stopbtn" alt="" src="./image/stop.png">
 						</div>
 					</div>
 					<div class="tab-pane fade" id="updown">
@@ -77,9 +80,9 @@ a:focus{
 
 <script>
 	var abc = new Array();
-	abc[0] = 'a200.png';
-	abc[1] = 'b200.png';
-	abc[2] = 'c200.png';
+	abc[0] = 'a150.png';
+	abc[1] = 'b150.png';
+	abc[2] = 'c150.png';
 	var user = null;
 	var num = 0;
 	var interval = null;

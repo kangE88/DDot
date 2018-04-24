@@ -168,7 +168,8 @@ public class BbsController {
 		bbsService.updateBbs(bbs);
 		model.addAttribute("category", bbs.getCategory());
 		model.addAttribute("subcategory", bbs.getSubcategory());
-		return "redirect:/bbslist.do"; 
+		model.addAttribute("seq", bbs.getSeq());
+		return "redirect:/bbsdetail.do"; 
 	}
 	
 	@RequestMapping(value="bbsdelete.do", method= {RequestMethod.GET, RequestMethod.POST})

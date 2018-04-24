@@ -41,7 +41,33 @@
 
 <!-- detail 본문 내용 -->
 <form name="frmForm" id="_frmForm" method="post">
-<table class="table table-bordered" style="width:85%;">
+
+<!-- category 표현 부분 Start -->
+<div style="font-size: 50px;text-align: center;">
+			<c:choose>
+			    <c:when test="${bbs.category eq 0 }">
+			       Java 
+			    </c:when>
+				<c:when test="${bbs.category eq 1 }">
+			       JSP 
+			    </c:when>
+			    <c:when test="${bbs.category eq 2 }">
+			       JQuery  
+			    </c:when>
+			    <c:when test="${bbs.category eq 3 }">
+			       Oracle/SQL  
+			    </c:when>
+			    <c:when test="${bbs.category eq 4 }">
+			       Spring  
+			    </c:when>
+			    <c:when test="${bbs.category eq 5 }">
+			       E.T.C  
+			    </c:when>
+			</c:choose>
+</div>
+<!-- category 표현 부분  End-->
+
+<table class="table table-bordered" style="width:85%;margin-top: 30px;margin-left: auto; margin-right: auto;">
 <input type="hidden" name="seq"   value="${bbs.seq}"/>
 
 <colgroup>
@@ -49,47 +75,41 @@
 <col style="width:auto;" />
 </colgroup>
 
-<tr>
-		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
-		<td style="text-align: left">
-		<%-- <input type="text" name="nickname" size="60" readonly="readonly" value="${bbs.nickname }"/> --%>
-		${bbs.nickname }
-		</td>
-	</tr>
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Title</th>
 			<td style="text-align: left">
-				<%-- <input type="text" name="title" style="width: 500px" readonly="readonly" value="${bbs.title }"/> --%>
 				${bbs.title }
 			</td>
 	</tr>
 	<tr>
-		<th style ="text-align: center; vertical-align: middle;">Category</th>
-			<td style="text-align: left">
-				<select name="category" id="_category" disabled="disabled">
-				<option value="0">Java</option>
-				<option value="1">JSP</option>
-				<option value="2">JQuery</option>
-				<option value="3">Oracle/SQL</option>
-				<option value="4">Spring</option>
-				<option value="5">E.T.C</option>
-				</select>
-			</td>
+		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
+		<td style="text-align: left">
+		${bbs.nickname }
+		</td>
 	</tr>
+	
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Subcategory</th>
 			<td style="text-align: left">
-				<select name="subcategory" id="_subcategory" disabled="disabled">
-				<option value="0">Tip</option>
-				<option value="1">Error</option>
-				<option value="2">Example</option>
-				<option value="3">E.T.C</option>
-				</select>
+			<c:choose>
+			    <c:when test="${bbs.subcategory eq 0 }">
+			       Tip 
+			    </c:when>
+				<c:when test="${bbs.subcategory eq 1 }">
+			       Error 
+			    </c:when>
+			    <c:when test="${bbs.subcategory eq 2 }">
+			       Example  
+			    </c:when>
+			    <c:when test="${bbs.subcategory eq 3 }">
+			       E.T.C
+			    </c:when>
+			</c:choose>
 			</td>
 	</tr>
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Content</th>
-		<td style="text-align: left;">
+		<td style="text-align: left;height: 200px;">
 			<div>${bbs.content}</div>
 		</td>
 	</tr>
@@ -124,7 +144,7 @@
 <p>
 <!-- 댓글 카운트 Start -->
 
-&nbsp;&nbsp; Total reply count  : ${replycount } 
+&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Total reply count  : ${replycount } 
 
 <!-- 댓글 카운트 End -->
 <p>
@@ -132,7 +152,7 @@
 <!-- 댓글 리스트 Start -->
 
 <c:forEach items="${replylist }" var="reply">
-	<table class="table table-bordered" style="width:85%;" >
+	<table class="table table-bordered" style="width:85%;margin-left: auto; margin-right: auto;" >
 	<col width="30%"><col width="70%">
 			<tr >
 			<td style="text-align: left">
@@ -185,7 +205,7 @@
 
 <c:choose>
 <c:when test="${login.nickname eq null}">
-<table class="table table-bordered" style="width:85%;">
+<table class="table table-bordered" style="width:85%;margin-left: auto; margin-right: auto;">
 	<tr>
 		<td style="text-align: center;">Login to register a comment.</td>
 	</tr>
@@ -194,7 +214,7 @@
 
 <c:otherwise>
 <form name="replyForm" id="_replyForm" method="post">
-	<table class="table table-bordered" style="width:85%;">
+	<table class="table table-bordered" style="width:85%;margin-left: auto; margin-right: auto;">
 	<input type="hidden" name="seq"   value="${bbs.seq}">
 		<tr>
 			<td style="text-align: left">

@@ -62,7 +62,9 @@
 
 <form name="frmForm" id="_frmForm" method="post">
 
-<table class="table table-bordered" style="width:85%;">
+<div style="font-size: 50px;text-align: center;">Community</div>
+
+<table class="table table-bordered" style="width:85%;margin-top: 30px;margin-left: auto;margin-right: auto;">
 
 <input type="hidden" name="seq"   value="${comm.seq}"/>
 
@@ -71,18 +73,20 @@
 <col style="width:auto;" />
 </colgroup>
 
-<tr>
-		<th>Nickname</th>
-		<td style="text-align: left">
-		<input type="text" name="nickname" size="60" readonly="readonly" value="${comm.nickname }"/>
-		</td>
-	</tr>
 	<tr>
 		<th>Title</th>
-			<td style="text-align: left">
-				<input type="text" name="title" size="60" value="${comm.title }"/>
-			</td>
+		<td style="text-align: left">
+		<input type="text" name="title" style="width:80%" value="${comm.title }"/>
+		</td>
 	</tr>
+	
+	<tr>
+		<th>Nickname</th>
+		<td style="text-align: left">${comm.nickname }
+		<input type="hidden" name="nickname" size="60" value="${comm.nickname }"/>
+		</td>
+	</tr>
+	
 	<tr>
 		<th>Content</th>
 		<td style="text-align: left">
