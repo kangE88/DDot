@@ -42,8 +42,33 @@
 <!-- detail 본문 내용 -->
 <form name="frmForm" id="_frmForm" method="post">
 
-<!-- category 표현 부분 Start -->
-<div style="font-size: 50px;text-align: center;">
+<!-- Title 표현 부분 Start -->
+<div style="text-align: center; width: 1280px;margin: auto;">
+<div class="page-header">
+	<h2 style="font-size: 20px;">${bbs.title }</h2>
+</div>
+</div>
+<!-- Title 표현 부분  End-->
+
+<table class="table table-bordered" style="width:85%;margin-top: 30px;margin-left: auto; margin-right: auto;">
+<input type="hidden" name="seq"   value="${bbs.seq}"/>
+
+<colgroup>
+<col style="width:200px;" />
+<col style="width:auto;" />
+</colgroup>
+
+	<tr>
+		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
+		<td style="text-align: left">
+		${bbs.nickname }
+		</td>
+	</tr>
+	
+	<tr>
+		<th style ="text-align: center; vertical-align: middle;">Category</th>
+			<td style="text-align: left">
+			
 			<c:choose>
 			    <c:when test="${bbs.category eq 0 }">
 			       Java 
@@ -64,45 +89,19 @@
 			       E.T.C  
 			    </c:when>
 			</c:choose>
-</div>
-<!-- category 표현 부분  End-->
-
-<table class="table table-bordered" style="width:85%;margin-top: 30px;margin-left: auto; margin-right: auto;">
-<input type="hidden" name="seq"   value="${bbs.seq}"/>
-
-<colgroup>
-<col style="width:200px;" />
-<col style="width:auto;" />
-</colgroup>
-
-	<tr>
-		<th style ="text-align: center; vertical-align: middle;">Title</th>
-			<td style="text-align: left">
-				${bbs.title }
-			</td>
-	</tr>
-	<tr>
-		<th style ="text-align: center; vertical-align: middle;">Nickname</th>
-		<td style="text-align: left">
-		${bbs.nickname }
-		</td>
-	</tr>
-	
-	<tr>
-		<th style ="text-align: center; vertical-align: middle;">Subcategory</th>
-			<td style="text-align: left">
+			
 			<c:choose>
 			    <c:when test="${bbs.subcategory eq 0 }">
-			       Tip 
+			       - Tip 
 			    </c:when>
 				<c:when test="${bbs.subcategory eq 1 }">
-			       Error 
+			       - Error 
 			    </c:when>
 			    <c:when test="${bbs.subcategory eq 2 }">
-			       Example  
+			       - Example  
 			    </c:when>
 			    <c:when test="${bbs.subcategory eq 3 }">
-			       E.T.C
+			       - E.T.C
 			    </c:when>
 			</c:choose>
 			</td>
@@ -115,7 +114,7 @@
 	</tr>
 	<tr>
 		<th style ="text-align: center; vertical-align: middle;">Good / Bad</th>
-		<td style="padding-bottom: 10px">
+		<td style="padding-bottom: 10px; text-align: left; padding: 15px; padding-left: 25%;">
 			&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-success" id="up">${bbs.up }</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<span class="badge badge-important" id="down">${bbs.down }</span> <br>&nbsp;
@@ -123,19 +122,21 @@
 			<a href="#none" class="btn" style="margin:auto;" id="_btnBad" title="Bad">Bad</a>
 		</td>
 	</tr>
-	<c:if test="${bbs.nickname eq login.nickname}">
+	
 		<tr>
 			<td colspan="2" style="height:50px; text-align:center;">
 			<span>
+				<a href="#none" class="btn" style="margin:auto;" id="_btnBack" title="뒤로가기">back</a>&nbsp;
 				
+				<c:if test="${bbs.nickname eq login.nickname}">
 				<a href="#none" class="btn" style="margin:auto;" id="_btnUpdate" title="글수정하기">modified</a>&nbsp;
 				<a href="#none" class="btn" style="margin:auto;" id="_btnDelete" title="글삭제하기">delete</a>&nbsp;
-				
-				<!-- <a href="#none" class="btn" style="margin:auto;"  id="_btnReply" title="답글달기">reply</a> -->
+				</c:if>			
+
 			</span>
 			</td>
 		</tr>
-	</c:if>
+	
 </tbody>
 </table>
 
@@ -144,7 +145,11 @@
 <p>
 <!-- 댓글 카운트 Start -->
 
-&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Total reply count  : ${replycount } 
+<ul class="nav nav-list" style="height: 15px;width:200px;margin-left: 130px;margin-bottom: 25px; ">
+  <li class="nav-header"><b> Total reply count  : ${replycount }</b></li>
+</ul>
+
+ 
 
 <!-- 댓글 카운트 End -->
 <p>
@@ -305,9 +310,14 @@ $("#_btnBad").click(function() {
 	 });
 });
 
+// 뒤로 가기
+$("#_btnBack").click(function() {
+	location.href="bbslist.do?category=${bbs.category }&subcategory=${bbs.subcategory }";
+	
+});
+
 // 댓글 쓰기
 $("#_btnWrite").click(function() {
-	
 	if($("#_content").val()==""){
 		alert("댓글 내용을 입력해주세요!");
 		$("#_content").focus();
