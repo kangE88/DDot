@@ -35,27 +35,27 @@ input[type=file] {
             <table class="table span6" style=" text-align:center; margin-bottom:5%;margin-left: 0;">
               <tbody class="span12">
                 <tr>
-                  	<td style="vertical-align: middle;" class="span4">아이디 :</td>
-                  	<td class="span4"><input type="text" id="_id" name="id" data-msg="아이디" style="ime-mode: disabled; margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">ID :</td>
+                  	<td class="span4"><input type="text" id="_id" name="id" data-msg="ID" style="ime-mode: disabled; margin:auto; height:30px;"></td>
 					<td style="text-align:center;" class="span4">
 					<!-- Button to trigger modal -->
-					<a href="#idchk_modal" role="button" class="btn span10" data-toggle="modal" id="_idchk" style="margin:auto;">중복체크</a></td>
+					<a href="#idchk_modal" role="button" class="btn span10" data-toggle="modal" id="_idchk" style="margin:auto;">Check</a></td>
 					<!-- <button class="btn btn-mini btn-primary" id="_idchk" style="margin:auto;">ID 중복체크</button></td> -->
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;" class="span4">비밀번호 :</td>
-                  	<td colspan="2" class="span8"><input type="password"  id="pwd" name="pwd" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">Password :</td>
+                  	<td colspan="2" class="span8"><input type="password"  id="pwd" name="pwd" data-msg="Password" style="margin:auto; height:30px;"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;" class="span4">비밀번호 확인 :</td>
-                  	<td colspan="2" class="span8"><input type="password" placeholder="pwdRe" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">Password Confirm :</td>
+                  	<td colspan="2" class="span8"><input type="password" id="pwdRe" style="margin:auto; height:30px;"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;" class="span4">닉네임 :</td>
-                  	<td class="span4"><input type="text" placeholder="nickname" id="_nickname" name="nickname" data-msg="닉네임" style="margin:auto; height:30px;"></td>
+                  	<td style="vertical-align: middle;" class="span4">Nickname :</td>
+                  	<td class="span4"><input type="text" placeholder="nickname" id="_nickname" name="nickname" data-msg="Nickname" style="margin:auto; height:30px;"></td>
 					<!-- Button to trigger modal -->
 					<td style="text-align:center;" class="span4">
-					<a href="#nicname_chk_modal" role="button" class="btn span10" data-toggle="modal" id="_nicchk" style="margin:auto;">중복체크</a></td>
+					<a href="#nicname_chk_modal" role="button" class="btn span10" data-toggle="modal" id="_nicchk" style="margin:auto;">Check</a></td>
                 </tr>
                 <tr>
                   	<td style="vertical-align: middle;" class="span4">e-mail :</td>
@@ -63,7 +63,7 @@ input[type=file] {
 					<td class="span4"></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;" class="span4">프로필 이미지 :</td>
+                  	<td style="vertical-align: middle;" class="span4">Profile Picture :</td>
                   	<td class="span4">
              			<input name="picFile" id="pic" type="file">
                   		<img id="thumPic" onclick="document.all.pic.click();" src="./image/addImg.png" data-src="holder.js/260x120" alt="클릭하여 이미지를 넣어주세요." style="width: 200px; height: 150px;">
@@ -72,12 +72,12 @@ input[type=file] {
 					</td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;" class="span4">자기 소개 :</td>
-					<td colspan="2" class="span8"><textarea rows="3" class="span12" data-msg="자기소개" name="intro"></textarea></td>
+                  	<td style="vertical-align: middle;" class="span4">Intro :</td>
+					<td colspan="2" class="span8"><textarea rows="3" class="span12" data-msg="Intro" name="intro"></textarea></td>
                 </tr>
                 <tr>
                 	<td colspan="3" style="text-align:right;">
-                		<a href="./index.jsp" role="button" class="btn" style="margin:auto;">back</a>
+                		<a href="./index.jsp" role="button" class="btn" style="margin:auto;">Back</a>
                 		<a href="#" role="button" class="btn" id="_btnRegi" style="margin:auto;">Sign Up</a>
                 	</td>
                 </tr>
@@ -90,7 +90,7 @@ input[type=file] {
 <div id="idchk_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   	<div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    	<h3 id="myModalLabel" style="color: black">ID 중복체크</h3>
+    	<h3 id="myModalLabel" style="color: black">ID Check</h3>
   	</div>
 	<div class="modal-body">
 		<p id="idChkResult"></p>
@@ -104,7 +104,7 @@ input[type=file] {
 <div id="nicname_chk_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
   	<div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    	<h3 id="nicModalLabel" style="color: black">Nicname 중복체크</h3>
+    	<h3 id="nicModalLabel" style="color: black">Nicname Check</h3>
   	</div>
 	<div class="modal-body">
 		<p id="nicknameChkResult"></p>
@@ -118,6 +118,7 @@ input[type=file] {
 <script>
 var idck = false;
 var nickck = false;
+var pwdReOK = false;
 
 $(function() {
     $("#pic").on('change', function(){
@@ -157,7 +158,7 @@ $("#_idchk").click(function (){
 	var _id = $("#_id").val().trim();
 
 	if(_id == ""){
-		$('#idChkResult').text("아이디를 입력해 주십시오.");
+		$('#idChkResult').text("Enter Your ID");
 	}else{
 		idCheckFunc(_id);
 	}
@@ -165,7 +166,6 @@ $("#_idchk").click(function (){
 
 
 function idCheckFunc(id) {
-	//alert("idCheckFunc");
 	
 	$.ajax({
 		type: "post",
@@ -180,12 +180,12 @@ function idCheckFunc(id) {
 
 function idCheckMessage(msg) {
 	if(msg.message == 'SUCS'){
-		$("#idChkResult").html("사용할 수 없는 아이디입니다.");
+		$("#idChkResult").html("The ID is available for use.");
 		$("#idChkResult").css("background-color","#ff0000");
 		$("#id").val("");
 		idck = false;
 	}else{
-		$("#idChkResult").html("사용할 수 있는 아이디입니다.");
+		$("#idChkResult").html("This ID can not be used.");
 		$("#idChkResult").css("background-color","#0000ff");
 		$("#id").val($("#id").val());
 		idck = true;
@@ -196,7 +196,7 @@ $("#_nicchk").click(function (){
 	var _nic = $("#_nickname").val().trim();
 
 	if(_nic == ""){
-		$('#nicknameChkResult').text("닉네임을 입력해 주십시오.");
+		$('#nicknameChkResult').text("Enter Your Nickname!");
 	}else{
 		nickCheckFunc(_nic);
 	}
@@ -218,18 +218,27 @@ function nickCheckFunc(nickname) {
 
 function nicknameCheckMessage(msg) {
 	if(msg.message == 'SUCS'){
-		$("#nicknameChkResult").html("사용할 수 없는 닉네임 입니다.");
+		$("#nicknameChkResult").html("The ID is available for use.");
 		$("#nicknameChkResult").css("background-color","#ff0000");
 		$("#nickname").val("");
 		nickck = false;
 	}else{
-		$("#nicknameChkResult").html("사용할 수 있는 닉네임 입니다.");
+		$("#nicknameChkResult").html("This Nickname can not be used.");
 		$("#nicknameChkResult").css("background-color","#0000ff");
 		$("#nickname").val($("#nickname").val());
 		nickck = true;
 	}
 }
 
+//pwd 체크
+/* $("#pwd").keyup(function(e) { 
+	if($('#pwd').val() == $('#pwdRe').val()){
+		pwdReOK = true;
+	}else{
+		alert("Password Duplication Confirm");
+	}
+});
+ */
 
 $("#_btnRegi").click(function() {
 	//alert("_id:" + $("#_id").val());
@@ -247,11 +256,22 @@ $("#_btnRegi").click(function() {
 		$("#_email").focus();
 	}else{
 		if(idck==false){
-			alert("아이디체크 해야함");
+			alert("ID Check Please");
 		}else if(nickck == false){
-			alert("닉체크 해야함");
+			alert("Nickname Check Please");
 		}else{
-			 $(".form-signin").attr({"target":"_self", action:"regiAf.do"}).submit();
+			//비밀번호 유효성 체크
+			var pwd = $("#pwd").val();
+			var pwdRe = $("#pwdRe").val();
+
+			if( pwd != pwdRe ) {	//	비밀번호 와 비밀번호 확인이 다르다면 ... 
+				alert("Password Confirm Please!");
+	
+				//이벤트 중지하기
+				event.preventDefault();
+			}else{
+				$(".form-signin").attr({"target":"_self", action:"regiAf.do"}).submit();
+			}
 		}
 		
 	}

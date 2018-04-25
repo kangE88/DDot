@@ -26,7 +26,7 @@ a:focus{
 <body>
 <div class="row-fluid">
 <!-- ==================== 어드민 죄측메뉴 시작 ====================  -->
-	<div class="span2" style="padding-left: 10px">
+	<div class="span2" style="padding-left: 10px; padding-top: 2%">
 		<ul class="nav nav-list">
 		  <li class="nav-header">Left Menu</li>
 		  <li class="divider"></li>  
@@ -34,7 +34,7 @@ a:focus{
 		  <li class="divider"></li>
 		  <li class="active"><a href="#">Board</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#">Chat</a></li>  
+		  <li><a id="messagepage" href="#">Message</a></li> 
 		</ul>
 		<form id="userpaging" method="post" action="">
 		<input type="hidden" name="pageNumber" id="_pageNumber"/>	
@@ -43,13 +43,20 @@ a:focus{
 		<input type="hidden" name="sort" value="${sort }">
 		</form>
 	</div>
+	
+	<script>
+	$("#messagepage").click(function () {
+		window.open("messagelist.do?category=3",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+
+	});
+	</script>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
 
 
 <!-- ==================== 어드민 우측메뉴 시작 ====================  -->
 
 <!-- ==================== 어드민 유저게시판 시작 ====================  -->
-	<div class="span10">
+	<div class="span10" style="padding-top: 2%">
 		<table class="table table-hover" id="board">
 			<col width="5%"><col width="5%"><col width="10%"><col width="5%"><col width="5%"><col width="30%"><col width="10%"><col width="5%"><col width="10%"><col width="5%">
 			<thead>

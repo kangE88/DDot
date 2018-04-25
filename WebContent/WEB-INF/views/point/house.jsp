@@ -27,7 +27,7 @@ a:focus{
 	<table class="table">
 		<tr>
 			<td>
-				<a href="#abc" data-toggle="tab" class="introtitle">가위바위보</a>
+				<a id="abclink" href="#abc" data-toggle="tab" class="introtitle">가위바위보</a>
 			</td>
 			<td>
 				<a href="#updown" data-toggle="tab">업다운</a>
@@ -43,11 +43,11 @@ a:focus{
 							나의 Point : ${login.point }<br>
 							
 						</p>
-						<div class="span7">
-						<a href="#" class="userabc" value="1"><img alt="" src="./image/point/a150.png"></a>
-						<a href="#" class="userabc" value="2"><img alt="" src="./image/point/b150.png"></a>
-						<a href="#" class="userabc" value="3"><img alt="" src="./image/point/c150.png"></a>
-						<font size='15'>vs</font>
+						<div class="span6">
+						<a href="#" class="userabc" value="1"><img alt="" src="./image/point/a100.png"></a>
+						<a href="#" class="userabc" value="2"><img alt="" src="./image/point/b100.png"></a>
+						<a href="#" class="userabc" value="3"><img alt="" src="./image/point/c100.png"></a>
+						<font size='9px'>vs</font>
 						</div>
 						<div id="cpuabc" class="span4">
 							
@@ -79,10 +79,15 @@ a:focus{
 <!-- ==================== 가위바위보 스크립트 시작 ====================  -->
 
 <script>
+
+	$(document).ready(function() {
+		$("#abclink").tab('show');
+	});
+	
 	var abc = new Array();
-	abc[0] = 'a150.png';
-	abc[1] = 'b150.png';
-	abc[2] = 'c150.png';
+	abc[0] = 'a100.png';
+	abc[1] = 'b100.png';
+	abc[2] = 'c100.png';
 	var user = null;
 	var num = 0;
 	var interval = null;
@@ -155,6 +160,8 @@ a:focus{
 <!-- ==================== 업다운 스크립트 시작 ====================  -->
 
 <script type="text/javascript">
+
+	
 	$(".userupdown").click(function() {
 		if(parseInt(${login.point})>=50){
 		var user = $(this).attr("value");	  		

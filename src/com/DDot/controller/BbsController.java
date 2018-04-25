@@ -36,7 +36,6 @@ public class BbsController {
 	@Autowired
 	ReplyService replyService;
 	
-	
     // category & subcategory 선택에 따른 게시글 목록
 	@RequestMapping(value="bbslist.do", method= {RequestMethod.GET, RequestMethod.POST})
 	public String bbslist(Model model, String category, String subcategory, BbsParam param) throws Exception{

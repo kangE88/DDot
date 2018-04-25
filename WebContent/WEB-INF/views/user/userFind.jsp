@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <fmt:requestEncoding value="utf-8"/>    
 
@@ -11,8 +12,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>DevDot</title>
-
-<link href="./css/bootstrap-responsive.css" rel="stylesheet">
+<tiles:insertAttribute name="header"/>
 <style type="text/css">
 /*
 We set the element we are applying our loading mask to relative  
@@ -68,80 +68,36 @@ image using the content attribute.
   filter: drop-shadow(0 0 2 rgba(0, 0, 0, 0.33));
 }
 </style>
-<script type="text/javascript" src="<%=request.getContextPath()%>/jquery/common.js"></script>
+
 </head>
 <body>
-<div class="span3"></div>
-<div class="span6">
+<div class="container" style="margin:auto;">
 <br><br>
-<table class="table">
-		<tr>
-			<td>
-				<a id="introlink" href="#intro" data-toggle="tab" class="introtitle" style="border-right:3px solid">ID Find </a>
-				<a href="#introboard" data-toggle="tab" class="introtitle"> Password Find </a>
-			</td>
-		<tr>
-		<tr>
-			<td>
-				<div id="myTabContent" class="tab-content">
-					<div class="tab-pane fade" id="intro">
-						<br>
-						<h3 class="span12">아이디 찾기</h3><br>
-						<span class="span12">e-mail</span>
-						<span class="span12">
-							<input type="text" id="email" class="span8">
-							<button class="btn" id="find_id" class="span4">찾기</button>
-							<br><br>
-						</span>
-					</div>
-					<div class="tab-pane fade" id="introboard">
-						<br>
-						<h3 class="span12">비밀번호 찾기</h3>
-						<span class="span12">아이디</span>
-						<span class="span12">
-							<input type="text" class="span8" id="getid"><br>
-							<span class="span12">e-mail</span>
-							<input type="text" class="span8" id="p_email">
-							<button class="btn" id="find_pwd" class="span4">찾기</button>
-							<br><br>
-						</span>
-      				</div>
-				</div>
-			</td>
-		</tr>
-	</table>
-
-
-<!-- 	<div class="row-fluid" style="border: 1px solid">
-		<br>
-		<h3 class="span12">아이디 찾기</h3><br>
-		<span class="span12">e-mail</span>
-		<span class="span12">
-			<input type="text" id="email" class="span8">
-			<button class="btn" id="find_id" class="span4">찾기</button>
-			<br><br>
-		</span>
-	</div> -->
-	<br><br>
-<%-- 	<div id='loadingmessage' style='display:none'>
-  		<img src='<%=request.getContextPath()%>/image/loading_spinner.gif'/>
-	</div> --%>
-<!-- 	<div class="row-fluid" style="border: 1px solid">
-		<br>
-		<h3 class="span12">비밀번호 찾기</h3>
-		<span class="span12">아이디</span>
+	<div class="row-fluid">
+		<hr>
+			<h3 class="span12" style="margin:auto;">ID Find</h3><br><br>
+			<span class="span12">e-mail</span>
+			<span class="span12">
+				<input type="text" id="email" class="span8">
+				<button class="btn" id="find_id" class="span4">Find</button>
+				<br><br>
+			</span>
+	</div>
+	<hr>
+ 	<div class="row-fluid">
+		<h3 class="span12">Password Find</h3><br><br>
+		<span class="span12">ID</span>
 		<span class="span12">
 			<input type="text" class="span8" id="getid"><br>
-			<span class="span12">e-mail</span>
+			<span class="span12" style="margin:auto;">e-mail</span>
 			<input type="text" class="span8" id="p_email">
-			<button class="btn" id="find_pwd" class="span4">찾기</button>
+			<button class="btn" id="find_pwd" class="span4">Send Email</button>
 			<br><br>
 		</span>
 		<br>
-	</div> -->
+	</div>
+	<hr>
 </div>
-
-<div class="span3"></div>
 
 <script type="text/javascript">
 
@@ -159,6 +115,7 @@ $('#find_id').click(function(){
 				if(id != null){
 					alert("찾으시는 아이디는 "+id+" 입니다.");
 					$('#getid').val(id);
+					$('#p_email').val(email);
 				}else{
 					alert("아이디를 찾을 수 없습니다.");
 				}
