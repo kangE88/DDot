@@ -94,7 +94,7 @@
 
 	<div class="toggler">
 		<div id="effect" class="ui-widget-content ui-corner-all">
-			<h3 class="ui-widget-header ui-corner-all">현재 접속자</h3>
+			<h3 class="ui-widget-header ui-corner-all" id="chat-usercount">현재 접속자</h3>
 
 
 			<div class="user-area">
@@ -302,9 +302,10 @@
 				url : "chatuser.do", //세션 생성페이지 (setAttribute...)
 				success : function(data) {
 					$.each(data.userlist, function(index, item) {
-						write += "<p>" + item + "</p>";
+						write += "<a align='center' style='cursor: pointer; margin:0px' onclick='goUserListUrl(this)'>"+item+"</a><br>";
 
 					});
+					$("#chat-usercount").html("접속자 "+ data.userlist.length + "명");
 					$(".user-area").html(write);
 				},
 				error : function(xhr, status, error) {
@@ -312,6 +313,11 @@
 				}
 			});
 
+		}
+		
+		function goUserListUrl(ajaxNick) {
+			var nick = $(ajaxNick).text();
+			window.open("userInfo_bbs.do?nickname="+nick,'상대정보','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');
 		}
 	</script>
 
