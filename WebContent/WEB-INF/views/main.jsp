@@ -45,7 +45,6 @@ function UserListAjax() {
 				}
 		  },
 		  error: function(xhr, status, error) {
-	            alert(error);
 	      }  
 		 });
 }
