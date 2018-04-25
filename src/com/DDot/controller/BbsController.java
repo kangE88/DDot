@@ -1,9 +1,13 @@
 ﻿package com.DDot.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.DDot.model.AttendDto;
 import com.DDot.model.BbsDto;
@@ -22,6 +28,7 @@ import com.DDot.model.CommDto;
 import com.DDot.model.ReplyDto;
 import com.DDot.service.BbsService;
 import com.DDot.service.ReplyService;
+import com.DDot.util.fileService;
 
 
 
@@ -35,6 +42,9 @@ public class BbsController {
 	
 	@Autowired
 	ReplyService replyService;
+	
+	@Autowired
+	fileService fileService;
 	
 	
     // category & subcategory 선택에 따른 게시글 목록
@@ -77,6 +87,35 @@ public class BbsController {
 			
 		return "bbslist.tiles";
 	}
+	
+	
+	
+	@RequestMapping(value="/file/ckeditorImageUpload.do", method=RequestMethod.POST)
+
+	public void ckeditorImageUpload(HttpServletRequest request, HttpServletResponse response, @RequestParam MultipartFile upload) throws     Exception {
+
+		System.out.println("imageUlpoad.do in");
+
+		response.setCharacterEncoding("UTF-8");
+
+		response.setContentType("text/html;charset-utf-8");
+
+		
+
+		try {
+
+			fileService.ckeditorImageUpload(request, response, upload);
+
+			
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		}
+
+	}
+	
 	
 	@RequestMapping(value = "bbswrite.do", method = {RequestMethod.GET,	RequestMethod.POST})
 	public String bbswrite(Model model, String category, String subcategory) {

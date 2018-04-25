@@ -57,7 +57,7 @@
         <br>
 		<div class="row-fluid">
         	<span class="span10">Forgot ID, Password ?</span>
-        	<a class="span2" id="forgot" href="userFind.do">Here</a>
+        	<a class="span2" id="forgot" onclick="window.open('userFind.do', '정보찾기', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=800px,height=400px,top=100,left=100');" href="#">Here</a>
         </div>
       </form>
     </div> <!-- /container -->

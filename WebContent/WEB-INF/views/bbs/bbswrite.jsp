@@ -39,17 +39,22 @@
 <script src="./ckeditor/ckeditor.js"></script>
  <script>
  window.onload=function(){
-	CKEDITOR.replace('_content'); 
+	CKEDITOR.replace('_content');
 	
 	CKEDITOR.on('dialogDefinition', function (ev) {
+		alert("dialogDefinition 진입");
+		//alert(${pageContext.request.contextPath}+"");
+		//filebrowserUploadUrl: '${pageContext.request.contextPath}/file/ckeditorImageUpload.do'	
 		var dialogName = ev.data.name;
 		var dialog = ev.data.definition.dialog;
 		var dialogDefinition = ev.data.definition;
 
-			if (dialogName == 'image') {
+ 			if (dialogName == 'image') {
+				alert("dialogDefinition image진입");
+				filebrowserImageUploadUrl: 'c:/upload/${login.id}/';
 				dialog.on('show', function (obj) {
 				this.selectPage('Upload'); //업로드텝으로 시작
-			});
+			}); 
 
 				// $('#cke_100_uiElement').hide();
 			
