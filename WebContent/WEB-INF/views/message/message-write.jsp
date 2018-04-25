@@ -76,10 +76,12 @@
 		<th>Nickname</th>
 		<td style="text-align: left">
 		<input type="text" name="nickname" size="60" value="${login.nickname}" readonly="readonly">
+		<c:if test="${login.auth eq '3' }">
 		<span>					
 	 		<a href="#none" class="btn" style="margin:auto;"  id="_btnToAdmin" title="관리자에게">관리자에게 보내기
 			</a>
 		</span>
+		</c:if>
 		</td>
 	</tr>
 	

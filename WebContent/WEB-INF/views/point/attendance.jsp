@@ -29,11 +29,13 @@
 		font-size: 25px;
 		color: yellow;
 	}
-	td img{
+	td .attenddiv img{
     display: block;
     margin-left: auto;
     margin-right: auto;
-
+    margin-top: 8%;
+	width: 100%;
+	height: 100%;
 	}
 </style>     
 </head>
@@ -102,13 +104,13 @@ if(session.getAttribute("login") == null){
 				console.log("datadate: " + datadate);
 		//		$("td.fc-day.fc-widget-content[data-date='"+datadate+"']").attr("style","text-align:center");
 				$("td.fc-day.fc-widget-content[data-date='"+datadate+"']")
-				.append("&nbsp;&nbsp;<img id='attendanceimg' src='./image/attendance.png'>");
+				.append("<div class='attenddiv'><img id='attendanceimg' src='./image/attendance70.png'></div>");
 			}
 		}		
 		
 		$("#attendancebtn").click(function() {
 			if(attendstring.charAt(day)==0){
-				$("td.fc-day.fc-widget-content.fc-today").append("&nbsp;&nbsp;&nbsp;<img id='attendanceimg' src='./image/attendance.png'>");
+				$("td.fc-day.fc-widget-content.fc-today").append("<div class='attenddiv'><img id='attendanceimg' src='./image/attendance70.png'></div>");
 				location.href="attendanceAf.do";
 			}
 			else{

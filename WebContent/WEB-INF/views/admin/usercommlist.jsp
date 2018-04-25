@@ -29,13 +29,20 @@ a:focus{
 		<ul class="nav nav-list">
 		  <li class="nav-header">Left Menu</li>
 		  <li class="divider"></li>  
-		  <li class="active"><a href="admin.do">User</a></li>
+		  <li><a href="admin.do">User</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#">Board</a></li>
+		  <li class="active"><a href="#">Board</a></li>
 		  <li class="divider"></li>
-		  <li><a href="#">Chat</a></li>  
+		  <li><a id="messagepage" href="#">Message</a></li>  
 		</ul>
 	</div>
+	
+	<script>
+	$("#messagepage").click(function () {
+		window.open("messagelist.do?category=3",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
+
+	});
+	</script>
 <!-- ==================== 어드민 죄측메뉴 끝 ====================  -->
 
 

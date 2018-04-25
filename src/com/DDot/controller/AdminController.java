@@ -16,6 +16,7 @@ import com.DDot.model.CommDto;
 import com.DDot.model.MemberDto;
 import com.DDot.model.MemberParam;
 import com.DDot.service.AdminService;
+import com.DDot.singleton.ConnectingUserList;
 
 @Controller
 public class AdminController {
@@ -38,10 +39,7 @@ public class AdminController {
 		int totalRecordCount = adminService.getusercount(param);
 		model.addAttribute("sort", sort);
 		
-		
-		System.out.println("totalRecordCount: " + totalRecordCount);
-		model.addAttribute("totalRecordCount", totalRecordCount);
-		
+		model.addAttribute("totalRecordCount", totalRecordCount);		
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 8);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
@@ -93,7 +91,8 @@ public class AdminController {
 		
 		param.setNickname(nickname);
 		model.addAttribute("nickname", nickname);
-		int sn = param.getPageNumber();
+		
+		int sn = param.getPageNumber();		
 		int start = (sn) * param.getRecordCountPerPage() + 1;
 		int end = (sn+1) * param.getRecordCountPerPage();
 		
@@ -107,10 +106,12 @@ public class AdminController {
 		int totalRecordCount = adminService.userbbscount(nickname);
 		
 		System.out.println("totalRecordCount: " + totalRecordCount);
+		
 		model.addAttribute("totalRecordCount", totalRecordCount);		
 		model.addAttribute("pageNumber", sn);
 		model.addAttribute("pageCountPerScreen", 8);
 		model.addAttribute("recordCountPerPage", param.getRecordCountPerPage());
+		
 		model.addAttribute("sort", sort);
 		if(sort==null) {
 			sort="all";
@@ -203,5 +204,14 @@ public class AdminController {
 		return "redirect: admin.do";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="useronoff.do", method= {RequestMethod.GET, RequestMethod.POST})
+	public boolean useronoff(String nickname) {
 	
+	boolean b = false;
+	
+	b = ConnectingUserList.getInstance().getUserList().contains(nickname);
+	
+	return b;
+	}
 }
