@@ -23,26 +23,71 @@
 </body>
 
 <!-- Command Help Modal ================================== -->
-<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 id="myModalLabel"><font color="SlateBlue">Help Command</font></h4>
-  </div>
-  <div class="modal-body">
-  	<h4>/login <font color="black"> : Login</font></h4>
-  	------------------------------------------------
-  	<h4>/logout <font color="black"> : Logout</font></h4>
-  	------------------------------------------------
-  	<h4>/mail <font color="black"> : ReadMail</font></h4>
-  	------------------------------------------------
-    <h4>/move * <font color="black"> : move to *</font></h4>
-    <h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="blue">* : home, board-category, community,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clab, donate, attendance, house,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chat</font></h4>
-    ------------------------------------------------
-    <h4>board's category <font color="black"> : java, jsp, jquery, oracle,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring, etc</font></h4>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
-  </div>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal"
+			aria-hidden="true">×</button>
+		<h4 id="myModalLabel">
+			<font color="SlateBlue">Help Command</font>
+		</h4>
+	</div>
+	<div class="modal-body">
+		<h4>
+			/home <font color="black"> : home</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/board-category <font color="black"> : Board</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			board's category <font color="black"> : java, jsp, jquery,
+				oracle,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring,
+				etc
+			</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/community <font color="black"> : Community</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/clab <font color="black"> : C.Lab</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/login <font color="black"> : Login</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/donate <font color="black"> : Donate</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/attendance <font color="black"> : Attendance</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/house <font color="black"> : House</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/chat <font color="black"> : Chatting</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/mail <font color="black"> : Read&SendMail</font>
+		</h4>
+		------------------------------------------------
+		<h4>
+			/logout <font color="black"> : Logout</font>
+		</h4>
+
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+	</div>
 </div>
 
 
@@ -67,100 +112,105 @@ $("#cmd").keydown(function(key) {
 		case "/?":
 			$('#myModal').modal('show')
 			break;
-		case "/move home":
+		case "/home":
 			location.href="./main.do"
 			break;
-		case "/move community":
+		case "/community":
 			location.href="commlist.do"
 			break;
-		case "/move clab":
+		case "/clab":
 			location.href="./labatory.do"
 			break;
-		case "/move donate":
+		case "/donate":
 			location.href="./donate.do"
 			break;			
-		case "/move attendance":
-			<%
-			if(session.getAttribute("login") == null){
-			%>
+		case "/attendance":
+			<%if (session.getAttribute("login") == null) {%>
 			alert("로그인이 필요한서비스 입니다.");
 			location.href="login.do";
-			<%}else{%>
+			<%} else {%>
 			location.href="./attendance.do"
 			<%}%>
 			break;
-		case "/move house":
-			<%
-			if(session.getAttribute("login") == null){
-				%>
+		case "/house":
+			<%if (session.getAttribute("login") == null) {%>
 				alert("로그인이 필요한서비스 입니다.");
 				location.href="login.do";
-				<%}else{%>
+				<%} else {%>
 				location.href="./house.do"
 				<%}%>		
 			break;
-		case "/move board-java":
+		case "/board-java":
 			location.href="http://localhost:8090/DDot/bbslist.do?category=0&subcategory=9";
 			break;
-		case "/move board-jsp":
+		case "/board-jsp":
 			location.href="http://localhost:8090/DDot/bbslist.do?category=1&subcategory=9";
 			break;
-		case "/move board-jquery":
+		case "/board-jquery":
 			location.href="http://localhost:8090/DDot/bbslist.do?category=2&subcategory=9";
 			break;
-		case "/move board-oracle":
+		case "/board-oracle":
 			location.href="http://localhost:8090/DDot/bbslist.do?category=3&subcategory=9";
 			break;
-		case "/move board-spring":
+		case "/board-spring":
 			location.href="http://localhost:8090/DDot/bbslist.do?category=4&subcategory=9";
 			break;
-		case "/move board-etc":
+		case "/board-etc":
 			location.href="http://localhost:8090/DDot/bbslist.do?category=5&subcategory=9";
 			break;
 		case "/login":
-			<%
-			if(session.getAttribute("login") == null){
-				%>				
+			<%if (session.getAttribute("login") == null) {%>				
 				location.href="login.do";
-				<%}else{%>
+				<%} else {%>
 				alert("이미 로그인 되어있습니다.");
 				<%}%>		
 			break;
 		case "/logout":
-			<%
-			if(session.getAttribute("login") == null){
-				%>
+			<%if (session.getAttribute("login") == null) {%>
 				alert("로그인이 필요한서비스 입니다.");
 				location.href="login.do";
-				<%}else{%>
+				<%} else {%>
 				location.href="./logout.do"
 				<%}%>		
 			break;
-		case "/move chat":
-			<%
-			if(session.getAttribute("login") == null){
-			%>
+		case "/chat":
+			<%if (session.getAttribute("login") == null) {%>
 			alert("로그인이 필요한서비스 입니다.");
 			location.href="login.do";
-			<%}else{%>
-			location.href="./chatting.do"
+			<%} else {%>			
+			var chatStatus = <%=session.getAttribute("chatstatus")%>
+			
+			if (chatStatus == 0) {
+					$.ajax({
+					  type:"POST"
+					  ,url:"chatstatus.do" //세션 생성페이지 (setAttribute...)
+					  ,data:{"chatstat" : 1}
+					  ,success:function(){
+						  console.log("${chatstatus}");
+						  location.reload();
+					  },
+					  error: function(xhr, status, error) {
+				            alert(error);
+				      }  
+					 });
+				window.open("chatting.do",'채팅','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=no,directories=no,width=600,height=790,top=0,left=500');
+			}
 			<%}%>
+			
 			break;
 		case "/mail":
-			<%
-			if(session.getAttribute("login") == null){
-			%>
+			<%if (session.getAttribute("login") == null) {%>
 			alert("로그인이 필요한서비스 입니다.");
 			location.href="login.do";
-			<%}else{%>
+			<%} else {%>
 			window.open("messagelist.do?category=0&sendto=${login.nickname}",'쪽지함','toolbar=no,location=no,status=no,menubar=no,scrollbars=auto,resizable=yes,directories=no,width=1000px,height=550px,top=100,left=500');
 			<%}%>
 			break;			
-	}
+		}
 		$("#cmd").val("");	
 	}
 });
-</script>  
+</script>
 
 
 </html>

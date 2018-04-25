@@ -85,9 +85,9 @@ public class MemberController {
 		YesMember yes = new YesMember();
 		
 		if(count > 0) {
-			yes.setMessage("SUCS");
-		}else {
 			yes.setMessage("FAIL");
+		}else {
+			yes.setMessage("SUCS");
 		}
 		
 		return yes;
@@ -110,9 +110,9 @@ public class MemberController {
 		YesMember yes = new YesMember();
 		
 		if(count > 0) {
-			yes.setMessage("SUCS");
-		}else {
 			yes.setMessage("FAIL");
+		}else {
+			yes.setMessage("SUCS");
 		}
 		
 		return yes;
@@ -134,10 +134,11 @@ public class MemberController {
 		
 		YesMember yes = new YesMember();
 		
+		
 		if(count > 0) {
-			yes.setMessage("SUCS");
-		}else {
 			yes.setMessage("FAIL");
+		}else {
+			yes.setMessage("SUCS");
 		}
 		
 		return yes;

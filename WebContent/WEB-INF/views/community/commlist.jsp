@@ -17,6 +17,7 @@
 <div class="row-fluid">
  -->
 	<!-- ==================== 게시판 좌측메뉴 Start ==================== -->
+	<br><br>
 	<div class="span2" id="boardmenudiv" style="padding-left: 10px">
 		
 		<!-- 검색 관련 사항 Start -->
@@ -71,7 +72,6 @@
 	<!-- ==================== 게시판 좌측메뉴 End ==================== -->
 	
 	<!-- ==================== 게시판 타이틀 들어가는부분 Start ==================== -->
-	
 	<div class="span9 text-center">
 		<div class="hero-unit" style="font-size: 2em">Community</div>
 	</div>

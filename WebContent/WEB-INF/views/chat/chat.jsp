@@ -93,7 +93,7 @@
 	</div>
 
 	<div class="toggler">
-		<div id="effect" class="ui-widget-content ui-corner-all">
+		<div id="effect" class="ui-widget-content ui-corner-all" style="overflow-y: scroll;">
 			<h3 class="ui-widget-header ui-corner-all" id="chat-usercount">현재 접속자</h3>
 
 
