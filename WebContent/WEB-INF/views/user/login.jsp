@@ -92,6 +92,7 @@
 	
  		// id 쿠키 저장
  		var user_id = $.cookie("userid");
+ 		
  		if(user_id != null){
  			$("#id").val(user_id);
  			$("#_chk_save_id").prop("checked", "checked");
@@ -101,7 +102,7 @@
  			if($('input:checkbox[id="_chk_save_id"]').is(":checked")){
  				if($("#id").val() == ""){
  					$(this).prop("checked", false);
- 					alert("아이디를 입력해 주십시오");
+ 					alert("Enter Your ID");
  				}else{
  					$.cookie("userid", $("#id").val(), { expires: 7, path: '/' });
  				}		
@@ -125,10 +126,10 @@
  				},
  				success:function(data){
  					if(data){
- 						alert("welcome");
+ 						alert("Welcome !! "+ id +" ");
  						location.href="main.do";
  					}else{
- 						alert("아이디나 비밀번호를 확인해주세요.");
+ 						alert("Check Your ID & Password!");
  						location.href="login.do";
  					}
  				},
