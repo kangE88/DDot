@@ -44,7 +44,7 @@
 <form name="frmForm" id="_frmForm" method="post">
 
 <!-- Title 표현 부분 Start -->
-<div style="text-align: center; width: 1280px;margin: auto;">
+<div style="text-align: center; width: 85%;margin: auto;">
 <div class="page-header">
 	<h2 style="font-size: 20px;">${comm.title }</h2>
 </div>
