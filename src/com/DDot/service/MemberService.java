@@ -14,4 +14,5 @@ public interface MemberService {
 	public MemberDto getMember(String nickname) throws Exception;
 	int getMemberPoint(String nickname) throws Exception;
 	public String findPWD(MemberDto mem) throws Exception;
+	public int getEmail(MemberDto mem) throws Exception;
 }

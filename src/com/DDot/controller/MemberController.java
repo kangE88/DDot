@@ -120,6 +120,31 @@ public class MemberController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="getEmail.do", method=RequestMethod.POST)
+	public YesMember getEmail(Model model, MemberDto mem) throws Exception{
+		logger.info("KhMemberController getEmail");
+		
+		int count = 0;
+		
+		try {
+			count = MemberService.getEmail(mem);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		YesMember yes = new YesMember();
+		
+		if(count > 0) {
+			yes.setMessage("SUCS");
+		}else {
+			yes.setMessage("FAIL");
+		}
+		
+		return yes;
+		
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="findID.do",  method= {RequestMethod.GET, RequestMethod.POST})
 	public String findID(Model model, String email) throws Exception {
 		logger.info("MemberController findID");

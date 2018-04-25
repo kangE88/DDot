@@ -58,9 +58,15 @@ input[type=file] {
 					<a href="#nicname_chk_modal" role="button" class="btn span10" data-toggle="modal" id="_nicchk" style="margin:auto;">Check</a></td>
                 </tr>
                 <tr>
-                  	<td style="vertical-align: middle;" class="span4">e-mail :</td>
-                  	<td class="span4"><input type="email" placeholder="email" name="email" data-msg="e-mail" style="margin:auto; height:30px;"></td>
-					<td class="span4"></td>
+                  	<td style="vertical-align: middle;" class="span4">e-mail :
+	                  	<span href="#none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Email 주소를 정확히 기입해야 합니다.(ID 찾을 때 필요)">
+						<img alt="command-tutorial" src="./image/help.png">
+						</span>
+                  	</td>
+                  	<td class="span4"><input type="email" placeholder="email" id="_email" name="email" data-msg="e-mail" style="margin:auto; height:30px;"></td>
+                  	<!-- Button to trigger modal -->
+					<td style="text-align:center;" class="span4">
+					<a href="#email_chk_modal" role="button" class="btn span10" data-toggle="modal" id="_emailchk" style="margin:auto;">Check</a></td>
                 </tr>
                 <tr>
                   	<td style="vertical-align: middle;" class="span4">Profile Picture :</td>
@@ -114,11 +120,25 @@ input[type=file] {
   	</div>
 </div>
 
+<!-- Modal -->
+<div id="email_chk_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    	<h3 id="emailModalLabel" style="color: black">Email Check</h3>
+  	</div>
+	<div class="modal-body">
+		<p id="emailChkResult"></p>
+  	</div>
+  	<div class="modal-footer">
+    	<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  	</div>
+</div>
+
 <!-- img thumnail event -->
 <script>
 var idck = false;
 var nickck = false;
-var pwdReOK = false;
+var emailck = false;
 
 $(function() {
     $("#pic").on('change', function(){
@@ -218,7 +238,7 @@ function nickCheckFunc(nickname) {
 
 function nicknameCheckMessage(msg) {
 	if(msg.message == 'SUCS'){
-		$("#nicknameChkResult").html("The ID is available for use.");
+		$("#nicknameChkResult").html("The Nickname is available for use.");
 		$("#nicknameChkResult").css("background-color","#ff0000");
 		$("#nickname").val("");
 		nickck = false;
@@ -227,6 +247,43 @@ function nicknameCheckMessage(msg) {
 		$("#nicknameChkResult").css("background-color","#0000ff");
 		$("#nickname").val($("#nickname").val());
 		nickck = true;
+	}
+}
+
+$("#_emailchk").click(function (){
+	var _email = $("#_email").val().trim();
+
+	if(_email == ""){
+		$('#emailChkResult').text("Enter Your email!");
+	}else{
+		emailCheckFunc(_email);
+	}
+});
+
+function emailCheckFunc(email) {
+	
+	$.ajax({
+		type: "post",
+		url: "getEmail.do",
+		async:true,
+		data:"email=" + email,
+		success:function(msg){
+			emailCheckMessage(msg);
+		}
+	});
+}
+
+function emailCheckMessage(msg) {
+	if(msg.message == 'SUCS'){
+		$("#emailChkResult").html("The email is available for use.");
+		$("#emailChkResult").css("background-color","#ff0000");
+		$("#email").val("");
+		emailck = false;
+	}else{
+		$("#emailChkResult").html("This email can not be used.");
+		$("#emailChkResult").css("background-color","#0000ff");
+		$("#email").val($("#email").val());
+		emailck = true;
 	}
 }
 
@@ -259,6 +316,8 @@ $("#_btnRegi").click(function() {
 			alert("ID Check Please");
 		}else if(nickck == false){
 			alert("Nickname Check Please");
+		}else if(nickck == false){
+			alert("Email Check Please");
 		}else{
 			//비밀번호 유효성 체크
 			var pwd = $("#pwd").val();

@@ -110,42 +110,39 @@ $('#find_id').click(function(){
 			type: "post",
 			url: "findID.do",
 			async:true,
-			data:"email=" + email,
+			data:"email="+: email,
 			success:function(id){
 				if(id != null){
-					alert("찾으시는 아이디는 "+id+" 입니다.");
+					alert("Your ID : "+id);
 					$('#getid').val(id);
 					$('#p_email').val(email);
 				}else{
-					alert("아이디를 찾을 수 없습니다.");
+					alert("ID Not Found");
 				}
 			},
 		});
 	}else{
-		alert("아이디를 입력하세요.");
+		alert("Enter Your ID");
 	}
 	
 
 });
 
 $('#find_pwd').click(function(){
-	alert("pwd find click");
 	
 	$(document.body).addClass('loading-mask');
 	
 	var email = $('#p_email').val();
 	var id = $('#getid').val();
-	//$('.loading-mask').show();  // show the loading message.
 
 	$.ajax({
 		url: "sendpw.do",
 		type: "post",
 		data : {id : id, email : email},
 		success:function(data){
-			//$('.loading-mask').hide();
 			$(document.body).removeClass('loading-mask');
-			alert("비밀번호 메일 전송 완료 로그인페이지로 이동합니다!");
-			location.href=data;
+			alert("I sent your password by email.");
+			self.close();
 		},
 		error:function(request,status,error){
 	        //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

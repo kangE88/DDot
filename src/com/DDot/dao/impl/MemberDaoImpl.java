@@ -35,6 +35,11 @@ public class MemberDaoImpl implements MemberDao {
 	public int getNickname(MemberDto mem) throws Exception {
 		return sqlSession.selectOne(namespace + "getNickname", mem);
 	}
+	
+	@Override
+	public int getEmail(MemberDto mem) throws Exception {
+		return sqlSession.selectOne(namespace + "getEmail", mem);
+	}
 
 	@Override
 	public String findID(String email) throws Exception {

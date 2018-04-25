@@ -33,6 +33,12 @@
 		WHERE NICKNAME=#{nickname}
 	</select>
 	
+	<select id="getEmail" parameterType="com.DDot.model.MemberDto" resultType="java.lang.Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM DDOTMEMBER
+		WHERE EMAIL=#{email}
+	</select>
+	
 	<select id="findID" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT ID 
 		FROM DDOTMEMBER
