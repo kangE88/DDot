@@ -201,14 +201,14 @@ function idCheckFunc(id) {
 function idCheckMessage(msg) {
 	if(msg.message == 'SUCS'){
 		$("#idChkResult").html("The ID is available for use.");
-		$("#idChkResult").css("background-color","#ff0000");
+		$("#idChkResult").css("background-color","#0000ff");
 		$("#id").val("");
-		idck = false;
+		idck = true;
 	}else{
 		$("#idChkResult").html("This ID can not be used.");
-		$("#idChkResult").css("background-color","#0000ff");
+		$("#idChkResult").css("background-color","#ff0000");
 		$("#id").val($("#id").val());
-		idck = true;
+		idck = false;
 	}
 }
 
@@ -239,14 +239,14 @@ function nickCheckFunc(nickname) {
 function nicknameCheckMessage(msg) {
 	if(msg.message == 'SUCS'){
 		$("#nicknameChkResult").html("The Nickname is available for use.");
-		$("#nicknameChkResult").css("background-color","#ff0000");
+		$("#nicknameChkResult").css("background-color","#0000ff");
 		$("#nickname").val("");
-		nickck = false;
+		nickck = true;
 	}else{
 		$("#nicknameChkResult").html("This Nickname can not be used.");
-		$("#nicknameChkResult").css("background-color","#0000ff");
+		$("#nicknameChkResult").css("background-color","#ff0000");
 		$("#nickname").val($("#nickname").val());
-		nickck = true;
+		nickck = false;
 	}
 }
 
@@ -276,26 +276,16 @@ function emailCheckFunc(email) {
 function emailCheckMessage(msg) {
 	if(msg.message == 'SUCS'){
 		$("#emailChkResult").html("The email is available for use.");
-		$("#emailChkResult").css("background-color","#ff0000");
+		$("#emailChkResult").css("background-color","#0000ff");
 		$("#email").val("");
-		emailck = false;
+		emailck = true;
 	}else{
 		$("#emailChkResult").html("This email can not be used.");
-		$("#emailChkResult").css("background-color","#0000ff");
+		$("#emailChkResult").css("background-color","#ff0000");
 		$("#email").val($("#email").val());
-		emailck = true;
+		emailck = false;
 	}
 }
-
-//pwd 체크
-/* $("#pwd").keyup(function(e) { 
-	if($('#pwd').val() == $('#pwdRe').val()){
-		pwdReOK = true;
-	}else{
-		alert("Password Duplication Confirm");
-	}
-});
- */
 
 $("#_btnRegi").click(function() {
 	//alert("_id:" + $("#_id").val());
@@ -316,7 +306,7 @@ $("#_btnRegi").click(function() {
 			alert("ID Check Please");
 		}else if(nickck == false){
 			alert("Nickname Check Please");
-		}else if(nickck == false){
+		}else if(emailck == false){
 			alert("Email Check Please");
 		}else{
 			//비밀번호 유효성 체크

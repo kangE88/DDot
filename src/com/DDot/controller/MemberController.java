@@ -78,6 +78,7 @@ public class MemberController {
 		
 		try {
 			count = MemberService.getID(mem);
+			System.out.println(count);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -85,9 +86,9 @@ public class MemberController {
 		YesMember yes = new YesMember();
 		
 		if(count > 0) {
-			yes.setMessage("SUCS");
-		}else {
 			yes.setMessage("FAIL");
+		}else {
+			yes.setMessage("SUCS");
 		}
 		
 		return yes;
@@ -103,6 +104,7 @@ public class MemberController {
 		
 		try {
 			count = MemberService.getNickname(mem);
+			System.out.println(count);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -110,9 +112,9 @@ public class MemberController {
 		YesMember yes = new YesMember();
 		
 		if(count > 0) {
-			yes.setMessage("SUCS");
-		}else {
 			yes.setMessage("FAIL");
+		}else {
+			yes.setMessage("SUCS");
 		}
 		
 		return yes;
@@ -128,6 +130,7 @@ public class MemberController {
 		
 		try {
 			count = MemberService.getEmail(mem);
+			System.out.println(count);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -135,9 +138,9 @@ public class MemberController {
 		YesMember yes = new YesMember();
 		
 		if(count > 0) {
-			yes.setMessage("SUCS");
-		}else {
 			yes.setMessage("FAIL");
+		}else {
+			yes.setMessage("SUCS");
 		}
 		
 		return yes;

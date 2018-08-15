@@ -110,7 +110,7 @@ $('#find_id').click(function(){
 			type: "post",
 			url: "findID.do",
 			async:true,
-			data:"email="+: email,
+			data:"email="+ email,
 			success:function(id){
 				if(id != null){
 					alert("Your ID : "+id);
