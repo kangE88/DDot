@@ -137,6 +137,7 @@ public class MemberController {
 		
 		YesMember yes = new YesMember();
 		
+		
 		if(count > 0) {
 			yes.setMessage("FAIL");
 		}else {

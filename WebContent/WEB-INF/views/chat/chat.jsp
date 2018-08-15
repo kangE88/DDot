@@ -50,9 +50,9 @@
 }
 
 .user-area {
-	height: 200px;
+    height: 142px;
 	width: auto;
-	overflow: auto;
+	overflow-y: scroll;
 }
 
 .mychat {
@@ -93,7 +93,7 @@
 	</div>
 
 	<div class="toggler">
-		<div id="effect" class="ui-widget-content ui-corner-all">
+		<div id="effect" class="ui-widget-content ui-corner-all" >
 			<h3 class="ui-widget-header ui-corner-all" id="chat-usercount">현재 접속자</h3>
 
 
@@ -302,7 +302,7 @@
 				url : "chatuser.do", //세션 생성페이지 (setAttribute...)
 				success : function(data) {
 					$.each(data.userlist, function(index, item) {
-						write += "<a align='center' style='cursor: pointer; margin:0px' onclick='goUserListUrl(this)'>"+item+"</a><br>";
+						write += "<p><a align='center' style='cursor: pointer; margin:0px' onclick='goUserListUrl(this)'>"+item+"</a></p>";
 
 					});
 					$("#chat-usercount").html("접속자 "+ data.userlist.length + "명");
